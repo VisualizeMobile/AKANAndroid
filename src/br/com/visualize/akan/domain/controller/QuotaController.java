@@ -20,7 +20,7 @@ public class QuotaController {
 	private QuotaDao daoQuota = null;
 	
 	private QuotaController() {
-		/*! Write Instructions Here. */
+		daoQuota = QuotaDao.getInstance();
 	}
 	
 	/**
@@ -48,7 +48,7 @@ public class QuotaController {
 	 * @param insertedQuotas List of quotas to be inserted.
 	 */
 	public void insertQuotasOnCongressman( List<Quota> insertedQuotas ) {
-		/*! Write instructions Here. */
+		daoQuota.insertQuotasOnCongressman( insertedQuotas );
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class QuotaController {
 	 * 		 					deleted the quotas.
 	 */
 	public void deleteQuotasFromCongressman( int idCongressman ) {
-		/*! Write instructions Here. */
+		daoQuota.deleteQuotasFromCongressman( idCongressman );
 	}
 	
 	/**
@@ -72,8 +72,9 @@ public class QuotaController {
 	 * @return The list of referenced quotas belonging to the congressman.
 	 */
 	public List<Quota> getQuotasByIdCongressman( int idCongressman ) {
-		/*! Write instructions Here. */
+		List<Quota> foundQuotas = null;
 		
-		return null;
+		foundQuotas = daoQuota.getQuotasByIdCongressman( idCongressman );
+		return foundQuotas;
 	}
 }
