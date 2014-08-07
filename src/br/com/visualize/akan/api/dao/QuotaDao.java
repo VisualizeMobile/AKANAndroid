@@ -1,6 +1,6 @@
 /*
  * File: 	QuotaDao.java 
- * Purpose: Brings the implementation of QuotaDao class.
+ * Purpose: Brings the implementation of class QuotaDao.
  */
 package br.com.visualize.akan.api.dao;
 
