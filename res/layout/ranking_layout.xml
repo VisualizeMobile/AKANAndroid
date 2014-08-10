@@ -53,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            
             android:layout_marginBottom="5dp"
             android:layout_marginRight="20dp"
             android:src="@drawable/ranking4" />
@@ -72,9 +73,9 @@
             android:id="@+id/ranking_layout_real"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/parlamentarRankinglistfragment_txt_valor"
+            android:layout_toLeftOf="@+id/ranking_layout_txt_valor"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="2dp"
             android:textColor="#FFF"
             
         	android:layout_alignParentBottom="true"
@@ -95,6 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/ranking_layout_txt_nome"
             android:layout_marginTop="15dp"
+            android:textColor="#536571"
             android:text="Partido" />
         <TextView 
             android:id="@+id/ranking_layout_txt_espace"
@@ -113,6 +115,7 @@
            	android:layout_alignTop="@+id/ranking_layout_txt_partido"
            	android:layout_toRightOf="@+id/ranking_layout_txt_espace"
            	android:layout_marginLeft="2dp"
+           	android:textColor="#536571"
             android:text="UF" />
         
         <TextView
@@ -122,6 +125,7 @@
             android:layout_alignTop="@+id/ranking_layout_txt_partido"
             android:layout_marginRight="20dp"
             android:layout_alignParentRight="true"
+            android:textColor="#536571"
             android:text="Dep.Federal"
             />
 
@@ -130,6 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:textColor="#536571"
             android:text="Nome" />
 
         
