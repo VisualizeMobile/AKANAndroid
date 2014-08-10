@@ -1,5 +1,16 @@
 <resources>
 
     <string name="app_name">Akan</string>
+    <string name="value_quota_technical_work_and_consulting">00,00</string>
+    <string name="value_quota_telephony">00,00</string>
+    <string name="value_quota_postal_sevices">00,00</string>
+    <string name="value_quota_issuance_of_air_tickets">00,00</string>
+    <string name="value_quota_safety">00,00</string>
+    <string name="value_quota_alimentation">00,00</string>
+    <string name="value_quota_fuel">00,00</string>
+    <string name="value_quota_air_freight">00,00</string>
+    <string name="value_quota_office">00,00</string>
+    <string name="value_quota_accommodation">00,00</string>
+    <string name="value_quota_disclosure_parliamentary_activity">00,00</string>
 
 </resources>
