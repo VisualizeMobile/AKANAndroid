@@ -244,15 +244,124 @@ public class DescriptionScreen extends Activity {
 	 * 						want set the bar.
 	 */
 	public void setSizeQuotasBar( ImageView bar, double valueQuota ) {
-		/*! Write Instructions Here. */
-		
+		if( valueQuota <= HIGHER_LIMIT_WHITE_BAR ) {
+			/*! Write Instructions Here. */
+			
+		} else if( valueQuota <= HIGHER_LIMIT_GRAY_BAR ) {
+			/*! Write Instructions Here. */
+			
+		} else if( valueQuota <= HIGHER_LIMIT_GREEN_BAR ) {
+			/*! Write Instructions Here. */
+			
+		} else if( valueQuota <= HIGHER_LIMIT_YELLOW_BAR ) {
+			/*! Write Instructions Here. */
+			
+		} else if( valueQuota <= LOWER_LIMIT_RED_BAR ) {
+			/*! Write Instructions Here. */
+			
+		} else {
+			/*! Write Instructions Here. */
+			
+		}		
 	}
+	
+	/*
+	 * TODO: This method, resetValuesQuotas, must be break in two or three 
+	 * 	   others methods.
+	 */
 	
 	/**
 	 * Resets the value of parliamentary quotas, making them equal to zero.
 	 */
 	private void resetValuesQuotas() {
-		/*! Write Instructions Here. */
+		double valueQuota = 0;
 		
+		/* Accommodation. */
+		ImageView barAccommodation = 
+				(ImageView)findViewById( R.id.btn_quota_accommodation );
+		TextView txtAccommodation = 
+				(TextView)findViewById( R.id.txt_quota_accommodation );
+		txtAccommodation.setText( EMPTY_VALUE_QUOTA );
+		setSizeQuotasBar( barAccommodation, valueQuota );
+		
+		/* Air Freight. */
+		ImageView barAirFreight = 
+				(ImageView)findViewById( R.id.btn_quota_air_freight );
+		TextView txtAirFreight = 
+				(TextView)findViewById( R.id.txt_quota_air_freight );
+		txtAirFreight.setText( EMPTY_VALUE_QUOTA );
+		setSizeQuotasBar( barAirFreight, valueQuota );
+
+		/* Alimentation. */
+		ImageView barAlimentation = 
+				(ImageView)findViewById( R.id.btn_quota_alimentation );
+		TextView txtAlimentation = 
+				(TextView)findViewById( R.id.txt_quota_alimentation );
+		txtAlimentation.setText( EMPTY_VALUE_QUOTA );
+		setSizeQuotasBar( barAlimentation, valueQuota );
+
+		/* Disclosure Parliamentary Activity. */
+		ImageView barDisclosureParliamentaryActivity = 
+				(ImageView)findViewById( R.id.btn_quota_disclosure_parliamentary_activity );
+		TextView txtDisclosureParliamentaryActivity = 
+				(TextView)findViewById( R.id.txt_quota_disclosure_parliamentary_activity );
+		txtDisclosureParliamentaryActivity.setText( EMPTY_VALUE_QUOTA );
+		setSizeQuotasBar( barDisclosureParliamentaryActivity, valueQuota );
+
+		/* Fuel. */
+		ImageView barFuel = 
+				(ImageView)findViewById( R.id.btn_quota_fuel );
+		TextView txtFuel = 
+				(TextView)findViewById( R.id.txt_quota_fuel );
+		txtFuel.setText( EMPTY_VALUE_QUOTA );
+		setSizeQuotasBar( barFuel, valueQuota );
+		
+		/* Air Tickets. */
+		ImageView barIssuanceAirTickets = 
+				(ImageView)findViewById( R.id.btn_quota_issuance_of_air_tickets );
+		TextView txtInssuanceAirTickets = 
+				(TextView)findViewById( R.id.txt_quota_issuance_of_air_tickets );
+		txtInssuanceAirTickets.setText( EMPTY_VALUE_QUOTA );
+		setSizeQuotasBar( barIssuanceAirTickets, valueQuota );
+			
+		/* Office. */
+		ImageView barOffice = 
+				(ImageView)findViewById( R.id.btn_quota_office );
+		TextView txtOffice = 
+				(TextView)findViewById( R.id.txt_quota_office );
+		txtOffice.setText( EMPTY_VALUE_QUOTA );
+		setSizeQuotasBar( barOffice, valueQuota );
+			
+		/* Postal Services. */
+		ImageView barPostalServices = 
+				(ImageView)findViewById( R.id.btn_quota_postal_services );
+		TextView txtPostalServices = 
+				(TextView)findViewById( R.id.txt_quota_postal_services );
+		txtPostalServices.setText( EMPTY_VALUE_QUOTA );
+		setSizeQuotasBar( barPostalServices, valueQuota );
+
+		/* Safety. */
+		ImageView barSafety = 
+			(ImageView)findViewById( R.id.btn_quota_safety );
+		TextView txtSafety = 
+				(TextView)findViewById( R.id.txt_quota_safety );
+		txtSafety.setText( EMPTY_VALUE_QUOTA );
+		setSizeQuotasBar( barSafety, valueQuota );
+			
+		/* Technical Work and Consulting. */
+		ImageView barTechnicalWorkConsulting = 
+				(ImageView)findViewById( R.id.btn_quota_technical_work_and_consulting );
+		TextView txtTechnicalWorkConsulting = 
+				(TextView)findViewById( R.id.txt_quota_technical_work_and_consulting );
+		txtTechnicalWorkConsulting.setText( EMPTY_VALUE_QUOTA );
+		setSizeQuotasBar( barTechnicalWorkConsulting, valueQuota );
+			
+		/* Telephony. */
+		ImageView barTelephony = 
+		(ImageView)findViewById( R.id.btn_quota_telephony );
+		TextView txtTelephony = 
+				(TextView)findViewById( R.id.txt_quota_telephony );
+		txtTelephony.setText( EMPTY_VALUE_QUOTA );
+		setSizeQuotasBar( barTelephony, valueQuota );
 	}
 }
