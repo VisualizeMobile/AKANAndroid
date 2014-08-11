@@ -34,6 +34,9 @@ public class DescriptionScreen extends Activity {
 	private static final int HIGHER_LIMIT_YELLOW_BAR = 5000; // Measured in Real.
 	private static final int LOWER_LIMIT_RED_BAR = 5000; 		// Measured in Real.
 	
+	private static final int BUTTON = 1;
+	private static final int TEXT = 2;
+	
 	private QuotaController controllerQuota = null;
 	
 	@Override
@@ -243,7 +246,7 @@ public class DescriptionScreen extends Activity {
 	 * @param valueQuota Current value of parliamentary quota you  
 	 * 						want set the bar.
 	 */
-	public void setSizeQuotasBar( ImageView bar, double valueQuota ) {
+	private void setSizeQuotasBar( ImageView bar, double valueQuota ) {
 		if( valueQuota <= HIGHER_LIMIT_WHITE_BAR ) {
 			/*! Write Instructions Here. */
 			
@@ -363,5 +366,40 @@ public class DescriptionScreen extends Activity {
 				(TextView)findViewById( R.id.txt_quota_telephony );
 		txtTelephony.setText( EMPTY_VALUE_QUOTA );
 		setSizeQuotasBar( barTelephony, valueQuota );
+	}
+	
+	/**
+	 * Return the ID of a resource by a string, that representing a resource.
+	 * <p>
+	 * @param typeResource Reference to the resource type. Within the 
+	 * 		 application can be a button - BTN - or text - TXT.
+	 * @param quotaName of the dimension. Should be given only with 
+	 * 		 lowercase letters and spaced names with underscore.
+	 * <p>
+	 * @return Resource identifier, an ID.
+	 */
+	private int getResourceID( int typeResource, String quota ) {
+		final String RESOURCE_BTN = "btn_quota_" + quota;
+		final String RESOURCE_TXT = "txt_quota_" + quota;
+		
+		String resource = "";
+		
+		switch( typeResource ) {
+			case BUTTON:
+				resource = RESOURCE_BTN;
+				break;
+				
+			case TEXT:
+				resource = RESOURCE_TXT;
+				break;
+				
+			default:
+				/*! Nothing To Do. */
+		}
+		
+		int idResource = getResources().getIdentifier( resource, 
+				"id", getPackageName() );
+		
+		return idResource;
 	}
 }
