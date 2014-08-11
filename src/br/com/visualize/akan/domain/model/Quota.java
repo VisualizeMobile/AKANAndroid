@@ -6,6 +6,7 @@
 package br.com.visualize.akan.domain.model;
 
 import br.com.visualize.akan.domain.enumeration.Month;
+import br.com.visualize.akan.domain.enumeration.SubQuota;
 
 
 /**
@@ -16,7 +17,7 @@ public class Quota {
 	private int idQuota = 0;
 	private int idCongressmanQuota = 0;
 	private int idUpdateQuota = 0;
-	private int typeQuota = 0;
+	private SubQuota typeQuota = SubQuota.WITHOUT_TYPE;
 	
 	private Month monthReferenceQuota = Month.WITHOUT_MONTH;
 	private int yearReferenceQuota = 0;
@@ -47,11 +48,11 @@ public class Quota {
 		this.idUpdateQuota = idUpdateQuota;
 	}
 	
-	public int getTypeQuota() {
+	public SubQuota getTypeQuota() {
 		return typeQuota;
 	}
 	
-	public void setTypeQuota( int typeQuota ) {
+	public void setTypeQuota( SubQuota typeQuota ) {
 		this.typeQuota = typeQuota;
 	}
 	

@@ -11,6 +11,7 @@ package br.com.visualize.akan.domain.enumeration;
  * is possible to easily identify the sub-quotas that congressman has.
  */
 public enum SubQuota {
+	WITHOUT_TYPE( 0 ),
 	OFFICE( 1 ),
 	FUEL( 3 ),
 	TECHNICAL_WORK_AND_CONSULTING( 4 ),
