@@ -26,7 +26,7 @@ import br.com.visualize.akan.domain.model.Quota;
  * congressman.
  */
 public class DescriptionScreen extends Activity {
-	private static final String EMPTY_VALUE_QUOTA = "0,00";  // Measured in Real.
+	private static final double EMPTY_VALUE_QUOTA = 0;  // Measured in Real.
 	
 	private static final int HIGHER_LIMIT_WHITE_BAR = 500;   // Measured in Real.
 	private static final int HIGHER_LIMIT_GRAY_BAR = 1500;   // Measured in Real.
@@ -277,6 +277,7 @@ public class DescriptionScreen extends Activity {
 	 * Resets the value of parliamentary quotas, making them equal to zero.
 	 */
 	private void resetValuesQuotas() {
+		DecimalFormat valueQuotaFormat = new DecimalFormat("#.##,00");
 		double valueQuota = 0;
 		
 		/* Accommodation. */
@@ -284,7 +285,7 @@ public class DescriptionScreen extends Activity {
 				(ImageView)findViewById( R.id.btn_quota_accommodation );
 		TextView txtAccommodation = 
 				(TextView)findViewById( R.id.txt_quota_accommodation );
-		txtAccommodation.setText( EMPTY_VALUE_QUOTA );
+		txtAccommodation.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
 		setSizeQuotasBar( barAccommodation, valueQuota );
 		
 		/* Air Freight. */
@@ -292,7 +293,7 @@ public class DescriptionScreen extends Activity {
 				(ImageView)findViewById( R.id.btn_quota_air_freight );
 		TextView txtAirFreight = 
 				(TextView)findViewById( R.id.txt_quota_air_freight );
-		txtAirFreight.setText( EMPTY_VALUE_QUOTA );
+		txtAirFreight.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
 		setSizeQuotasBar( barAirFreight, valueQuota );
 
 		/* Alimentation. */
@@ -300,7 +301,7 @@ public class DescriptionScreen extends Activity {
 				(ImageView)findViewById( R.id.btn_quota_alimentation );
 		TextView txtAlimentation = 
 				(TextView)findViewById( R.id.txt_quota_alimentation );
-		txtAlimentation.setText( EMPTY_VALUE_QUOTA );
+		txtAlimentation.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
 		setSizeQuotasBar( barAlimentation, valueQuota );
 
 		/* Disclosure Parliamentary Activity. */
@@ -308,7 +309,8 @@ public class DescriptionScreen extends Activity {
 				(ImageView)findViewById( R.id.btn_quota_disclosure_parliamentary_activity );
 		TextView txtDisclosureParliamentaryActivity = 
 				(TextView)findViewById( R.id.txt_quota_disclosure_parliamentary_activity );
-		txtDisclosureParliamentaryActivity.setText( EMPTY_VALUE_QUOTA );
+		txtDisclosureParliamentaryActivity
+				.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
 		setSizeQuotasBar( barDisclosureParliamentaryActivity, valueQuota );
 
 		/* Fuel. */
@@ -316,7 +318,7 @@ public class DescriptionScreen extends Activity {
 				(ImageView)findViewById( R.id.btn_quota_fuel );
 		TextView txtFuel = 
 				(TextView)findViewById( R.id.txt_quota_fuel );
-		txtFuel.setText( EMPTY_VALUE_QUOTA );
+		txtFuel.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
 		setSizeQuotasBar( barFuel, valueQuota );
 		
 		/* Air Tickets. */
@@ -324,7 +326,7 @@ public class DescriptionScreen extends Activity {
 				(ImageView)findViewById( R.id.btn_quota_issuance_of_air_tickets );
 		TextView txtInssuanceAirTickets = 
 				(TextView)findViewById( R.id.txt_quota_issuance_of_air_tickets );
-		txtInssuanceAirTickets.setText( EMPTY_VALUE_QUOTA );
+		txtInssuanceAirTickets.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
 		setSizeQuotasBar( barIssuanceAirTickets, valueQuota );
 			
 		/* Office. */
@@ -332,7 +334,7 @@ public class DescriptionScreen extends Activity {
 				(ImageView)findViewById( R.id.btn_quota_office );
 		TextView txtOffice = 
 				(TextView)findViewById( R.id.txt_quota_office );
-		txtOffice.setText( EMPTY_VALUE_QUOTA );
+		txtOffice.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
 		setSizeQuotasBar( barOffice, valueQuota );
 			
 		/* Postal Services. */
@@ -340,7 +342,7 @@ public class DescriptionScreen extends Activity {
 				(ImageView)findViewById( R.id.btn_quota_postal_services );
 		TextView txtPostalServices = 
 				(TextView)findViewById( R.id.txt_quota_postal_services );
-		txtPostalServices.setText( EMPTY_VALUE_QUOTA );
+		txtPostalServices.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
 		setSizeQuotasBar( barPostalServices, valueQuota );
 
 		/* Safety. */
@@ -348,7 +350,7 @@ public class DescriptionScreen extends Activity {
 			(ImageView)findViewById( R.id.btn_quota_safety );
 		TextView txtSafety = 
 				(TextView)findViewById( R.id.txt_quota_safety );
-		txtSafety.setText( EMPTY_VALUE_QUOTA );
+		txtSafety.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
 		setSizeQuotasBar( barSafety, valueQuota );
 			
 		/* Technical Work and Consulting. */
@@ -356,7 +358,8 @@ public class DescriptionScreen extends Activity {
 				(ImageView)findViewById( R.id.btn_quota_technical_work_and_consulting );
 		TextView txtTechnicalWorkConsulting = 
 				(TextView)findViewById( R.id.txt_quota_technical_work_and_consulting );
-		txtTechnicalWorkConsulting.setText( EMPTY_VALUE_QUOTA );
+		txtTechnicalWorkConsulting
+				.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
 		setSizeQuotasBar( barTechnicalWorkConsulting, valueQuota );
 			
 		/* Telephony. */
@@ -364,8 +367,30 @@ public class DescriptionScreen extends Activity {
 		(ImageView)findViewById( R.id.btn_quota_telephony );
 		TextView txtTelephony = 
 				(TextView)findViewById( R.id.txt_quota_telephony );
-		txtTelephony.setText( EMPTY_VALUE_QUOTA );
+		txtTelephony.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
 		setSizeQuotasBar( barTelephony, valueQuota );
+	}
+	
+	/**
+	 * Sets the characteristics of the representation of a dimension in 
+	 * the user interface by changing the image and its value.
+	 * <p>
+	 * @param typeResource Reference to the resource type. Within the 
+	 * 		 application can be a button - BTN - or text - TXT.
+	 * @param quota Name of the quota.
+	 * @param valueQuota Value to be inserted into the layout of the quota.
+	 */
+	private void setBarQuota( int typeResource, String quota, 
+			double valueQuota ) {
+		
+		int idResource = getResourceID( typeResource, quota );
+		DecimalFormat valueQuotaFormat = new DecimalFormat("#.##,00");
+		
+		ImageView barQuota = (ImageView)findViewById( idResource );
+		TextView txtValue = (TextView)findViewById( idResource );
+		
+		txtValue.setText( valueQuotaFormat.format( valueQuota ) );
+		setSizeQuotasBar( barQuota, valueQuota );
 	}
 	
 	/**
@@ -373,7 +398,7 @@ public class DescriptionScreen extends Activity {
 	 * <p>
 	 * @param typeResource Reference to the resource type. Within the 
 	 * 		 application can be a button - BTN - or text - TXT.
-	 * @param quotaName of the dimension. Should be given only with 
+	 * @param quota Name of the dimension. Should be given only with 
 	 * 		 lowercase letters and spaced names with underscore.
 	 * <p>
 	 * @return Resource identifier, an ID.
