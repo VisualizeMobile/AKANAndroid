@@ -36,14 +36,14 @@ public class ListScreen extends Activity
 		    parlamentar2.setNameCongressman( "Arruda" );
 		    parlamentar2.setIdCongressman( 3 );
 		    parlamentar2.setPartyCongressman( "PSDB" );
-		    parlamentar2.setTotalSpentCongressman( 500.000 );
+		    parlamentar2.setTotalSpentCongressman( 700000 );
 		    parlamentar2.setUfCongressman( UF.DF );
 		    
 		    Congressman parlamentar3 = new Congressman();
 		    parlamentar3.setNameCongressman( "Tiririca" );
 		    parlamentar3.setIdCongressman( 4 );
 		    parlamentar3.setPartyCongressman( "PT" );
-		    parlamentar3.setTotalSpentCongressman( 600.000 );
+		    parlamentar3.setTotalSpentCongressman( 600000 );
 		    parlamentar3.setUfCongressman( UF.SP );
 		    
 		    congressmens.add( parlamentar1 );
