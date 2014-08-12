@@ -52,11 +52,6 @@ public class DescriptionScreen extends Activity {
 		super.onPause();
 	}
 	
-	/*
-	 * TODO: This method, setValuesQuotas, must be break in two or three 
-	 * 	   others methods.
-	 */
-	
 	/**
 	 * Sets the value of each parliamentary quota regarding the Congressman.
 	 * <p>
@@ -77,96 +72,109 @@ public class DescriptionScreen extends Activity {
 			
 			double valueQuota = analyzedQuota.getValueQuota();
 			
-			switch( typeSubQuota ) {
-				
-				case ACCOMMODATION:
-					String accommodation = SubQuota.ACCOMMODATION
-							.getRepresentativeNameQuota();
-					
-					setBarQuota( accommodation, valueQuota );
-					break;
-					
-				case AIR_FREIGHT:
-					String airFreight = SubQuota.AIR_FREIGHT
-							.getRepresentativeNameQuota();
-					
-					setBarQuota( airFreight, valueQuota );
-					break;
-					
-				case ALIMENTATION:
-					String alimentation = SubQuota.ALIMENTATION
-							.getRepresentativeNameQuota();
-					
-					setBarQuota( alimentation, valueQuota );
-					break;
-					
-				case DISCLOSURE_PARLIAMENTARY_ACTIVITY:
-					String disclosureParliamentaryActivity = SubQuota
-							.DISCLOSURE_PARLIAMENTARY_ACTIVITY
-									.getRepresentativeNameQuota();
-					
-					setBarQuota( disclosureParliamentaryActivity, valueQuota );
-					break;
-					
-				case FUEL:
-					String fuel = SubQuota.FUEL.getRepresentativeNameQuota();
-					
-					setBarQuota( fuel, valueQuota );
-					break;
-					
-				case ISSUANCE_OF_AIR_TICKETS:
-					String inssuanceAirTickets = SubQuota.ISSUANCE_OF_AIR_TICKETS
-							.getRepresentativeNameQuota();
-					
-					setBarQuota( inssuanceAirTickets, valueQuota );
-					break;
-					
-				case LEASE_OF_VEHICLES:
-					/*! Write Instructions Here. */
-					break;
-					
-				case OFFICE:
-					String office = SubQuota.OFFICE.getRepresentativeNameQuota();
-					
-					setBarQuota( office, valueQuota );
-					break;
-					
-				case POSTAL_SERVICES:
-					String postalServices = SubQuota.POSTAL_SERVICES
-							.getRepresentativeNameQuota();
-					
-					setBarQuota( postalServices, valueQuota );
-					break;
-					
-				case SAFETY:
-					String safety = SubQuota.SAFETY.getRepresentativeNameQuota();
-					
-					setBarQuota( safety, valueQuota );
-					break;
-					
-				case SIGNATURE_OF_PUBLICATION:
-					/*! Write Instructions Here. */
-					break;
-					
-				case TECHNICAL_WORK_AND_CONSULTING:
-					String technicalWorkConsulting = SubQuota
-							.TECHNICAL_WORK_AND_CONSULTING
-								.getRepresentativeNameQuota();
-					
-					setBarQuota( technicalWorkConsulting, valueQuota );
-					break;
-					
-				case TELEPHONY:
-					String telephony = SubQuota.TELEPHONY.getRepresentativeNameQuota();
-					
-					setBarQuota( telephony, valueQuota );
-					break;
-					
-				default:
-					/*! Nothing To Do. */
-			}
+			setSubQuotaAccordingType( typeSubQuota, valueQuota );
 			
 			totalAmountSpent = totalAmountSpent + valueQuota;
+		}
+	}
+	
+	/**
+	 * Assigns the correct sub-quota values as well as the size of the graph
+	 * bar indicative of spending, according to the type associated with it.
+	 * <p>
+	 * @param typeSubQuota The type of sub-quota.
+	 * @param valueQuota Amount spent associated with sub-quota.
+	 */
+	private void setSubQuotaAccordingType( SubQuota typeSubQuota, 
+			double valueQuota ) {
+		
+		switch( typeSubQuota ) {
+			
+			case ACCOMMODATION:
+				String accommodation = SubQuota.ACCOMMODATION
+						.getRepresentativeNameQuota();
+				
+				setBarQuota( accommodation, valueQuota );
+				break;
+				
+			case AIR_FREIGHT:
+				String airFreight = SubQuota.AIR_FREIGHT
+						.getRepresentativeNameQuota();
+				
+				setBarQuota( airFreight, valueQuota );
+				break;
+				
+			case ALIMENTATION:
+				String alimentation = SubQuota.ALIMENTATION
+						.getRepresentativeNameQuota();
+				
+				setBarQuota( alimentation, valueQuota );
+				break;
+				
+			case DISCLOSURE_PARLIAMENTARY_ACTIVITY:
+				String disclosureParliamentaryActivity = SubQuota
+						.DISCLOSURE_PARLIAMENTARY_ACTIVITY
+								.getRepresentativeNameQuota();
+				
+				setBarQuota( disclosureParliamentaryActivity, valueQuota );
+				break;
+				
+			case FUEL:
+				String fuel = SubQuota.FUEL.getRepresentativeNameQuota();
+				
+				setBarQuota( fuel, valueQuota );
+				break;
+				
+			case ISSUANCE_OF_AIR_TICKETS:
+				String inssuanceAirTickets = SubQuota.ISSUANCE_OF_AIR_TICKETS
+						.getRepresentativeNameQuota();
+				
+				setBarQuota( inssuanceAirTickets, valueQuota );
+				break;
+				
+			case LEASE_OF_VEHICLES:
+				/*! Write Instructions Here. */
+				break;
+				
+			case OFFICE:
+				String office = SubQuota.OFFICE.getRepresentativeNameQuota();
+				
+				setBarQuota( office, valueQuota );
+				break;
+				
+			case POSTAL_SERVICES:
+				String postalServices = SubQuota.POSTAL_SERVICES
+						.getRepresentativeNameQuota();
+				
+				setBarQuota( postalServices, valueQuota );
+				break;
+				
+			case SAFETY:
+				String safety = SubQuota.SAFETY.getRepresentativeNameQuota();
+				
+				setBarQuota( safety, valueQuota );
+				break;
+				
+			case SIGNATURE_OF_PUBLICATION:
+				/*! Write Instructions Here. */
+				break;
+				
+			case TECHNICAL_WORK_AND_CONSULTING:
+				String technicalWorkConsulting = SubQuota
+						.TECHNICAL_WORK_AND_CONSULTING
+							.getRepresentativeNameQuota();
+				
+				setBarQuota( technicalWorkConsulting, valueQuota );
+				break;
+				
+			case TELEPHONY:
+				String telephony = SubQuota.TELEPHONY.getRepresentativeNameQuota();
+				
+				setBarQuota( telephony, valueQuota );
+				break;
+				
+			default:
+				/*! Nothing To Do. */
 		}
 	}
 	
