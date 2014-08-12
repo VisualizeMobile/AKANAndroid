@@ -12,24 +12,30 @@ package br.com.visualize.akan.domain.enumeration;
  */
 public enum SubQuota {
 	WITHOUT_TYPE( 0 ),
-	OFFICE( 1 ),
-	FUEL( 3 ),
-	TECHNICAL_WORK_AND_CONSULTING( 4 ),
-	DISCLOSURE_PARLIAMENTARY_ACTIVITY( 5 ),
-	SAFETY( 8 ),
-	AIR_FREIGHT( 9 ),
-	TELEPHONY( 10 ),
-	POSTAL_SERVICES( 11 ),
-	SIGNATURE_OF_PUBLICATION( 12 ),
-	ALIMENTATION( 13 ),
-	ACCOMMODATION( 14 ),
-	LEASE_OF_VEHICLES( 15 ),
-	ISSUANCE_OF_AIR_TICKETS( 999 );
+	OFFICE( 1, "office" ),
+	FUEL( 3, "fuel" ),
+	TECHNICAL_WORK_AND_CONSULTING( 4, "technical_work_and_consulting" ),
+	DISCLOSURE_PARLIAMENTARY_ACTIVITY( 5, "disclosure_parliamentary_activity" ),
+	SAFETY( 8, "safety" ),
+	AIR_FREIGHT( 9, "air_freight" ),
+	TELEPHONY( 10, "telephony" ),
+	POSTAL_SERVICES( 11, "postal_services" ),
+	SIGNATURE_OF_PUBLICATION( 12, "signature_of_publication" ),
+	ALIMENTATION( 13, "alimentation" ),
+	ACCOMMODATION( 14, "accommodation" ),
+	LEASE_OF_VEHICLES( 15, "lease_of_vehicles" ),
+	ISSUANCE_OF_AIR_TICKETS( 999, "issuance_of_air_tickets" );
 	
 	private int valueSubQuota;
+	private String representativeName;
 	
 	SubQuota( int value ) {
 		valueSubQuota = value;
+	}
+	
+	SubQuota( int value, String name ) {
+		this.valueSubQuota = value;
+		this.representativeName = name;
 	}
 	
 	/**
@@ -39,5 +45,14 @@ public enum SubQuota {
 	 */
 	public int getValueSubQuota() {
 		return valueSubQuota;
+	}
+	
+	/**
+	 * Return a name that represent the sub-quota.
+	 * 
+	 * @return The name that represent this sub-quota.
+	 */
+	public String getRepresentativeNameQuota() {
+		return representativeName; 
 	}
 }
