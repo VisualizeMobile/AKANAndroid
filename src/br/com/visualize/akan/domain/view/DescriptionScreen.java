@@ -311,6 +311,22 @@ public class DescriptionScreen extends Activity {
 	}
 	
 	/**
+	 * Change the image in the layout associated with the referenced quota. 
+	 * Uses color, chosen from the predefined colors, passed as parameter.
+	 * <p>
+	 * @param bar Image of the bar should be set.
+	 * @param quota Name of the quota.
+	 * @param color Name of the predefined color.
+	 */
+	private void changeImageQuotaBar( ImageView bar, String quota, 
+			String color ) {
+		
+		int idImageResource = getResourceID( quota, color );
+		
+		bar.setImageResource( idImageResource );
+	}
+	
+	/**
 	 * Return the ID of a resource by a string, that representing a resource.
 	 * <p>
 	 * @param typeResource Reference to the resource type. Within the 
@@ -320,7 +336,7 @@ public class DescriptionScreen extends Activity {
 	 * <p>
 	 * @return Resource identifier, an ID.
 	 */
-	private int getResourceID(  String color, String quota ) {
+	private int getResourceID(  String quota, String color ) {
 		String resource = "quota_" + quota + "_" + color;
 		
 		int idResource = getResources().getIdentifier( resource, 
