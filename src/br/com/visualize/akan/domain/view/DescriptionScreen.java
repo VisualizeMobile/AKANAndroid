@@ -188,24 +188,29 @@ public class DescriptionScreen extends Activity {
 	private void setSizeQuotasBar( ImageView bar, String quota,
 			double valueQuota ) {
 		
+		final String WHITE = "white";
+		final String GRAY = "gray";
+		final String GREEN = "green";
+		final String YELLOW = "yellow";
+		final String RED = "red";
+		
 		if( valueQuota <= HIGHER_LIMIT_WHITE_BAR ) {
-			/*! Write Instructions Here. */
-			
+			changeImageQuotaBar( bar, quota, WHITE );
 			
 		} else if( valueQuota <= HIGHER_LIMIT_GRAY_BAR ) {
-			/*! Write Instructions Here. */
+			changeImageQuotaBar( bar, quota, GRAY );
 			
 		} else if( valueQuota <= HIGHER_LIMIT_GREEN_BAR ) {
-			/*! Write Instructions Here. */
+			changeImageQuotaBar( bar, quota, GREEN );
 			
 		} else if( valueQuota <= HIGHER_LIMIT_YELLOW_BAR ) {
-			/*! Write Instructions Here. */
+			changeImageQuotaBar( bar, quota, YELLOW );
 			
 		} else if( valueQuota <= LOWER_LIMIT_RED_BAR ) {
-			/*! Write Instructions Here. */
+			changeImageQuotaBar( bar, quota, RED );
 			
 		} else {
-			/*! Write Instructions Here. */
+			/*! Nothing To Do. */
 			
 		}		
 	}
