@@ -185,9 +185,12 @@ public class DescriptionScreen extends Activity {
 	 * @param valueQuota Current value of parliamentary quota you  
 	 * 						want set the bar.
 	 */
-	private void setSizeQuotasBar( ImageView bar, double valueQuota ) {
+	private void setSizeQuotasBar( ImageView bar, String quota,
+			double valueQuota ) {
+		
 		if( valueQuota <= HIGHER_LIMIT_WHITE_BAR ) {
 			/*! Write Instructions Here. */
+			
 			
 		} else if( valueQuota <= HIGHER_LIMIT_GRAY_BAR ) {
 			/*! Write Instructions Here. */
@@ -269,7 +272,7 @@ public class DescriptionScreen extends Activity {
 		TextView txtValue = (TextView)findViewById( idTextResource );
 		
 		txtValue.setText( valueQuotaFormat.format( valueQuota ) );
-		setSizeQuotasBar( barQuota, valueQuota );
+		setSizeQuotasBar( barQuota, quota, valueQuota );
 	}
 	
 	/**
@@ -303,6 +306,25 @@ public class DescriptionScreen extends Activity {
 		
 		int idResource = getResources().getIdentifier( resource, 
 				"id", getPackageName() );
+		
+		return idResource;
+	}
+	
+	/**
+	 * Return the ID of a resource by a string, that representing a resource.
+	 * <p>
+	 * @param typeResource Reference to the resource type. Within the 
+	 * 		 application can be a button - BTN - or text - TXT.
+	 * @param quota Name of the dimension. Should be given only with 
+	 * 		 lowercase letters and spaced names with underscore.
+	 * <p>
+	 * @return Resource identifier, an ID.
+	 */
+	private int getResourceID(  String color, String quota ) {
+		String resource = "quota_" + quota + "_" + color;
+		
+		int idResource = getResources().getIdentifier( resource, 
+				"drawable", getPackageName() );
 		
 		return idResource;
 	}
