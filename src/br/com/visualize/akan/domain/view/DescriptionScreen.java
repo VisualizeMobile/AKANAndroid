@@ -48,6 +48,14 @@ public class DescriptionScreen extends Activity {
 	}
 	
 	@Override
+	public void onResume() {
+		super.onResume();
+		
+		/* Here is part where call setValuesQuota() method, passing as a 
+		 * parameter the id of the congressman. */
+	}
+	
+	@Override
 	protected void onPause() {
 		super.onPause();
 	}
@@ -63,9 +71,9 @@ public class DescriptionScreen extends Activity {
 		
 		double totalAmountSpent = 0.00;
 		
-		Iterator<Quota> iteratorQuota = controllerQuota
-				.getQuotasByIdCongressman( idCongressman ).iterator();
-		
+		Iterator<Quota> iteratorQuota = controllerQuota.
+				getQuotasByIdCongressman( idCongressman ).iterator();
+				
 		while( iteratorQuota.hasNext() ) {
 			Quota analyzedQuota = iteratorQuota.next();
 			SubQuota typeSubQuota = analyzedQuota.getTypeQuota();
@@ -206,13 +214,13 @@ public class DescriptionScreen extends Activity {
 		} else if( valueQuota <= HIGHER_LIMIT_YELLOW_BAR ) {
 			changeImageQuotaBar( bar, quota, YELLOW );
 			
-		} else if( valueQuota <= LOWER_LIMIT_RED_BAR ) {
+		} else if( valueQuota > LOWER_LIMIT_RED_BAR ) {
 			changeImageQuotaBar( bar, quota, RED );
 			
 		} else {
 			/*! Nothing To Do. */
 			
-		}		
+		}
 	}
 	
 	/**
@@ -267,11 +275,10 @@ public class DescriptionScreen extends Activity {
 	 * @param valueQuota Value to be inserted into the layout of the quota.
 	 */
 	private void setBarQuota( String quota, double valueQuota ) {
-		
 		int idButtonResource = getResourceID( BUTTON, quota );
 		int idTextResource = getResourceID( TEXT, quota );
 		
-		DecimalFormat valueQuotaFormat = new DecimalFormat("#.##,00");
+		DecimalFormat valueQuotaFormat = new DecimalFormat("#,###.00");
 		
 		ImageView barQuota = (ImageView)findViewById( idButtonResource );
 		TextView txtValue = (TextView)findViewById( idTextResource );
