@@ -1,6 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF" >
     
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:dividerHeight="1dp"
+        android:divider="#FFFFFF" >
+    	
+        </ListView>
+   
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+        
+        <ImageView
+            android:id="@+id/layout_ranking_imagem_parlamentar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/barra_inferior" />
+
+           <ImageView
+               android:id="@+id/layout_ranking_imagem_ranking"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentBottom="true"
+               android:layout_centerHorizontal="true"
+               android:scaleType="fitXY"
+               android:src="@drawable/ranking_ativado" />
+
+           <ImageView
+               android:id="@+id/layout_ranking_imagem_seguido"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentBottom="true"
+               android:layout_alignParentLeft="true"
+               android:layout_marginLeft="34dp"
+               android:scaleType="fitXY"
+               android:src="@drawable/seguidos_desativado" />
+
+           <ImageView
+               android:id="@+id/layout_ranking_imagem_busca"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentBottom="true"
+               android:layout_alignParentRight="true"
+               android:layout_marginRight="25dp"
+               android:scaleType="fitXY"
+               android:src="@drawable/busca_desativada" />
+        
+    </RelativeLayout>
+
+   
+
 </RelativeLayout>
