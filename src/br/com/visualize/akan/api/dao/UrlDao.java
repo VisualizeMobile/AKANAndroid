@@ -52,12 +52,12 @@ public class UrlDao {
 	}
 	
 	/**
-	 * Inserts in the database Urls, referring to a congressman in particular, 
+	 * Inserts in the database Url, referring to a congressman in particular, 
 	 * passed as parameter in the local database of the application.
 	 * <p>
-	 * @param insertedUrls List of Urls to be inserted.
+	 * @param insertedUrls List of Url to be inserted.
 	 */
-	public void insertUrlsOnCongressman(Url url) {
+	public void insertUrl(Url url) {
 		sqliteDatabase = database.getWritableDatabase();
 		
 		ContentValues content = new ContentValues();
@@ -75,11 +75,13 @@ public class UrlDao {
 	 * Deletes all Urls of the database relating to the past as parameter 
 	 * congressman for his numerical identifier.
 	 * <p>
-	 * @param idCongressman Numeric identifier of congressman that must have 
+	 * @param idUrl Numeric identifier of congressman that must have 
 	 * 		 					deleted the Urls.
 	 */
-	public void deleteUrlsFromCongressman( int idCongressman ) {
-		/*! Write instructions Here. */
+	public void deleteUrl(Url url) {
+		sqliteDatabase = database.getWritableDatabase();
+		sqliteDatabase.delete(tableUrl,"ID_UPDATE_URL=?", new String[] { url.getIdUpdateUrl() + "" });
+		sqliteDatabase.close();
 	}
 	
 	/**
