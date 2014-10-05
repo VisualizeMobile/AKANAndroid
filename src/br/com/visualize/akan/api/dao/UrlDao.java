@@ -7,14 +7,30 @@ package br.com.visualize.akan.api.dao;
 
 import java.util.List;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import br.com.visualize.akan.domain.model.Url;
 
 public class UrlDao {
-	private static UrlDao instanceUrlDao = null;
+	
+	private int idUpdateUrl = 0;
+	private int updateVerifierUrl = 0;
+	
+	private String defaultUrl = "";
+	private String firstAlternativeUrl = "";
+	private String secondAlternativeUrl = "";
 	
 
-	private UrlDao( ) {
-		/*! Write instructions Here. */
+	private static UrlDao instanceUrlDao = null;
+	private static String tableUrl = "Url";
+	private static String[] columnsUrl = {"ID_UPDATE_URL,UPDATE_VERIFIER_URL,DEFAULT_URL,FIRST_ALTERNATIVE_URL,SECOND_ALTERNATIVE_URL"};
+	private static LocalDatabase database;
+	private static SQLiteDatabase sqliteDatabase;
+
+
+	private UrlDao(Context context) {
+		UrlDao.database = new LocalDatabase(context);
 	}
 	
 	/**
@@ -22,13 +38,13 @@ public class UrlDao {
 	 * <p>
 	 * @return The unique instance of UrlDao.
 	 */
-	public static UrlDao getInstance() {
+	public static UrlDao getInstance(Context context) {
 		
 		if( instanceUrlDao != null ) {
 			/*! Nothing To Do. */
 			
 		} else {
-			instanceUrlDao = new UrlDao();
+			instanceUrlDao = new UrlDao(context);
 			
 		}
 		
@@ -41,8 +57,18 @@ public class UrlDao {
 	 * <p>
 	 * @param insertedUrls List of Urls to be inserted.
 	 */
-	public void insertUrlsOnCongressman( List<Url> insertedUrls ) {
-		/*! Write instructions Here. */
+	public void insertUrlsOnCongressman(Url url) {
+		sqliteDatabase = database.getWritableDatabase();
+		
+		ContentValues content = new ContentValues();
+
+		content.put("ID_UPDATE_URL", url.getIdUpdateUrl());
+		content.put("UPDATE_VERIFIER_URL", url.getUpdateVerifierUrl());
+		content.put("DEFAULT_URL", url.getDefaultUrl());
+		content.put("FIRST_ALTERNATIVE_URL", url.getFirstAlternativeUrl());
+		content.put("SECOND_ALTERNATIVE_URL", url.getSecondAlternativeUrl());
+		sqliteDatabase.insert(tableUrl, null, content);
+		sqliteDatabase.close();
 	}
 	
 	/**
