@@ -6,10 +6,12 @@
 package br.com.visualize.akan.api.dao;
 
 import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import br.com.visualize.akan.api.helper.DatabaseHelper;
 import br.com.visualize.akan.domain.model.Url;
 
 public class UrlDao {
@@ -18,19 +20,18 @@ public class UrlDao {
 	private int updateVerifierUrl = 0;
 	
 	private String defaultUrl = "";
-	private String firstAlternativeUrl = "";
-	private String secondAlternativeUrl = "";
+	private String tableName = "URL";
 	
 
 	private static UrlDao instanceUrlDao = null;
 	private static String tableUrl = "Url";
-	private static String[] columnsUrl = {"ID_UPDATE_URL,UPDATE_VERIFIER_URL,DEFAULT_URL,FIRST_ALTERNATIVE_URL,SECOND_ALTERNATIVE_URL"};
-	private static LocalDatabase database;
+	private static String tableColumns[] = {"ID_URL","ID_UPDATE_URL", "DEFAULT_URL", "FIRST_URL", "SECOND_URL"};
+	private static DatabaseHelper database;
 	private static SQLiteDatabase sqliteDatabase;
 
 
 	private UrlDao(Context context) {
-		UrlDao.database = new LocalDatabase(context);
+		UrlDao.database = new DatabaseHelper(context);
 	}
 	
 	/**
@@ -49,6 +50,24 @@ public class UrlDao {
 		}
 		
 		return instanceUrlDao;
+	}
+	/**
+	 * Checks if database is empty
+	 * 
+	 */
+	private boolean checkEmptyLocalDb(){
+		sqliteDatabase = database.getReadableDatabase();
+		Cursor cursor = sqliteDatabase.rawQuery("select 1 from URL;",null);
+		Log.i("dataBase insetition", "url1");
+		if(cursor != null){
+			if(cursor.getCount() <= 0){
+				return true;
+			}
+		}
+		else{
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -93,9 +112,28 @@ public class UrlDao {
 	 * <p>
 	 * @return The list of referenced Urls belonging to the congressman.
 	 */
-	public List<Url> getUrlsByIdCongressman( int idCongressman ) {
-		/*! Write instructions Here. */
-		
-		return null;
+	public Url getUrl(){
+		Url url = new Url(0,defaultUrl);
+		if (checkEmptyLocalDb()) {
+			sqliteDatabase = database.getWritableDatabase();
+			
+			ContentValues content = new ContentValues();
+			content.put(tableColumns[0], 1);
+			content.put(tableColumns[1], 0);
+			content.put(tableColumns[2], defaultUrl);
+			
+			sqliteDatabase.insert(tableName, null,content);
+			sqliteDatabase.close();
+		}
+		else{
+			sqliteDatabase = database.getReadableDatabase();
+			Cursor cursor = sqliteDatabase.rawQuery("SELECT * FROM URL", null);
+			cursor.moveToFirst();
+			url.setIdUpdateUrl(cursor.getInt(cursor.getColumnIndex(tableColumns[1])));
+			url.setDefaultUrl(cursor.getString(cursor.getColumnIndex(tableColumns[2])));
+			url.setFirstAlternativeUrl(cursor.getString(cursor.getColumnIndex(tableColumns[3])));
+			url.setSecondAlternativeUrl(cursor.getString(cursor.getColumnIndex(tableColumns[4])));
+		}
+		return url;
 	}
 }
