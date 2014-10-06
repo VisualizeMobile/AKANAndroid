@@ -10,6 +10,7 @@ import java.text.DecimalFormat;
 import java.util.Iterator;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ import br.com.visualize.akan.domain.model.Quota;
  */
 public class DescriptionScreen extends Activity {
 	private static final double EMPTY_VALUE_QUOTA = 0;  // Measured in Real.
-	
+	Context context;
 	private static final int HIGHER_LIMIT_WHITE_BAR = 500;   // Measured in Real.
 	private static final int HIGHER_LIMIT_GRAY_BAR = 1500;   // Measured in Real.
 	private static final int HIGHER_LIMIT_GREEN_BAR = 3000; 	// Measured in Real.
@@ -44,7 +45,7 @@ public class DescriptionScreen extends Activity {
 		super.onCreate( savedInstanceState );
 		
 		setContentView( R.layout.description_screen_activity );
-		controllerQuota = QuotaController.getInstance();
+		controllerQuota = QuotaController.getInstance(context);
 	}
 	
 	@Override
