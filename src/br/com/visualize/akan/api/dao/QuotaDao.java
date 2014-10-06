@@ -4,6 +4,7 @@
  */
 package br.com.visualize.akan.api.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import br.com.visualize.akan.domain.model.Quota;
@@ -73,8 +74,13 @@ public class QuotaDao {
 	 * <p>
 	 * @param insertedQuotas List of quotas to be inserted.
 	 */
-	public void insertQuotasOnCongressman( List<Quota> insertedQuotas ) {
-		/*! Write instructions Here. */
+	public boolean insertQuotasById( List<Quota> insertedQuotas ) {
+		Iterator<Quota> i = insertedQuotas.iterator();
+		boolean result = true;
+		while(i.hasNext()){
+			result = insertQuota(i.next());
+		}
+		return result; 
 	}
 	
 	/**
@@ -102,4 +108,24 @@ public class QuotaDao {
 		
 		return null;
 	}
+	
+	private boolean insertQuota(Quota quota){
+		sqliteDatabase = database.getWritableDatabase();
+		ContentValues content = new ContentValues();
+		
+		content.put(tableColumns[0], quota.getIdQuota());
+		content.put(tableColumns[1], quota.getIdCongressmanQuota());
+		content.put(tableColumns[2], quota.getIdUpdateQuota());
+		content.put(tableColumns[3], quota.getTypeQuota().getRepresentativeNameQuota());
+		content.put(tableColumns[4], quota.getDescriptionQuota());
+		content.put(tableColumns[5], quota.getMonthReferenceQuota().getvalueMonth());
+		content.put(tableColumns[6], quota.getYearReferenceQuota());
+		content.put(tableColumns[7], quota.getValueQuota());
+
+		boolean result = (sqliteDatabase.insert(tableName, null, content)>0);
+		
+		sqliteDatabase.close();
+		
+		return result;
+	}	
 }
