@@ -28,7 +28,7 @@ public class Congressman {
 	private String nameCongressman = "";
 	private String partyCongressman = "";
 	private UF ufCongressman = UF.WHIOUT_UF;
-	
+	private int rankingCongressman = 0; 
 	private List<Quota> quotasCongressman = null;
 	private double totalSpentCongressman = 0;
 	
@@ -102,5 +102,9 @@ public class Congressman {
 	
 	public void setTotalSpentCongressman( double totalSpentCongressman ) {
 		this.totalSpentCongressman = totalSpentCongressman;
+	}
+	
+	public int getRankingCongressman() {
+		return rankingCongressman;
 	}
 }
