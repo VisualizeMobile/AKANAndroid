@@ -1,5 +1,81 @@
 package br.com.visualize.akan.api.dao;
 
-public class CongressmanDao {
 
+import java.util.Iterator;
+import java.util.List;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import br.com.visualize.akan.api.helper.DatabaseHelper;
+import br.com.visualize.akan.domain.model.Congressman;
+
+public class CongressmanDao {
+	/**
+	 * This class represents the Data Access Object for the Congressman,
+	 * responsible for all data base operations like selections, insertions
+	 * and updates. 
+	 */
+		private static CongressmanDao instance;
+		private static String tableName = "CONGRESSMAN";
+		private static String tableColumns[] = {"ID_CONGRESSMAN", "ID_UPDATE", "NAME_CONGRESSMAN","PARTY", "UF_CONGRESSMAN", "TOTAL_SPENT_CONGRESSMAN", "STATUS_CONGRESSMAN", "PHOTO_CONGRESSMAN", "RANKING_CONGRESSMAN"};
+		private static DatabaseHelper database;
+		private SQLiteDatabase sqliteDatabase;
+		
+		private CongressmanDao(Context context){
+			CongressmanDao.database = new DatabaseHelper(context);
+		}
+		
+		public static CongressmanDao getInstance(Context context){
+			if(CongressmanDao.instance == null){
+				CongressmanDao.instance = new CongressmanDao(context);
+			}
+			return CongressmanDao.instance;
+		}
+		
+		public boolean checkEmptyLocalDb(){
+			sqliteDatabase = database.getReadableDatabase();
+			Cursor cursor = sqliteDatabase.rawQuery("select 1 from CONGRESSMAN;",null);
+			if(cursor != null){
+				if(cursor.getCount() <= 0){
+					cursor.moveToFirst();
+					return true;
+				}
+			}
+			else{
+				return true;
+			}
+			return false;
+		}
+		
+		private boolean insertCongressman(Congressman congressman){
+			sqliteDatabase = database.getWritableDatabase();
+			ContentValues content = new ContentValues();
+			
+			content.put(tableColumns[0], congressman.getIdCongressman());
+			content.put(tableColumns[1], congressman.getIdUpdateCongressman());
+			content.put(tableColumns[2], congressman.getNameCongressman());
+			content.put(tableColumns[3], congressman.getPartyCongressman());
+			content.put(tableColumns[4], congressman.getUfCongressman().getDescriptionUf());
+			content.put(tableColumns[5], congressman.getTotalSpentCongressman());
+			content.put(tableColumns[6], congressman.isStatusCogressman());
+			content.put(tableColumns[7], congressman.getPhotoCongressman());
+			content.put(tableColumns[8], congressman.getRankingCongressman());
+
+			boolean result = (sqliteDatabase.insert(tableName, null, content)>0);
+			
+			sqliteDatabase.close();
+			
+			return result;
+		}
+		
+		public boolean insertAllCongressman(List<Congressman> congressmanList){
+			Iterator<Congressman> i = congressmanList.iterator();
+			boolean result = true;
+			while(i.hasNext()){
+				result = insertCongressman(i.next());
+			}
+			return result; 
+		}
 }
