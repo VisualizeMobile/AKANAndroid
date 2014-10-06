@@ -16,6 +16,14 @@ public class Url {
 	private String firstAlternativeUrl = "";
 	private String secondAlternativeUrl = "";
 	
+	public Url(){
+	}
+	
+	public Url(int idUpdateUrl, String defaultUrl){
+		this.idUpdateUrl = idUpdateUrl;
+		this.defaultUrl = defaultUrl;
+	}
+	
 	public int getIdUpdateUrl() {
 		return idUpdateUrl;
 	}
