@@ -24,7 +24,7 @@ import br.com.visualize.akan.domain.model.Quota;
 public class QuotaDao {
 	private static QuotaDao instanceQuotaDao = null;
 	private Context context;
-	private static QuotaDao instance;
+
 	private static SQLiteDatabase sqliteDatabase;
 	private static DatabaseHelper database;
 	private static String tableName = "QUOTA";
