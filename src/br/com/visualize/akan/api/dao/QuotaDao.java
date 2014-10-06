@@ -7,7 +7,12 @@ package br.com.visualize.akan.api.dao;
 import java.util.List;
 
 import br.com.visualize.akan.domain.model.Quota;
-
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import br.com.visualize.akan.api.helper.DatabaseHelper;
+import br.com.visualize.akan.domain.model.Quota;
 
 /**
  * Serves to define the methods that give the basic functionality to the 
@@ -17,9 +22,16 @@ import br.com.visualize.akan.domain.model.Quota;
  */
 public class QuotaDao {
 	private static QuotaDao instanceQuotaDao = null;
+	private Context context;
+	private static QuotaDao instance;
+	private static SQLiteDatabase sqliteDatabase;
+	private static DatabaseHelper database;
+	private static String tableName = "QUOTA";
+	private static String tableColumns[] = {"ID_QUOTA", "ID_CONGRESSMAN", "ID_UPDATE","TYPE_QUOTA", "DESCRIPTION_QUOTA", "MONTH_QUOTA", "", "VALUE_QUOTA"};
 	
-	private QuotaDao( ) {
-		/*! Write instructions Here. */
+	
+	private QuotaDao(Context context ) {
+		this.context = context;
 	}
 	
 	/**
@@ -27,17 +39,32 @@ public class QuotaDao {
 	 * <p>
 	 * @return The unique instance of QuotaDao.
 	 */
-	public static QuotaDao getInstance() {
+	public static QuotaDao getInstance(Context context) {
 		
 		if( instanceQuotaDao != null ) {
 			/*! Nothing To Do. */
 			
 		} else {
-			instanceQuotaDao = new QuotaDao();
+			instanceQuotaDao = new QuotaDao(context);
 			
 		}
 		
 		return instanceQuotaDao;
+	}
+	
+	public boolean checkEmptyLocalDb() {
+		sqliteDatabase = database.getReadableDatabase();
+		Cursor cursor = sqliteDatabase.rawQuery("select 1 from QUOTA;",null);
+		if(cursor != null){
+			if(cursor.getCount() <= 0){
+				cursor.moveToFirst();
+				return true;
+			}
+		}
+		else{
+			return true;
+		}
+		return false;
 	}
 	
 	/**
