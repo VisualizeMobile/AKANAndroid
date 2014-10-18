@@ -49,9 +49,11 @@ public class SplashScreen extends Activity {
 			}
 		}).start();
 		
-
+		Log.i("antes intent", "antes intent");
 		Intent myAction = new Intent(SplashScreen.this, ListScreen.class);
+		
 		SplashScreen.this.startActivity(myAction);
+		Log.i("depois intent", "depois intent");
 		SplashScreen.this.finish();
 	}
 

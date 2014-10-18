@@ -1,8 +1,11 @@
 package br.com.visualize.akan.api.dao;
 
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -57,7 +60,7 @@ public class CongressmanDao {
 			content.put(tableColumns[1], congressman.getIdUpdateCongressman());
 			content.put(tableColumns[2], congressman.getNameCongressman());
 			content.put(tableColumns[3], congressman.getPartyCongressman());
-			content.put(tableColumns[4], congressman.getUfCongressman().getDescriptionUf());
+			content.put(tableColumns[4], congressman.getUfCongressman());
 			content.put(tableColumns[5], congressman.getTotalSpentCongressman());
 			content.put(tableColumns[6], congressman.isStatusCogressman());
 			content.put(tableColumns[7], congressman.getPhotoCongressman());
@@ -77,5 +80,36 @@ public class CongressmanDao {
 				result = insertCongressman(i.next());
 			}
 			return result; 
+		}
+		
+		public List<Congressman> getAll() {
+
+			sqliteDatabase = database.getReadableDatabase();
+			Cursor cursor = sqliteDatabase.rawQuery(
+					"SELECT * FROM CONGRESSMAN order by TOTAL_SPENT_CONGRESSMAN DESC", null);
+
+			List<Congressman> listParlamentares = new ArrayList<Congressman>();
+
+			while (cursor.moveToNext()) {
+
+				Congressman congressman = new Congressman();
+				congressman.setIdCongressman(cursor.getInt(cursor
+						.getColumnIndex("ID_CONGRESSMAN")));
+				congressman.setNameCongressman(cursor.getString(cursor
+						.getColumnIndex("NAME_CONGRESSMAN")));
+			
+				congressman.setPartyCongressman(cursor.getString(cursor
+						.getColumnIndex("PARTY")));
+				congressman.setUfCongressman(cursor.getString(cursor.getColumnIndex("UF_CONGRESSMAN")));
+				congressman.setTotalSpentCongressman(cursor.getDouble(cursor
+						.getColumnIndex("TOTAL_SPENT_CONGRESSMAN")));
+				congressman.setRankingCongressman(cursor.getInt(cursor
+						.getColumnIndex("RANKING_CONGRESSMAN")));
+				congressman.setIdUpdateCongressman(cursor.getInt(cursor
+						.getColumnIndex("ID_UPDATE")));
+				listParlamentares.add(congressman);
+			}
+			sqliteDatabase.close();
+			return listParlamentares;
 		}
 }

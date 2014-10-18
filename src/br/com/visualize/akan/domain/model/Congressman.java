@@ -20,24 +20,24 @@ public class Congressman {
 	static final boolean FOLLOWED = true;
 	static final boolean NOT_FOLLOWED = false;
 	
-	private int idCongressman = 0;
+	private int id = 0;
 	private int idUpdateCongressman = 0;
 	private boolean statusCogressman = NOT_FOLLOWED;
 	private byte[] photoCongressman = null;
 	
 	private String nameCongressman = "";
 	private String partyCongressman = "";
-	private UF ufCongressman = UF.WHIOUT_UF;
-	private int rankingCongressman = 0; 
+	private String ufCongressman = "";
+	private int ranking = 0; 
 	private List<Quota> quotasCongressman = null;
 	private double totalSpentCongressman = 0;
 	
 	public int getIdCongressman() {
-		return idCongressman;
+		return id;
 	}
 	
 	public void setIdCongressman( int idCongressman ) {
-		this.idCongressman = idCongressman;
+		this.id = idCongressman;
 	}
 	
 	public int getIdUpdateCongressman() {
@@ -80,11 +80,11 @@ public class Congressman {
 		this.partyCongressman = partyCongressman;
 	}
 	
-	public UF getUfCongressman() {
+	public String getUfCongressman() {
 		return ufCongressman;
 	}
 	
-	public void setUfCongressman( UF ufCongressman ) {
+	public void setUfCongressman( String ufCongressman ) {
 		this.ufCongressman = ufCongressman;
 	}
 	
@@ -105,6 +105,10 @@ public class Congressman {
 	}
 	
 	public int getRankingCongressman() {
-		return rankingCongressman;
+		return ranking;
+	}
+	public void setRankingCongressman(int rankingCongressman) {
+		this.ranking = rankingCongressman;
+		
 	}
 }

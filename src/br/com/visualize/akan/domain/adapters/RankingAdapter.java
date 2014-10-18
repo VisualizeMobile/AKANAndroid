@@ -17,7 +17,7 @@ public class RankingAdapter extends ArrayAdapter<Congressman>
 {
 	private final Context context;
 	private final List<Congressman> congressmens;
-	private int rankingPosition = 0;
+	
 
 	public RankingAdapter( Context context, int textViewResourceId, List<Congressman> congressmens )
 	{
@@ -32,7 +32,7 @@ public class RankingAdapter extends ArrayAdapter<Congressman>
 	{	
 		
 		Log.e( "Entrou Adapter", "EntrouAdapter" );
-		rankingPosition += 1;
+		
 		LayoutInflater inflater = ( LayoutInflater )context
 				.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 		Log.e( "Entrou Adapter", "Entrou Inflate service" );
@@ -48,7 +48,7 @@ public class RankingAdapter extends ArrayAdapter<Congressman>
 		Log.e("","Setou partido");
 		TextView textViewUf = (TextView)view
 				.findViewById( R.id.ranking_layout_txt_uf );
-		textViewUf.setText( congressmens.get( position ).getUfCongressman( ).getDescriptionUf( ) );
+		textViewUf.setText( congressmens.get( position ).getUfCongressman( ));
 		Log.e("","Setou UF");
 		TextView textViewValue = (TextView)view
 				.findViewById( R.id.ranking_layout_txt_valor );
@@ -58,8 +58,8 @@ public class RankingAdapter extends ArrayAdapter<Congressman>
 		Log.e("","Setou valor");
 		TextView textViewPosition = (TextView)view
 				.findViewById( R.id.layout_ranking_position );
-		Log.e("","pegou posição");
-		textViewPosition.setText(""+rankingPosition );
+		//Log.e("","pegou posição");
+		textViewPosition.setText(Integer.toString(congressmens.get(position).getRankingCongressman()));
 		
 		Log.e("","Setou posição");
 		return view;

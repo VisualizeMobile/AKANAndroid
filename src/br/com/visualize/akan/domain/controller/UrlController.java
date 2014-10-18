@@ -29,7 +29,8 @@ public class UrlController {
 	}
 	
 	public String getAllCongressmanUrl(){
-		return getUrl().getDefaultUrl() + "/parlamentares";
+		//return getUrl().getDefaultUrl() + "/congressmen.json";
+		return "http://192.168.1.4:3000/congressmen.json";
 	}
 	
 	//TODO quotasWithCongressmanIdUrl

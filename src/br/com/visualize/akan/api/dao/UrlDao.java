@@ -15,14 +15,14 @@ import br.com.visualize.akan.api.helper.DatabaseHelper;
 import br.com.visualize.akan.domain.model.Url;
 
 public class UrlDao {
-	
+
 	private int idUpdateUrl = 0;
 	private int updateVerifierUrl = 0;
 	
-	private String defaultUrl = "";
+	private String defaultUrl = "http://192.168.1.4:3000";
 	private String tableName = "URL";
 	
-
+	
 	private static UrlDao instanceUrlDao = null;
 	private static String tableUrl = "Url";
 	private static String tableColumns[] = {"ID_URL","ID_UPDATE_URL", "DEFAULT_URL", "FIRST_URL", "SECOND_URL"};

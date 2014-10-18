@@ -5,6 +5,8 @@
  */
 package br.com.visualize.akan.domain.model;
 
+import android.util.Log;
+
 /**
  * This class represents the model for an URL in application.
  */
@@ -41,6 +43,7 @@ public class Url {
 	}
 	
 	public String getDefaultUrl() {
+		Log.i("default url", defaultUrl);
 		return defaultUrl;
 	}
 	

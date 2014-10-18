@@ -49,9 +49,11 @@ public class CongressmanController {
 				// popula o banco
 				Log.i("dataBase insetition", "Empty database, inserting congressmen...");
 				String url = urlController.getAllCongressmanUrl();
+				Log.i("urlrails",url );
+				
 				String jsonCongressman = HttpConnection.request(
 						responseHandler, url);
-
+				Log.i("jsonCongressman", jsonCongressman);	
 				setCongressmanList(JsonHelper
 						.listCongressmanFromJSON(jsonCongressman));
 				
@@ -66,7 +68,13 @@ public class CongressmanController {
 	}
 
 	public static List<Congressman> getCongressmanList() {
+		
 		return congressmanList;
+	}
+	public List<Congressman> getAll(){
+		congressmanList = congressmanDao.getAll();
+		return congressmanList;
+		
 	}
 
 	private static void setCongressmanList(List<Congressman> congressmanList) {

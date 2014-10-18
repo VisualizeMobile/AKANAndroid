@@ -5,54 +5,55 @@ import java.util.List;
 
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.domain.adapters.RankingAdapter;
+import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.enumeration.UF;
 import br.com.visualize.akan.domain.model.Congressman;
 import android.app.Activity;
-
 import android.os.Bundle;
-
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 public class ListScreen extends Activity
 {
+	CongressmanController congressmanController;
 	@Override
 	public void onCreate( Bundle savedInstanceState )
 	{
 		super.onCreate( savedInstanceState );
 		setContentView(R.layout.list_screen_activity);
-		
 		final ListView listView = (ListView) findViewById( R.id.listView );
+		final Button btn_ranking = (Button) findViewById(R.id.btn_ranking);
 		
-		
-		    final List<Congressman> congressmens = new ArrayList<Congressman>();
-		    Congressman parlamentar1 = new Congressman();
-		    parlamentar1.setNameCongressman( "Romario" );
-		    parlamentar1.setIdCongressman( 2 );
-		    parlamentar1.setPartyCongressman( "PT" );
-		    parlamentar1.setTotalSpentCongressman( 3300000 );
-		    parlamentar1.setUfCongressman( UF.GO );
+		congressmanController =CongressmanController.getInstance(getBaseContext());
 		    
-		    Congressman parlamentar2 = new Congressman();
-		    parlamentar2.setNameCongressman( "Arruda" );
-		    parlamentar2.setIdCongressman( 3 );
-		    parlamentar2.setPartyCongressman( "PSDB" );
-		    parlamentar2.setTotalSpentCongressman( 700000 );
-		    parlamentar2.setUfCongressman( UF.DF );
-		    
-		    Congressman parlamentar3 = new Congressman();
-		    parlamentar3.setNameCongressman( "Tiririca" );
-		    parlamentar3.setIdCongressman( 4 );
-		    parlamentar3.setPartyCongressman( "PT" );
-		    parlamentar3.setTotalSpentCongressman( 600000 );
-		    parlamentar3.setUfCongressman( UF.SP );
-		    
-		    congressmens.add( parlamentar1 );
-		    congressmens.add( parlamentar2 );
-		    congressmens.add( parlamentar3 );
+			congressmanController.getAll();
+			List<Congressman> congressmen;
+			congressmen = congressmanController.getCongressmanList();
+			
 		   
-		    final RankingAdapter rankingAdapter = new RankingAdapter(this,R.layout.ranking_layout,congressmens);
+		   
+		    final RankingAdapter rankingAdapter = new RankingAdapter(this,R.layout.ranking_layout,congressmen);
 		    
 		    listView.setAdapter(rankingAdapter);
+		    btn_ranking.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					btn_ranking.setSelected(!btn_ranking.isSelected());
+					
+					if(btn_ranking.isSelected()){
+						btn_ranking.setBackgroundResource(R.drawable.ranking_ativado);
+					}
+					else{
+						btn_ranking.setBackgroundResource(R.drawable.ranking_desativado);
+					}																	
+					
+					
+				}
+			});
 
 	}
 }
