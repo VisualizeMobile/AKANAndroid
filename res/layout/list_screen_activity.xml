@@ -29,34 +29,34 @@
             android:scaleType="fitXY"
             android:src="@drawable/barra_inferior" />
 
-           <ImageView
-               android:id="@+id/layout_ranking_imagem_ranking"
+           <Button
+               android:id="@+id/btn_ranking"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_alignParentBottom="true"
                android:layout_centerHorizontal="true"
                android:scaleType="fitXY"
-               android:src="@drawable/ranking_ativado" />
+               android:background="@drawable/ranking_ativado" />
 
-           <ImageView
-               android:id="@+id/layout_ranking_imagem_seguido"
+           <Button
+               android:id="@+id/btn_follow"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_alignParentBottom="true"
                android:layout_alignParentLeft="true"
                android:layout_marginLeft="34dp"
                android:scaleType="fitXY"
-               android:src="@drawable/seguidos_desativado" />
+               android:background="@drawable/seguidos_desativado" />
 
-           <ImageView
-               android:id="@+id/layout_ranking_imagem_busca"
+           <Button
+               android:id="@+id/btn_search"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_alignParentBottom="true"
                android:layout_alignParentRight="true"
                android:layout_marginRight="25dp"
                android:scaleType="fitXY"
-               android:src="@drawable/busca_desativada" />
+               android:background="@drawable/busca_desativada" />
         
     </RelativeLayout>
 

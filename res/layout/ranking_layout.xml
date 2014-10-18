@@ -16,7 +16,7 @@
             android:layout_below="@+id/layout_ranking_imagem_parlamentar"
             android:layout_centerInParent="true"
             android:text="100"
-            android:textColor="#F4D271"
+            android:textColor="#000033"
             android:textSize="15dp" />
 
         <ImageView
@@ -36,7 +36,7 @@
             android:layout_marginRight="-10dp"
             android:layout_marginTop="5dp"
             android:text="º"
-            android:textColor="#F4D271"
+            android:textColor="#000033"
             android:textSize="15dp" />
     </RelativeLayout>
 
@@ -88,7 +88,7 @@
             android:layout_alignBaseline="@+id/parlamentarRankinglistfragment_txt_partido"
             android:layout_alignBottom="@+id/parlamentarRankinglistfragment_txt_partido"
             android:layout_toRightOf="@+id/parlamentarRankinglistfragment_txt_partido"
-            android:text="-" />
+            android:text="" />
 
         <TextView
             android:id="@+id/ranking_layout_txt_partido"
@@ -135,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:textColor="#536571"
-            android:text="Nome" />
+            android:text="nome" />
 
         
 
