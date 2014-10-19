@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.visualize.akan.R;
+import br.com.visualize.akan.domain.adapters.CongressmenListAdapter;
 import br.com.visualize.akan.domain.adapters.RankingAdapter;
 import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.enumeration.UF;
@@ -36,8 +37,8 @@ public class ListScreen extends Activity
 		   
 		   
 		    final RankingAdapter rankingAdapter = new RankingAdapter(this,R.layout.ranking_layout,congressmen);
-		    
-		    listView.setAdapter(rankingAdapter);
+		    final CongressmenListAdapter listAdapter = new CongressmenListAdapter(this,R.layout.congressmen_list_layout, congressmen);
+		    listView.setAdapter(listAdapter);
 		    btn_ranking.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
