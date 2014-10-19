@@ -3,12 +3,15 @@ package br.com.visualize.akan.domain.adapters;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import com.squareup.picasso.Picasso;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.domain.model.Congressman;
@@ -30,7 +33,8 @@ public class RankingAdapter extends ArrayAdapter<Congressman>
 	@Override
 	public View getView( int position, View convertView, ViewGroup parent )
 	{	
-		
+		String idCongressman = Integer.toString(congressmens.get(position).getIdCongressman());
+		String photoCongressmanUrl = "http://www.camara.gov.br/internet/deputado/bandep/";
 		Log.e( "Entrou Adapter", "EntrouAdapter" );
 		
 		LayoutInflater inflater = ( LayoutInflater )context
@@ -61,7 +65,9 @@ public class RankingAdapter extends ArrayAdapter<Congressman>
 		//Log.e("","pegou posição");
 		textViewPosition.setText(Integer.toString(congressmens.get(position).getRankingCongressman()));
 		
-		Log.e("","Setou posição");
+		ImageView congressmanImage = (ImageView)view.findViewById(R.id.layout_ranking_imagem_parlamentar);
+		Picasso.with(context).load(photoCongressmanUrl+idCongressman+".jpg").error(R.drawable.parlamentar_foto_mini).into(congressmanImage);
+		Log.e("",photoCongressmanUrl+idCongressman);
 		return view;
 
 	}
