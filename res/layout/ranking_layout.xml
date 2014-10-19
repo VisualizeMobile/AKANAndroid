@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:background="@drawable/barra_extendida"
     android:orientation="horizontal" >
 
@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_ranking_imagem_parlamentar"
             android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
             android:text="100"
             android:textColor="#000033"
             android:textSize="15dp" />
@@ -52,10 +53,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
             
+            android:layout_alignParentLeft="true"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="80dp"
             android:src="@drawable/ranking4" />
         
         <TextView
@@ -63,8 +64,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
+            android:layout_marginRight="2dp"
+            android:layout_alignRight="@+id/ranking_layout_content_value"
         	android:layout_alignParentBottom="true"
         	android:textColor="#FFF"
             android:text="Valor" />
@@ -75,9 +76,9 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/ranking_layout_txt_valor"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="2dp"
+            android:layout_marginLeft="5dp"
             android:textColor="#FFF"
-            
+            android:layout_alignLeft="@+id/ranking_layout_content_value"
         	android:layout_alignParentBottom="true"
             
             android:text="R$ " />
@@ -95,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/ranking_layout_txt_nome"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             android:textColor="#536571"
             android:text="Partido" />
         <TextView 
@@ -117,17 +118,6 @@
            	android:layout_marginLeft="2dp"
            	android:textColor="#536571"
             android:text="UF" />
-        
-        <TextView
-            android:id="@+id/ranking_layout_txt_cargo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/ranking_layout_txt_partido"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:textColor="#536571"
-            android:text="Dep.Federal"
-            />
 
         <TextView
             android:id="@+id/ranking_layout_txt_nome"
@@ -140,7 +130,22 @@
         
 
     </RelativeLayout>
-
+<RelativeLayout
+    	android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"		
+        android:layout_marginTop="15dp" >
+        
+    <Button
+               android:id="@+id/btn_follow"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:background="@drawable/seguidos_desativado" />     
+    
+    />
+    
+</RelativeLayout>
     
 
 </LinearLayout>

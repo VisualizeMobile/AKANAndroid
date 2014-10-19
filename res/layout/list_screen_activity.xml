@@ -36,7 +36,7 @@
                android:layout_alignParentBottom="true"
                android:layout_centerHorizontal="true"
                android:scaleType="fitXY"
-               android:background="@drawable/ranking_ativado" />
+               android:background="@drawable/ranking_desativado" />
 
            <Button
                android:id="@+id/btn_follow"
