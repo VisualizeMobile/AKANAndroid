@@ -52,7 +52,7 @@ public class ListScreen extends Activity
 		    final LayoutAnimationController controller 
 		    = AnimationUtils.loadLayoutAnimation(
 		      this, R.anim.layout_animation);
-		   listView.setLayoutAnimation(controller);
+		    		    
 		    btn_ranking.setOnClickListener(new View.OnClickListener() {
 		    		
 				@Override
