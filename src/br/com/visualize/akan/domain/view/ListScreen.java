@@ -9,13 +9,20 @@ import br.com.visualize.akan.domain.adapters.RankingAdapter;
 import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.enumeration.UF;
 import br.com.visualize.akan.domain.model.Congressman;
+import android.animation.LayoutTransition;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+
 
 public class ListScreen extends Activity
 {
@@ -27,29 +34,42 @@ public class ListScreen extends Activity
 		setContentView(R.layout.list_screen_activity);
 		final ListView listView = (ListView) findViewById( R.id.listView );
 		final Button btn_ranking = (Button) findViewById(R.id.btn_ranking);
-		
+		final ArrayAdapter adapter = null;
 		congressmanController =CongressmanController.getInstance(getBaseContext());
 		    
 			congressmanController.getAll();
-			List<Congressman> congressmen;
+			 List<Congressman> congressmen;
 			congressmen = congressmanController.getCongressmanList();
 			
 		   
-		   
+			ViewGroup viewGroup;
 		    final RankingAdapter rankingAdapter = new RankingAdapter(this,R.layout.ranking_layout,congressmen);
 		    final CongressmenListAdapter listAdapter = new CongressmenListAdapter(this,R.layout.congressmen_list_layout, congressmen);
 		    listView.setAdapter(listAdapter);
+		    //final LayoutTransition transitioner = new LayoutTransition();
+		    //transitioner.enableTransitionType(LayoutTransition.APPEARING);
+		    //listView.setLayoutTransition(transitioner);
+		    final LayoutAnimationController controller 
+		    = AnimationUtils.loadLayoutAnimation(
+		      this, R.anim.layout_animation);
+		   listView.setLayoutAnimation(controller);
 		    btn_ranking.setOnClickListener(new View.OnClickListener() {
-				
+		    		
 				@Override
 				public void onClick(View v) {
+					
 					btn_ranking.setSelected(!btn_ranking.isSelected());
 					
 					if(btn_ranking.isSelected()){
+						
 						btn_ranking.setBackgroundResource(R.drawable.ranking_ativado);
+						listView.setAdapter(rankingAdapter);
+						listView.setLayoutAnimation(controller);
 					}
 					else{
 						btn_ranking.setBackgroundResource(R.drawable.ranking_desativado);
+						listView.setAdapter(listAdapter);
+						listView.setLayoutAnimation(controller);
 					}																	
 					
 					
