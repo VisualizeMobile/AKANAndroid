@@ -97,7 +97,8 @@ public class CongressmanDao {
 						.getColumnIndex("ID_CONGRESSMAN")));
 				congressman.setNameCongressman(cursor.getString(cursor
 						.getColumnIndex("NAME_CONGRESSMAN")));
-			
+				congressman.setStatusCogressman(Boolean.parseBoolean(cursor.
+						getString(cursor.getColumnIndex("STATUS_CONGRESSMAN"))));
 				congressman.setPartyCongressman(cursor.getString(cursor
 						.getColumnIndex("PARTY")));
 				congressman.setUfCongressman(cursor.getString(cursor.getColumnIndex("UF_CONGRESSMAN")));
