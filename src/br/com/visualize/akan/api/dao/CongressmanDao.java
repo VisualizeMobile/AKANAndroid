@@ -113,4 +113,36 @@ public class CongressmanDao {
 			sqliteDatabase.close();
 			return listParlamentares;
 		}
+		
+		public List<Congressman> selectCongressmanByName(String congressmanName) {
+
+			sqliteDatabase = database.getReadableDatabase();
+			Cursor cursor = sqliteDatabase.rawQuery(
+					"SELECT * FROM CONGRESSMAN WHERE NAME_CONGRESSMAN LIKE '%" + congressmanName + "%'", null);
+
+			List<Congressman> listParlamentares = new ArrayList<Congressman>();
+
+			while (cursor.moveToNext()) {
+
+				Congressman congressman = new Congressman();
+				congressman.setIdCongressman(cursor.getInt(cursor
+						.getColumnIndex("ID_CONGRESSMAN")));
+				congressman.setNameCongressman(cursor.getString(cursor
+						.getColumnIndex("NAME_CONGRESSMAN")));
+				congressman.setStatusCogressman(Boolean.parseBoolean(cursor.
+						getString(cursor.getColumnIndex("STATUS_CONGRESSMAN"))));
+				congressman.setPartyCongressman(cursor.getString(cursor
+						.getColumnIndex("PARTY")));
+				congressman.setUfCongressman(cursor.getString(cursor.getColumnIndex("UF_CONGRESSMAN")));
+				congressman.setTotalSpentCongressman(cursor.getDouble(cursor
+						.getColumnIndex("TOTAL_SPENT_CONGRESSMAN")));
+				congressman.setRankingCongressman(cursor.getInt(cursor
+						.getColumnIndex("RANKING_CONGRESSMAN")));
+				congressman.setIdUpdateCongressman(cursor.getInt(cursor
+						.getColumnIndex("ID_UPDATE")));
+				listParlamentares.add(congressman);
+			}
+			sqliteDatabase.close();
+			return listParlamentares;
+		}
 }

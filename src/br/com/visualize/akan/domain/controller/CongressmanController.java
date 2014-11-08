@@ -80,5 +80,10 @@ public class CongressmanController {
 	private static void setCongressmanList(List<Congressman> congressmanList) {
 		CongressmanController.congressmanList = congressmanList;
 	}
+	
+	public List<Congressman> getByName (String congressmanName){
+		congressmanList = congressmanDao.selectCongressmanByName(congressmanName);
+		return congressmanList;
+	}
 
 }
