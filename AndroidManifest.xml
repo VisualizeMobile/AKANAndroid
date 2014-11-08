@@ -5,7 +5,7 @@
 
     <uses-sdk
         android:minSdkVersion="12"
-        android:targetSdkVersion="21" />
+        android:targetSdkVersion="20" />
 
     <application
         android:allowBackup="true"
@@ -14,16 +14,21 @@
         android:theme="@style/AppTheme" >
         <activity android:name=".domain.view.AboutAkanScreen"></activity>
         <activity android:name=".domain.view.DescriptionScreen"></activity>
-        <activity android:name=".domain.view.ListScreen"></activity>
+        <activity android:name=".domain.view.ListScreen">
+            <intent-filter>
+                 <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+             <meta-data android:name="android.app.searchable"
+                   android:resource="@xml/searchable"/>
+                       
+        </activity>
         <activity android:name=".domain.view.SplashScreen"><intent-filter> 
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" /> 
                 </intent-filter>
             
         </activity>
-        <activity android:name=".domain.view.RankingList">
-            
-        </activity>
+        
     </application>
 
 </manifest>
