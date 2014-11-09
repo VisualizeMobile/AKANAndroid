@@ -116,43 +116,7 @@ public class ListScreen extends Activity
 			});
 
 	}
-	/*
-	@Override
-	public boolean onSearchRequested() {
-	  //   ListScreen.TEXT_SERVICES_MANAGER_SERVICE.g
-	   //  startSearch(null, false, appData, false);
-	     return true;
-	 }
 	
-	public void onNewIntent(Intent intent) { 
-        setIntent(intent); 
-        handleIntent(intent); 
-     } 
-
-     public void onListItemClick(ListView l, View v, int position, long id) { 
-        // call the appropriate detail activity
-     } 
-
-     private void handleIntent(Intent intent) { 
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) { 
-            query = intent.getStringExtra(SearchManager.QUERY); 
-           doSearch(query); 
-        } 
-     }    
-
-     private void doSearch(String queryStr) { 
-    	 Log.e("entrei no dosearch", "pesquisei agora");
-    	
-    	congressmanController.getByName(queryStr);
-    	listAdapter.clear();
-    	listAdapter.addAll(congressmanController.getByName(queryStr));
-    	listAdapter.notifyDataSetChanged();
-    	 
-    	 
-    	  	 
-         
-     }
-     */
      @Override
      public boolean onCreateOptionsMenu(Menu menu){
     	 MenuInflater inflater = getMenuInflater();
@@ -188,22 +152,6 @@ public class ListScreen extends Activity
     	 return super.onCreateOptionsMenu(menu);
      }
 	
-	private String filter (String source, int start, int end ){
-		StringBuilder sb = new StringBuilder(end - start);
-		for(int i = start; i < end; i++){
-			char c = source.charAt(i);
-			if(isCharAllowed(c))
-				sb.append(c);
-			else{
-				// do nothing here
-			}
-		}
-		String sp = new String(sb);
-		return sp;
-	}
 	
-	private boolean isCharAllowed(char c){
-		return Character.isLetterOrDigit(c)||Character.isSpace(c);
-	}
 	
 }
