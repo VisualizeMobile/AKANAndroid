@@ -8,13 +8,14 @@
     android:orientation="vertical"
     android:background="#FFFFFF" >
     
+    
     <ListView
         android:id="@+id/listView"
         android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
     	android:dividerHeight="1dp"
         android:divider="#FFFFFF" >
-    	
+           	
         </ListView>
    
 
@@ -30,7 +31,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:scaleType="fitXY"
-            android:src="@drawable/barra_inferior" />
+            android:src="@drawable/barra_inferior" ></ImageView>
 
            <Button
                android:id="@+id/btn_ranking"

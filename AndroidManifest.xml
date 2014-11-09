@@ -11,10 +11,14 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.WithActionBar">
         <activity android:name=".domain.view.AboutAkanScreen"></activity>
         <activity android:name=".domain.view.DescriptionScreen"></activity>
-        <activity android:name=".domain.view.ListScreen">
+        <activity
+             android:name=".domain.view.ListScreen"
+             android:launchMode="singleTask"
+            
+            >
             <intent-filter>
                  <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
