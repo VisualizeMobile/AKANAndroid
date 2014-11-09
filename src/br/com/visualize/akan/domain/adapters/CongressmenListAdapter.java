@@ -74,6 +74,10 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 	}
 	
 	@Override
+	public int getCount() {
+	    return congressmens.size();
+	}
+	@Override
     public Filter getFilter() {
 		
         if (congressmanFilter == null) {
@@ -95,10 +99,11 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 			 if(constraint != null && constraint.toString().length() > 0)
              {
                  List<Congressman> filteredItems = new ArrayList<Congressman>();
-                
-                 for(int i = 0, l = congressmens.size(); i < l; i++)
+                 List<Congressman> currentItems = new ArrayList<Congressman>();
+                 currentItems.addAll(filteredList);
+                 for(int i = 0, l = currentItems.size(); i < l; i++)
                  {
-                     Congressman m = congressmens.get(i);
+                     Congressman m = currentItems.get(i);
                      if(m.getNameCongressman().toLowerCase().contains(constraint))
                          filteredItems.add(m);
                  }
@@ -125,13 +130,12 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
             congressmens = (List<Congressman>)results.values;
             Log.e("publicando", "publicando");
             notifyDataSetChanged();
-            clear();
-            for (int i = 0, l = congressmens.size(); i < l; i++)
-                add(congressmens.get(i));
+            
+            
             notifyDataSetInvalidated();
             
          
-           // Log.e(filteredList.get(0).getNameCongressman(),"parlamentar escolhido");
+            //Log.e(congressmens.get(0).getNameCongressman(),"parlamentar escolhido");
 		}
 		
 	}
