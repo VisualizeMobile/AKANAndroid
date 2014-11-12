@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import br.com.visualize.akan.api.helper.DatabaseHelper;
 import br.com.visualize.akan.domain.model.Congressman;
+import br.com.visualize.akan.domain.model.Deputy;
 
 public class CongressmanDao {
 	/**
@@ -92,23 +91,23 @@ public class CongressmanDao {
 
 			while (cursor.moveToNext()) {
 
-				Congressman congressman = new Congressman();
-				congressman.setIdCongressman(cursor.getInt(cursor
+				Congressman deputy = new Deputy();
+				deputy.setIdCongressman(cursor.getInt(cursor
 						.getColumnIndex("ID_CONGRESSMAN")));
-				congressman.setNameCongressman(cursor.getString(cursor
+				deputy.setNameCongressman(cursor.getString(cursor
 						.getColumnIndex("NAME_CONGRESSMAN")));
-				congressman.setStatusCogressman(Boolean.parseBoolean(cursor.
+				deputy.setStatusCogressman(Boolean.parseBoolean(cursor.
 						getString(cursor.getColumnIndex("STATUS_CONGRESSMAN"))));
-				congressman.setPartyCongressman(cursor.getString(cursor
+				deputy.setPartyCongressman(cursor.getString(cursor
 						.getColumnIndex("PARTY")));
-				congressman.setUfCongressman(cursor.getString(cursor.getColumnIndex("UF_CONGRESSMAN")));
-				congressman.setTotalSpentCongressman(cursor.getDouble(cursor
+				deputy.setUfCongressman(cursor.getString(cursor.getColumnIndex("UF_CONGRESSMAN")));
+				deputy.setTotalSpentCongressman(cursor.getDouble(cursor
 						.getColumnIndex("TOTAL_SPENT_CONGRESSMAN")));
-				congressman.setRankingCongressman(cursor.getInt(cursor
+				deputy.setRankingCongressman(cursor.getInt(cursor
 						.getColumnIndex("RANKING_CONGRESSMAN")));
-				congressman.setIdUpdateCongressman(cursor.getInt(cursor
+				deputy.setIdUpdateCongressman(cursor.getInt(cursor
 						.getColumnIndex("ID_UPDATE")));
-				listParlamentares.add(congressman);
+				listParlamentares.add(deputy);
 			}
 			sqliteDatabase.close();
 			return listParlamentares;
@@ -124,23 +123,23 @@ public class CongressmanDao {
 
 			while (cursor.moveToNext()) {
 
-				Congressman congressman = new Congressman();
-				congressman.setIdCongressman(cursor.getInt(cursor
+				Congressman deputy = new Deputy();
+				deputy.setIdCongressman(cursor.getInt(cursor
 						.getColumnIndex("ID_CONGRESSMAN")));
-				congressman.setNameCongressman(cursor.getString(cursor
+				deputy.setNameCongressman(cursor.getString(cursor
 						.getColumnIndex("NAME_CONGRESSMAN")));
-				congressman.setStatusCogressman(Boolean.parseBoolean(cursor.
+				deputy.setStatusCogressman(Boolean.parseBoolean(cursor.
 						getString(cursor.getColumnIndex("STATUS_CONGRESSMAN"))));
-				congressman.setPartyCongressman(cursor.getString(cursor
+				deputy.setPartyCongressman(cursor.getString(cursor
 						.getColumnIndex("PARTY")));
-				congressman.setUfCongressman(cursor.getString(cursor.getColumnIndex("UF_CONGRESSMAN")));
-				congressman.setTotalSpentCongressman(cursor.getDouble(cursor
+				deputy.setUfCongressman(cursor.getString(cursor.getColumnIndex("UF_CONGRESSMAN")));
+				deputy.setTotalSpentCongressman(cursor.getDouble(cursor
 						.getColumnIndex("TOTAL_SPENT_CONGRESSMAN")));
-				congressman.setRankingCongressman(cursor.getInt(cursor
+				deputy.setRankingCongressman(cursor.getInt(cursor
 						.getColumnIndex("RANKING_CONGRESSMAN")));
-				congressman.setIdUpdateCongressman(cursor.getInt(cursor
+				deputy.setIdUpdateCongressman(cursor.getInt(cursor
 						.getColumnIndex("ID_UPDATE")));
-				listParlamentares.add(congressman);
+				listParlamentares.add(deputy);
 			}
 			sqliteDatabase.close();
 			return listParlamentares;

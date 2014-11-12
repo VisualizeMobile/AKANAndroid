@@ -1,30 +1,30 @@
 package br.com.visualize.akan.domain.view;
 
-import android.app.Activity;
 import org.apache.http.client.ResponseHandler;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
 import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.controller.CongressmanController;
+import br.com.visualize.akan.domain.controller.DeputyController;
 import br.com.visualize.akan.domain.exception.ConnectionFailedException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.exception.RequestFailedException;
 
 public class SplashScreen extends Activity {
 	
-	public CongressmanController congressmanController;
+	public CongressmanController deputyController;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		congressmanController = CongressmanController
-				.getInstance(getBaseContext());
+	protected void onCreate( Bundle savedInstanceState ) {
+		super.onCreate( savedInstanceState );
+		
+		deputyController = DeputyController
+				.getInstance( getBaseContext() );
 
-		new Thread(new Runnable() {
+		new Thread( new Runnable() {
 
 			@Override
 			public void run() {
@@ -33,27 +33,31 @@ public class SplashScreen extends Activity {
 				ResponseHandler<String> responseHandler = HttpConnection
 						.getResponseHandler();
 				try {
-					congressmanController
-							.getAllCongressman(responseHandler);
-				} catch (ConnectionFailedException e) {
+					
+					deputyController
+							.getAllCongressman( responseHandler );
+					
+				} catch ( ConnectionFailedException e ) {
 					//TODO launch error alert
 					e.printStackTrace();
-				} catch (RequestFailedException e) {
+					
+				} catch ( RequestFailedException e ) {
 					//TODO launch error alert	
 					e.printStackTrace();
-				} catch (NullCongressmanException e) {
+					
+				} catch ( NullCongressmanException e ) {
 					//TODO launch error alert
 					e.printStackTrace();
+					
 				}
+				
 				Looper.loop();
 			}
-		}).start();
+		} ).start();
 		
-		Log.i("antes intent", "antes intent");
-		Intent myAction = new Intent(SplashScreen.this, ListScreen.class);
+		Intent myAction = new Intent( SplashScreen.this, ListScreen.class );
 		
-		SplashScreen.this.startActivity(myAction);
-		Log.i("depois intent", "depois intent");
+		SplashScreen.this.startActivity( myAction );
 		SplashScreen.this.finish();
 	}
 

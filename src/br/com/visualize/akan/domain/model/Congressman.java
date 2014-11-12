@@ -8,29 +8,27 @@ package br.com.visualize.akan.domain.model;
 
 import java.util.List;
 
-import br.com.visualize.akan.domain.enumeration.UF;
-
 
 /**
  * This class represents the model for a congressman in application. They 
  * contain the essential business-related Congressman data such as name, party 
  * and total expenditures by using quotas.
  */
-public class Congressman {
+public abstract class Congressman {
 	static final boolean FOLLOWED = true;
 	static final boolean NOT_FOLLOWED = false;
 	
-	private int id = 0;
-	private int idUpdateCongressman = 0;
-	private boolean statusCogressman = NOT_FOLLOWED;
-	private byte[] photoCongressman = null;
+	protected int id = 0;
+	protected int idUpdateCongressman = 0;
+	protected boolean statusCogressman = NOT_FOLLOWED;
+	protected byte[] photoCongressman = null;
 	
-	private String nameCongressman = "";
-	private String partyCongressman = "";
-	private String ufCongressman = "";
-	private int ranking = 0; 
-	private List<Quota> quotasCongressman = null;
-	private double totalSpentCongressman = 0;
+	protected String nameCongressman = "";
+	protected String partyCongressman = "";
+	protected String ufCongressman = "";
+	protected int ranking = 0; 
+	protected List<Quota> quotasCongressman = null;
+	protected double totalSpentCongressman = 0;
 	
 	public int getIdCongressman() {
 		return id;
@@ -107,6 +105,7 @@ public class Congressman {
 	public int getRankingCongressman() {
 		return ranking;
 	}
+	
 	public void setRankingCongressman(int rankingCongressman) {
 		this.ranking = rankingCongressman;
 		
