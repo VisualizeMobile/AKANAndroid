@@ -13,7 +13,6 @@ import br.com.visualize.akan.domain.model.Congressman;
 
 public class CongressmanRequest {
 	
-
 	private static CongressmanRequest instance = null;
 
 	private UrlController urlController;
@@ -25,14 +24,17 @@ public class CongressmanRequest {
 	public List<Congressman> doRequest(ResponseHandler<String> responseHandler)
 			throws NullCongressmanException, ConnectionFailedException,
 			RequestFailedException {
+		
 		List<Congressman> congressmanList = null;
-		if(responseHandler != null){
+		
+		if( responseHandler != null ) {
 			String url = urlController.getUrl().getDefaultUrl();
 			url += "/parlamentares";
+			
 			String jsonCongressmanList = HttpConnection.request(responseHandler, url);
 			congressmanList = JsonHelper.listCongressmanFromJSON(jsonCongressmanList);
 		}
+		
 		return congressmanList;
 	}
-
 }

@@ -35,7 +35,7 @@ public class SplashScreen extends Activity {
 				try {
 					
 					deputyController
-							.getAllCongressman( responseHandler );
+							.requestAllCongressman( responseHandler );
 					
 				} catch ( ConnectionFailedException e ) {
 					//TODO launch error alert

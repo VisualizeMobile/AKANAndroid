@@ -40,7 +40,7 @@ public class DeputyController implements CongressmanController {
 		return instance;
 	}
 	
-	public List<Congressman> getAllCongressman( 
+	public List<Congressman> requestAllCongressman( 
 			ResponseHandler<String> responseHandler )
 			throws ConnectionFailedException, RequestFailedException,
 			NullCongressmanException {
@@ -72,7 +72,7 @@ public class DeputyController implements CongressmanController {
 		return deputyList;
 	}
 	
-	public List<Congressman> getAll() {
+	public List<Congressman> getAllCongressman() {
 		deputyList = congressmanDao.getAll();
 		
 		return deputyList;

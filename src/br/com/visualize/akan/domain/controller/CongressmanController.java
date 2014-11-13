@@ -12,12 +12,12 @@ import br.com.visualize.akan.domain.model.Congressman;
 public interface CongressmanController {
 	
 
-	public List<Congressman> getAllCongressman( 
+	public List<Congressman> requestAllCongressman( 
 			ResponseHandler<String> responseHandler ) throws 
 			ConnectionFailedException, RequestFailedException, 
 			NullCongressmanException;
 
-	public List<Congressman> getAll();
+	public List<Congressman> getAllCongressman();
 
 	public List<Congressman> getByName ( String congressmanName );
 }

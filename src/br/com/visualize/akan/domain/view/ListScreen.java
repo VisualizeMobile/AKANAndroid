@@ -48,7 +48,7 @@ public class ListScreen extends Activity
 		
 		deputyController = DeputyController.getInstance(getBaseContext());
 		    
-		deputyController.getAll();
+		deputyController.getAllCongressman();
 		List<Congressman> congressmen;
 		congressmen = DeputyController.getCongressmanList();
 				
