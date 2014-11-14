@@ -29,7 +29,18 @@ public abstract class Congressman {
 	protected int ranking = 0; 
 	protected List<Quota> quotasCongressman = null;
 	protected double totalSpentCongressman = 0;
+	protected String typeCongressman = "";
 	
+	public String getTypeCongressman() {
+		return typeCongressman;
+	}
+
+	public void setTypeCongressman(String typeCongressman)
+	{
+		this.typeCongressman = typeCongressman;
+		
+	}
+		
 	public int getIdCongressman() {
 		return id;
 	}

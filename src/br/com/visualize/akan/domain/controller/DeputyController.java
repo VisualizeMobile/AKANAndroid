@@ -40,6 +40,10 @@ public class DeputyController implements CongressmanController {
 		return instance;
 	}
 	
+	public void setDeputy( Congressman deputy){
+		DeputyController.deputy = deputy;
+	}
+	
 	public List<Congressman> requestAllCongressman( 
 			ResponseHandler<String> responseHandler )
 			throws ConnectionFailedException, RequestFailedException,

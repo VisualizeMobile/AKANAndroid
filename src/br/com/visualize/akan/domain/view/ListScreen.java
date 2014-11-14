@@ -5,12 +5,16 @@ import java.util.List;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -23,7 +27,7 @@ import br.com.visualize.akan.domain.controller.DeputyController;
 import br.com.visualize.akan.domain.model.Congressman;
 
 
-public class ListScreen extends Activity
+public class ListScreen extends Activity  
 {
 	CongressmanController deputyController;
 	ListView listView ;
@@ -55,6 +59,7 @@ public class ListScreen extends Activity
 		rankingAdapter = new RankingAdapter(this,R.layout.ranking_layout,congressmen);
 		listAdapter = new CongressmenListAdapter(this,R.layout.congressmen_list_layout, congressmen);
 		listView.setAdapter(listAdapter);
+		listView.setOnItemClickListener(new OnItemClickListenerListViewItem());
 		listAdapter.notifyDataSetChanged();
 		listView.setTextFilterEnabled(false);
 		
@@ -88,6 +93,11 @@ public class ListScreen extends Activity
 				 onSearchRequested();		 					
 			}
 		});
+		
+		
+		
+		
+
 	}
 	
      @Override
@@ -122,4 +132,9 @@ public class ListScreen extends Activity
     	 
     	 return super.onCreateOptionsMenu(menu);
      }
+
+
+
+ 	
+	
 }
