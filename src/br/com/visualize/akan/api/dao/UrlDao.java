@@ -5,16 +5,15 @@
  */
 package br.com.visualize.akan.api.dao;
 
-import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
 import br.com.visualize.akan.api.helper.DatabaseHelper;
 import br.com.visualize.akan.domain.model.Url;
 
-public class UrlDao {
+public class UrlDao extends Dao{
 
 	private int idUpdateUrl = 0;
 	private int updateVerifierUrl = 0;
@@ -26,8 +25,6 @@ public class UrlDao {
 	private static UrlDao instanceUrlDao = null;
 	private static String tableUrl = "Url";
 	private static String tableColumns[] = {"ID_URL","ID_UPDATE_URL", "DEFAULT_URL", "FIRST_URL", "SECOND_URL"};
-	private static DatabaseHelper database;
-	private static SQLiteDatabase sqliteDatabase;
 
 
 	private UrlDao(Context context) {
@@ -55,7 +52,7 @@ public class UrlDao {
 	 * Checks if database is empty
 	 * 
 	 */
-	private boolean checkEmptyLocalDb(){
+	protected boolean checkEmptyLocalDb(){
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery("select 1 from URL;",null);
 		Log.i("dataBase insetition", "url1");
@@ -86,8 +83,7 @@ public class UrlDao {
 		content.put("DEFAULT_URL", url.getDefaultUrl());
 		content.put("FIRST_ALTERNATIVE_URL", url.getFirstAlternativeUrl());
 		content.put("SECOND_ALTERNATIVE_URL", url.getSecondAlternativeUrl());
-		sqliteDatabase.insert(tableUrl, null, content);
-		sqliteDatabase.close();
+		insertAndClose(sqliteDatabase, tableUrl, content);
 	}
 	
 	/**
@@ -122,8 +118,7 @@ public class UrlDao {
 			content.put(tableColumns[1], 0);
 			content.put(tableColumns[2], defaultUrl);
 			
-			sqliteDatabase.insert(tableName, null,content);
-			sqliteDatabase.close();
+			insertAndClose(sqliteDatabase, tableName, content);
 		}
 		else{
 			sqliteDatabase = database.getReadableDatabase();
