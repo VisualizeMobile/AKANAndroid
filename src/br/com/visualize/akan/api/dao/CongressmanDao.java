@@ -63,10 +63,7 @@ public class CongressmanDao extends Dao{
 			content.put(tableColumns[7], congressman.getPhotoCongressman());
 			content.put(tableColumns[8], congressman.getRankingCongressman());
 
-			//TODO
-			boolean result = (sqliteDatabase.insert(tableName, null, content)>0);			
-			sqliteDatabase.close();
-			
+			boolean result = (insertAndClose(sqliteDatabase, tableName, content)>0);			
 			return result;
 		}
 		
