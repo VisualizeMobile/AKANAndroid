@@ -10,11 +10,10 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import br.com.visualize.akan.api.helper.DatabaseHelper;
 import br.com.visualize.akan.domain.model.Congressman;
 
-public class CongressmanDao {
+public class CongressmanDao extends Dao{
 	/**
 	 * This class represents the Data Access Object for the Congressman,
 	 * responsible for all data base operations like selections, insertions
@@ -23,8 +22,6 @@ public class CongressmanDao {
 		private static CongressmanDao instance;
 		private static String tableName = "CONGRESSMAN";
 		private static String tableColumns[] = {"ID_CONGRESSMAN", "ID_UPDATE", "NAME_CONGRESSMAN","PARTY", "UF_CONGRESSMAN", "TOTAL_SPENT_CONGRESSMAN", "STATUS_CONGRESSMAN", "PHOTO_CONGRESSMAN", "RANKING_CONGRESSMAN"};
-		private static DatabaseHelper database;
-		private SQLiteDatabase sqliteDatabase;
 		
 		private CongressmanDao(Context context){
 			CongressmanDao.database = new DatabaseHelper(context);
@@ -66,8 +63,8 @@ public class CongressmanDao {
 			content.put(tableColumns[7], congressman.getPhotoCongressman());
 			content.put(tableColumns[8], congressman.getRankingCongressman());
 
-			boolean result = (sqliteDatabase.insert(tableName, null, content)>0);
-			
+			//TODO
+			boolean result = (sqliteDatabase.insert(tableName, null, content)>0);			
 			sqliteDatabase.close();
 			
 			return result;

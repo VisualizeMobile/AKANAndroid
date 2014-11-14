@@ -11,9 +11,6 @@ import br.com.visualize.akan.domain.model.Quota;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import br.com.visualize.akan.api.helper.DatabaseHelper;
-import br.com.visualize.akan.domain.model.Quota;
 
 /**
  * Serves to define the methods that give the basic functionality to the 
@@ -21,17 +18,14 @@ import br.com.visualize.akan.domain.model.Quota;
  * maintain the ability to generate support to the modification of data 
  * on quotas.
  */
-public class QuotaDao {
+public class QuotaDao extends Dao{
 	private static QuotaDao instanceQuotaDao = null;
-	private Context context;
 
-	private static SQLiteDatabase sqliteDatabase;
-	private static DatabaseHelper database;
 	private static String tableName = "QUOTA";
 	private static String tableColumns[] = {"ID_QUOTA", "ID_CONGRESSMAN", "ID_UPDATE","TYPE_QUOTA", "DESCRIPTION_QUOTA", "MONTH_QUOTA", "", "VALUE_QUOTA"};
 	
 	
-	private QuotaDao(Context context ) {
+	private QuotaDao(Context context) {
 		this.context = context;
 	}
 	
@@ -41,15 +35,12 @@ public class QuotaDao {
 	 * @return The unique instance of QuotaDao.
 	 */
 	public static QuotaDao getInstance(Context context) {
-		
 		if( instanceQuotaDao != null ) {
 			/*! Nothing To Do. */
 			
 		} else {
 			instanceQuotaDao = new QuotaDao(context);
-			
 		}
-		
 		return instanceQuotaDao;
 	}
 	
@@ -122,8 +113,8 @@ public class QuotaDao {
 		content.put(tableColumns[6], quota.getYearReferenceQuota());
 		content.put(tableColumns[7], quota.getValueQuota());
 
+		//TODO
 		boolean result = (sqliteDatabase.insert(tableName, null, content)>0);
-		
 		sqliteDatabase.close();
 		
 		return result;
