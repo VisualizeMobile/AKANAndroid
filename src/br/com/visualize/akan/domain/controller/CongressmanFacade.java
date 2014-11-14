@@ -12,9 +12,18 @@ import android.content.Context;
 
 public class CongressmanFacade {
 	private DeputyController deputyController;
+	private static CongressmanFacade instance = null;
 	
-	public CongressmanFacade( Context context ) {
+	private CongressmanFacade( Context context ) {
 		deputyController = DeputyController.getInstance(context);
+	}
+	
+	public static CongressmanFacade getInstance( Context context ) {
+		if ( instance == null ) {
+			instance = new CongressmanFacade( context );
+		}
+		
+		return instance;
 	}
 	
 	/* Deputy's Block */

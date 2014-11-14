@@ -5,16 +5,12 @@ import java.util.List;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -23,6 +19,7 @@ import br.com.visualize.akan.R;
 import br.com.visualize.akan.domain.adapters.CongressmenListAdapter;
 import br.com.visualize.akan.domain.adapters.RankingAdapter;
 import br.com.visualize.akan.domain.controller.CongressmanController;
+import br.com.visualize.akan.domain.controller.CongressmanFacade;
 import br.com.visualize.akan.domain.controller.DeputyController;
 import br.com.visualize.akan.domain.model.Congressman;
 
@@ -30,13 +27,13 @@ import br.com.visualize.akan.domain.model.Congressman;
 public class ListScreen extends Activity  
 {
 	CongressmanController deputyController;
+	CongressmanFacade congressmanFacade;
 	ListView listView ;
 	RankingAdapter rankingAdapter;
 	CongressmenListAdapter listAdapter;
 	String query;
 	SearchView search;
-	 
-	
+
 	@Override
 	public void onCreate( Bundle savedInstanceState )
 	{
@@ -50,11 +47,11 @@ public class ListScreen extends Activity
 		
 		search = new SearchView(getApplicationContext());
 		
+		congressmanFacade = CongressmanFacade.getInstance(getApplicationContext());
 		deputyController = DeputyController.getInstance(getBaseContext());
 		    
-		deputyController.getAllCongressman();
 		List<Congressman> congressmen;
-		congressmen = DeputyController.getCongressmanList();
+		congressmen = congressmanFacade.getAllDeputy();
 				
 		rankingAdapter = new RankingAdapter(this,R.layout.ranking_layout,congressmen);
 		listAdapter = new CongressmenListAdapter(this,R.layout.congressmen_list_layout, congressmen);
@@ -93,11 +90,6 @@ public class ListScreen extends Activity
 				 onSearchRequested();		 					
 			}
 		});
-		
-		
-		
-		
-
 	}
 	
      @Override
@@ -133,8 +125,4 @@ public class ListScreen extends Activity
     	 return super.onCreateOptionsMenu(menu);
      }
 
-
-
- 	
-	
 }

@@ -22,7 +22,7 @@ public class SplashScreen extends Activity {
 		super.onCreate( savedInstanceState );
 		
 		deputyController = DeputyController
-				.getInstance( getBaseContext() );
+				.getInstance( getApplicationContext() );
 
 		new Thread( new Runnable() {
 
