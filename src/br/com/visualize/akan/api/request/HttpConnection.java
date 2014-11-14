@@ -56,7 +56,7 @@ public class HttpConnection {
 			String json = new String(client.execute(http, response).getBytes(
 					"ISO-8859-1"), "UTF-8");
 			return json;
-
+			
 		} catch (ClientProtocolException e) {
 			throw new RequestFailedException();
 

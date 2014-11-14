@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
+import br.com.visualize.akan.domain.model.Deputy;
 import br.com.visualize.akan.domain.model.Quota;
 
 import com.google.gson.Gson;
@@ -15,7 +16,7 @@ public class JsonHelper {
 		List<Congressman> congressmanList;
 		try{
 			Gson gson = new Gson();
-			congressmanList = gson.fromJson(jsonCongressmanList, new TypeToken<List<Congressman>>(){}.getType());
+			congressmanList = gson.fromJson(jsonCongressmanList, new TypeToken<List<Deputy>>(){}.getType());
 		}catch(NullPointerException e){
 			throw new NullCongressmanException();
 		}
