@@ -12,8 +12,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import br.com.visualize.akan.domain.exception.ConcreteCreatorException;
-import br.com.visualize.akan.domain.exception.ConnectionFailedException;
-import br.com.visualize.akan.domain.exception.RequestFailedException;
 
 
 public class HttpConnection {
