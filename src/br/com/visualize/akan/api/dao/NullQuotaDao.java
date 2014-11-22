@@ -3,6 +3,7 @@ package br.com.visualize.akan.api.dao;
 import java.util.List;
 
 import br.com.visualize.akan.domain.model.Quota;
+import android.content.ContentValues;
 import android.content.Context;
 
 public class NullQuotaDao extends QuotaDao{
@@ -23,7 +24,7 @@ public class NullQuotaDao extends QuotaDao{
 	/**
 	 * Return the unique instance of QuotaDao active in the project.
 	 * <p>
-	 * @return The unique instance of QuotaDao.
+	 * @return The unique instance of NullQuotaDao.
 	 */
 	public static NullQuotaDao getInstance(Context context) {
 		if( instanceNullQuotaDao != null ) {
@@ -55,6 +56,22 @@ public class NullQuotaDao extends QuotaDao{
 	 */
 	@Override
 	public void deleteQuotasFromCongressman( int idCongressman ) {
-		/*! Write instructions Here. */
+
 	}
+
+	/**
+	 * Search the database all quotas related to the referenced congressman
+	 * and returns them as a list.
+	 * <p>
+	 * @param idCongressman Numeric identifier of congressman that must have
+	 * 		 					deleted the quotas.
+	 * <p>
+	 * @return A null list.
+	 */
+	@Override
+	public List<Quota> getQuotasByIdCongressman( int idCongressman ) {
+
+		return null;
+	}
+
 }
