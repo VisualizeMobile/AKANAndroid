@@ -37,19 +37,11 @@ public class SplashScreen extends Activity {
 					deputyController
 							.requestAllCongressman( responseHandler );
 					
-				} catch ( ConnectionFailedException e ) {
+				} catch ( Exception e ) {
 					//TODO launch error alert
 					e.printStackTrace();
 					
-				} catch ( RequestFailedException e ) {
-					//TODO launch error alert	
-					e.printStackTrace();
-					
-				} catch ( NullCongressmanException e ) {
-					//TODO launch error alert
-					e.printStackTrace();
-					
-				}
+				} 
 				
 				Looper.loop();
 			}
