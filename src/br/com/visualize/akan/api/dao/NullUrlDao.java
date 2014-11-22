@@ -51,4 +51,15 @@ public class NullUrlDao extends UrlDao {
 
 	}
 
+	/**
+	 * Deletes all Urls of the database relating to the past as parameter
+	 * congressman for his numerical identifier.
+	 * <p>
+	 * @param idUrl Numeric identifier of congressman that must have
+	 * 		 					deleted the Urls.
+	 */
+	@Override
+	public void deleteUrl(Url url) {
+	}
+
 }
