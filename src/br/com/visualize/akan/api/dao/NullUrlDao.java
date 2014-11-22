@@ -8,6 +8,7 @@ import android.util.Log;
 
 public class NullUrlDao extends UrlDao {
 	private static NullUrlDao instanceUrlDao = null;
+	private String defaultUrl = "http://192.168.1.4:3000";
 
 	protected NullUrlDao(Context context) {
 		super(context);
@@ -60,6 +61,21 @@ public class NullUrlDao extends UrlDao {
 	 */
 	@Override
 	public void deleteUrl(Url url) {
+	}
+
+	/**
+	 * Search the database all Urls related to the referenced congressman
+	 * and returns them as a list.
+	 * <p>
+	 * @param idCongressman Numeric identifier of congressman that must have
+	 * 		 					deleted the Urls.
+	 * <p>
+	 * @return The list of referenced Urls belonging to the congressman.
+	 */
+	@Override
+	public Url getUrl(){
+		Url url = new Url(0,defaultUrl);
+		return url;
 	}
 
 }
