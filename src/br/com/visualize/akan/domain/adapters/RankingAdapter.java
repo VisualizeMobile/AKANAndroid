@@ -1,6 +1,7 @@
 package br.com.visualize.akan.domain.adapters;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.squareup.picasso.Picasso;
@@ -11,22 +12,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Filter;
 import br.com.visualize.akan.R;
+import br.com.visualize.akan.domain.adapters.CongressmenListAdapter.CongressmanFilter;
 import br.com.visualize.akan.domain.model.Congressman;
 
 public class RankingAdapter extends ArrayAdapter<Congressman>
 {
 	private final Context context;
-	private final List<Congressman> congressmens;
-	
+	private  List<Congressman> congressmens;
+	private  List<Congressman> filteredList;
+	private CongressmanFilter congressmanFilter;
 
-	public RankingAdapter( Context context, int textViewResourceId, List<Congressman> congressmens )
+	public RankingAdapter( Context context, int textViewResourceId, List<Congressman> congressmensList )
 	{
-		super( context, textViewResourceId, congressmens );
+		super( context, textViewResourceId, congressmensList );
 		this.context = context;
-		this.congressmens = congressmens;
+		this.congressmens = new ArrayList<Congressman>();
+	    congressmens.addAll(congressmensList);
+	    this.filteredList = new ArrayList<Congressman>();
+	    filteredList.addAll(congressmens);
+	    getFilter();
 
 	}
 
@@ -71,4 +80,72 @@ public class RankingAdapter extends ArrayAdapter<Congressman>
 		return view;
 
 	}
+	
+	@Override
+	public int getCount() {
+	    return congressmens.size();
+	}
+	@Override
+    public Filter getFilter() {
+		
+        if (congressmanFilter == null) {
+            congressmanFilter = new CongressmanFilter();
+        }
+        
+        Log.e("Entrei no getFIlter","getFilter");
+        
+        return congressmanFilter;
+    }
+
+	public class CongressmanFilter extends Filter {
+
+		@Override
+		protected FilterResults performFiltering(CharSequence constraint) {
+			
+			constraint = constraint.toString().toLowerCase();
+			FilterResults filterResults = new FilterResults();
+			 if(constraint != null && constraint.toString().length() > 0)
+             {
+                 List<Congressman> filteredItems = new ArrayList<Congressman>();
+                 List<Congressman> currentItems = new ArrayList<Congressman>();
+                 currentItems.addAll(filteredList);
+                 for(int i = 0, l = currentItems.size(); i < l; i++)
+                 {
+                     Congressman m = currentItems.get(i);
+                     if(m.getNameCongressman().toLowerCase().contains(constraint))
+                         filteredItems.add(m);
+                 }
+                 filterResults.count = filteredItems.size();
+                 filterResults.values = filteredItems;
+             }
+             else
+             {
+                 synchronized(this)
+                 {
+                     filterResults.values = congressmens;
+                     filterResults.count = congressmens.size();
+                 }
+             }
+	        return filterResults;
+			
+			
+			
+		}
+		
+		@Override
+		protected void publishResults(CharSequence constraint, FilterResults results) {
+			
+            congressmens = (List<Congressman>)results.values;
+            Log.e("publicando", "publicando");
+            notifyDataSetChanged();
+            
+            
+            notifyDataSetInvalidated();
+            
+         
+            //Log.e(congressmens.get(0).getNameCongressman(),"parlamentar escolhido");
+		}
+		
+	}
+
 }

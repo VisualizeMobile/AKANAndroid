@@ -50,7 +50,7 @@ public class ListScreen extends Activity
 		congressmanFacade = CongressmanFacade.getInstance(getApplicationContext());
 		deputyController = DeputyController.getInstance(getBaseContext());
 		    
-		List<Congressman> congressmen;
+		final List<Congressman> congressmen;
 		congressmen = congressmanFacade.getAllDeputy();
 				
 		rankingAdapter = new RankingAdapter(this,R.layout.ranking_layout,congressmen);
@@ -118,6 +118,7 @@ public class ListScreen extends Activity
 			 @Override
 			 public boolean onQueryTextChange(String newText) {
 				 listAdapter.getFilter().filter(newText);
+				 rankingAdapter.getFilter().filter(newText);
 					return true;
 				}
     	 });
