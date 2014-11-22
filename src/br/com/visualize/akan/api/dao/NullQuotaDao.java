@@ -35,8 +35,26 @@ public class NullQuotaDao extends QuotaDao{
 		return instanceNullQuotaDao;
 	}
 
+	/**
+	 * Inserts in the database quotas, referring to a congressman in particular,
+	 * passed as parameter in the local database of the application.
+	 * <p>
+	 * @param insertedQuotas List of quotas to be inserted.
+	 */
 	@Override
 	public boolean insertQuotasById( List<Quota> insertedQuotas ){
 		return false;
+	}
+
+	/**
+	 * Deletes all quotas of the database relating to the past as parameter
+	 * congressman for his numerical identifier.
+	 * <p>
+	 * @param idCongressman Numeric identifier of congressman that must have
+	 * 		 					deleted the quotas.
+	 */
+	@Override
+	public void deleteQuotasFromCongressman( int idCongressman ) {
+		/*! Write instructions Here. */
 	}
 }
