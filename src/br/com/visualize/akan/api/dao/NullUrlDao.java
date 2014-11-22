@@ -1,5 +1,7 @@
 package br.com.visualize.akan.api.dao;
 
+import br.com.visualize.akan.domain.model.Url;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -37,4 +39,16 @@ public class NullUrlDao extends UrlDao {
 	protected boolean checkEmptyLocalDb(){
 		return true;
 	}
+
+	/**
+	 * Inserts in the database Url, referring to a congressman in particular,
+	 * passed as parameter in the local database of the application.
+	 * <p>
+	 * @param insertedUrls List of Url to be inserted.
+	 */
+	@Override
+	public void insertUrl(Url url) {
+
+	}
+
 }
