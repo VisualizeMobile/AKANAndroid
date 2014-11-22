@@ -1,6 +1,8 @@
 package br.com.visualize.akan.api.dao;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.util.Log;
 
 public class NullUrlDao extends UrlDao {
 	private static NullUrlDao instanceUrlDao = null;
@@ -25,5 +27,14 @@ public class NullUrlDao extends UrlDao {
 		}
 
 		return instanceUrlDao;
+	}
+
+	/**
+	 * Checks if database is empty
+	 *
+	 */
+	@Override
+	protected boolean checkEmptyLocalDb(){
+		return true;
 	}
 }
