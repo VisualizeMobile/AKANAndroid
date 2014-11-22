@@ -63,7 +63,7 @@ public class HttpConnection {
 			throw new ConcreteCreatorException().createException(ConcreteCreatorException.CONNECTION);
 
 		} catch (IOException ioe) {
-			throw new ConnectionFailedException();
+			throw new ConcreteCreatorException().createException(ConcreteCreatorException.CONNECTION);
 		}
 	}
 	
