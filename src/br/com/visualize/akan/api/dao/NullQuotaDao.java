@@ -2,15 +2,17 @@ package br.com.visualize.akan.api.dao;
 
 import android.content.Context;
 
-public class NullQuotaDao extends Dao{
+public class NullQuotaDao extends QuotaDao{
 	private static NullQuotaDao instanceNullQuotaDao = null;
 
-	private NullQuotaDao (Context context) {
+
+	private NullQuotaDao(Context context) {
+		super(context);
 		this.context = context;
 	}
 
 	@Override
-	protected boolean checkEmptyLocalDb() {
+	public boolean checkEmptyLocalDb() {
 		return false;
 	}
 

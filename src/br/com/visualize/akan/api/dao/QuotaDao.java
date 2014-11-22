@@ -1,5 +1,5 @@
 /*
- * File: 	QuotaDao.java 
+ * File: 	QuotaDao.java
  * Purpose: Brings the implementation of class QuotaDao.
  */
 package br.com.visualize.akan.api.dao;
@@ -13,9 +13,9 @@ import android.content.Context;
 import android.database.Cursor;
 
 /**
- * Serves to define the methods that give the basic functionality to the 
- * database - CRUD - related to parliamentary quotas. This class aims to 
- * maintain the ability to generate support to the modification of data 
+ * Serves to define the methods that give the basic functionality to the
+ * database - CRUD - related to parliamentary quotas. This class aims to
+ * maintain the ability to generate support to the modification of data
  * on quotas.
  */
 public class QuotaDao extends Dao{
@@ -23,12 +23,12 @@ public class QuotaDao extends Dao{
 
 	private static String tableName = "QUOTA";
 	private static String tableColumns[] = {"ID_QUOTA", "ID_CONGRESSMAN", "ID_UPDATE","TYPE_QUOTA", "DESCRIPTION_QUOTA", "MONTH_QUOTA", "", "VALUE_QUOTA"};
-	
-	
-	private QuotaDao(Context context) {
+
+
+	protected QuotaDao(Context context) {
 		this.context = context;
 	}
-	
+
 	/**
 	 * Return the unique instance of QuotaDao active in the project.
 	 * <p>
@@ -37,13 +37,13 @@ public class QuotaDao extends Dao{
 	public static QuotaDao getInstance(Context context) {
 		if( instanceQuotaDao != null ) {
 			/*! Nothing To Do. */
-			
+
 		} else {
 			instanceQuotaDao = new QuotaDao(context);
 		}
 		return instanceQuotaDao;
 	}
-	
+
 	public boolean checkEmptyLocalDb() {
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery("select 1 from QUOTA;",null);
@@ -58,9 +58,9 @@ public class QuotaDao extends Dao{
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Inserts in the database quotas, referring to a congressman in particular, 
+	 * Inserts in the database quotas, referring to a congressman in particular,
 	 * passed as parameter in the local database of the application.
 	 * <p>
 	 * @param insertedQuotas List of quotas to be inserted.
@@ -71,39 +71,39 @@ public class QuotaDao extends Dao{
 		while(i.hasNext()){
 			result = insertQuota(i.next());
 		}
-		return result; 
+		return result;
 	}
-	
+
 	/**
-	 * Deletes all quotas of the database relating to the past as parameter 
+	 * Deletes all quotas of the database relating to the past as parameter
 	 * congressman for his numerical identifier.
 	 * <p>
-	 * @param idCongressman Numeric identifier of congressman that must have 
+	 * @param idCongressman Numeric identifier of congressman that must have
 	 * 		 					deleted the quotas.
 	 */
 	public void deleteQuotasFromCongressman( int idCongressman ) {
 		/*! Write instructions Here. */
 	}
-	
+
 	/**
-	 * Search the database all quotas related to the referenced congressman 
+	 * Search the database all quotas related to the referenced congressman
 	 * and returns them as a list.
 	 * <p>
-	 * @param idCongressman Numeric identifier of congressman that must have 
+	 * @param idCongressman Numeric identifier of congressman that must have
 	 * 		 					deleted the quotas.
 	 * <p>
 	 * @return The list of referenced quotas belonging to the congressman.
 	 */
 	public List<Quota> getQuotasByIdCongressman( int idCongressman ) {
 		/*! Write instructions Here. */
-		
+
 		return null;
 	}
-	
+
 	private boolean insertQuota(Quota quota){
 		sqliteDatabase = database.getWritableDatabase();
 		ContentValues content = new ContentValues();
-		
+
 		content.put(tableColumns[0], quota.getIdQuota());
 		content.put(tableColumns[1], quota.getIdCongressmanQuota());
 		content.put(tableColumns[2], quota.getIdUpdateQuota());
@@ -116,5 +116,5 @@ public class QuotaDao extends Dao{
 		//TODO
 		boolean result = (insertAndClose(sqliteDatabase, tableName, content)>0);
 		return result;
-	}	
+	}
 }
