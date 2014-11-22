@@ -1,5 +1,8 @@
 package br.com.visualize.akan.api.dao;
 
+import java.util.List;
+
+import br.com.visualize.akan.domain.model.Quota;
 import android.content.Context;
 
 public class NullQuotaDao extends QuotaDao{
@@ -30,5 +33,10 @@ public class NullQuotaDao extends QuotaDao{
 			instanceNullQuotaDao = new NullQuotaDao(context);
 		}
 		return instanceNullQuotaDao;
+	}
+
+	@Override
+	public boolean insertQuotasById( List<Quota> insertedQuotas ){
+		return false;
 	}
 }
