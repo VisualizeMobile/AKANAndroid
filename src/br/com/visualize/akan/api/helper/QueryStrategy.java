@@ -1,11 +1,8 @@
 package br.com.visualize.akan.api.helper;
 
 public interface QueryStrategy {
-	public String doOperation( String tableName, String columnName );
-	
-	public String doOperation( String tableName, String columnName,
-			String value );
 	
 	public String doOperation( String tableName, String[] columnNames,
-			String[] values );
+			String[] values, String columnReference, String valueReference,
+			String valueComparison, String columnOrdered, String orderType );
 }
