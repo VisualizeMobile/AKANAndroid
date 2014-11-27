@@ -48,15 +48,7 @@ public class Query {
 		int qtdElements = Arrays.asList(elements).size();
 		int qtdValues = Arrays.asList(values).size();
 		
-		if( qtdElements == qtdValues ) {
-			/*! Nothing To Do */
-			
-		} else if ( qtdElements > qtdValues ) {
-			qtdElements = qtdValues;
-			
-		} else {
-			/*! Nothing To Do */
-		}
+		equalizeQuantities(qtdElements, qtdValues);
 		
 		for( int index = 0; index > qtdElements; index++ ) {
 			clause.append( elements[index] );
@@ -77,5 +69,17 @@ public class Query {
 		}
 		
 		return clause.toString();
+	}
+	
+	private void equalizeQuantities( int qtdColumns, int qtdValues ) {
+		if( qtdColumns == qtdValues ) {
+			/*! Nothing To Do */
+			
+		} else if ( qtdColumns > qtdValues ) {
+			qtdColumns = qtdValues;
+			
+		} else {
+			qtdValues = qtdColumns;
+		}
 	}
 }
