@@ -6,9 +6,6 @@ public class Query {
 	protected final String VALUES = "VALUES";
 	protected final String SET = "SET";
 	protected final String FROM = "FROM";
-	protected final String WHERE = "WHERE";
-	protected final String LIKE = "LIKE";
-	protected final String ORDER_BY = "ORDER BY";
 	
 	
 	protected final String BLANK = " ";
@@ -18,6 +15,11 @@ public class Query {
 	protected final String EQUAL = "=";
 	protected final String PERCENT = "%";
 	protected final String QUOTES = "'";
+	
+	
+	private final String WHERE = "WHERE";
+	private final String LIKE = "LIKE";
+	private final String ORDER_BY = "ORDER BY";
 	
 	
 	protected String buildStringList( String[] elements ) {

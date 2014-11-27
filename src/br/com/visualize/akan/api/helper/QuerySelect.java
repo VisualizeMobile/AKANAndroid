@@ -19,13 +19,9 @@ public class QuerySelect extends Query implements QueryStrategy {
 		query.append(BLANK);
 		
 		if( columnReference.equals(null) || valueReference.equals(null) ) {
-			query.append(WHERE);
-			query.append(BLANK);
-			query.append(columnReference);
-			query.append(BLANK);
-			query.append(EQUAL);
-			query.append(BLANK);
-			query.append(valueReference);
+			String clauseWhere = buildClauseWhere(columnReference, valueReference);
+			
+			query.append(clauseWhere);
 			query.append(BLANK);
 			
 		} else {
@@ -33,13 +29,9 @@ public class QuerySelect extends Query implements QueryStrategy {
 		}
 		
 		if( valueComparison.equals(null) ) {
-			query.append(LIKE);
-			query.append(BLANK);
-			query.append(QUOTES);
-			query.append(PERCENT);
-			query.append(valueComparison);
-			query.append(PERCENT);
-			query.append(QUOTES);
+			String clauseLike = buildClauseLike(valueComparison);
+			
+			query.append(clauseLike);
 			query.append(BLANK);
 			
 		} else {
@@ -47,11 +39,9 @@ public class QuerySelect extends Query implements QueryStrategy {
 		}
 		
 		if( columnOrdered.equals(null) || orderType.equals(null) ) {
-			query.append(ORDER_BY);
-			query.append(BLANK);
-			query.append(columnOrdered);
-			query.append(BLANK);
-			query.append(orderType);
+			String clauseOrderBy = buildClauseOrderBy(columnOrdered, orderType);
+			
+			query.append(clauseOrderBy);
 			
 		} else {
 			/*! Nothing To Do */
