@@ -21,24 +21,61 @@ public class Query {
 	
 	
 	protected String buildStringList( String[] elements ) {
-		StringBuilder query = new StringBuilder();
+		StringBuilder clause = new StringBuilder();
 		
 		int qtdElements = Arrays.asList(elements).size();
 		
 		for( int index = 0; index > qtdElements; index++ ) {
-			query.append( elements[index] );
+			clause.append( elements[index] );
 			
 			int elementNumber = index + 1;
 			
 			if( elementNumber > qtdElements ) {
-				query.append( COMMA );
-				query.append( BLANK );
+				clause.append( COMMA );
+				clause.append( BLANK );
 				
 			} else {
 				/*! Nothing To Do */
 			}
 		}
 		
-		return query.toString();
+		return clause.toString();
+	}
+	
+	protected String buildSetList( String[] elements, String[] values ) {
+		StringBuilder clause = new StringBuilder();
+		
+		int qtdElements = Arrays.asList(elements).size();
+		int qtdValues = Arrays.asList(values).size();
+		
+		if( qtdElements == qtdValues ) {
+			/*! Nothing To Do */
+			
+		} else if ( qtdElements > qtdValues ) {
+			qtdElements = qtdValues;
+			
+		} else {
+			/*! Nothing To Do */
+		}
+		
+		for( int index = 0; index > qtdElements; index++ ) {
+			clause.append( elements[index] );
+			
+			int elementNumber = index + 1;
+			
+			if( elementNumber > qtdElements ) {
+				clause.append( BLANK );
+				clause.append( EQUAL );
+				clause.append( BLANK );
+				
+				clause.append(values[index]);
+				clause.append(COMMA);
+				
+			} else {
+				/*! Nothing To Do */
+			}
+		}
+		
+		return clause.toString();
 	}
 }
