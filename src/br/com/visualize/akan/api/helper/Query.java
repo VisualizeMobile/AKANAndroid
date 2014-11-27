@@ -71,6 +71,47 @@ public class Query {
 		return clause.toString();
 	}
 	
+	protected String buildClauseWhere( String columnReference, 
+			String valueReference ) {
+		
+		StringBuilder clause = new StringBuilder(WHERE);
+		
+		clause.append(BLANK);
+		clause.append(columnReference);
+		clause.append(BLANK);
+		clause.append(EQUAL);
+		clause.append(BLANK);
+		clause.append(valueReference);
+		
+		return clause.toString();
+	}
+	
+	protected String buildClauseLike( String valueComparison ) {
+		StringBuilder clause = new StringBuilder(LIKE);
+		
+		clause.append(BLANK);
+		clause.append(QUOTES);
+		clause.append(PERCENT);
+		clause.append(valueComparison);
+		clause.append(PERCENT);
+		clause.append(QUOTES);
+		
+		return clause.toString();
+	}
+	
+	protected String buildClauseOrderBy( String columnOrdered, 
+			String orderType ) {
+		
+		StringBuilder clause = new StringBuilder(ORDER_BY);
+		
+		clause.append(BLANK);
+		clause.append(columnOrdered);
+		clause.append(BLANK);
+		clause.append(orderType);
+		
+		return clause.toString();
+	}
+	
 	private void equalizeQuantities( int qtdColumns, int qtdValues ) {
 		if( qtdColumns == qtdValues ) {
 			/*! Nothing To Do */
