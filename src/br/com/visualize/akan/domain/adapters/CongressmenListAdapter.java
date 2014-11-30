@@ -114,8 +114,8 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
              {
                  synchronized(this)
                  {
-                     filterResults.values = congressmens;
-                     filterResults.count = congressmens.size();
+                     filterResults.values =filteredList ;
+                     filterResults.count = filteredList.size();
                  }
              }
 	        return filterResults;
