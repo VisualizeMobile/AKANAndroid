@@ -13,6 +13,7 @@ import android.content.Context;
 public class CongressmanFacade {
 	private DeputyController deputyController;
 	private static CongressmanFacade instance = null;
+	private static Congressman deputy;
 	
 	private CongressmanFacade( Context context ) {
 		deputyController = DeputyController.getInstance(context);
@@ -61,5 +62,15 @@ public class CongressmanFacade {
 		deputyList = DeputyController.getCongressmanList();
 		
 		return deputyList;
+	}
+	
+	public void setDeputy(Congressman deputy){
+		
+		CongressmanFacade.deputy = deputy;
+	}
+	
+	public Congressman getDeputy(){
+		
+		return deputy;
 	}
 }
