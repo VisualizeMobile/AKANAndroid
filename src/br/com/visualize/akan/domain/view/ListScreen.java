@@ -13,10 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Toast;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.domain.adapters.CongressmenListAdapter;
 import br.com.visualize.akan.domain.adapters.RankingAdapter;
@@ -103,6 +106,20 @@ public class ListScreen extends Activity
 			        }
 			}
 		});
+		
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				
+				 Congressman congressman = (Congressman) parent.getItemAtPosition(position);
+				 
+				Toast toast=Toast.makeText(getApplicationContext(), congressman.getNameCongressman(), Toast.LENGTH_SHORT);
+		            toast.show();
+				
+			}
+		});
 
 	}
 	
@@ -120,7 +137,7 @@ public class ListScreen extends Activity
     	 search.setSearchableInfo( searchManager.getSearchableInfo( getComponentName() ) );
     	 
      	 
-    	
+    	search.setIconifiedByDefault(true);
     	 search.setOnQueryTextListener(new OnQueryTextListener() {
 			
 	    	 @Override
@@ -142,7 +159,7 @@ public class ListScreen extends Activity
     	 return super.onCreateOptionsMenu(menu);
      }
 
-
+ 
 	    
 
 }
