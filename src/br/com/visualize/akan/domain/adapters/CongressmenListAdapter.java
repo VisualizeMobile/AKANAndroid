@@ -72,10 +72,19 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 		return view;
 
 	}
+	@Override
+	public Congressman getItem(int position) {
+	    return congressmens.get(position);
+	}
 	
 	@Override
 	public int getCount() {
 	    return congressmens.size();
+	}
+	@Override
+	public boolean isEnabled(int position)
+	{
+	    return true;
 	}
 	@Override
     public Filter getFilter() {
