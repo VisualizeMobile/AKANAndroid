@@ -19,32 +19,33 @@ public class QuerySelect extends Query implements QueryStrategy {
 		query.append(BLANK);
 		
 		if( columnReference.equals(null) || valueReference.equals(null) ) {
-			String clauseWhere = buildClauseWhere(columnReference, valueReference);
+			/*! Nothing To Do */
+			
+		} else {
+			String clauseWhere = buildClauseWhere(columnReference, 
+					valueReference);
 			
 			query.append(clauseWhere);
 			query.append(BLANK);
-			
-		} else {
-			/*! Nothing To Do */
 		}
 		
 		if( valueComparison.equals(null) ) {
+			/*! Nothing To Do */
+			
+		} else {
 			String clauseLike = buildClauseLike(valueComparison);
 			
 			query.append(clauseLike);
 			query.append(BLANK);
-			
-		} else {
-			/*! Nothing To Do */
 		}
 		
 		if( columnOrdered.equals(null) || orderType.equals(null) ) {
+			/*! Nothing To Do */
+			
+		} else {
 			String clauseOrderBy = buildClauseOrderBy(columnOrdered, orderType);
 			
 			query.append(clauseOrderBy);
-			
-		} else {
-			/*! Nothing To Do */
 		}
 		
 		return query.toString();

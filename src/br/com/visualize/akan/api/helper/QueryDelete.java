@@ -13,9 +13,15 @@ public class QueryDelete extends Query implements QueryStrategy {
 		query.append(tableName);
 		query.append(BLANK);
 		
-		String clauseWhere = buildClauseWhere(columnReference, valueReference);
-		
-		query.append(clauseWhere);
+		if( columnReference.equals(null) || valueReference.equals(null) ) {
+			/*! Nothing To Do */
+			
+		} else {
+			String clauseWhere = buildClauseWhere(columnReference, 
+					valueReference);
+			
+			query.append(clauseWhere);
+		}
 		
 		return query.toString();
 	}

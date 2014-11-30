@@ -18,9 +18,15 @@ public class QueryUpdate extends Query implements QueryStrategy {
 		String setList = buildSetList(columnNames, columnNames);
 		query.append(setList);
 		
-		String clauseWhere = buildClauseWhere(columnReference, valueReference);
-		
-		query.append(clauseWhere);
+		if( columnReference.equals(null) || valueReference.equals(null) ) {
+			/*! Nothing To Do */
+			
+		} else {
+			String clauseWhere = buildClauseWhere(columnReference, 
+					valueReference);
+			
+			query.append(clauseWhere);
+		}
 		
 		return query.toString();
 	}
