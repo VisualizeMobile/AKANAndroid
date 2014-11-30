@@ -7,6 +7,8 @@ package br.com.visualize.akan.api.dao;
 import java.util.Iterator;
 import java.util.List;
 
+import br.com.visualize.akan.api.helper.QueryHelper;
+import br.com.visualize.akan.api.helper.QuerySelect;
 import br.com.visualize.akan.domain.model.Quota;
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,6 +24,7 @@ public class QuotaDao extends Dao {
 	
 	private static QuotaDao instanceQuotaDao = null;
 	private static String tableName = "QUOTA";
+	private QueryHelper queryHelper = null;
 	
 	private static String tableColumns[] = {
 		"ID_QUOTA", 
@@ -56,7 +59,16 @@ public class QuotaDao extends Dao {
 	
 	public boolean checkEmptyLocalDb() {
 		sqliteDatabase = database.getReadableDatabase();
-		Cursor cursor = sqliteDatabase.rawQuery( "select 1 from QUOTA;",null );
+		
+		/* TODO: Method to allow as argument String instead String[] in
+		 * 		 class QueryStrategy. */
+		String[] column = { "1" };
+		
+		queryHelper = new QueryHelper( new QuerySelect() );
+		String query = queryHelper.executeQuery(tableName, column, null, 
+				null, null, null, null, null );
+		
+		Cursor cursor = sqliteDatabase.rawQuery( query ,null );
 		if( cursor != null ) {
 			if( cursor.getCount() <= 0 ) {
 				cursor.moveToFirst();

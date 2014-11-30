@@ -9,8 +9,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
-
 import br.com.visualize.akan.api.helper.DatabaseHelper;
+import br.com.visualize.akan.api.helper.QueryHelper;
+import br.com.visualize.akan.api.helper.QuerySelect;
 import br.com.visualize.akan.domain.model.Url;
 
 public class UrlDao extends Dao{
@@ -20,11 +21,17 @@ public class UrlDao extends Dao{
 	
 	private String defaultUrl = "http://192.168.1.4:3000";
 	private String tableName = "URL";
+	private QueryHelper queryHelper = null;
 	
 	
 	private static UrlDao instanceUrlDao = null;
 	private static String tableUrl = "Url";
-	private static String tableColumns[] = {"ID_URL","ID_UPDATE_URL", "DEFAULT_URL", "FIRST_URL", "SECOND_URL"};
+	private static String tableColumns[] = {"ID_URL",
+		"ID_UPDATE_URL", 
+		"DEFAULT_URL",
+		"FIRST_URL",
+		"SECOND_URL"
+		};
 
 
 	private UrlDao(Context context) {
@@ -54,7 +61,16 @@ public class UrlDao extends Dao{
 	 */
 	protected boolean checkEmptyLocalDb(){
 		sqliteDatabase = database.getReadableDatabase();
-		Cursor cursor = sqliteDatabase.rawQuery("select 1 from URL;",null);
+		
+		/* TODO: Method to allow as argument String instead String[] in
+		 * 		 class QueryStrategy. */
+		String[] column = { "1" };
+		
+		queryHelper = new QueryHelper( new QuerySelect() );
+		String query = queryHelper.executeQuery(tableName, column, null, 
+				null, null, null, null, null );
+		
+		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 		Log.i("dataBase insetition", "url1");
 		if(cursor != null){
 			if(cursor.getCount() <= 0){
@@ -95,7 +111,8 @@ public class UrlDao extends Dao{
 	 */
 	public void deleteUrl(Url url) {
 		sqliteDatabase = database.getWritableDatabase();
-		sqliteDatabase.delete(tableUrl,"ID_UPDATE_URL=?", new String[] { url.getIdUpdateUrl() + "" });
+		sqliteDatabase.delete(tableUrl,"ID_UPDATE_URL=?", 
+				new String[] { url.getIdUpdateUrl() + "" });
 		sqliteDatabase.close();
 	}
 	
