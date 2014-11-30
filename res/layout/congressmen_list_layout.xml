@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:background="@drawable/barra_extendida"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:clickable="false"
+	android:descendantFocusability="blocksDescendants"
+	android:focusable="false"
+	android:focusableInTouchMode="false" >
 
     <RelativeLayout
         android:layout_width="100dp"
