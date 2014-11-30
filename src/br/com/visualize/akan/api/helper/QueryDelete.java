@@ -1,5 +1,6 @@
 package br.com.visualize.akan.api.helper;
 
+
 public class QueryDelete extends Query implements QueryStrategy {
 
 	@Override
@@ -11,17 +12,19 @@ public class QueryDelete extends Query implements QueryStrategy {
 		
 		query.append(BLANK);
 		query.append(tableName);
-		query.append(BLANK);
 		
-		if( columnReference.equals(null) || valueReference.equals(null) ) {
+		if( ( columnReference == null ) || ( valueReference == null ) ) {
 			/*! Nothing To Do */
 			
 		} else {
 			String clauseWhere = buildClauseWhere(columnReference, 
 					valueReference);
 			
+			query.append(BLANK);
 			query.append(clauseWhere);
 		}
+		
+		query.append(SEMICOLON);
 		
 		return query.toString();
 	}

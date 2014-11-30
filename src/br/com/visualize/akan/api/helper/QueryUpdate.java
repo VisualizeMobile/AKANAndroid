@@ -1,5 +1,6 @@
 package br.com.visualize.akan.api.helper;
 
+
 public class QueryUpdate extends Query implements QueryStrategy {
 
 	@Override
@@ -18,15 +19,18 @@ public class QueryUpdate extends Query implements QueryStrategy {
 		String setList = buildSetList(columnNames, columnNames);
 		query.append(setList);
 		
-		if( columnReference.equals(null) || valueReference.equals(null) ) {
+		if( ( columnReference == null ) || ( valueReference == null ) ) {
 			/*! Nothing To Do */
 			
 		} else {
 			String clauseWhere = buildClauseWhere(columnReference, 
 					valueReference);
 			
+			query.append(BLANK);
 			query.append(clauseWhere);
 		}
+		
+		query.append(SEMICOLON);
 		
 		return query.toString();
 	}

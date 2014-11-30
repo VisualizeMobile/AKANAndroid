@@ -1,5 +1,6 @@
 package br.com.visualize.akan.api.helper;
 
+
 public class QuerySelect extends Query implements QueryStrategy {
 
 	@Override
@@ -10,43 +11,47 @@ public class QuerySelect extends Query implements QueryStrategy {
 		StringBuilder query = new StringBuilder( "SELECT" );
 		
 		query.append(BLANK);
-		query.append(columnNames);
-		query.append(BLANK);
 		
+		String columns = buildStringList(columnNames);
+		query.append(columns);
+		
+		query.append(BLANK);
 		query.append(FROM);
 		query.append(BLANK);
 		query.append(tableName);
-		query.append(BLANK);
 		
-		if( columnReference.equals(null) || valueReference.equals(null) ) {
+		if( ( columnReference == null ) || ( valueReference == null ) ) {
 			/*! Nothing To Do */
 			
 		} else {
 			String clauseWhere = buildClauseWhere(columnReference, 
 					valueReference);
 			
-			query.append(clauseWhere);
 			query.append(BLANK);
+			query.append(clauseWhere);
 		}
 		
-		if( valueComparison.equals(null) ) {
+		if( valueComparison == null ) {
 			/*! Nothing To Do */
 			
 		} else {
 			String clauseLike = buildClauseLike(valueComparison);
 			
-			query.append(clauseLike);
 			query.append(BLANK);
+			query.append(clauseLike);
 		}
 		
-		if( columnOrdered.equals(null) || orderType.equals(null) ) {
+		if( ( columnOrdered == null ) || ( orderType == null ) ) {
 			/*! Nothing To Do */
 			
 		} else {
 			String clauseOrderBy = buildClauseOrderBy(columnOrdered, orderType);
 			
+			query.append(BLANK);
 			query.append(clauseOrderBy);
 		}
+		
+		query.append(SEMICOLON);
 		
 		return query.toString();
 	}

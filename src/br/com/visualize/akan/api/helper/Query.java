@@ -15,6 +15,7 @@ public class Query {
 	protected final String EQUAL = "=";
 	protected final String PERCENT = "%";
 	protected final String QUOTES = "'";
+	protected final String SEMICOLON = ";";
 	
 	
 	private final String WHERE = "WHERE";
@@ -23,25 +24,25 @@ public class Query {
 	
 	
 	protected String buildStringList( String[] elements ) {
-		StringBuilder clause = new StringBuilder();
+		StringBuilder elementsList = new StringBuilder();
 		
 		int qtdElements = Arrays.asList(elements).size();
 		
-		for( int index = 0; index > qtdElements; index++ ) {
-			clause.append( elements[index] );
+		for( int index = 0; index < qtdElements; index++ ) {
+			elementsList.append( elements[index] );
 			
 			int elementNumber = index + 1;
 			
 			if( elementNumber > qtdElements ) {
-				clause.append( COMMA );
-				clause.append( BLANK );
+				elementsList.append( COMMA );
+				elementsList.append( BLANK );
 				
 			} else {
 				/*! Nothing To Do */
 			}
 		}
 		
-		return clause.toString();
+		return elementsList.toString();
 	}
 	
 	protected String buildSetList( String[] elements, String[] values ) {
@@ -52,7 +53,7 @@ public class Query {
 		
 		equalizeQuantities(qtdElements, qtdValues);
 		
-		for( int index = 0; index > qtdElements; index++ ) {
+		for( int index = 0; index < qtdElements; index++ ) {
 			clause.append( elements[index] );
 			
 			int elementNumber = index + 1;

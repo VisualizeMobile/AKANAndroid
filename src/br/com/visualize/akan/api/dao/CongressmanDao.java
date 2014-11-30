@@ -9,6 +9,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import br.com.visualize.akan.api.helper.DatabaseHelper;
+import br.com.visualize.akan.api.helper.QueryHelper;
+import br.com.visualize.akan.api.helper.QuerySelect;
 import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Deputy;
 
@@ -22,6 +24,7 @@ public class CongressmanDao extends Dao {
 	
 	private static CongressmanDao instance;
 	private static String tableName = "CONGRESSMAN";
+	private QueryHelper queryHelper = null;
 	
 	private static String tableColumns[] = { 
 		"ID_CONGRESSMAN", 
@@ -48,7 +51,16 @@ public class CongressmanDao extends Dao {
 	
 	public boolean checkEmptyLocalDb() {
 		sqliteDatabase = database.getReadableDatabase();
-		Cursor cursor = sqliteDatabase.rawQuery( "select 1 from CONGRESSMAN;", null );
+		
+		/* TODO: Method to allow as argument String instead String[] in
+		 * 		 class QueryStrategy. */
+		String[] column = { "1" };
+		
+		queryHelper = new QueryHelper( new QuerySelect() );
+		String query = queryHelper.executeQuery(tableName, column, null, 
+				null, null, null, null, null );
+		
+		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 		if( cursor != null ) {
 			if( cursor.getCount() <= 0 ) {
 				cursor.moveToFirst();
@@ -99,8 +111,16 @@ public class CongressmanDao extends Dao {
 	public List<Congressman> getAll() {
 
 		sqliteDatabase = database.getReadableDatabase();
-		Cursor cursor = sqliteDatabase.rawQuery(
-				"SELECT * FROM CONGRESSMAN order by TOTAL_SPENT_CONGRESSMAN DESC", null );
+		
+		/* TODO: Method to allow as argument String instead String[] in
+		 * 		 class QueryStrategy. */
+		String[] column = { "*" };
+		
+		queryHelper = new QueryHelper( new QuerySelect() );
+		String query = queryHelper.executeQuery(tableName, column, null, null,
+				null, null, "TOTAL_SPENT_CONGRESSMAN", "DESC" );
+		
+		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 
 		List<Congressman> listParlamentares = new ArrayList<Congressman>();
 
@@ -142,8 +162,16 @@ public class CongressmanDao extends Dao {
 	public List<Congressman> selectCongressmanByName( String congressmanName ) {
 
 		sqliteDatabase = database.getReadableDatabase();
-		Cursor cursor = sqliteDatabase.rawQuery(
-				"SELECT * FROM CONGRESSMAN WHERE NAME_CONGRESSMAN LIKE '%" + congressmanName + "%'", null );
+		
+		/* TODO: Method to allow as argument String instead String[] in
+		 * 		 class QueryStrategy. */
+		String[] column = { "*" };
+		
+		queryHelper = new QueryHelper( new QuerySelect() );
+		String query = queryHelper.executeQuery(tableName, column, null, 
+				"NAME_CONGRESSMAN", congressmanName, null, null, null);
+		
+		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 
 		List<Congressman> listParlamentares = new ArrayList<Congressman>();
 

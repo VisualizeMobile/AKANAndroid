@@ -30,6 +30,7 @@ public class QueryInsert extends Query implements QueryStrategy {
 		
 		query.append(CLOSED_PARENTEHSESIS);
 		
+		query.append(SEMICOLON);		
 		
 		return query.toString();
 	}
