@@ -122,8 +122,8 @@ public class RankingAdapter extends ArrayAdapter<Congressman>
              {
                  synchronized(this)
                  {
-                     filterResults.values = congressmens;
-                     filterResults.count = congressmens.size();
+                     filterResults.values = filteredList;
+                     filterResults.count = filteredList.size();
                  }
              }
 	        return filterResults;
