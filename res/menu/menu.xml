@@ -3,7 +3,8 @@
         >
         <item android:id="@+id/action_search"
          android:title="@+id/hint_search"
-         android:showAsAction="ifRoom|collapseActionView"
+         android:icon="@drawable/busca_ativada"
+         android:showAsAction="always"
          android:actionViewClass="android.widget.SearchView"
          
           />

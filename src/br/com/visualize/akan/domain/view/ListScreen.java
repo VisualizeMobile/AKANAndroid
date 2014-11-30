@@ -2,12 +2,14 @@ package br.com.visualize.akan.domain.view;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -24,7 +26,8 @@ import br.com.visualize.akan.domain.controller.DeputyController;
 import br.com.visualize.akan.domain.model.Congressman;
 
 
-public class ListScreen extends Activity  
+@SuppressLint("NewApi")
+public class ListScreen extends Activity 
 {
 	CongressmanController deputyController;
 	CongressmanFacade congressmanFacade;
@@ -33,6 +36,7 @@ public class ListScreen extends Activity
 	CongressmenListAdapter listAdapter;
 	String query;
 	SearchView search;
+	 Button btn_search;
 
 	@Override
 	public void onCreate( Bundle savedInstanceState )
@@ -43,7 +47,7 @@ public class ListScreen extends Activity
 		//handleIntent(getIntent()); 
 	    listView = (ListView) findViewById( R.id.listView );
 		final Button btn_ranking = (Button) findViewById(R.id.btn_ranking);
-		final Button btn_search = (Button) findViewById(R.id.btn_search);
+		 btn_search = (Button) findViewById(R.id.btn_search);
 		
 		search = new SearchView(getApplicationContext());
 		
@@ -82,21 +86,32 @@ public class ListScreen extends Activity
 				}
 			}
 		});
-
+		
 		btn_search.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick( View v ) {
-				 onSearchRequested();		 					
+			public void onClick(View v) {
+				btn_search.setSelected(!btn_search.isSelected());
+				
+				 if (btn_search.isSelected()) {
+					 btn_search.setBackgroundResource(R.drawable.busca_ativada);
+			            search.setIconified(false);
+			        }else {
+			        	btn_search.setBackgroundResource(R.drawable.busca_desativada);
+			            search.setIconified(true);
+			        	
+			        }
 			}
 		});
+
 	}
 	
      @Override
-     public boolean onCreateOptionsMenu( Menu menu ) {
+     public boolean onCreateOptionsMenu( final Menu menu ) {
     	 MenuInflater inflater = getMenuInflater();
     	 inflater.inflate( R.menu.menu, menu );
-    	 
+
+ 		 	
     	 SearchManager searchManager = 
     			 (SearchManager) getSystemService( Context.SEARCH_SERVICE );
     	 
@@ -104,9 +119,8 @@ public class ListScreen extends Activity
     	  
     	 search.setSearchableInfo( searchManager.getSearchableInfo( getComponentName() ) );
     	 
-    	 search.setIconifiedByDefault(false);
-    	 search.setSubmitButtonEnabled(true);
-    	 
+     	 
+    	
     	 search.setOnQueryTextListener(new OnQueryTextListener() {
 			
 	    	 @Override
@@ -122,8 +136,13 @@ public class ListScreen extends Activity
 					return true;
 				}
     	 });
+ 			
+ 		
     	 
     	 return super.onCreateOptionsMenu(menu);
      }
+
+
+	    
 
 }
