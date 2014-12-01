@@ -11,8 +11,8 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import br.com.visualize.akan.domain.exception.ConnectionFailedException;
-import br.com.visualize.akan.domain.exception.RequestFailedException;
+import br.com.visualize.akan.domain.exception.ConcreteCreatorException;
+
 
 public class HttpConnection {
 	
@@ -46,7 +46,7 @@ public class HttpConnection {
 	}
 
 	public static String request(ResponseHandler<String> response, String url)
-			throws ConnectionFailedException, RequestFailedException {
+			throws Exception {
 
 		try {
 
@@ -58,10 +58,10 @@ public class HttpConnection {
 			return json;
 			
 		} catch (ClientProtocolException e) {
-			throw new RequestFailedException();
+			throw new ConcreteCreatorException().createException(ConcreteCreatorException.CONNECTION);
 
 		} catch (IOException ioe) {
-			throw new ConnectionFailedException();
+			throw new ConcreteCreatorException().createException(ConcreteCreatorException.CONNECTION);
 		}
 	}
 	

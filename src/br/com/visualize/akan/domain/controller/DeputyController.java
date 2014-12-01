@@ -8,9 +8,6 @@ import android.content.Context;
 import br.com.visualize.akan.api.dao.CongressmanDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
-import br.com.visualize.akan.domain.exception.ConnectionFailedException;
-import br.com.visualize.akan.domain.exception.NullCongressmanException;
-import br.com.visualize.akan.domain.exception.RequestFailedException;
 import br.com.visualize.akan.domain.model.Congressman;
 
 public class DeputyController implements CongressmanController {
@@ -46,8 +43,7 @@ public class DeputyController implements CongressmanController {
 	
 	public List<Congressman> requestAllCongressman( 
 			ResponseHandler<String> responseHandler )
-			throws ConnectionFailedException, RequestFailedException,
-			NullCongressmanException {
+			throws Exception {
 		
 		if ( responseHandler != null ) {
 			

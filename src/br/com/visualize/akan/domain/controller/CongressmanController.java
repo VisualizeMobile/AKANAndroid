@@ -4,18 +4,13 @@ import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
 
-import br.com.visualize.akan.domain.exception.ConnectionFailedException;
-import br.com.visualize.akan.domain.exception.NullCongressmanException;
-import br.com.visualize.akan.domain.exception.RequestFailedException;
 import br.com.visualize.akan.domain.model.Congressman;
 
 public interface CongressmanController {
 	
 
 	public List<Congressman> requestAllCongressman( 
-			ResponseHandler<String> responseHandler ) throws 
-			ConnectionFailedException, RequestFailedException, 
-			NullCongressmanException;
+			ResponseHandler<String> responseHandler ) throws Exception;
 
 	public List<Congressman> getAllCongressman();
 

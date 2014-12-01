@@ -4,9 +4,6 @@ import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
 
-import br.com.visualize.akan.domain.exception.ConnectionFailedException;
-import br.com.visualize.akan.domain.exception.NullCongressmanException;
-import br.com.visualize.akan.domain.exception.RequestFailedException;
 import br.com.visualize.akan.domain.model.Congressman;
 import android.content.Context;
 
@@ -30,8 +27,7 @@ public class CongressmanFacade {
 	/* Deputy's Block */
 	public List<Congressman> requestAllDeputy( 
 			ResponseHandler<String> responseHandler ) throws 
-			ConnectionFailedException, RequestFailedException, 
-			NullCongressmanException {
+			Exception {
 		
 		List<Congressman> deputyList;
 				

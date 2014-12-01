@@ -6,9 +6,6 @@ import org.apache.http.client.ResponseHandler;
 import android.content.Context;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.domain.controller.UrlController;
-import br.com.visualize.akan.domain.exception.ConnectionFailedException;
-import br.com.visualize.akan.domain.exception.NullCongressmanException;
-import br.com.visualize.akan.domain.exception.RequestFailedException;
 import br.com.visualize.akan.domain.model.Congressman;
 
 public class CongressmanRequest {
@@ -22,8 +19,7 @@ public class CongressmanRequest {
 	}
 
 	public List<Congressman> doRequest(ResponseHandler<String> responseHandler)
-			throws NullCongressmanException, ConnectionFailedException,
-			RequestFailedException {
+			throws Exception{
 		
 		List<Congressman> congressmanList = null;
 		
