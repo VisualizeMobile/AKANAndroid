@@ -7,6 +7,8 @@ package br.com.visualize.akan.api.dao;
 import java.util.Iterator;
 import java.util.List;
 
+import br.com.visualize.akan.api.helper.QueryHelper;
+import br.com.visualize.akan.api.helper.QuerySelect;
 import br.com.visualize.akan.domain.model.Quota;
 import android.content.ContentValues;
 import android.content.Context;
@@ -18,14 +20,26 @@ import android.database.Cursor;
  * maintain the ability to generate support to the modification of data
  * on quotas.
  */
-public class QuotaDao extends Dao{
+public class QuotaDao extends Dao {
+	
 	private static QuotaDao instanceQuotaDao = null;
-
 	private static String tableName = "QUOTA";
-	private static String tableColumns[] = {"ID_QUOTA", "ID_CONGRESSMAN", "ID_UPDATE","TYPE_QUOTA", "DESCRIPTION_QUOTA", "MONTH_QUOTA", "", "VALUE_QUOTA"};
 
+	private QueryHelper queryHelper = null;
+	
+	private static String tableColumns[] = {
+		"ID_QUOTA", 
+		"ID_CONGRESSMAN", 
+		"ID_UPDATE",
+		"TYPE_QUOTA", 
+		"DESCRIPTION_QUOTA", 
+		"MONTH_QUOTA", 
+		"", 
+		"VALUE_QUOTA"
+		};
+	
+	protected QuotaDao( Context context ) {
 
-	protected QuotaDao(Context context) {
 		this.context = context;
 	}
 
@@ -34,28 +48,44 @@ public class QuotaDao extends Dao{
 	 * <p>
 	 * @return The unique instance of QuotaDao.
 	 */
-	public static QuotaDao getInstance(Context context) {
+	public static QuotaDao getInstance( Context context ) {
 		if( instanceQuotaDao != null ) {
 			/*! Nothing To Do. */
 
 		} else {
-			instanceQuotaDao = new QuotaDao(context);
+			instanceQuotaDao = new QuotaDao( context );
 		}
+		
 		return instanceQuotaDao;
 	}
 
 	public boolean checkEmptyLocalDb() {
 		sqliteDatabase = database.getReadableDatabase();
-		Cursor cursor = sqliteDatabase.rawQuery("select 1 from QUOTA;",null);
-		if(cursor != null){
-			if(cursor.getCount() <= 0){
+		
+		/* TODO: Method to allow as argument String instead String[] in
+		 * 		 class QueryStrategy. */
+		String[] column = { "1" };
+		
+		queryHelper = new QueryHelper( new QuerySelect() );
+		String query = queryHelper.executeQuery(tableName, column, null, 
+				null, null, null, null, null );
+		
+		Cursor cursor = sqliteDatabase.rawQuery( query ,null );
+		if( cursor != null ) {
+			if( cursor.getCount() <= 0 ) {
 				cursor.moveToFirst();
+				
 				return true;
+				
+			} else {
+				/*! Nothing To Do */
 			}
-		}
-		else{
+			
+		} else {
+			
 			return true;
 		}
+		
 		return false;
 	}
 
@@ -68,10 +98,13 @@ public class QuotaDao extends Dao{
 	public boolean insertQuotasById( List<Quota> insertedQuotas ) {
 		Iterator<Quota> i = insertedQuotas.iterator();
 		boolean result = true;
-		while(i.hasNext()){
-			result = insertQuota(i.next());
+		
+		while( i.hasNext() ) {
+			result = insertQuota( i.next() );
 		}
-		return result;
+
+		return result; 
+
 	}
 
 	/**
@@ -100,21 +133,23 @@ public class QuotaDao extends Dao{
 		return null;
 	}
 
-	private boolean insertQuota(Quota quota){
+	
+	private boolean insertQuota( Quota quota ) {
 		sqliteDatabase = database.getWritableDatabase();
 		ContentValues content = new ContentValues();
+		
+		content.put( tableColumns[0], quota.getIdQuota() );
+		content.put( tableColumns[1], quota.getIdCongressmanQuota() );
+		content.put( tableColumns[2], quota.getIdUpdateQuota() );
+		content.put( tableColumns[3], quota.getTypeQuota().getRepresentativeNameQuota() );
+		content.put( tableColumns[4], quota.getDescriptionQuota() );
+		content.put( tableColumns[5], quota.getMonthReferenceQuota().getvalueMonth() );
+		content.put( tableColumns[6], quota.getYearReferenceQuota() );
+		content.put( tableColumns[7], quota.getValueQuota() );
 
-		content.put(tableColumns[0], quota.getIdQuota());
-		content.put(tableColumns[1], quota.getIdCongressmanQuota());
-		content.put(tableColumns[2], quota.getIdUpdateQuota());
-		content.put(tableColumns[3], quota.getTypeQuota().getRepresentativeNameQuota());
-		content.put(tableColumns[4], quota.getDescriptionQuota());
-		content.put(tableColumns[5], quota.getMonthReferenceQuota().getvalueMonth());
-		content.put(tableColumns[6], quota.getYearReferenceQuota());
-		content.put(tableColumns[7], quota.getValueQuota());
 
-		//TODO
-		boolean result = (insertAndClose(sqliteDatabase, tableName, content)>0);
+		boolean result = ( insertAndClose(sqliteDatabase, tableName, content ) > 0 );
+		
 		return result;
 	}
 }

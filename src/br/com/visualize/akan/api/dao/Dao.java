@@ -13,10 +13,13 @@ public abstract class Dao {
 	
 	protected abstract boolean checkEmptyLocalDb();
 	
-	protected long insertAndClose(SQLiteDatabase sqliteDatabase, String table, ContentValues values){
-		long resultInsert = sqliteDatabase.insert(table, null, values);
+	protected long insertAndClose( SQLiteDatabase sqliteDatabase, String table, 
+			ContentValues values ) {
+		
+		long resultInsert = sqliteDatabase.insert( table, null, values );
+		
 		sqliteDatabase.close();
+		
 		return resultInsert;
 	}
-
 }
