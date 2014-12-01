@@ -12,11 +12,14 @@ import java.util.Iterator;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
+import br.com.visualize.akan.domain.controller.CongressmanFacade;
 import br.com.visualize.akan.domain.controller.QuotaController;
 import br.com.visualize.akan.domain.enumeration.SubQuota;
+import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Quota;
 
 
@@ -39,13 +42,19 @@ public class DescriptionScreen extends Activity {
 	private static final int TEXT = 2;
 	
 	private QuotaController controllerQuota = null;
+	 CongressmanFacade congressmanFacade;
+	
 	
 	@Override
-	protected void onCreate( Bundle savedInstanceState ) {
+	protected void onCreate( Bundle savedInstanceState ) 
+	{
 		super.onCreate( savedInstanceState );
 		
 		setContentView( R.layout.description_screen_activity );
 		controllerQuota = QuotaController.getInstance(context);
+		congressmanFacade = CongressmanFacade.getInstance(getApplicationContext());
+		;
+		setDescriptionCongressman();
 	}
 	
 	@Override
@@ -54,6 +63,8 @@ public class DescriptionScreen extends Activity {
 		
 		/* Here is part where call setValuesQuota() method, passing as a 
 		 * parameter the id of the congressman. */
+		
+		
 	}
 	
 	@Override
@@ -356,5 +367,12 @@ public class DescriptionScreen extends Activity {
 				"drawable", getPackageName() );
 		
 		return idResource;
+	}
+	
+	private void setDescriptionCongressman(){
+		Congressman congressman;
+		congressman = congressmanFacade.getDeputy();
+		TextView textViewCongressmanName = ( TextView )findViewById( R.id.congressman_txt_nome );
+		textViewCongressmanName.setText(congressman.getNameCongressman());
 	}
 }
