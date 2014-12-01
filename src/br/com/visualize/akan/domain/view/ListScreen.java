@@ -6,7 +6,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -114,9 +116,14 @@ public class ListScreen extends Activity
 					int position, long id) {
 				
 				 Congressman congressman = (Congressman) parent.getItemAtPosition(position);
+				 congressmanFacade.setDeputy(congressman);
 				 
+				 Intent i = new Intent(ListScreen.this, DescriptionScreen.class);
+				 startActivity(i);
 				Toast toast=Toast.makeText(getApplicationContext(), congressman.getNameCongressman(), Toast.LENGTH_SHORT);
 		            toast.show();
+		    		Log.e(congressmanFacade.getDeputy().getNameCongressman(),"peguei parlamentar");
+
 				
 			}
 		});
