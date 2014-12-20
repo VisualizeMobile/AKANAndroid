@@ -7,12 +7,10 @@ package br.com.visualize.akan.api.dao;
 import java.util.Iterator;
 import java.util.List;
 
-import br.com.visualize.akan.api.helper.QueryHelper;
-import br.com.visualize.akan.api.helper.QuerySelect;
-import br.com.visualize.akan.domain.model.Quota;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import br.com.visualize.akan.domain.model.Quota;
 
 /**
  * Serves to define the methods that give the basic functionality to the
@@ -24,8 +22,6 @@ public class QuotaDao extends Dao {
 	
 	private static QuotaDao instanceQuotaDao = null;
 	private static String tableName = "QUOTA";
-
-	private QueryHelper queryHelper = null;
 	
 	private static String tableColumns[] = {
 		"ID_QUOTA", 
@@ -61,14 +57,8 @@ public class QuotaDao extends Dao {
 
 	public boolean checkEmptyLocalDb() {
 		sqliteDatabase = database.getReadableDatabase();
-		
-		/* TODO: Method to allow as argument String instead String[] in
-		 * 		 class QueryStrategy. */
-		String[] column = { "1" };
-		
-		queryHelper = new QueryHelper( new QuerySelect() );
-		String query = queryHelper.executeQuery(tableName, column, null, 
-				null, null, null, null, null );
+
+		String query = "SELECT 1 FROM " + tableName;
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query ,null );
 		if( cursor != null ) {

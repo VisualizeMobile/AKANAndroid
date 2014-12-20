@@ -10,8 +10,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import br.com.visualize.akan.api.helper.DatabaseHelper;
-import br.com.visualize.akan.api.helper.QueryHelper;
-import br.com.visualize.akan.api.helper.QuerySelect;
 import br.com.visualize.akan.domain.model.Url;
 
 public class UrlDao extends Dao{
@@ -21,10 +19,7 @@ public class UrlDao extends Dao{
 
 	private String defaultUrl = "http://192.168.1.4:3000";
 	private String tableName = "URL";
-	private QueryHelper queryHelper = null;
 	
-	
-
 	private static UrlDao instanceUrlDao = null;
 	private static String tableUrl = "Url";
 	private static String tableColumns[] = {"ID_URL",
@@ -62,14 +57,8 @@ public class UrlDao extends Dao{
 	 */
 	protected boolean checkEmptyLocalDb(){
 		sqliteDatabase = database.getReadableDatabase();
-		
-		/* TODO: Method to allow as argument String instead String[] in
-		 * 		 class QueryStrategy. */
-		String[] column = { "1" };
-		
-		queryHelper = new QueryHelper( new QuerySelect() );
-		String query = queryHelper.executeQuery(tableName, column, null, 
-				null, null, null, null, null );
+
+		String query = "SELECT 1 FROM " + tableName;
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 		Log.i("dataBase insetition", "url1");

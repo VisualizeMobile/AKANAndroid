@@ -9,8 +9,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import br.com.visualize.akan.api.helper.DatabaseHelper;
-import br.com.visualize.akan.api.helper.QueryHelper;
-import br.com.visualize.akan.api.helper.QuerySelect;
 import br.com.visualize.akan.domain.model.Congressman;
 
 
@@ -23,7 +21,6 @@ public class CongressmanDao extends Dao {
 	
 	private static CongressmanDao instance;
 	private static String tableName = "CONGRESSMAN";
-	private QueryHelper queryHelper = null;
 	
 	private static String tableColumns[] = { 
 		"ID_CONGRESSMAN", 
@@ -51,13 +48,7 @@ public class CongressmanDao extends Dao {
 	public boolean checkEmptyLocalDb() {
 		sqliteDatabase = database.getReadableDatabase();
 		
-		/* TODO: Method to allow as argument String instead String[] in
-		 * 		 class QueryStrategy. */
-		String[] column = { "1" };
-		
-		queryHelper = new QueryHelper( new QuerySelect() );
-		String query = queryHelper.executeQuery(tableName, column, null, 
-				null, null, null, null, null );
+		String query = "SELECT  1 FROM " + tableName;
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 		if( cursor != null ) {
@@ -110,14 +101,8 @@ public class CongressmanDao extends Dao {
 	public List<Congressman> getAll() {
 
 		sqliteDatabase = database.getReadableDatabase();
-		
-		/* TODO: Method to allow as argument String instead String[] in
-		 * 		 class QueryStrategy. */
-		String[] column = { "*" };
-		
-		queryHelper = new QueryHelper( new QuerySelect() );
-		String query = queryHelper.executeQuery(tableName, column, null, null,
-				null, null, "TOTAL_SPENT_CONGRESSMAN", "DESC" );
+
+		String query = "SELECT * FROM " + tableName + " ORDER BY TOTAL_SPENT_CONGRESSMAN DESC";
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 
@@ -161,14 +146,8 @@ public class CongressmanDao extends Dao {
 	public List<Congressman> selectCongressmanByName( String congressmanName ) {
 
 		sqliteDatabase = database.getReadableDatabase();
-		
-		/* TODO: Method to allow as argument String instead String[] in
-		 * 		 class QueryStrategy. */
-		String[] column = { "*" };
-		
-		queryHelper = new QueryHelper( new QuerySelect() );
-		String query = queryHelper.executeQuery(tableName, column, null, 
-				"NAME_CONGRESSMAN", congressmanName, null, null, null);
+
+		String query = "SELECT * FROM " + tableName + " WHERE NAME_CONGRESSMAN = " + congressmanName;
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 
