@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -26,16 +25,13 @@ import br.com.visualize.akan.R;
 import br.com.visualize.akan.domain.adapters.CongressmenListAdapter;
 import br.com.visualize.akan.domain.adapters.RankingAdapter;
 import br.com.visualize.akan.domain.controller.CongressmanController;
-import br.com.visualize.akan.domain.controller.CongressmanFacade;
-import br.com.visualize.akan.domain.controller.DeputyController;
 import br.com.visualize.akan.domain.model.Congressman;
 
 
 @SuppressLint("NewApi")
 public class ListScreen extends Activity 
 {
-	CongressmanController deputyController;
-	CongressmanFacade congressmanFacade;
+	CongressmanController congressmanController;
 	ListView listView ;
 	RankingAdapter rankingAdapter;
 	CongressmenListAdapter listAdapter;
@@ -56,11 +52,10 @@ public class ListScreen extends Activity
 		
 		search = new SearchView(getApplicationContext());
 		
-		congressmanFacade = CongressmanFacade.getInstance(getApplicationContext());
-		deputyController = DeputyController.getInstance(getBaseContext());
+		congressmanController = CongressmanController.getInstance(getBaseContext());
 		    
 		final List<Congressman> congressmen;
-		congressmen = congressmanFacade.getAllDeputy();
+		congressmen = congressmanController.getAllCongressman();
 				
 		rankingAdapter = new RankingAdapter(this,R.layout.ranking_layout,congressmen);
 		listAdapter = new CongressmenListAdapter(this,R.layout.congressmen_list_layout, congressmen);
@@ -116,13 +111,13 @@ public class ListScreen extends Activity
 					int position, long id) {
 				
 				 Congressman congressman = (Congressman) parent.getItemAtPosition(position);
-				 congressmanFacade.setDeputy(congressman);
+				 congressmanController.setCongressman( congressman );
 				 
 				 Intent i = new Intent(ListScreen.this, DescriptionScreen.class);
 				 startActivity(i);
 				Toast toast=Toast.makeText(getApplicationContext(), congressman.getNameCongressman(), Toast.LENGTH_SHORT);
 		            toast.show();
-		    		Log.e(congressmanFacade.getDeputy().getNameCongressman(),"peguei parlamentar");
+		    		Log.e(congressmanController.getCongresman().getNameCongressman(),"peguei parlamentar");
 
 				
 			}

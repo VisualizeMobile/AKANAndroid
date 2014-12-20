@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.controller.CongressmanController;
-import br.com.visualize.akan.domain.controller.DeputyController;
+import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.exception.ConnectionFailedException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.exception.RequestFailedException;
@@ -21,7 +21,7 @@ public class SplashScreen extends Activity {
 	protected void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		
-		deputyController = DeputyController
+		deputyController = CongressmanController
 				.getInstance( getApplicationContext() );
 
 		new Thread( new Runnable() {

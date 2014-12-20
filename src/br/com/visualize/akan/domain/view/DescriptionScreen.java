@@ -12,11 +12,10 @@ import java.util.Iterator;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
-import br.com.visualize.akan.domain.controller.CongressmanFacade;
+import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.controller.QuotaController;
 import br.com.visualize.akan.domain.enumeration.SubQuota;
 import br.com.visualize.akan.domain.model.Congressman;
@@ -42,7 +41,7 @@ public class DescriptionScreen extends Activity {
 	private static final int TEXT = 2;
 	
 	private QuotaController controllerQuota = null;
-	 CongressmanFacade congressmanFacade;
+	 CongressmanController congressmanController;
 	
 	
 	@Override
@@ -52,8 +51,7 @@ public class DescriptionScreen extends Activity {
 		
 		setContentView( R.layout.description_screen_activity );
 		controllerQuota = QuotaController.getInstance(context);
-		congressmanFacade = CongressmanFacade.getInstance(getApplicationContext());
-		;
+		congressmanController = CongressmanController.getInstance(getApplicationContext());
 		setDescriptionCongressman();
 	}
 	
@@ -371,7 +369,7 @@ public class DescriptionScreen extends Activity {
 	
 	private void setDescriptionCongressman(){
 		Congressman congressman;
-		congressman = congressmanFacade.getDeputy();
+		congressman = congressmanController.getCongresman();
 		TextView textViewCongressmanName = ( TextView )findViewById( R.id.congressman_txt_nome );
 		textViewCongressmanName.setText(congressman.getNameCongressman());
 	}
