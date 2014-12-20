@@ -1,7 +1,7 @@
 /*
- * File:		Congressman.java 
- * Purpose: Bringing the implementation of model Congressman, a class that 
- * directly references the business domain.
+ * File: Congressman.java 
+ * Purpose: Bringing the implementation of model
+ * Congressman, a class that directly references the business domain.
  */
 package br.com.visualize.akan.domain.model;
 
@@ -10,11 +10,11 @@ import java.util.List;
 
 
 /**
- * This class represents the model for a congressman in application. They 
- * contain the essential business-related Congressman data such as name, party 
+ * This class represents the model for a congressman in application. They
+ * contain the essential business-related Congressman data such as name, party
  * and total expenditures by using quotas.
  */
-public abstract class Congressman {
+public class Congressman {
 	static final boolean FOLLOWED = true;
 	static final boolean NOT_FOLLOWED = false;
 	
@@ -26,7 +26,7 @@ public abstract class Congressman {
 	protected String nameCongressman = "";
 	protected String partyCongressman = "";
 	protected String ufCongressman = "";
-	protected int ranking = 0; 
+	protected int ranking = 0;
 	protected List<Quota> quotasCongressman = null;
 	protected double totalSpentCongressman = 0;
 	protected String typeCongressman = "";
@@ -34,13 +34,12 @@ public abstract class Congressman {
 	public String getTypeCongressman() {
 		return typeCongressman;
 	}
-
-	public void setTypeCongressman(String typeCongressman)
-	{
+	
+	public void setTypeCongressman( String typeCongressman ) {
 		this.typeCongressman = typeCongressman;
 		
 	}
-		
+	
 	public int getIdCongressman() {
 		return id;
 	}
@@ -117,8 +116,7 @@ public abstract class Congressman {
 		return ranking;
 	}
 	
-	public void setRankingCongressman(int rankingCongressman) {
-		this.ranking = rankingCongressman;
-		
+	public void setRankingCongressman( int rankingCongressman ) {
+		this.ranking = rankingCongressman;		
 	}
 }
