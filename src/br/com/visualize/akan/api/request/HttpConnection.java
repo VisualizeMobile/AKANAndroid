@@ -11,7 +11,7 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import br.com.visualize.akan.domain.exception.ConcreteCreatorException;
+import br.com.visualize.akan.domain.exception.ConnectionFailedException;
 
 
 public class HttpConnection {
@@ -58,10 +58,10 @@ public class HttpConnection {
 			return json;
 			
 		} catch (ClientProtocolException e) {
-			throw new ConcreteCreatorException().createException(ConcreteCreatorException.CONNECTION);
+			throw new ConnectionFailedException();
 
 		} catch (IOException ioe) {
-			throw new ConcreteCreatorException().createException(ConcreteCreatorException.CONNECTION);
+			throw new ConnectionFailedException();
 		}
 	}
 	
