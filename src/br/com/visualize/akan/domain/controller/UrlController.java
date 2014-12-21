@@ -34,7 +34,7 @@ public class UrlController {
 	}
 	
 	//TODO quotasWithCongressmanIdUrl
-	public String quotasWithCongressmanIdUrl(String id){
-		return getUrl().getDefaultUrl() + "/cota" + "?id=" + id;
+	public String quotasWithCongressmanIdUrl(Integer id){
+		return "http://192.168.1.5:3000/congressmen/"+id.toString()+".json";
 	}
 }

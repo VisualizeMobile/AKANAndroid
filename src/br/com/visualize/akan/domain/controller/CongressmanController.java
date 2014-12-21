@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
+import android.util.Log;
 import br.com.visualize.akan.api.dao.CongressmanDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
@@ -52,9 +53,10 @@ public class CongressmanController {
 				String url = urlController.getAllCongressmanUrl();
 				String jsonCongressman = HttpConnection.request(
 						responseHandler, url );
-				
+				Log.e(jsonCongressman, "peguei json parlamentar");
 				setCongressmanList( JsonHelper
 						.listCongressmanFromJSON( jsonCongressman ) );
+			
 				
 				congressmanDao.insertAllCongressman( getCongressmanList() );
 				

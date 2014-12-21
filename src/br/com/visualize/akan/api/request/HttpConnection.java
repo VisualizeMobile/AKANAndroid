@@ -10,8 +10,10 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 import br.com.visualize.akan.domain.exception.ConnectionFailedException;
+import android.util.Log;
+
+
 
 
 public class HttpConnection {
@@ -47,14 +49,16 @@ public class HttpConnection {
 
 	public static String request(ResponseHandler<String> response, String url)
 			throws Exception {
-
+Log.e(url, "entrei request com essa url");
+Log.e(response.toString(), "entrei request com essa response");
 		try {
 
 			DefaultHttpClient client = new DefaultHttpClient();
 			HttpGet http = new HttpGet(url);
-
-			String json = new String(client.execute(http, response).getBytes(
-					"ISO-8859-1"), "UTF-8");
+			Log.e(url, "passei no http get");
+			Log.e(http.toString(), "peguei http");
+			String json = new String(client.execute(http, response).getBytes("ISO-8859-1"), "UTF-8");
+			Log.e(json, "peguei esse json dentro do request");
 			return json;
 			
 		} catch (ClientProtocolException e) {

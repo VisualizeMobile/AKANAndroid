@@ -13,6 +13,7 @@ import android.util.Log;
 import br.com.visualize.akan.api.dao.QuotaDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
+import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Quota;
 
 
@@ -25,7 +26,7 @@ import br.com.visualize.akan.domain.model.Quota;
 public class QuotaController {
 	private static QuotaController instanceQuotaController = null;
 	private QuotaDao daoQuota = null;
-	private static List<Quota> quotaList;
+	private static List<Quota> quotaList = null;
 	
 	private UrlController urlController;
 	private QuotaDao quotaDao;
@@ -43,12 +44,8 @@ public class QuotaController {
 	 */
 	public static QuotaController getInstance(Context context) {
 		
-		if( instanceQuotaController != null ) {
-			/*! Nothing To Do. */
-			
-		} else {
-			instanceQuotaController = new QuotaController(context);
-			
+		if ( instanceQuotaController == null ) {
+			instanceQuotaController = new QuotaController( context );
 		}
 		
 		return instanceQuotaController;
@@ -91,7 +88,7 @@ public class QuotaController {
 		return foundQuotas;
 	}
 	
-	public List<Quota> getQuotaById(String id,ResponseHandler<String> responseHandler)
+	public List<Quota> getQuotaById(int id,ResponseHandler<String> responseHandler)
 			throws Exception {
 		if (responseHandler != null) {
 			Log.i("<quota>connection stabilished", "connection stabilished, recieving data...");
@@ -99,8 +96,9 @@ public class QuotaController {
 				// popula o banco
 				Log.i("<quota>dataBase insetition", "Empty database, inserting quota...");
 				String url = urlController.quotasWithCongressmanIdUrl(id);
+				Log.e(url, "populando banco com essa url");
 				String jsonQuota = HttpConnection.request(responseHandler, url);
-
+				Log.e(jsonQuota, "populando banco com essa json");
 				setQuotaList(JsonHelper
 						.listQuotaByIdCongressmanFromJSON(jsonQuota));
 
@@ -112,14 +110,54 @@ public class QuotaController {
 		}
 		return getQuotaList();
 	}
+	public void setQuotaFromCongressmanSelected(Integer id, ResponseHandler<String> responseHandler) throws Exception
+	{
+		Log.e(id.toString(),"Setando quota");
+		String url = urlController.quotasWithCongressmanIdUrl(id);
+		Log.e(url,"peguei url" );
+		String jsonQuota;
+		
+			Log.e(responseHandler.toString(), "response");
+			jsonQuota = HttpConnection.request(responseHandler, url);
+			Log.e(jsonQuota, "json das quota");
+			setQuotaList(JsonHelper
+					.listQuotaByIdCongressmanFromJSON(jsonQuota));
+		
+		
+
+		
+		
+	}
 	
-	private List<Quota> getQuotaList() {
+	public List<Quota> getQuotaList() {
+		try {
+			Integer valor = (int) quotaList.get(0).getIdCongressmanQuota();
+		Log.e(valor.toString(), "entrei no setQuota na lista retornando");
+		}catch (Exception e){
+			
+		}
 		return quotaList;
+		
 	}
 
 	private static void setQuotaList(
 			List<Quota> listQuotaByIdCongressmanFromJSON) {
+		Log.e("entrei", "entrei no setQuota");
+		try {
+			Integer valor = (int) listQuotaByIdCongressmanFromJSON.get(0).getIdCongressmanQuota();
+		Log.e(valor.toString(), "entrei no setQuota");
+		}catch (Exception e){
+			
+			
+		}
 		QuotaController.quotaList = listQuotaByIdCongressmanFromJSON;
+		try {
+			Integer valor = (int) quotaList.get(0).getIdCongressmanQuota();
+		Log.e(valor.toString(), "entrei no setQuota na lista");
+		}catch (Exception e){
+			
+		}
 	}
+	
 	
 }

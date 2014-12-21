@@ -15,7 +15,7 @@ import br.com.visualize.akan.domain.enumeration.SubQuota;
  */
 public class Quota {
 	private int idQuota = 0;
-	private int idCongressmanQuota = 0;
+	private int congressman_id = 0;
 	private int idUpdateQuota = 0;
 	private SubQuota typeQuota = SubQuota.WITHOUT_TYPE;
 	
@@ -26,7 +26,7 @@ public class Quota {
 	
 	public Quota( int id, int idCongressman, SubQuota subquota, double value ) {
 		this.idQuota = id;
-		this.idCongressmanQuota = idCongressman;
+		this.congressman_id = idCongressman;
 		this.typeQuota = subquota;
 		this.valueQuota = value;
 	}
@@ -40,11 +40,11 @@ public class Quota {
 	}
 	
 	public int getIdCongressmanQuota() {
-		return idCongressmanQuota;
+		return congressman_id;
 	}
 	
 	public void setIdCongressmanQuota( int idCongressmanQuota ) {
-		this.idCongressmanQuota = idCongressmanQuota;
+		this.congressman_id = idCongressmanQuota;
 	}
 	
 	public int getIdUpdateQuota() {

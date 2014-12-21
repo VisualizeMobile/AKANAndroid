@@ -8,14 +8,22 @@ package br.com.visualize.akan.domain.view;
 
 import java.text.DecimalFormat;
 import java.util.Iterator;
+import java.util.List;
+
+import org.apache.http.client.ResponseHandler;
+
+import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import br.com.visualize.akan.domain.controller.CongressmanController;
+import android.os.Looper;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
-import br.com.visualize.akan.domain.controller.CongressmanController;
+import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.controller.QuotaController;
 import br.com.visualize.akan.domain.enumeration.SubQuota;
 import br.com.visualize.akan.domain.model.Congressman;
@@ -38,32 +46,63 @@ public class DescriptionScreen extends Activity {
 	private static final int BUTTON = 1;
 	private static final int TEXT = 2;
 	
+
 	Context context;
 	
 	private QuotaController controllerQuota = null;
 	CongressmanController congressmanController;
+	static List<Quota> quota;
+
 	
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		
 		setContentView( R.layout.description_screen_activity );
+
+		controllerQuota = QuotaController.getInstance(getApplicationContext());
+congressmanController = CongressmanController.getInstance( getApplicationContext() );
+
+		new Thread( new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated methodinstance stub
+				Looper.prepare();
+				ResponseHandler<String> responseHandler = HttpConnection
+						.getResponseHandler();
+				try {
+					Log.e(congressmanController.getCongresman().getNameCongressman(), "tentando setar quota");
+					controllerQuota.getQuotaById(congressmanController.getCongresman().getIdCongressman(), responseHandler);
+					
+					
+				
+				} catch ( Exception e ) {
+					//TODO launch error alert
+					e.printStackTrace();
+					
+				} 
+				Looper.loop();
+				
+				
+			}
+			
+			
+			
+		}  ).start();
 		
-		controllerQuota = QuotaController.getInstance( context );
-		congressmanController = CongressmanController
-		      .getInstance( getApplicationContext() );
-		
-		setDescriptionCongressman();
 	}
 	
+		
 	@Override
 	public void onResume() {
 		super.onResume();
 		
-		/*
-		 * Here is part where call setValuesQuota() method, passing as a parameter
-		 * the id of the congressman.
-		 */	
+		setDescriptionCongressman();
+					
+		/* Here is part where call setValuesQuota() method, passing as a 
+		 * parameter the id of the congressman. */
+			
 	}
 	
 	@Override
@@ -388,9 +427,25 @@ public class DescriptionScreen extends Activity {
 	 */
 	private void setDescriptionCongressman() {
 		Congressman congressman;
+
 		congressman = congressmanController.getCongresman();
-		TextView textViewCongressmanName = (TextView) findViewById( 
-				R.id.congressman_txt_nome );
-		textViewCongressmanName.setText( congressman.getNameCongressman() );
+		String idCongressman = Integer.toString(congressman.getIdCongressman());
+		String photoCongressmanUrl = "http://www.camara.gov.br/internet/deputado/bandep/";
+		
+		TextView textViewCongressmanName = ( TextView )findViewById( R.id.congressman_txt_nome );
+		textViewCongressmanName.setText(congressman.getNameCongressman());
+		
+		TextView textViewCongressmanParitdo = (TextView)findViewById(R.id.congressman_txt_partido);
+		textViewCongressmanParitdo.setText(congressman.getPartyCongressman());	
+		
+		TextView textViewRankingPosition = (TextView)findViewById(R.id.description_ranking_position);
+		textViewRankingPosition.setText(Integer.toString(congressman.getRankingCongressman()));
+		
+		ImageView congressmanImage = (ImageView)findViewById(R.id.description_ranking_imagem_parlamentar);
+		Picasso.with(getApplicationContext()).load(photoCongressmanUrl+idCongressman+".jpg").error(R.drawable.parlamentar_foto_mini).into(congressmanImage);
+		
+
+		
+
 	}
-}
+}	
