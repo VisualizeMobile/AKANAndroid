@@ -1,16 +1,17 @@
 /*
- * File: 	Quota.java
- * Purpose: Bringing the implementation of model Quota, a class that 
- * directly references the business domain.
+ * File: Quota.java 
+ * Purpose: Bringing the implementation of model Quota, a class that directly
+ * references the business domain.
  */
 package br.com.visualize.akan.domain.model;
+
 
 import br.com.visualize.akan.domain.enumeration.Month;
 import br.com.visualize.akan.domain.enumeration.SubQuota;
 
 
 /**
- * This class represents the model of quota for application. It contains the 
+ * This class represents the model of quota for application. It contains the
  * essential data to represent and maintain a quota.
  */
 public class Quota {

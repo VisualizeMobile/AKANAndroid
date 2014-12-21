@@ -1,11 +1,13 @@
 /*
- * File: 	Url.java
- * Purpose: Bringing the implementation of modelUrl, a class that 
- * directly references the business domain.
+ * File: Url.java 
+ * Purpose: Bringing the implementation of modelUrl, a class that directly
+ * references the business domain.
  */
 package br.com.visualize.akan.domain.model;
 
+
 import android.util.Log;
+
 
 /**
  * This class represents the model for an URL in application.
@@ -18,10 +20,11 @@ public class Url {
 	private String firstAlternativeUrl = "";
 	private String secondAlternativeUrl = "";
 	
-	public Url(){
+	public Url() {
+		/*! Empty Constructor */
 	}
 	
-	public Url(int idUpdateUrl, String defaultUrl){
+	public Url( int idUpdateUrl, String defaultUrl ) {
 		this.idUpdateUrl = idUpdateUrl;
 		this.defaultUrl = defaultUrl;
 	}
@@ -43,7 +46,7 @@ public class Url {
 	}
 	
 	public String getDefaultUrl() {
-		Log.i("default url", defaultUrl);
+		Log.i( "default url", defaultUrl );
 		return defaultUrl;
 	}
 	

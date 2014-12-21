@@ -1,7 +1,7 @@
 /*
  * File: Congressman.java 
- * Purpose: Bringing the implementation of model
- * Congressman, a class that directly references the business domain.
+ * Purpose: Bringing the implementation of model Congressman, a class that 
+ * directly references the business domain.
  */
 package br.com.visualize.akan.domain.model;
 
@@ -36,8 +36,7 @@ public class Congressman {
 	}
 	
 	public void setTypeCongressman( String typeCongressman ) {
-		this.typeCongressman = typeCongressman;
-		
+		this.typeCongressman = typeCongressman;	
 	}
 	
 	public int getIdCongressman() {
@@ -117,6 +116,6 @@ public class Congressman {
 	}
 	
 	public void setRankingCongressman( int rankingCongressman ) {
-		this.ranking = rankingCongressman;		
+		this.ranking = rankingCongressman;
 	}
 }
