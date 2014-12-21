@@ -1,4 +1,9 @@
+/*
+ * File: SplashScreen.java
+ * Purpose: Provides access to an application's initial presentation.
+ */
 package br.com.visualize.akan.domain.view;
+
 
 import org.apache.http.client.ResponseHandler;
 
@@ -8,50 +13,52 @@ import android.os.Bundle;
 import android.os.Looper;
 import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.controller.CongressmanController;
-import br.com.visualize.akan.domain.controller.CongressmanController;
-import br.com.visualize.akan.domain.exception.ConnectionFailedException;
-import br.com.visualize.akan.domain.exception.NullCongressmanException;
-import br.com.visualize.akan.domain.exception.RequestFailedException;
 
+
+/**
+ * Sets the initial application screen presentation.
+ */
 public class SplashScreen extends Activity {
 	
-	public CongressmanController deputyController;
-
+	public CongressmanController congressmanController;
+	
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		
-		deputyController = CongressmanController
-				.getInstance( getApplicationContext() );
-
-		new Thread( new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				Looper.prepare();
-				ResponseHandler<String> responseHandler = HttpConnection
-						.getResponseHandler();
-				try {
-					
-					deputyController
-							.requestAllCongressman( responseHandler );
-					
-				} catch ( Exception e ) {
-					//TODO launch error alert
-					e.printStackTrace();
-					
-				} 
-				
-				Looper.loop();
-			}
-		} ).start();
+		congressmanController = CongressmanController
+		      .getInstance( getApplicationContext() );
+		
+		new Thread( new InitialRequest() ).start();
 		
 		Intent myAction = new Intent( SplashScreen.this, ListScreen.class );
 		
 		SplashScreen.this.startActivity( myAction );
 		SplashScreen.this.finish();
 	}
-
-
+	
+	
+	/**
+	 * Providence the actions that should be made to the initial request for 
+	 * the operation of the Thread.
+	 */
+	private class InitialRequest implements Runnable {
+		
+		@Override
+		public void run() {
+			Looper.prepare();
+			
+			ResponseHandler<String> responseHandler = HttpConnection
+			      .getResponseHandler();
+			
+			try {
+				congressmanController.requestAllCongressman( responseHandler );
+				
+			} catch( Exception e ) {
+				e.printStackTrace();
+			}
+			
+			Looper.loop();
+		}
+	}
 }
