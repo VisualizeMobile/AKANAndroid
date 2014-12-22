@@ -1,8 +1,9 @@
 /*
- * File: 	QuotaController.java 
+ * File: QuotaController.java 
  * Purpose: Brings the implementation of class QuotaController.
  */
 package br.com.visualize.akan.domain.controller;
+
 
 import java.util.List;
 
@@ -13,15 +14,13 @@ import android.util.Log;
 import br.com.visualize.akan.api.dao.QuotaDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
-import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Quota;
 
 
-
 /**
- * Serves to define the methods that are responsible for generating actions, 
- * calculate results and everything that is requested by layer 'View' 
- * referring to parliamentary quotas.
+ * Serves to define the methods that are responsible for generating actions,
+ * calculate results and everything that is requested by layer 'View' referring
+ * to parliamentary quotas.
  */
 public class QuotaController {
 	private static QuotaController instanceQuotaController = null;
@@ -31,10 +30,9 @@ public class QuotaController {
 	private UrlController urlController;
 	private QuotaDao quotaDao;
 	
-	
-	private QuotaController(Context context) {
-		urlController = UrlController.getInstance(context);
-		quotaDao = QuotaDao.getInstance(context);
+	private QuotaController( Context context ) {
+		urlController = UrlController.getInstance( context );
+		quotaDao = QuotaDao.getInstance( context );
 	}
 	
 	/**
@@ -42,42 +40,50 @@ public class QuotaController {
 	 * <p>
 	 * @return The unique instance of QuotaController.
 	 */
-	public static QuotaController getInstance(Context context) {
+	public static QuotaController getInstance( Context context ) {
 		
-		if ( instanceQuotaController == null ) {
+		if( instanceQuotaController != null ) {
+			/* ! Nothing To Do. */
+			
+		} else {
 			instanceQuotaController = new QuotaController( context );
+			
 		}
 		
 		return instanceQuotaController;
 	}
 	
 	/**
-	 * Inserts in the database quotas, referring to a congressman in particular, 
+	 * Inserts in the database quotas, referring to a congressman in particular,
 	 * passed as parameter in the local database of the application.
 	 * <p>
-	 * @param insertedQuotas List of quotas to be inserted.
+	 * @param insertedQuotas
+	 *           List of quotas to be inserted.
 	 */
 	public void insertQuotasOnCongressman( List<Quota> insertedQuotas ) {
-		//daoQuota.insertQuotasOnCongressman( insertedQuotas );
+		/* ! Write Instructions Here. */
 	}
 	
 	/**
-	 * Deletes all quotas of the database relating to the past as parameter 
+	 * Deletes all quotas of the database relating to the past as parameter
 	 * congressman for his numerical identifier.
 	 * <p>
-	 * @param idCongressman Numeric identifier of congressman that must have 
-	 * 		 					deleted the quotas.
+	 * @param idCongressman
+	 *           Numeric identifier of congressman that must have deleted the
+	 *           quotas.
 	 */
 	public void deleteQuotasFromCongressman( int idCongressman ) {
 		daoQuota.deleteQuotasFromCongressman( idCongressman );
 	}
 	
 	/**
-	 * Search the database all quotas related to the referenced congressman 
-	 * and returns them as a list.
+	 * Search the database all quotas related to the referenced congressman and
+	 * returns them as a list.
 	 * <p>
-	 * @param idCongressman Numeric identifier of congressman that must have 
-	 * 		 					deleted the quotas.
+	 * 
+	 * @param idCongressman
+	 *           Numeric identifier of congressman that must have deleted the
+	 *           quotas.
 	 * <p>
 	 * @return The list of referenced quotas belonging to the congressman.
 	 */
@@ -88,76 +94,102 @@ public class QuotaController {
 		return foundQuotas;
 	}
 	
-	public List<Quota> getQuotaById(int id,ResponseHandler<String> responseHandler)
-			throws Exception {
-		if (responseHandler != null) {
-			Log.i("<quota>connection stabilished", "connection stabilished, recieving data...");
-			if (quotaDao.checkEmptyLocalDb()) {
-				// popula o banco
-				Log.i("<quota>dataBase insetition", "Empty database, inserting quota...");
-				String url = urlController.quotasWithCongressmanIdUrl(id);
-				Log.e(url, "populando banco com essa url");
-				String jsonQuota = HttpConnection.request(responseHandler, url);
-				Log.e(jsonQuota, "populando banco com essa json");
-				setQuotaList(JsonHelper
-						.listQuotaByIdCongressmanFromJSON(jsonQuota));
-
-				quotaDao.insertQuotasById(getQuotaList());
-
+	/**
+	 * Asks the server for quotas for a particular Congressman. This Congressman
+	 * is identified by ID.
+	 * <P>
+	 * @param id
+	 *           Congressman identifier related to Quotas.
+	 * @param responseHandler
+	 *           Handler of welcoming server responses.
+	 * <p>
+	 * @return List of Quotas resulting from the server.
+	 * <p>
+	 * @throws Exception
+	 */
+	public List<Quota> getQuotaById( int id,
+	      ResponseHandler<String> responseHandler ) throws Exception {
+		
+		if( responseHandler != null ) {
+			
+			if( quotaDao.checkEmptyLocalDb() ) {
+				String url = urlController.quotasWithCongressmanIdUrl( id );
+				
+				String jsonQuota = HttpConnection.request( responseHandler, url );
+				
+				setQuotaList( JsonHelper
+				      .listQuotaByIdCongressmanFromJSON( jsonQuota ) );
+				
+				quotaDao.insertQuotasById( getQuotaList() );
 			} else {
-				// nothing here.
+				/* ! Nothing To Do. */
 			}
+			
+		} else {
+			/* ! Nothing To Do. */
 		}
+		
 		return getQuotaList();
 	}
-	public void setQuotaFromCongressmanSelected(Integer id, ResponseHandler<String> responseHandler) throws Exception
-	{
-		Log.e(id.toString(),"Setando quota");
-		String url = urlController.quotasWithCongressmanIdUrl(id);
-		Log.e(url,"peguei url" );
+	
+	/* TODO: Write JAVADOC. */
+	public void setQuotaFromCongressmanSelected( Integer id,
+	      ResponseHandler<String> responseHandler ) throws Exception {
+		
+		String url = urlController.quotasWithCongressmanIdUrl( id );
+		
 		String jsonQuota;
 		
-			Log.e(responseHandler.toString(), "response");
-			jsonQuota = HttpConnection.request(responseHandler, url);
-			Log.e(jsonQuota, "json das quota");
-			setQuotaList(JsonHelper
-					.listQuotaByIdCongressmanFromJSON(jsonQuota));
+		jsonQuota = HttpConnection.request( responseHandler, url );
 		
-		
-
-		
-		
+		setQuotaList( JsonHelper.listQuotaByIdCongressmanFromJSON( jsonQuota ) );
 	}
 	
-	public List<Quota> getQuotaList() {
+	/**
+	 * Returns the list of quotas associated with QuotaController.
+	 * <p>
+	 * @return List of quotas associated with QuotaController.
+	 */
+	private List<Quota> getQuotaList() {
 		try {
-			Integer valor = (int) quotaList.get(0).getIdCongressmanQuota();
-		Log.e(valor.toString(), "entrei no setQuota na lista retornando");
-		}catch (Exception e){
+			Integer valor = (int) quotaList.get( 0 ).getIdCongressmanQuota();
+			Log.e( valor.toString(), "Entrei no setQuota na lista retornando" );
+			
+		} catch( Exception e ) {
+			/* ! Write Instructions Here. */
 			
 		}
+		
 		return quotaList;
-		
 	}
-
+	
+	/**
+	 * Associates the list of quotas on QuotaController.
+	 * <p>
+	 * @param listQuotaByIdCongressmanFromJSON
+	 */
 	private static void setQuotaList(
-			List<Quota> listQuotaByIdCongressmanFromJSON) {
-		Log.e("entrei", "entrei no setQuota");
+	      List<Quota> listQuotaByIdCongressmanFromJSON ) {
+		
 		try {
-			Integer valor = (int) listQuotaByIdCongressmanFromJSON.get(0).getIdCongressmanQuota();
-		Log.e(valor.toString(), "entrei no setQuota");
-		}catch (Exception e){
+			Integer valor = (int) listQuotaByIdCongressmanFromJSON.get( 0 )
+			      .getIdCongressmanQuota();
 			
+			Log.e( valor.toString(), "Entrei no setQuota" );
 			
+		} catch( Exception e ) {
+			/* ! Write Instructions Here. */
 		}
+		
 		QuotaController.quotaList = listQuotaByIdCongressmanFromJSON;
+		
 		try {
-			Integer valor = (int) quotaList.get(0).getIdCongressmanQuota();
-		Log.e(valor.toString(), "entrei no setQuota na lista");
-		}catch (Exception e){
+			Integer valor = (int) quotaList.get( 0 ).getIdCongressmanQuota();
 			
+			Log.e( valor.toString(), "Entrei no setQuota na lista" );
+			
+		} catch( Exception e ) {
+			/* ! Write Instructions Here. */
 		}
 	}
-	
-	
 }
