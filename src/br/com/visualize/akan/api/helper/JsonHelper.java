@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.util.Log;
+import br.com.visualize.akan.domain.enumeration.SubQuota;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Quota;
@@ -48,11 +49,27 @@ public class JsonHelper {
 		return congressmanList;
 	}
 	
-	public static List<Quota> listQuotaByIdCongressmanFromJSON(String jsonQuotaByIdCongressmanList) throws NullCongressmanException{
+	public static List<Quota> listQuotaByIdCongressmanFromJSON(String jsonQuotaByIdCongressmanList) throws NullCongressmanException, JSONException{
 		List<Quota> quotaList = null;
+		Quota quota;
+		JSONArray jArray = new JSONArray(jsonQuotaByIdCongressmanList);
 		try{
-			Gson gson = new Gson();
-			quotaList = gson.fromJson(jsonQuotaByIdCongressmanList, new TypeToken<List<Quota>>(){}.getType());
+			
+			
+			for ( int i = 0; i < jArray.length() ; i++ ){
+				quota = new Quota();
+				quota.setIdQuota(jArray.getJSONObject(i).getInt("pk"));
+				quota.setIdUpdateQuota(jArray.getJSONObject(i).getJSONObject("fields").getInt("versaoupdate"));
+				quota.setYearReferenceQuota(jArray.getJSONObject(i).getJSONObject("fields").getInt("ano"));
+				quota.setValueQuota(jArray.getJSONObject(i).getJSONObject("fields").getDouble("valor"));
+				quota.setIdCongressmanQuota(jArray.getJSONObject(i).getJSONObject("fields").getInt("idparlamentar"));
+				quota.setTypeQuotaByNumber(jArray.getJSONObject(i).getJSONObject("fields").getInt("numsubcota"));
+				quota.setDescriptionQuota(jArray.getJSONObject(i).getJSONObject("fields").getString("descricao"));
+				quota.setTypeMonthByNumber(jArray.getJSONObject(i).getJSONObject("fields").getInt("mes"));
+				Log.e(quota.getDescriptionQuota(), "Peguei ");
+				quotaList.add(quota);
+			}
+			
 		}catch(NullPointerException e){
 			throw new NullCongressmanException();
 		}
