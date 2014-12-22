@@ -3,7 +3,7 @@
         >
         <item android:id="@+id/action_search"
          android:title="@+id/hint_search"
-         android:icon="@drawable/busca_ativada"
+         android:icon="@drawable/active_search"
          android:showAsAction="always"
          android:actionViewClass="android.widget.SearchView"
          

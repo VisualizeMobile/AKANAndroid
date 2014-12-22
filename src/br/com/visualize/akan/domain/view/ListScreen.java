@@ -87,7 +87,7 @@ public class ListScreen extends Activity
 				btn_ranking.setSelected( !btn_ranking.isSelected() );
 				Log.e("Entreo no Onclick", "Entreo no Onclick");
 				if( btn_ranking.isSelected() ) {
-					btn_ranking.setBackgroundResource( R.drawable.ranking_ativado );
+					btn_ranking.setBackgroundResource( R.drawable.active_ranking );
 					Log.e("Checando ranking ativado", "Checando ranking ativiado");
 					listView.setAdapter( rankingAdapter );
 					listView.setLayoutAnimation( controller );
@@ -96,7 +96,7 @@ public class ListScreen extends Activity
 				} else {
 					Log.e("Checando ranking Desaativado", "Checando ranking Desativiado");
 					btn_ranking
-					      .setBackgroundResource( R.drawable.ranking_desativado );
+					      .setBackgroundResource( R.drawable.inactive_ranking );
 					listView.setAdapter( listAdapter );
 					listView.setLayoutAnimation( controller );
 					Log.e("Setei ranking adapter","Setei ranking adapter");
@@ -111,11 +111,11 @@ public class ListScreen extends Activity
 				btn_search.setSelected( !btn_search.isSelected() );
 				
 				if( btn_search.isSelected() ) {
-					btn_search.setBackgroundResource( R.drawable.busca_ativada );
+					btn_search.setBackgroundResource( R.drawable.active_search );
 					search.setIconified( false );
 					
 				} else {
-					btn_search.setBackgroundResource( R.drawable.busca_desativada );
+					btn_search.setBackgroundResource( R.drawable.inactive_search );
 					search.setIconified( true );			
 				}
 			}

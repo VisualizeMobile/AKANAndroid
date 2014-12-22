@@ -31,7 +31,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:scaleType="fitXY"
-            android:src="@drawable/barra_inferior" ></ImageView>
+            android:src="@drawable/bottom_bar" ></ImageView>
 
            <Button
                android:id="@+id/btn_ranking"
@@ -40,7 +40,7 @@
                android:layout_alignParentBottom="true"
                android:layout_centerHorizontal="true"
                android:scaleType="fitXY"
-               android:background="@drawable/ranking_desativado" />
+               android:background="@drawable/inactive_ranking" />
 
            <Button
                android:id="@+id/btn_follow"
@@ -60,7 +60,7 @@
                android:layout_alignParentRight="true"
                android:layout_marginRight="25dp"
                android:scaleType="fitXY"
-               android:background="@drawable/busca_desativada" />
+               android:background="@drawable/inactive_search" />
         
     </RelativeLayout>
 

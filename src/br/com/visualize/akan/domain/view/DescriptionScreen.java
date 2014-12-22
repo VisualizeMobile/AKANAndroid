@@ -442,7 +442,7 @@ congressmanController = CongressmanController.getInstance( getApplicationContext
 		textViewRankingPosition.setText(Integer.toString(congressman.getRankingCongressman()));
 		
 		ImageView congressmanImage = (ImageView)findViewById(R.id.description_ranking_imagem_parlamentar);
-		Picasso.with(getApplicationContext()).load(photoCongressmanUrl+idCongressman+".jpg").error(R.drawable.parlamentar_foto_mini).into(congressmanImage);
+		Picasso.with(getApplicationContext()).load(photoCongressmanUrl+idCongressman+".jpg").error(R.drawable.default_photo).into(congressmanImage);
 		
 
 		

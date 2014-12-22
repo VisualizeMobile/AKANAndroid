@@ -99,7 +99,7 @@ public class RankingAdapter extends ArrayAdapter<Congressman> {
 
 		Picasso.with( context )
 		      .load( URL_PHOTOS + idCongressman + ".jpg" )
-		      .error( R.drawable.parlamentar_foto_mini ).into( congressmanImage );
+		      .error( R.drawable.default_photo ).into( congressmanImage );
 		
 		return view;
 	}
