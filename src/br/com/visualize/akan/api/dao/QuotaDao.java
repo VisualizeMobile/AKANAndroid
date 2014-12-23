@@ -30,7 +30,7 @@ public class QuotaDao extends Dao {
 		"TYPE_QUOTA", 
 		"DESCRIPTION_QUOTA", 
 		"MONTH_QUOTA", 
-		"", 
+		"YEAR_QUOTA", 
 		"VALUE_QUOTA"
 		};
 	
@@ -104,8 +104,12 @@ public class QuotaDao extends Dao {
 	 * @param idCongressman Numeric identifier of congressman that must have
 	 * 		 					deleted the quotas.
 	 */
-	public void deleteQuotasFromCongressman( int idCongressman ) {
-		/*! Write instructions Here. */
+	public boolean deleteQuotasFromCongressman( int idCongressman ) {
+		sqliteDatabase = database.getWritableDatabase();
+		boolean result = (sqliteDatabase.delete(tableName,
+				"ID_PARLAMENTAR=?", new String[] { idCongressman + "" }) > 0);
+		sqliteDatabase.close();
+		return result;
 	}
 
 	/**
