@@ -50,7 +50,7 @@
                android:layout_alignParentLeft="true"
                android:layout_marginLeft="34dp"
                android:scaleType="fitXY"
-               android:background="@drawable/seguidos_desativado" />
+               android:background="@drawable/inactive_followed" />
 
            <Button
                android:id="@+id/btn_search"

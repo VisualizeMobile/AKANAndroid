@@ -50,7 +50,7 @@
             android:layout_above="@+id/congressman_txt_nome"
             android:layout_alignParentRight="true"
             android:layout_marginRight="23dp"
-            android:background="@drawable/seguidos_desativado" />
+            android:background="@drawable/inactive_followed" />
 
         <TextView
             android:id="@+id/textView3"

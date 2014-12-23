@@ -57,7 +57,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="5dp"
             android:layout_marginRight="80dp"
-            android:src="@drawable/ranking4" />
+            android:src="@drawable/ranking1" />
         
         <TextView
             android:id="@+id/ranking_layout_txt_valor"
@@ -141,7 +141,7 @@
                android:id="@+id/btn_follow"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:background="@drawable/seguidos_desativado" />     
+               android:background="@drawable/inactive_followed" />     
     
     />
     
