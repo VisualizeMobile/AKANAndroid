@@ -58,7 +58,7 @@ Log.e(response.toString(), "entrei request com essa response");
 			Log.e(url, "passei no http get");
 			Log.e(http.toString(), "peguei http");
 			String json = new String(client.execute(http, response).getBytes("ISO-8859-1"), "UTF-8");
-			Log.e(json, "peguei esse json dentro do request");
+			Log.e("peguei esse json dentro do request",json);
 			return json;
 			
 		} catch (ClientProtocolException e) {

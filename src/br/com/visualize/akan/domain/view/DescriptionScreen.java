@@ -91,6 +91,8 @@ congressmanController = CongressmanController.getInstance( getApplicationContext
 			
 		}  ).start();
 		
+		//setValuesQuotas(congressmanController.getCongresman().getIdCongressman());
+		Log.e(congressmanController.getCongresman().getNameCongressman(),"Cotas do parlamentar ");
 	}
 	
 		
@@ -120,12 +122,13 @@ congressmanController = CongressmanController.getInstance( getApplicationContext
 	 */
 	public void setValuesQuotas( int idCongressman ) {
 		resetValuesQuotas();
-		
+		Log.e("Entrei no setValuesQUota", "Entrei no setValues quota");
 		double totalAmountSpent = 0.00;
 		
 		Iterator<Quota> iteratorQuota = controllerQuota.getQuotasByIdCongressman(
 		      idCongressman ).iterator();
-		
+		Log.e("Linha 129", "Entrei no setValues quota");
+
 		while( iteratorQuota.hasNext() ) {
 			Quota analyzedQuota = iteratorQuota.next();
 			SubQuota typeSubQuota = analyzedQuota.getTypeQuota();
@@ -159,14 +162,14 @@ congressmanController = CongressmanController.getInstance( getApplicationContext
 				
 				setBarQuota( accommodation, valueQuota );
 				break;
-			
+		/*	
 			case AIR_FREIGHT:
 				String airFreight = SubQuota.AIR_FREIGHT
 				      .getRepresentativeNameQuota();
 				
 				setBarQuota( airFreight, valueQuota );
 				break;
-			
+			*/
 			case ALIMENTATION:
 				String alimentation = SubQuota.ALIMENTATION
 				      .getRepresentativeNameQuota();
@@ -285,8 +288,8 @@ congressmanController = CongressmanController.getInstance( getApplicationContext
 		      .getRepresentativeNameQuota();
 		setBarQuota( accommodation, EMPTY_VALUE_QUOTA );
 		
-		String airFreight = SubQuota.AIR_FREIGHT.getRepresentativeNameQuota();
-		setBarQuota( airFreight, EMPTY_VALUE_QUOTA );
+		//String airFreight = SubQuota.AIR_FREIGHT.getRepresentativeNameQuota();
+		//setBarQuota( airFreight, EMPTY_VALUE_QUOTA );
 		
 		String alimentation = SubQuota.ALIMENTATION.getRepresentativeNameQuota();
 		setBarQuota( alimentation, EMPTY_VALUE_QUOTA );

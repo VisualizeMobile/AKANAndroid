@@ -50,7 +50,7 @@ public class JsonHelper {
 	}
 	
 	public static List<Quota> listQuotaByIdCongressmanFromJSON(String jsonQuotaByIdCongressmanList) throws NullCongressmanException, JSONException{
-		List<Quota> quotaList = null;
+		List<Quota> quotaList = new ArrayList<Quota>();
 		Quota quota;
 		JSONArray jArray = new JSONArray(jsonQuotaByIdCongressmanList);
 		try{
@@ -70,6 +70,7 @@ public class JsonHelper {
 				quotaList.add(quota);
 			}
 			
+			Log.e(quotaList.get(0).getDescriptionQuota(), "peguei quota");
 		}catch(NullPointerException e){
 			throw new NullCongressmanException();
 		}

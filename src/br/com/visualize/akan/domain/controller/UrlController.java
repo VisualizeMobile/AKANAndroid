@@ -68,8 +68,8 @@ public class UrlController {
 	 * @return The URL that listing all quotas.
 	 */
 	public String quotasWithCongressmanIdUrl( Integer id ) {
-		String url = "http://104.131.63.57:3000/congressmen/" + id.toString()
-				+ ".json";
+		String url = "http://107.170.177.5/akan/cota/parlamentar/"+id+"/";
+				
 		
 		return url;
 	}
