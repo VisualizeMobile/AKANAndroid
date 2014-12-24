@@ -19,7 +19,7 @@ public enum SubQuota {
 	DISCLOSURE_PARLIAMENTARY_ACTIVITY( 5, "disclosure_parliamentary_activity" ),
 	SAFETY( 8, "safety" ),
 	
-	AIR_FREIGHT( 9, "air_freight" ),
+	AIR_FREIGHT( 119, "air_freight" ),
 	TELEPHONY( 10, "telephony" ),
 	POSTAL_SERVICES( 11, "postal_services" ),
 	
@@ -28,7 +28,7 @@ public enum SubQuota {
 	ACCOMMODATION( 14, "accommodation" ),
 	
 	LEASE_OF_VEHICLES( 15, "lease_of_vehicles" ),
-	ISSUANCE_OF_AIR_TICKETS( 999, "issuance_of_air_tickets" );
+	ISSUANCE_OF_AIR_TICKETS( 9, "issuance_of_air_tickets" );
 	
 	private int valueSubQuota;
 	private String representativeName;
