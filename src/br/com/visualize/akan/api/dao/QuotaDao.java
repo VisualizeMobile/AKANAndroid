@@ -4,12 +4,14 @@
  */
 package br.com.visualize.akan.api.dao;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import br.com.visualize.akan.domain.model.Quota;
 
 /**
@@ -123,9 +125,30 @@ public class QuotaDao extends Dao {
 	 */
 	public List<Quota> getQuotasByIdCongressman( int idCongressman ) {
 		/*! Write instructions Here. */
-
-		return null;
+		Log.e("Entrei na dao","quota");
+		sqliteDatabase = database.getReadableDatabase();
+		Cursor cursor = sqliteDatabase.rawQuery(
+				"SELECT * FROM QUOTA WHERE ID_CONGRESSMAN=" + idCongressman,
+				null);
+		List<Quota> listQuotas = new ArrayList<Quota>();
+		while (cursor.moveToNext()) {
+			Quota quota = new Quota();
+			quota.setIdQuota(cursor.getInt(cursor.getColumnIndex("ID_QUOTA")));
+			quota.setIdCongressmanQuota(cursor.getInt(cursor.getColumnIndex("ID_CONGRESSMAN")));
+			quota.setIdUpdateQuota(cursor.getColumnIndex("ID_UPDATE"));
+			quota.setTypeQuotaByNumber(cursor.getInt(cursor.getColumnIndex("TYPE_QUOTA")));
+			quota.setDescriptionQuota(cursor.getString(cursor.getColumnIndex("DESCRIPTION_QUOTA")));
+			quota.setTypeMonthByNumber(cursor.getInt(cursor.getColumnIndex("MONTH_QUOTA")));
+			quota.setYearReferenceQuota(cursor.getInt(cursor.getColumnIndex("YEAR_QUOTA")));
+			quota.setValueQuota(cursor.getDouble(cursor.getColumnIndex("VALUE_QUOTA")));
+			listQuotas.add(quota);
+		}
+		sqliteDatabase.close();
+		Log.e(listQuotas.get(0).getDescriptionQuota(),"dao quota");
+		return listQuotas;
 	}
+		
+	
 
 	
 	private boolean insertQuota( Quota quota ) {
@@ -135,7 +158,7 @@ public class QuotaDao extends Dao {
 		content.put( tableColumns[0], quota.getIdQuota() );
 		content.put( tableColumns[1], quota.getIdCongressmanQuota() );
 		content.put( tableColumns[2], quota.getIdUpdateQuota() );
-		content.put( tableColumns[3], quota.getTypeQuota().getRepresentativeNameQuota() );
+		content.put( tableColumns[3], quota.getTypeQuota().getValueSubQuota());
 		content.put( tableColumns[4], quota.getDescriptionQuota() );
 		content.put( tableColumns[5], quota.getMonthReferenceQuota().getvalueMonth() );
 		content.put( tableColumns[6], quota.getYearReferenceQuota() );
