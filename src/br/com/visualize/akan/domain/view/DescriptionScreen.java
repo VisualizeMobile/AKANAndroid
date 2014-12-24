@@ -91,7 +91,7 @@ congressmanController = CongressmanController.getInstance( getApplicationContext
 			
 		}  ).start();
 		
-		//setValuesQuotas(congressmanController.getCongresman().getIdCongressman());
+		setValuesQuotas(congressmanController.getCongresman().getIdCongressman());
 		Log.e(congressmanController.getCongresman().getNameCongressman(),"Cotas do parlamentar ");
 	}
 	
@@ -131,13 +131,14 @@ congressmanController = CongressmanController.getInstance( getApplicationContext
 
 		while( iteratorQuota.hasNext() ) {
 			Quota analyzedQuota = iteratorQuota.next();
+			Log.e("Quota iterator", analyzedQuota.getDescriptionQuota());
 			SubQuota typeSubQuota = analyzedQuota.getTypeQuota();
-			
 			double valueQuota = analyzedQuota.getValueQuota();
-			
+			Log.e("Valor quota:" + valueQuota , "Valor quota iterator");
 			setSubQuotaAccordingType( typeSubQuota, valueQuota );
 			
 			totalAmountSpent = totalAmountSpent + valueQuota;
+			Log.e("TOTAL GASTO: "+ totalAmountSpent,"Total gasto" );
 		}
 	}
 	
@@ -162,14 +163,14 @@ congressmanController = CongressmanController.getInstance( getApplicationContext
 				
 				setBarQuota( accommodation, valueQuota );
 				break;
-		/*	
+			
 			case AIR_FREIGHT:
 				String airFreight = SubQuota.AIR_FREIGHT
 				      .getRepresentativeNameQuota();
 				
 				setBarQuota( airFreight, valueQuota );
 				break;
-			*/
+			
 			case ALIMENTATION:
 				String alimentation = SubQuota.ALIMENTATION
 				      .getRepresentativeNameQuota();
