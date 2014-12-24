@@ -5,6 +5,7 @@
 package br.com.visualize.akan.domain.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
@@ -88,9 +89,10 @@ public class QuotaController {
 	 * @return The list of referenced quotas belonging to the congressman.
 	 */
 	public List<Quota> getQuotasByIdCongressman( int idCongressman ) {
-		List<Quota> foundQuotas = null;
-		
-		foundQuotas = daoQuota.getQuotasByIdCongressman( idCongressman );
+		List<Quota> foundQuotas = new ArrayList<Quota>();
+		Log.e("getQuotasByIdCongressman","getQuotasByIdCOngressman");
+		foundQuotas = quotaDao.getQuotasByIdCongressman( idCongressman );
+		Log.e("Cota do banco", foundQuotas.get(0).getDescriptionQuota());
 		return foundQuotas;
 	}
 	
