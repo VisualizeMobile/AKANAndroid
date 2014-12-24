@@ -71,28 +71,43 @@ public class Quota {
 				
 		case 1:
 			setTypeQuota(SubQuota.OFFICE);
+			break;
 		case 3:
 			setTypeQuota(SubQuota.FUEL);
+			break;
 		case 4:
 			setTypeQuota(SubQuota.TECHNICAL_WORK_AND_CONSULTING);
+			break;
 		case 5:
 			setTypeQuota(SubQuota.DISCLOSURE_PARLIAMENTARY_ACTIVITY);
+			break;
 		case 8:
 			setTypeQuota(SubQuota.SAFETY);
+			break;
 		case 9:
 			setTypeQuota(SubQuota.ISSUANCE_OF_AIR_TICKETS);
+			break;
 		case 10:
 			setTypeQuota(SubQuota.TELEPHONY);
+			break;
 		case 11:
 			setTypeQuota(SubQuota.POSTAL_SERVICES);
+			break;
 		case 12:
 			setTypeQuota(SubQuota.SIGNATURE_OF_PUBLICATION);
+			break;
 		case 13:
 			setTypeQuota(SubQuota.ALIMENTATION);
+			break;
 		case 14:
 			setTypeQuota(SubQuota.ACCOMMODATION);
+			break;
 		case 15:
 			setTypeQuota(SubQuota.LEASE_OF_VEHICLES);
+			break;
+		case 119:
+			setTypeQuota(SubQuota.AIR_FREIGHT);
+			break;
 		default:
 			setTypeQuota(SubQuota.WITHOUT_TYPE);
 			
@@ -105,28 +120,40 @@ public void setTypeMonthByNumber (int type){
 				
 		case 1:
 			setMonthReferenceQuota(Month.JANUARY);
+			break;
 		case 2:
 			setMonthReferenceQuota(Month.FEBRUARY);
+			break;
 		case 3:
 			setMonthReferenceQuota(Month.MARCH);
+			break;
 		case 4:
 			setMonthReferenceQuota(Month.APRIL);
+			break;
 		case 5:
 			setMonthReferenceQuota(Month.MAY);
+			break;
 		case 6:
 			setMonthReferenceQuota(Month.JUNE);
+			break;
 		case 7:
 			setMonthReferenceQuota(Month.JULY);
+			break;
 		case 8:
 			setMonthReferenceQuota(Month.AUGUST);
+			break;
 		case 9:
 			setMonthReferenceQuota(Month.SEPTEMBER);
+			break;
 		case 10:
 			setMonthReferenceQuota(Month.OCTOBER);
+			break;
 		case 11:
 			setMonthReferenceQuota(Month.NOVEMBER);
+			break;
 		case 12:
 			setMonthReferenceQuota(Month.DECEMBER);
+			break;
 		default:
 			//nothing to do
 			
