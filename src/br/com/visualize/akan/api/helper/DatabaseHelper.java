@@ -1,3 +1,7 @@
+/*
+ * File: DatabaseHelper.java 
+ * Purpose: Brings the implementation of class DatabaseHelper.
+ */
 package br.com.visualize.akan.api.helper;
 
 import android.content.Context;
@@ -6,9 +10,14 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
+/**
+ * Responsible for supporting the creation of local database of the device 
+ * that will support the application.
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static final String dbName ="AKAN.db";
+	
 	private static final String congressmanTable = "CREATE TABLE [CONGRESSMAN] "
 			+ "([ID_CONGRESSMAN] VARCHAR(10), [ID_UPDATE] INT, "
 			+ "[NAME_CONGRESSMAN] VARCHAR(40), [PARTY] VARCHAR(10), "
@@ -35,9 +44,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			int version ) {
 		
 		super( context, name, factory, version );
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Describes the actions that will be made when creating the database. 
+	 * Creates the tables.
+	 */
 	@Override
 	public void onCreate( SQLiteDatabase db ) {
 		db.execSQL( congressmanTable );
@@ -46,9 +58,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 	}
 
+	/**
+	 * Describes the actions that will be made if there is a update 
+	 * in the database.
+	 */
 	@Override
 	public void onUpgrade( SQLiteDatabase db, int oldVersion, int newVersion ) {
-		// TODO Auto-generated method stub
-		
+		/*! Empty Method. */
 	}
 }

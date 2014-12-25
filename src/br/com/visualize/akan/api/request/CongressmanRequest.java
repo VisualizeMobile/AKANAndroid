@@ -1,6 +1,6 @@
 /*
- * File: CongressmanRequest.java Purpose: Brings the implementation of class
- * CongressmanRequest.
+ * File: CongressmanRequest.java 
+ * Purpose: Brings the implementation of class CongressmanRequest.
  */
 package br.com.visualize.akan.api.request;
 
