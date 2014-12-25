@@ -19,6 +19,8 @@ import br.com.visualize.akan.domain.model.Url;
  * and updates.
  */
 public class UrlDao extends Dao {
+	private static final boolean EMPTY = true;
+	private static final boolean NOT_EMPTY = false;
 	
 	private String defaultUrl = "http://192.168.1.4:3000";
 	private String tableName = "URL";
@@ -59,27 +61,26 @@ public class UrlDao extends Dao {
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 
-		boolean isEmpty = false;
+		boolean isEmpty = NOT_EMPTY;
 		
 		if( cursor != null ) {
 			
 			if( cursor.getCount() <= 0 ) {
-				isEmpty = true;
+				isEmpty = EMPTY;
 
 			} else {
 				/*! Nothing To Do. */
 			}
 			
 		} else {
-			isEmpty = true;	
+			isEmpty = EMPTY;
 		}
 		
 		return isEmpty;
 	}
 	
 	/**
-	 * Inserts in the database URL, referring to a congressman in particular,
-	 * passed as parameter in the local database of the application.
+	 * Inserts in the database URL.
 	 * <p>
 	 * @param url
 	 *           URL to be inserted.
