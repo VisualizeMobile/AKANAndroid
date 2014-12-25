@@ -1,6 +1,6 @@
 /*
- * File: CongressmanController.java 
- * Purpose: Brings the implementation of class CongressmanController.
+ * File: CongressmanListAdapter.java 
+ * Purpose: Brings the implementation of class CongressmanListAdapter.
  */
 package br.com.visualize.akan.domain.adapters;
 
@@ -27,7 +27,7 @@ import com.squareup.picasso.Picasso;
  * Represents a list of congressman adapting its entirety a particular 
  * form described by the class.
  */
-@SuppressLint( "InflateParams" )
+@SuppressLint( { "InflateParams", "ViewHolder" } )
 public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
       Filterable {
 	
