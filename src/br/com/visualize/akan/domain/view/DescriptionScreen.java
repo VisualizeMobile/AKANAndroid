@@ -15,7 +15,9 @@ import org.apache.http.client.ResponseHandler;
 import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import br.com.visualize.akan.domain.controller.CongressmanController;
 import android.os.Looper;
@@ -61,38 +63,9 @@ public class DescriptionScreen extends Activity {
 		setContentView( R.layout.description_screen_activity );
 
 		controllerQuota = QuotaController.getInstance(getApplicationContext());
-congressmanController = CongressmanController.getInstance( getApplicationContext() );
+		congressmanController = CongressmanController.getInstance( getApplicationContext() );
 
-		new Thread( new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated methodinstance stub
-				Looper.prepare();
-				ResponseHandler<String> responseHandler = HttpConnection
-						.getResponseHandler();
-				try {
-					Log.e(congressmanController.getCongresman().getNameCongressman(), "tentando setar quota");
-					controllerQuota.getQuotaById(congressmanController.getCongresman().getIdCongressman(), responseHandler);
-					
-					
-				
-				} catch ( Exception e ) {
-					//TODO launch error alert
-					e.printStackTrace();
-					
-				} 
-				Looper.loop();
-				
-				
-			}
-			
-			
-			
-		}  ).start();
 		
-		setValuesQuotas(congressmanController.getCongresman().getIdCongressman());
-		Log.e(congressmanController.getCongresman().getNameCongressman(),"Cotas do parlamentar ");
 	}
 	
 		
@@ -101,10 +74,45 @@ congressmanController = CongressmanController.getInstance( getApplicationContext
 		super.onResume();
 		
 		setDescriptionCongressman();
-					
+		requestQuotas();			
 		/* Here is part where call setValuesQuota() method, passing as a 
 		 * parameter the id of the congressman. */
 			
+	}
+	
+	public void requestQuotas(){
+		Log.e("Entrei no meodo requestCongressman","Entrei no metodo requestCongressman");
+		final ProgressDialog progress = new ProgressDialog(this);
+		progress.setMessage("Carregando dados...");
+		progress.show();
+		
+		new Thread(){
+			
+			public void run(){
+				
+				Looper.prepare();
+				try {
+					ResponseHandler<String> responseHandler = HttpConnection
+						      .getResponseHandler();
+					controllerQuota.getQuotaById(congressmanController.getCongresman().getIdCongressman(), responseHandler);				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						
+						Log.e("Entrei trhead","Entrei thread");
+						progress.setMessage("Dados carregados");
+						setValuesQuotas(congressmanController.getCongresman().getIdCongressman());
+						progress.dismiss();
+						Looper.loop();
+					}
+				});
+			
+			}
+		}.start();
 	}
 	
 	@Override
