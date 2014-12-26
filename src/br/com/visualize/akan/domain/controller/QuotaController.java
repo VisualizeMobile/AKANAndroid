@@ -114,7 +114,7 @@ public class QuotaController {
 		
 		if( responseHandler != null ) {
 			
-			if( quotaDao.checkEmptyLocalDb() ) {
+			
 				String url = urlController.quotasWithCongressmanIdUrl( id );
 				
 				String jsonQuota = HttpConnection.request( responseHandler, url );
@@ -123,9 +123,7 @@ public class QuotaController {
 				      .listQuotaByIdCongressmanFromJSON( jsonQuota ) );
 				
 				quotaDao.insertQuotasById( getQuotaList() );
-			} else {
-				/* ! Nothing To Do. */
-			}
+			
 			
 		} else {
 			/* ! Nothing To Do. */
