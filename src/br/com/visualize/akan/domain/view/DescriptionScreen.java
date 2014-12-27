@@ -79,7 +79,19 @@ public class DescriptionScreen extends Activity {
 		 * parameter the id of the congressman. */
 			
 	}
-	
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+		if (!congressmanController.getCongresman().isStatusCogressman()){
+			controllerQuota.deleteQuotasFromCongressman(congressmanController.getCongresman().getIdCongressman());
+		}
+		else
+		{
+			//nothing to do
+		}
+		
+		
+	}
 	public void requestQuotas(){
 		Log.e("Entrei no meodo requestCongressman","Entrei no metodo requestCongressman");
 		final ProgressDialog progress = new ProgressDialog(this);

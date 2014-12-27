@@ -12,6 +12,7 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import br.com.visualize.akan.domain.model.Quota;
 
 
@@ -110,11 +111,13 @@ public class QuotaDao extends Dao {
 	 *           quotas.
 	 */
 	public boolean deleteQuotasFromCongressman( int idCongressman ) {
+		Log.e("Dao", "Deletando quota");
+		
 		sqliteDatabase = database.getWritableDatabase();
 		
-		boolean result = ( sqliteDatabase.delete( tableName, "ID_PARLAMENTAR=?",
+		boolean result = ( sqliteDatabase.delete( tableName, "ID_CONGRESSMAN=?",
 		      new String[] { idCongressman + "" } ) > 0 );
-		
+		Log.e("Deletei dao","Quotas deletadas");
 		sqliteDatabase.close();
 		
 		return result;
