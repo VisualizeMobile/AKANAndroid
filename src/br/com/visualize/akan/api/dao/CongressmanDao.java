@@ -1,3 +1,7 @@
+/*
+ * File: CongressmanDao.java Purpose: Brings the implementation of class
+ * CongressmanDao.
+ */
 package br.com.visualize.akan.api.dao;
 
 
@@ -13,11 +17,12 @@ import br.com.visualize.akan.domain.model.Congressman;
 
 
 /**
- * This class represents the Data Access Object for the Congressman,
- * responsible for all data base operations like selections, insertions
- * and updates. 
+ * This class represents the Data Access Object for the Congressman, responsible
+ * for all data base operations like selections, insertions and updates.
  */
 public class CongressmanDao extends Dao {
+	private static final boolean EMPTY = true;
+	private static final boolean NOT_EMPTY = false;
 	
 	private static CongressmanDao instance;
 	private static String tableName = "CONGRESSMAN";
@@ -25,166 +30,218 @@ public class CongressmanDao extends Dao {
 	private static String tableColumns[] = { 
 		"ID_CONGRESSMAN", 
 		"ID_UPDATE", 
-		"NAME_CONGRESSMAN",
+		"NAME_CONGRESSMAN", 
 		"PARTY", 
 		"UF_CONGRESSMAN", 
 		"TOTAL_SPENT_CONGRESSMAN", 
 		"STATUS_CONGRESSMAN", 
 		"PHOTO_CONGRESSMAN", 
-		"RANKING_CONGRESSMAN" 
+		"RANKING_CONGRESSMAN"
 		};
 	
 	private CongressmanDao( Context context ) {
 		CongressmanDao.database = new DatabaseHelper( context );
 	}
 	
+	/**
+	 * Return the unique instance of CongressmanDao active in the project.
+	 * <p>
+	 * @return The unique instance of CongressmanDao.
+	 */
 	public static CongressmanDao getInstance( Context context ) {
-		if( CongressmanDao.instance == null ) {
+		if( CongressmanDao.instance != null ) {
+			/* !Nothing To Do. */
+			
+		} else {
 			CongressmanDao.instance = new CongressmanDao( context );
 		}
+		
 		return CongressmanDao.instance;
 	}
 	
+	/**
+	 * Checks if database is empty.
+	 */
 	public boolean checkEmptyLocalDb() {
 		sqliteDatabase = database.getReadableDatabase();
 		
 		String query = "SELECT  1 FROM " + tableName;
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
+		
+		boolean isEmpty = NOT_EMPTY;
+		
 		if( cursor != null ) {
+			
 			if( cursor.getCount() <= 0 ) {
 				cursor.moveToFirst();
 				
-				return true;
+				isEmpty = EMPTY;
 				
 			} else {
-				/*! Nothing To Do */
+				/* ! Nothing To Do */
 			}
 			
 		} else {
 			
-			return true;
+			isEmpty = EMPTY;
 		}
 		
-		return false;
+		return isEmpty;
 	}
 	
+	/**
+	 * Inserts in the database a congressman.
+	 * <p>
+	 * @param congressman
+	 *           Congressman to be inserted.
+	 * <p>
+	 * @return Result if the operation was successful or not.
+	 */
 	private boolean insertCongressman( Congressman congressman ) {
 		sqliteDatabase = database.getWritableDatabase();
+		
 		ContentValues content = new ContentValues();
 		
-		content.put( tableColumns[0], congressman.getIdCongressman() );
-		content.put( tableColumns[1], congressman.getIdUpdateCongressman() );
-		content.put( tableColumns[2], congressman.getNameCongressman() );
-		content.put( tableColumns[3], congressman.getPartyCongressman() );
-		content.put( tableColumns[4], congressman.getUfCongressman() );
-		content.put( tableColumns[5], congressman.getTotalSpentCongressman() );
-		content.put( tableColumns[6], congressman.isStatusCogressman() );
-		content.put( tableColumns[7], congressman.getPhotoCongressman() );
-		content.put( tableColumns[8], congressman.getRankingCongressman() );
-
-		boolean result = ( insertAndClose(sqliteDatabase, tableName, content ) > 0 );			
+		content.put( tableColumns[ 0 ], congressman.getIdCongressman() );
+		content.put( tableColumns[ 1 ], congressman.getIdUpdateCongressman() );
+		content.put( tableColumns[ 2 ], congressman.getNameCongressman() );
+		content.put( tableColumns[ 3 ], congressman.getPartyCongressman() );
+		content.put( tableColumns[ 4 ], congressman.getUfCongressman() );
+		content.put( tableColumns[ 5 ], congressman.getTotalSpentCongressman() );
+		content.put( tableColumns[ 6 ], congressman.isStatusCogressman() );
+		content.put( tableColumns[ 7 ], congressman.getPhotoCongressman() );
+		content.put( tableColumns[ 8 ], congressman.getRankingCongressman() );
+		
+		boolean result = ( insertAndClose( sqliteDatabase, tableName, content ) > 0 );
+		
 		return result;
 	}
 	
+	/**
+	 * Inserts in the database a list of congressman.
+	 * <p>
+	 * @param congressmanList
+	 *           List of Congressman to be inserted.
+	 * <p>
+	 * @return Result if the operation was successful or not.
+	 */
 	public boolean insertAllCongressman( List<Congressman> congressmanList ) {
-		Iterator<Congressman> i = congressmanList.iterator();
+		Iterator<Congressman> index = congressmanList.iterator();
+		
 		boolean result = true;
 		
-		while( i.hasNext() ) {
-			result = insertCongressman(i.next());
+		while( index.hasNext() ) {
+			result = insertCongressman( index.next() );
 		}
 		
-		return result; 
+		return result;
 	}
 	
+	/**
+	 * Retrieves all congressman contained in the database.
+	 * <p>
+	 * @return List of all congressman contained in the database.
+	 */
 	public List<Congressman> getAll() {
-
+		
 		sqliteDatabase = database.getReadableDatabase();
-
-		String query = "SELECT * FROM " + tableName + " ORDER BY TOTAL_SPENT_CONGRESSMAN DESC";
+		
+		String query = "SELECT * FROM " + tableName
+		      + " ORDER BY TOTAL_SPENT_CONGRESSMAN DESC";
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
-
+		
 		List<Congressman> listParlamentares = new ArrayList<Congressman>();
-
-		while ( cursor.moveToNext() ) {
-
+		
+		while( cursor.moveToNext() ) {
+			
 			Congressman congressman = new Congressman();
 			
 			congressman.setIdCongressman( cursor.getInt( cursor
-					.getColumnIndex( "ID_CONGRESSMAN" ) ) );
+			      .getColumnIndex( "ID_CONGRESSMAN" ) ) );
 			
 			congressman.setNameCongressman( cursor.getString( cursor
-					.getColumnIndex( "NAME_CONGRESSMAN" ) ) );
+			      .getColumnIndex( "NAME_CONGRESSMAN" ) ) );
 			
-			congressman.setStatusCogressman( Boolean.parseBoolean( cursor.
-					getString( cursor.getColumnIndex( "STATUS_CONGRESSMAN" ) ) ) );
+			congressman.setStatusCogressman( Boolean.parseBoolean( cursor
+			      .getString( cursor.getColumnIndex( "STATUS_CONGRESSMAN" ) ) ) );
 			
 			congressman.setPartyCongressman( cursor.getString( cursor
-					.getColumnIndex( "PARTY" ) ) );
+			      .getColumnIndex( "PARTY" ) ) );
 			
 			congressman.setUfCongressman( cursor.getString( cursor
-					.getColumnIndex( "UF_CONGRESSMAN" ) ) );
+			      .getColumnIndex( "UF_CONGRESSMAN" ) ) );
 			
 			congressman.setTotalSpentCongressman( cursor.getDouble( cursor
-					.getColumnIndex( "TOTAL_SPENT_CONGRESSMAN" ) ) );
+			      .getColumnIndex( "TOTAL_SPENT_CONGRESSMAN" ) ) );
 			
 			congressman.setRankingCongressman( cursor.getInt( cursor
-					.getColumnIndex( "RANKING_CONGRESSMAN" ) ) );
+			      .getColumnIndex( "RANKING_CONGRESSMAN" ) ) );
 			
 			congressman.setIdUpdateCongressman( cursor.getInt( cursor
-					.getColumnIndex( "ID_UPDATE" ) ) );
+			      .getColumnIndex( "ID_UPDATE" ) ) );
 			
 			listParlamentares.add( congressman );
 		}
 		
 		sqliteDatabase.close();
+		
 		return listParlamentares;
 	}
 	
+	/**
+	 * Retrieves a congressman contained in the database, based on pass name.
+	 * <p>
+	 * @param congressmanName
+	 *           The name of the congressman sought.
+	 * <p>
+	 * @return A congressman sought.
+	 */
 	public List<Congressman> selectCongressmanByName( String congressmanName ) {
-
+		
 		sqliteDatabase = database.getReadableDatabase();
-
-		String query = "SELECT * FROM " + tableName + " WHERE NAME_CONGRESSMAN = " + congressmanName;
+		
+		String query = "SELECT * FROM " + tableName
+		      + " WHERE NAME_CONGRESSMAN = " + congressmanName;
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
-
+		
 		List<Congressman> listParlamentares = new ArrayList<Congressman>();
-
-		while ( cursor.moveToNext() ) {
-
+		
+		while( cursor.moveToNext() ) {
+			
 			Congressman congressman = new Congressman();
 			
 			congressman.setIdCongressman( cursor.getInt( cursor
-					.getColumnIndex( "ID_CONGRESSMAN" ) ) );
+			      .getColumnIndex( "ID_CONGRESSMAN" ) ) );
 			
 			congressman.setNameCongressman( cursor.getString( cursor
-					.getColumnIndex( "NAME_CONGRESSMAN" ) ) );
+			      .getColumnIndex( "NAME_CONGRESSMAN" ) ) );
 			
-			congressman.setStatusCogressman( Boolean.parseBoolean( cursor.
-					getString( cursor.getColumnIndex( "STATUS_CONGRESSMAN" ) ) ) );
+			congressman.setStatusCogressman( Boolean.parseBoolean( cursor
+			      .getString( cursor.getColumnIndex( "STATUS_CONGRESSMAN" ) ) ) );
 			
 			congressman.setPartyCongressman( cursor.getString( cursor
-					.getColumnIndex( "PARTY" ) ) );
+			      .getColumnIndex( "PARTY" ) ) );
 			
 			congressman.setUfCongressman( cursor.getString( cursor
-					.getColumnIndex( "UF_CONGRESSMAN" ) ) );
+			      .getColumnIndex( "UF_CONGRESSMAN" ) ) );
 			
 			congressman.setTotalSpentCongressman( cursor.getDouble( cursor
-					.getColumnIndex( "TOTAL_SPENT_CONGRESSMAN" ) ) );
+			      .getColumnIndex( "TOTAL_SPENT_CONGRESSMAN" ) ) );
 			
 			congressman.setRankingCongressman( cursor.getInt( cursor
-					.getColumnIndex( "RANKING_CONGRESSMAN" ) ) );
+			      .getColumnIndex( "RANKING_CONGRESSMAN" ) ) );
 			
 			congressman.setIdUpdateCongressman( cursor.getInt( cursor
-					.getColumnIndex( "ID_UPDATE" ) ) );
+			      .getColumnIndex( "ID_UPDATE" ) ) );
 			
 			listParlamentares.add( congressman );
 		}
 		
 		sqliteDatabase.close();
+		
 		return listParlamentares;
 	}
 }
