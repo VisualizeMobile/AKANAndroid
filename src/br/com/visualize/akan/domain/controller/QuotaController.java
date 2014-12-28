@@ -6,6 +6,7 @@ package br.com.visualize.akan.domain.controller;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
@@ -150,16 +151,28 @@ public class QuotaController {
 	 * @return List of quotas associated with QuotaController.
 	 */
 	private List<Quota> getQuotaList() {
-		try {
-			Integer valor = (int) quotaList.get( 0 ).getIdCongressmanQuota();
-			Log.e( valor.toString(), "Entrei no setQuota na lista retornando" );
-			
-		} catch( Exception e ) {
-			/* ! Write Instructions Here. */
-			
-		}
 		
 		return quotaList;
+	}
+	
+	/**
+	 * Returns the list of quotas filtered by month and year
+	 * <p>
+	 * @return List of quotas filtered by month and year .
+	 */
+	public List<Quota> getQuotaByDate(int month , int year){
+		List<Quota> quotasByDate = new ArrayList<Quota>();
+		Iterator<Quota> iterator = getQuotaList().iterator();
+		
+		while(iterator.hasNext()){
+			Quota quota = iterator.next();
+			
+			if((quota.getMonthReferenceQuota().getvalueMonth() == month) && (quota.getYearReferenceQuota() == year)){
+				quotasByDate.add(quota);
+			}			
+		}
+				
+		return quotasByDate;
 	}
 	
 	/**
@@ -169,26 +182,8 @@ public class QuotaController {
 	 */
 	private static void setQuotaList(
 	      List<Quota> listQuotaByIdCongressmanFromJSON ) {
-		
-		try {
-			Integer valor = (int) listQuotaByIdCongressmanFromJSON.get( 0 )
-			      .getIdCongressmanQuota();
-			
-			Log.e( valor.toString(), "Entrei no setQuota" );
-			
-		} catch( Exception e ) {
-			/* ! Write Instructions Here. */
-		}
-		
+	
 		QuotaController.quotaList = listQuotaByIdCongressmanFromJSON;
 		
-		try {
-			Integer valor = (int) quotaList.get( 0 ).getIdCongressmanQuota();
-			
-			Log.e( valor.toString(), "Entrei no setQuota na lista" );
-			
-		} catch( Exception e ) {
-			/* ! Write Instructions Here. */
-		}
 	}
 }

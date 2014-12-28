@@ -6,6 +6,7 @@
 package br.com.visualize.akan.domain.view;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -146,24 +147,30 @@ public class DescriptionScreen extends Activity {
 	 *            quotas.
 	 */
 	public void setValuesQuotas(int idCongressman) {
+		Calendar c = Calendar.getInstance();
+		int year = c.get(Calendar.YEAR);
+		int month = c.get(Calendar.MONTH) + 1;
+		Log.e("Ano Atual "+ year, "Ano atual");
+		Log.e("Mês atual "+ month, "Mês atua");
+		
 		resetValuesQuotas();
 		Log.e("Entrei no setValuesQUota", "Entrei no setValues quota");
 		double totalAmountSpent = 0.00;
 
 		Iterator<Quota> iteratorQuota = controllerQuota
-				.getQuotasByIdCongressman(idCongressman).iterator();
+				.getQuotaByDate(month, year).iterator();
 		Log.e("Linha 129", "Entrei no setValues quota");
 
 		while (iteratorQuota.hasNext()) {
 			Quota analyzedQuota = iteratorQuota.next();
-			Log.e("Quota iterator", analyzedQuota.getDescriptionQuota());
+			//Log.e("Quota iterator", analyzedQuota.getDescriptionQuota());
 			SubQuota typeSubQuota = analyzedQuota.getTypeQuota();
 			double valueQuota = analyzedQuota.getValueQuota();
-			Log.e("Valor quota:" + valueQuota, "Valor quota iterator");
+			Log.e("Valor quota:" + analyzedQuota.getValueQuota(), "Parlamentar dessa cota");
 			setSubQuotaAccordingType(typeSubQuota, valueQuota);
 
 			totalAmountSpent = totalAmountSpent + valueQuota;
-			Log.e("TOTAL GASTO: " + totalAmountSpent, "Total gasto");
+			//Log.e("TOTAL GASTO: " + totalAmountSpent, "Total gasto");
 		}
 	}
 
