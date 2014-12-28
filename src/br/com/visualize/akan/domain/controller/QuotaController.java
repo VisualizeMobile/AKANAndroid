@@ -25,7 +25,6 @@ import br.com.visualize.akan.domain.model.Quota;
  */
 public class QuotaController {
 	private static QuotaController instanceQuotaController = null;
-	private QuotaDao daoQuota = null;
 	private static List<Quota> quotaList = null;
 	
 	private UrlController urlController;
@@ -74,7 +73,7 @@ public class QuotaController {
 	 *           quotas.
 	 */
 	public void deleteQuotasFromCongressman( int idCongressman ) {
-		daoQuota.deleteQuotasFromCongressman( idCongressman );
+		quotaDao.deleteQuotasFromCongressman( idCongressman );
 	}
 	
 	/**

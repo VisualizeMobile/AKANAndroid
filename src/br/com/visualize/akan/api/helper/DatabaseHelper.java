@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ "[RANKING_CONGRESSMAN] VARCHAR(10));";
 	
 	private static final String quotaTable = "CREATE TABLE [QUOTA] "
-			+ "([ID_QUOTA] VARCHAR(10), [ID_CONGRESSMAN] VARCHAR(10), "
+			+ "([ID_QUOTA] VARCHAR(10) unique, [ID_CONGRESSMAN] VARCHAR(10), "
 			+ "[ID_UPDATE] INT, [TYPE_QUOTA] INT(10), [DESCRIPTION_QUOTA] "
 			+ "VARCHAR (40), [MONTH_QUOTA] INT, [YEAR_QUOTA] INT, "
 			+ "[VALUE_QUOTA] DOUBLE);";
