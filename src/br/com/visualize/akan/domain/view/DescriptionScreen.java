@@ -221,41 +221,41 @@ public class DescriptionScreen extends Activity {
 				String accommodation = SubQuota.ACCOMMODATION
 				      .getRepresentativeNameQuota();
 				
-				setBarQuota( accommodation, valueQuota );
+				setDetailsQuota( accommodation, valueQuota );
 				break;
 			
 			case AIR_FREIGHT:
 				String airFreight = SubQuota.AIR_FREIGHT
 				      .getRepresentativeNameQuota();
 				
-				setBarQuota( airFreight, valueQuota );
+				setDetailsQuota( airFreight, valueQuota );
 				break;
 			
 			case ALIMENTATION:
 				String alimentation = SubQuota.ALIMENTATION
 				      .getRepresentativeNameQuota();
 				
-				setBarQuota( alimentation, valueQuota );
+				setDetailsQuota( alimentation, valueQuota );
 				break;
 			
 			case DISCLOSURE_PARLIAMENTARY_ACTIVITY:
 				String disclosureParliamentaryActivity = SubQuota.DISCLOSURE_PARLIAMENTARY_ACTIVITY
 				      .getRepresentativeNameQuota();
 				
-				setBarQuota( disclosureParliamentaryActivity, valueQuota );
+				setDetailsQuota( disclosureParliamentaryActivity, valueQuota );
 				break;
 			
 			case FUEL:
 				String fuel = SubQuota.FUEL.getRepresentativeNameQuota();
 				
-				setBarQuota( fuel, valueQuota );
+				setDetailsQuota( fuel, valueQuota );
 				break;
 			
 			case ISSUANCE_OF_AIR_TICKETS:
 				String inssuanceAirTickets = SubQuota.ISSUANCE_OF_AIR_TICKETS
 				      .getRepresentativeNameQuota();
 				
-				setBarQuota( inssuanceAirTickets, valueQuota );
+				setDetailsQuota( inssuanceAirTickets, valueQuota );
 				break;
 			
 			case LEASE_OF_VEHICLES:
@@ -265,20 +265,20 @@ public class DescriptionScreen extends Activity {
 			case OFFICE:
 				String office = SubQuota.OFFICE.getRepresentativeNameQuota();
 				
-				setBarQuota( office, valueQuota );
+				setDetailsQuota( office, valueQuota );
 				break;
 			
 			case POSTAL_SERVICES:
 				String postalServices = SubQuota.POSTAL_SERVICES
 				      .getRepresentativeNameQuota();
 				
-				setBarQuota( postalServices, valueQuota );
+				setDetailsQuota( postalServices, valueQuota );
 				break;
 			
 			case SAFETY:
 				String safety = SubQuota.SAFETY.getRepresentativeNameQuota();
 				
-				setBarQuota( safety, valueQuota );
+				setDetailsQuota( safety, valueQuota );
 				break;
 			
 			case SIGNATURE_OF_PUBLICATION:
@@ -289,13 +289,13 @@ public class DescriptionScreen extends Activity {
 				String technicalWorkConsulting = SubQuota.TECHNICAL_WORK_AND_CONSULTING
 				      .getRepresentativeNameQuota();
 				
-				setBarQuota( technicalWorkConsulting, valueQuota );
+				setDetailsQuota( technicalWorkConsulting, valueQuota );
 				break;
 			
 			case TELEPHONY:
 				String telephony = SubQuota.TELEPHONY.getRepresentativeNameQuota();
 				
-				setBarQuota( telephony, valueQuota );
+				setDetailsQuota( telephony, valueQuota );
 				break;
 			
 			default:
@@ -303,7 +303,7 @@ public class DescriptionScreen extends Activity {
 		}
 	}
 
-	private void setBarQuota( String quota, double valueQuota ) {
+	private void setDetailsQuota( String quota, double valueQuota ) {
 		int idButtonResource = getResourceID( BUTTON, quota );
 		int idTextResource = getResourceID( TEXT, quota );
 		int idBarResource = getResourceID( BAR, quota );
@@ -338,42 +338,42 @@ public class DescriptionScreen extends Activity {
 	 */
 	private void resetValuesQuotas() {
 		String accommodation = SubQuota.ACCOMMODATION.getRepresentativeNameQuota();
-		setBarQuota( accommodation, EMPTY_VALUE_QUOTA );
+		setDetailsQuota( accommodation, EMPTY_VALUE_QUOTA );
 		
 		String airFreight =
 		SubQuota.AIR_FREIGHT.getRepresentativeNameQuota();
-		setBarQuota( airFreight, EMPTY_VALUE_QUOTA );
+		setDetailsQuota( airFreight, EMPTY_VALUE_QUOTA );
 		
 		String alimentation = SubQuota.ALIMENTATION.getRepresentativeNameQuota();
-		setBarQuota( alimentation, EMPTY_VALUE_QUOTA );
+		setDetailsQuota( alimentation, EMPTY_VALUE_QUOTA );
 		
 		String disclosureParliamentaryActivity = SubQuota.DISCLOSURE_PARLIAMENTARY_ACTIVITY
 		      .getRepresentativeNameQuota();
-		setBarQuota( disclosureParliamentaryActivity, EMPTY_VALUE_QUOTA );
+		setDetailsQuota( disclosureParliamentaryActivity, EMPTY_VALUE_QUOTA );
 		
 		String fuel = SubQuota.FUEL.getRepresentativeNameQuota();
-		setBarQuota( fuel, EMPTY_VALUE_QUOTA );
+		setDetailsQuota( fuel, EMPTY_VALUE_QUOTA );
 		
 		String inssuanceAirTickets = SubQuota.ISSUANCE_OF_AIR_TICKETS
 		      .getRepresentativeNameQuota();
-		setBarQuota( inssuanceAirTickets, EMPTY_VALUE_QUOTA );
+		setDetailsQuota( inssuanceAirTickets, EMPTY_VALUE_QUOTA );
 		
 		String office = SubQuota.OFFICE.getRepresentativeNameQuota();
-		setBarQuota( office, EMPTY_VALUE_QUOTA );
+		setDetailsQuota( office, EMPTY_VALUE_QUOTA );
 		
 		String postalServices = SubQuota.POSTAL_SERVICES
 		      .getRepresentativeNameQuota();
-		setBarQuota( postalServices, EMPTY_VALUE_QUOTA );
+		setDetailsQuota( postalServices, EMPTY_VALUE_QUOTA );
 		
 		String safety = SubQuota.SAFETY.getRepresentativeNameQuota();
-		setBarQuota( safety, EMPTY_VALUE_QUOTA );
+		setDetailsQuota( safety, EMPTY_VALUE_QUOTA );
 		
 		String technicalWorkConsulting = SubQuota.TECHNICAL_WORK_AND_CONSULTING
 		      .getRepresentativeNameQuota();
-		setBarQuota( technicalWorkConsulting, EMPTY_VALUE_QUOTA );
+		setDetailsQuota( technicalWorkConsulting, EMPTY_VALUE_QUOTA );
 		
 		String telephony = SubQuota.TELEPHONY.getRepresentativeNameQuota();
-		setBarQuota( telephony, EMPTY_VALUE_QUOTA );
+		setDetailsQuota( telephony, EMPTY_VALUE_QUOTA );
 	}
 	
 	private void changeColorResource( View view, double percent ) {
