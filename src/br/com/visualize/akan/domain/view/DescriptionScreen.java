@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.http.client.ResponseHandler;
 
@@ -96,6 +97,16 @@ public class DescriptionScreen extends Activity {
 			/* ! Nothing To Do. */
 		}
 		
+		resetDetailsQuotas();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu( Menu menu ) {
+		MenuInflater inflater = getMenuInflater();
+		
+		inflater.inflate( R.menu.menu, menu );
+		
+		return super.onCreateOptionsMenu( menu );
 	}
 	
 	/**
@@ -132,7 +143,7 @@ public class DescriptionScreen extends Activity {
 		      .error( R.drawable.default_photo ).into( congressmanImage );
 	}
 	
-	public void requestQuotas() {
+	private void requestQuotas() {
 		final ProgressDialog progress = new ProgressDialog( this );
 		
 		progress.setMessage( "Carregando dados..." );
@@ -143,6 +154,7 @@ public class DescriptionScreen extends Activity {
 			public void run() {
 				
 				Looper.prepare();
+
 				try {
 					ResponseHandler<String> responseHandler = HttpConnection
 					      .getResponseHandler();
@@ -183,8 +195,6 @@ public class DescriptionScreen extends Activity {
 		
 		int year = calendar.get( Calendar.YEAR );
 		int month = calendar.get( Calendar.MONTH ) + 1;
-		
-		resetValuesQuotas();
 		
 		double totalAmountSpent = 0.00;
 		
@@ -302,6 +312,14 @@ public class DescriptionScreen extends Activity {
 				/* ! Nothing To Do. */
 		}
 	}
+	
+	private double exponentialProbability() {
+		Random generator = new Random();
+		
+		double result = generator.nextDouble();
+		
+		return result;
+	}
 
 	private void setDetailsQuota( String quota, double valueQuota ) {
 		int idButtonResource = getResourceID( BUTTON, quota );
@@ -318,11 +336,11 @@ public class DescriptionScreen extends Activity {
 	}
 	
 	private void setImageQuota( ImageView image, String quota ) {
-		changeColorResource( image, 0.43 );
+		// changeColorResource( image, exponentialProbability() );
 	}
 	
 	private void setBarQuota( ImageView bar, double valueQuota ) {
-		changeColorResource( bar, 0.43 );
+		changeColorResource( bar, exponentialProbability() );
 	}
 	
 	private void setTextQuota( TextView txt, double valueQuota ) {
@@ -330,50 +348,97 @@ public class DescriptionScreen extends Activity {
 		
 		txt.setText( valueQuotaFormat.format( valueQuota ) );
 		
-		changeColorResource( txt, 0.43 );
+		changeColorResource( txt, exponentialProbability() );
 	}
 	
 	/**
 	 * Resets the value of parliamentary quotas, making them equal to zero.
 	 */
-	private void resetValuesQuotas() {
+	private void resetDetailsQuotas() {
 		String accommodation = SubQuota.ACCOMMODATION.getRepresentativeNameQuota();
-		setDetailsQuota( accommodation, EMPTY_VALUE_QUOTA );
+		resetImageQuota( accommodation );
+		resetBarQuota( accommodation );
+		resetTextQuota( accommodation );
 		
-		String airFreight =
-		SubQuota.AIR_FREIGHT.getRepresentativeNameQuota();
-		setDetailsQuota( airFreight, EMPTY_VALUE_QUOTA );
+		String airFreight = SubQuota.AIR_FREIGHT.getRepresentativeNameQuota();
+		resetImageQuota( airFreight );
+		resetBarQuota( airFreight);
+		resetTextQuota( airFreight);
 		
 		String alimentation = SubQuota.ALIMENTATION.getRepresentativeNameQuota();
-		setDetailsQuota( alimentation, EMPTY_VALUE_QUOTA );
+		resetImageQuota( alimentation );
+		resetBarQuota( alimentation );
+		resetTextQuota( alimentation );
 		
 		String disclosureParliamentaryActivity = SubQuota.DISCLOSURE_PARLIAMENTARY_ACTIVITY
 		      .getRepresentativeNameQuota();
-		setDetailsQuota( disclosureParliamentaryActivity, EMPTY_VALUE_QUOTA );
+		resetImageQuota( disclosureParliamentaryActivity );
+		resetBarQuota( disclosureParliamentaryActivity );
+		resetTextQuota( disclosureParliamentaryActivity );
 		
 		String fuel = SubQuota.FUEL.getRepresentativeNameQuota();
-		setDetailsQuota( fuel, EMPTY_VALUE_QUOTA );
+		resetImageQuota( fuel );
+		resetBarQuota( fuel );
+		resetTextQuota( fuel );
 		
 		String inssuanceAirTickets = SubQuota.ISSUANCE_OF_AIR_TICKETS
 		      .getRepresentativeNameQuota();
-		setDetailsQuota( inssuanceAirTickets, EMPTY_VALUE_QUOTA );
+		resetImageQuota( inssuanceAirTickets );
+		resetBarQuota( inssuanceAirTickets );
+		resetTextQuota( inssuanceAirTickets );
 		
 		String office = SubQuota.OFFICE.getRepresentativeNameQuota();
-		setDetailsQuota( office, EMPTY_VALUE_QUOTA );
+		resetImageQuota( office );
+		resetBarQuota( office );
+		resetTextQuota( office );
 		
 		String postalServices = SubQuota.POSTAL_SERVICES
 		      .getRepresentativeNameQuota();
-		setDetailsQuota( postalServices, EMPTY_VALUE_QUOTA );
+		resetImageQuota( postalServices );
+		resetBarQuota( postalServices );
+		resetTextQuota( postalServices );
 		
 		String safety = SubQuota.SAFETY.getRepresentativeNameQuota();
-		setDetailsQuota( safety, EMPTY_VALUE_QUOTA );
+		resetImageQuota( safety );
+		resetBarQuota( safety );
+		resetTextQuota( safety );
 		
 		String technicalWorkConsulting = SubQuota.TECHNICAL_WORK_AND_CONSULTING
 		      .getRepresentativeNameQuota();
-		setDetailsQuota( technicalWorkConsulting, EMPTY_VALUE_QUOTA );
+		resetImageQuota( technicalWorkConsulting );
+		resetBarQuota( technicalWorkConsulting );
+		resetTextQuota( technicalWorkConsulting );
 		
 		String telephony = SubQuota.TELEPHONY.getRepresentativeNameQuota();
-		setDetailsQuota( telephony, EMPTY_VALUE_QUOTA );
+		resetImageQuota( telephony );
+		resetBarQuota( telephony );
+		resetTextQuota( telephony );
+	}
+	
+	private void resetImageQuota( String quota ) {
+		int idButtonResource = getResourceID( BUTTON, quota );
+		
+		ImageView imageQuota = (ImageView) findViewById( idButtonResource );
+		
+		Drawable background = imageQuota.getBackground();
+		background.clearColorFilter();
+	}
+	
+	private void resetBarQuota( String quota ) {
+		int idBarResource = getResourceID( BAR, quota );
+		
+		ImageView barQuota = (ImageView) findViewById( idBarResource );
+		
+		Drawable background = barQuota.getBackground();
+		background.clearColorFilter();
+	}
+	
+	private void resetTextQuota( String quota ) {
+		int idTextResource = getResourceID( TEXT, quota );
+
+		TextView txtQuota = (TextView) findViewById( idTextResource );
+		
+		setTextQuota( txtQuota, EMPTY_VALUE_QUOTA );
 	}
 	
 	private void changeColorResource( View view, double percent ) {
@@ -416,19 +481,19 @@ private void changeColorTextResource( TextView text, double percent ) {
 		Drawable background = image.getBackground();
 		
 		if( percent < 0.05 ) {
-			background.setColorFilter( Color.parseColor( WHITE_HEX ), Mode.MULTIPLY );;
+			background.setColorFilter( Color.parseColor( WHITE_HEX ), Mode.MULTIPLY );
 			
 		} else if( 0.05 < percent && percent <= 0.25 ) {
-			background.setColorFilter( Color.parseColor( GRAY_HEX ), Mode.MULTIPLY );;
+			background.setColorFilter( Color.parseColor( GRAY_HEX ), Mode.MULTIPLY );
 			
 		} else if( 0.25 < percent && percent <= 0.5 ) {
-			background.setColorFilter( Color.parseColor( GREEN_HEX ), Mode.MULTIPLY );;
+			background.setColorFilter( Color.parseColor( GREEN_HEX ), Mode.MULTIPLY );
 			
 		} else if( 0.5 < percent && percent <= 0.75 ) {
-			background.setColorFilter( Color.parseColor( YELLOW_HEX ), Mode.MULTIPLY );;
+			background.setColorFilter( Color.parseColor( YELLOW_HEX ), Mode.MULTIPLY );
 			
 		} else if( 0.75 < percent && percent <= 1.0 ) {
-			background.setColorFilter( Color.parseColor( RED_HEX ), Mode.MULTIPLY );;
+			background.setColorFilter( Color.parseColor( RED_HEX ), Mode.MULTIPLY );
 			
 		} else {
 			/* ! Nothing To Do. */
@@ -475,14 +540,5 @@ private void changeColorTextResource( TextView text, double percent ) {
 		      getPackageName() );
 		
 		return idResource;
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu( Menu menu ) {
-		MenuInflater inflater = getMenuInflater();
-		
-		inflater.inflate( R.menu.menu, menu );
-		
-		return super.onCreateOptionsMenu( menu );
 	}
 }
