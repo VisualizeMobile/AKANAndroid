@@ -119,30 +119,30 @@ public class DescriptionScreen extends Activity {
 		String idCongressman = Integer.toString( congressman.getIdCongressman() );
 		String photoCongressmanUrl = "http://www.camara.gov.br/internet/deputado/bandep/";
 		
-		TextView textViewCongressmanName = (TextView) findViewById( 
-				R.id.congressman_txt_nome );
+		TextView textViewCongressmanName = (TextView) findViewById( R.id.congressman_txt_nome );
 		
 		textViewCongressmanName.setText( congressman.getNameCongressman() );
 		
-		TextView textViewCongressmanParitdo = (TextView) findViewById(
-				R.id.congressman_txt_partido );
+		TextView textViewCongressmanParitdo = (TextView) findViewById( R.id.congressman_txt_partido );
 		
 		textViewCongressmanParitdo.setText( congressman.getPartyCongressman() );
 		
-		TextView textViewRankingPosition = (TextView) findViewById( 
-				R.id.description_ranking_position );
+		TextView textViewRankingPosition = (TextView) findViewById( R.id.description_ranking_position );
 		
 		textViewRankingPosition.setText( Integer.toString( congressman
 		      .getRankingCongressman() ) );
 		
-		ImageView congressmanImage = (ImageView) findViewById( 
-				R.id.description_ranking_imagem_parlamentar );
+		ImageView congressmanImage = (ImageView) findViewById( R.id.description_ranking_imagem_parlamentar );
 		
 		Picasso.with( getApplicationContext() )
 		      .load( photoCongressmanUrl + idCongressman + ".jpg" )
 		      .error( R.drawable.default_photo ).into( congressmanImage );
 	}
 	
+	/**
+	 * Makes a request to the server requesting the data relating to shares
+	 * related to the specified congressman.
+	 */
 	private void requestQuotas() {
 		final ProgressDialog progress = new ProgressDialog( this );
 		
@@ -154,13 +154,13 @@ public class DescriptionScreen extends Activity {
 			public void run() {
 				
 				Looper.prepare();
-
+				
 				try {
 					ResponseHandler<String> responseHandler = HttpConnection
 					      .getResponseHandler();
 					
 					controllerQuota.getQuotaById( congressmanController
-							.getCongresman().getIdCongressman(), responseHandler );
+					      .getCongresman().getIdCongressman(), responseHandler );
 					
 				} catch( Exception e ) {
 					// TODO: handle exception
@@ -178,7 +178,7 @@ public class DescriptionScreen extends Activity {
 						progress.dismiss();
 						Looper.loop();
 					}
-				} );	
+				} );
 			}
 		}.start();
 	}
@@ -313,6 +313,12 @@ public class DescriptionScreen extends Activity {
 		}
 	}
 	
+	/**
+	 * Calculates the level of the corresponding spending bar to the amount
+	 * actually spent in relation to the average of congressmen.
+	 * 
+	 * @return level of bar corresponding to the amount spent.
+	 */
 	private double exponentialProbability() {
 		Random generator = new Random();
 		
@@ -320,7 +326,17 @@ public class DescriptionScreen extends Activity {
 		
 		return result;
 	}
-
+	
+	/**
+	 * Sets the information of a quota that will be presented, either graphically
+	 * or numerically.
+	 * 
+	 * @param quota
+	 *           Name of the quota. Should be given only with lowercase letters
+	 *           and spaced names with underscore.
+	 * @param valueQuota
+	 *           Amount spent associated with sub-quota
+	 */
 	private void setDetailsQuota( String quota, double valueQuota ) {
 		int idButtonResource = getResourceID( BUTTON, quota );
 		int idTextResource = getResourceID( TEXT, quota );
@@ -335,35 +351,62 @@ public class DescriptionScreen extends Activity {
 		setTextQuota( txtQuota, valueQuota );
 	}
 	
+	/**
+	 * Sets the picture that represents on the screen a quota.
+	 * 
+	 * @param image
+	 *           ImagemView representing the quota.
+	 * @param quota
+	 *           Name of the quota. Should be given only with lowercase letters
+	 *           and spaced names with underscore.
+	 */
 	private void setImageQuota( ImageView image, String quota ) {
 		// changeColorResource( image, exponentialProbability() );
 	}
 	
+	/**
+	 * Sets the picture that represents on the screen the spending level of a
+	 * quota.
+	 * 
+	 * @param bar
+	 *           ImagemView graphically representing the spending on a quota.
+	 * @param valueQuota
+	 *           Amount spent associated with sub-quota.
+	 */
 	private void setBarQuota( ImageView bar, double valueQuota ) {
 		changeColorResource( bar, exponentialProbability() );
 	}
 	
-	private void setTextQuota( TextView txt, double valueQuota ) {
+	/**
+	 * Sets the text that represents on the screen the spending level of a quota.
+	 * 
+	 * @param text
+	 *           TextView numerically representing the spending on a quota.
+	 * @param valueQuota
+	 *           Amount spent associated with sub-quota.
+	 */
+	private void setTextQuota( TextView text, double valueQuota ) {
 		DecimalFormat valueQuotaFormat = new DecimalFormat( "#,###.00" );
 		
-		txt.setText( valueQuotaFormat.format( valueQuota ) );
+		text.setText( valueQuotaFormat.format( valueQuota ) );
 		
-		changeColorResource( txt, exponentialProbability() );
+		changeColorResource( text, exponentialProbability() );
 	}
 	
 	/**
 	 * Resets the value of parliamentary quotas, making them equal to zero.
 	 */
 	private void resetDetailsQuotas() {
-		String accommodation = SubQuota.ACCOMMODATION.getRepresentativeNameQuota();
+		String accommodation = SubQuota.ACCOMMODATION
+		      .getRepresentativeNameQuota();
 		resetImageQuota( accommodation );
 		resetBarQuota( accommodation );
 		resetTextQuota( accommodation );
 		
 		String airFreight = SubQuota.AIR_FREIGHT.getRepresentativeNameQuota();
 		resetImageQuota( airFreight );
-		resetBarQuota( airFreight);
-		resetTextQuota( airFreight);
+		resetBarQuota( airFreight );
+		resetTextQuota( airFreight );
 		
 		String alimentation = SubQuota.ALIMENTATION.getRepresentativeNameQuota();
 		resetImageQuota( alimentation );
@@ -415,6 +458,13 @@ public class DescriptionScreen extends Activity {
 		resetTextQuota( telephony );
 	}
 	
+	/**
+	 * Resets the color of the image represents a quota.
+	 * 
+	 * @param quota
+	 *           Name of the quota. Should be given only with lowercase letters
+	 *           and spaced names with underscore.
+	 */
 	private void resetImageQuota( String quota ) {
 		int idButtonResource = getResourceID( BUTTON, quota );
 		
@@ -424,6 +474,13 @@ public class DescriptionScreen extends Activity {
 		background.clearColorFilter();
 	}
 	
+	/**
+	 * Resets the level and color of the bar related of quota.
+	 * 
+	 * @param quota
+	 *           Name of the quota. Should be given only with lowercase letters
+	 *           and spaced names with underscore.
+	 */
 	private void resetBarQuota( String quota ) {
 		int idBarResource = getResourceID( BAR, quota );
 		
@@ -433,14 +490,30 @@ public class DescriptionScreen extends Activity {
 		background.clearColorFilter();
 	}
 	
+	/**
+	 * Resets the text that represents numerically the spending of quota.
+	 * 
+	 * @param quota
+	 *           Name of the quota. Should be given only with lowercase letters
+	 *           and spaced names with underscore.
+	 */
 	private void resetTextQuota( String quota ) {
 		int idTextResource = getResourceID( TEXT, quota );
-
+		
 		TextView txtQuota = (TextView) findViewById( idTextResource );
 		
 		setTextQuota( txtQuota, EMPTY_VALUE_QUOTA );
 	}
 	
+	/**
+	 * Change the color of a graphic screen feature.
+	 * 
+	 * @param view
+	 *           The interface feature, of the type View, which must have changed
+	 *           color.
+	 * @param percent
+	 *           Value representing the share of spending level.
+	 */
 	private void changeColorResource( View view, double percent ) {
 		
 		if( view instanceof TextView ) {
@@ -455,7 +528,16 @@ public class DescriptionScreen extends Activity {
 		}
 	}
 	
-private void changeColorTextResource( TextView text, double percent ) {
+	/**
+	 * Change the color of a TextView.
+	 * 
+	 * @param view
+	 *           The interface feature, of the type TextView, which must have
+	 *           changed color.
+	 * @param percent
+	 *           Value representing the share of spending level.
+	 */
+	private void changeColorTextResource( TextView text, double percent ) {
 		
 		if( percent < 0.05 ) {
 			text.setTextColor( Color.parseColor( WHITE_HEX ) );
@@ -477,20 +559,33 @@ private void changeColorTextResource( TextView text, double percent ) {
 		}
 	}
 	
+	/**
+	 * Change the color of a ImageView.
+	 * 
+	 * @param view
+	 *           The interface feature, of the type ImageView, which must have
+	 *           changed color.
+	 * @param percent
+	 *           Value representing the share of spending level.
+	 */
 	private void changeColorImageResource( ImageView image, double percent ) {
 		Drawable background = image.getBackground();
 		
 		if( percent < 0.05 ) {
-			background.setColorFilter( Color.parseColor( WHITE_HEX ), Mode.MULTIPLY );
+			background.setColorFilter( Color.parseColor( WHITE_HEX ),
+			      Mode.MULTIPLY );
 			
 		} else if( 0.05 < percent && percent <= 0.25 ) {
-			background.setColorFilter( Color.parseColor( GRAY_HEX ), Mode.MULTIPLY );
+			background
+			      .setColorFilter( Color.parseColor( GRAY_HEX ), Mode.MULTIPLY );
 			
 		} else if( 0.25 < percent && percent <= 0.5 ) {
-			background.setColorFilter( Color.parseColor( GREEN_HEX ), Mode.MULTIPLY );
+			background.setColorFilter( Color.parseColor( GREEN_HEX ),
+			      Mode.MULTIPLY );
 			
 		} else if( 0.5 < percent && percent <= 0.75 ) {
-			background.setColorFilter( Color.parseColor( YELLOW_HEX ), Mode.MULTIPLY );
+			background.setColorFilter( Color.parseColor( YELLOW_HEX ),
+			      Mode.MULTIPLY );
 			
 		} else if( 0.75 < percent && percent <= 1.0 ) {
 			background.setColorFilter( Color.parseColor( RED_HEX ), Mode.MULTIPLY );
@@ -527,7 +622,7 @@ private void changeColorTextResource( TextView text, double percent ) {
 			case TEXT:
 				resource = RESOURCE_TXT;
 				break;
-				
+			
 			case BAR:
 				resource = RESOURCE_BAR;
 				break;

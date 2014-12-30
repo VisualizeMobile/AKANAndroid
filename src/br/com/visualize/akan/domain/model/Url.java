@@ -6,7 +6,6 @@
 package br.com.visualize.akan.domain.model;
 
 
-import android.util.Log;
 
 
 /**
@@ -46,7 +45,6 @@ public class Url {
 	}
 	
 	public String getDefaultUrl() {
-		Log.i( "default url", defaultUrl );
 		return defaultUrl;
 	}
 	

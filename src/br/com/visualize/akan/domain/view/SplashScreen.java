@@ -12,9 +12,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.controller.CongressmanController;
@@ -35,17 +32,15 @@ public class SplashScreen extends Activity {
 		      .getInstance( getApplicationContext() );
 		
 				requestCongressman();
-		
 	}
-	
 	
 	/**
 	 * Providence the actions that should be made to the initial request for 
 	 * the operation of the Thread.
 	 */
 	public void requestCongressman(){
-		Log.e("Entrei no meodo requestCongressman","Entrei no metodo requestCongressman");
 		final ProgressDialog progress = new ProgressDialog(this);
+		
 		progress.setMessage("Carregando dados...");
 		progress.show();
 		
@@ -57,6 +52,7 @@ public class SplashScreen extends Activity {
 				try {
 					ResponseHandler<String> responseHandler = HttpConnection
 						      .getResponseHandler();
+					
 					congressmanController.requestAllCongressman( responseHandler );
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -66,12 +62,13 @@ public class SplashScreen extends Activity {
 					
 					@Override
 					public void run() {
-						
-						Log.e("Entrei trhead","Entrei thread");
 						progress.setMessage("Dados carregados");
+						
 						Intent myAction = new Intent( SplashScreen.this, ListScreen.class );
+						
 						SplashScreen.this.startActivity( myAction );
 						SplashScreen.this.finish();
+						
 						progress.dismiss();
 						Looper.loop();
 					}

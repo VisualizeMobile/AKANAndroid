@@ -12,7 +12,6 @@ import java.util.List;
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
-import android.util.Log;
 import br.com.visualize.akan.api.dao.QuotaDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
@@ -90,9 +89,9 @@ public class QuotaController {
 	 */
 	public List<Quota> getQuotasByIdCongressman( int idCongressman ) {
 		List<Quota> foundQuotas = new ArrayList<Quota>();
-		Log.e("getQuotasByIdCongressman","getQuotasByIdCOngressman");
+
 		foundQuotas = quotaDao.getQuotasByIdCongressman( idCongressman );
-		Log.e("Cota do banco", foundQuotas.get(0).getDescriptionQuota());
+
 		return foundQuotas;
 	}
 	

@@ -11,7 +11,6 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.util.Log;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Quota;
@@ -40,10 +39,6 @@ public class JsonHelper {
 	      JSONException {
 		
 		JSONArray jArray = new JSONArray( jsonCongressmanList );
-		
-		Log.e(
-		      jArray.getJSONObject( 0 ).getJSONObject( "fields" )
-		            .getString( "nomeparlamentar" ), "Requested Congressman" );
 		
 		try {
 			Congressman congressman = null;
