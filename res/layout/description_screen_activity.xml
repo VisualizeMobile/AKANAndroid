@@ -102,7 +102,19 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/quota_technical_work_and_consulting" />
+            
+            <ImageView
+		        android:id="@+id/bar_quota_technical_work_and_consulting"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@id/btn_quota_technical_work_and_consulting"
+		        android:layout_alignBottom="@id/btn_quota_technical_work_and_consulting"
+		        android:layout_alignLeft="@id/btn_quota_technical_work_and_consulting"
+		        android:layout_alignRight="@id/btn_quota_technical_work_and_consulting"            
+		        android:scaleType="fitXY"
+		        android:background="@drawable/level" />
             
             <TextView
                 android:id="@+id/txt_quota_technical_work_and_consulting"
@@ -119,7 +131,19 @@
                 android:layout_height="100dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/btn_quota_technical_work_and_consulting" />
+                android:layout_toRightOf="@id/btn_quota_technical_work_and_consulting"
+                android:background="@drawable/quota_telephony" />
+            
+            <ImageView
+		        android:id="@+id/bar_quota_telephony"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@id/btn_quota_telephony"
+		        android:layout_alignBottom="@id/btn_quota_telephony"
+		        android:layout_alignLeft="@id/btn_quota_telephony"
+		        android:layout_alignRight="@id/btn_quota_telephony"            
+		        android:scaleType="fitXY"
+		        android:background="@drawable/level" />
             
             <TextView 
                 android:id="@+id/txt_quota_telephony"
@@ -136,7 +160,19 @@
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
                android:layout_below="@id/btn_quota_technical_work_and_consulting"
-               android:layout_alignLeft="@id/btn_quota_technical_work_and_consulting" />
+               android:layout_alignLeft="@id/btn_quota_technical_work_and_consulting"
+               android:background="@drawable/quota_postal_services" />
+            
+            <ImageView
+		        android:id="@+id/bar_quota_postal_services"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@id/btn_quota_postal_services"
+		        android:layout_alignBottom="@id/btn_quota_postal_services"
+		        android:layout_alignLeft="@id/btn_quota_postal_services"
+		        android:layout_alignRight="@id/btn_quota_postal_services"            
+		        android:scaleType="fitXY"
+		        android:background="@drawable/level" />
             
             <TextView
                 android:id="@+id/txt_quota_postal_services"
@@ -153,7 +189,19 @@
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
                android:layout_alignLeft="@id/btn_quota_telephony"
-               android:layout_below="@id/btn_quota_telephony" />
+               android:layout_below="@id/btn_quota_telephony"
+               android:background="@drawable/quota_issuance_of_air_tickets" />
+            
+            <ImageView
+		        android:id="@+id/bar_quota_issuance_of_air_tickets"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@id/btn_quota_issuance_of_air_tickets"
+		        android:layout_alignBottom="@id/btn_quota_issuance_of_air_tickets"
+		        android:layout_alignLeft="@id/btn_quota_issuance_of_air_tickets"
+		        android:layout_alignRight="@id/btn_quota_issuance_of_air_tickets"            
+		        android:scaleType="fitXY"
+		        android:background="@drawable/level" />
             
             <TextView
                 android:id="@+id/txt_quota_issuance_of_air_tickets"
@@ -170,7 +218,19 @@
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
                android:layout_alignLeft="@id/btn_quota_technical_work_and_consulting"
-               android:layout_below="@id/btn_quota_postal_services" />
+               android:layout_below="@id/btn_quota_postal_services"
+               android:background="@drawable/quota_safety" />
+            
+            <ImageView
+		        android:id="@+id/bar_quota_safety"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@id/btn_quota_safety"
+		        android:layout_alignBottom="@id/btn_quota_safety"
+		        android:layout_alignLeft="@id/btn_quota_safety"
+		        android:layout_alignRight="@id/btn_quota_safety"            
+		        android:scaleType="fitXY"
+		        android:background="@drawable/level" />
             
             <TextView
                 android:id="@+id/txt_quota_safety"
@@ -187,7 +247,19 @@
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
                android:layout_alignLeft="@id/btn_quota_telephony"
-               android:layout_below="@id/btn_quota_issuance_of_air_tickets" />
+               android:layout_below="@id/btn_quota_issuance_of_air_tickets"
+               android:background="@drawable/quota_alimentation" />
+            
+            <ImageView
+		        android:id="@+id/bar_quota_alimentation"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@id/btn_quota_alimentation"
+		        android:layout_alignBottom="@id/btn_quota_alimentation"
+		        android:layout_alignLeft="@id/btn_quota_alimentation"
+		        android:layout_alignRight="@id/btn_quota_alimentation"            
+		        android:scaleType="fitXY"
+		        android:background="@drawable/level" />
             
             <TextView
                 android:id="@+id/txt_quota_alimentation"
@@ -196,7 +268,7 @@
                 android:layout_below="@id/btn_quota_alimentation"
                 android:layout_alignLeft="@id/btn_quota_alimentation"
                 android:layout_marginLeft="33dp"
-                android:text="@string/value_quota_alimentation" />
+			    android:text="@string/value_quota_alimentation" />
             
             <ImageView
                android:id="@+id/btn_quota_fuel"
@@ -204,7 +276,19 @@
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
                android:layout_alignLeft="@id/btn_quota_technical_work_and_consulting"
-               android:layout_below="@id/btn_quota_safety" />
+               android:layout_below="@id/btn_quota_safety"
+               android:background="@drawable/quota_fuel" />
+            
+            <ImageView
+		        android:id="@+id/bar_quota_fuel"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@id/btn_quota_fuel"
+		        android:layout_alignBottom="@id/btn_quota_fuel"
+		        android:layout_alignLeft="@id/btn_quota_fuel"
+		        android:layout_alignRight="@id/btn_quota_fuel"            
+		        android:scaleType="fitXY"
+		        android:background="@drawable/level" />
             
             <TextView
                 android:id="@+id/txt_quota_fuel"
@@ -221,7 +305,19 @@
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
                android:layout_alignLeft="@id/btn_quota_telephony"
-               android:layout_below="@id/btn_quota_alimentation" />
+               android:layout_below="@id/btn_quota_alimentation"
+               android:background="@drawable/quota_air_freight" />
+            
+            <ImageView
+		        android:id="@+id/bar_quota_air_freight"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@id/btn_quota_air_freight"
+		        android:layout_alignBottom="@id/btn_quota_air_freight"
+		        android:layout_alignLeft="@id/btn_quota_air_freight"
+		        android:layout_alignRight="@id/btn_quota_air_freight"            
+		        android:scaleType="fitXY"
+		        android:background="@drawable/level" />
             
             <TextView
                 android:id="@+id/txt_quota_air_freight"
@@ -238,7 +334,19 @@
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
                android:layout_alignLeft="@id/btn_quota_technical_work_and_consulting"
-               android:layout_below="@id/btn_quota_fuel" />
+               android:layout_below="@id/btn_quota_fuel"
+               android:background="@drawable/quota_office" />
+            
+            <ImageView
+		        android:id="@+id/bar_quota_office"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@id/btn_quota_office"
+		        android:layout_alignBottom="@id/btn_quota_office"
+		        android:layout_alignLeft="@id/btn_quota_office"
+		        android:layout_alignRight="@id/btn_quota_office"            
+		        android:scaleType="fitXY"
+		        android:background="@drawable/level" />
             
             <TextView
                 android:id="@+id/txt_quota_office"
@@ -255,7 +363,19 @@
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
                android:layout_alignLeft="@id/btn_quota_telephony"
-               android:layout_below="@id/btn_quota_air_freight" />
+               android:layout_below="@id/btn_quota_air_freight"
+               android:background="@drawable/quota_accommodation" />
+            
+            <ImageView
+		        android:id="@+id/bar_quota_accommodation"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@id/btn_quota_accommodation"
+		        android:layout_alignBottom="@id/btn_quota_accommodation"
+		        android:layout_alignLeft="@id/btn_quota_accommodation"
+		        android:layout_alignRight="@id/btn_quota_accommodation"            
+		        android:scaleType="fitXY"
+		        android:background="@drawable/level" />
             
             <TextView
                 android:id="@+id/txt_quota_accommodation"
@@ -272,7 +392,19 @@
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
                android:layout_alignLeft="@id/btn_quota_technical_work_and_consulting"
-               android:layout_below="@id/btn_quota_office" />
+               android:layout_below="@id/btn_quota_office"
+               android:background="@drawable/quota_disclosure_parliamentary_activity" />
+            
+            <ImageView
+		        android:id="@+id/bar_quota_disclosure_parliamentary_activity"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@id/btn_quota_disclosure_parliamentary_activity"
+		        android:layout_alignBottom="@id/btn_quota_disclosure_parliamentary_activity"
+		        android:layout_alignLeft="@id/btn_quota_disclosure_parliamentary_activity"
+		        android:layout_alignRight="@id/btn_quota_disclosure_parliamentary_activity"            
+		        android:scaleType="fitXY"
+		        android:background="@drawable/level" />
             
             <TextView
                 android:id="@+id/txt_quota_disclosure_parliamentary_activity"
