@@ -304,7 +304,33 @@ public class DescriptionScreen extends Activity {
 	}
 
 	private void setBarQuota( String quota, double valueQuota ) {
-		/*! write Instructions Here. */
+		int idButtonResource = getResourceID( BUTTON, quota );
+		int idTextResource = getResourceID( TEXT, quota );
+		int idBarResource = getResourceID( BAR, quota );
+		
+		ImageView imageQuota = (ImageView) findViewById( idButtonResource );
+		ImageView barQuota = (ImageView) findViewById( idBarResource );
+		TextView txtQuota = (TextView) findViewById( idTextResource );
+		
+		setImageQuota( imageQuota, quota );
+		setBarQuota( barQuota, valueQuota );
+		setTextQuota( txtQuota, valueQuota );
+	}
+	
+	private void setImageQuota( ImageView image, String quota ) {
+		changeColorResource( image, 0.43 );
+	}
+	
+	private void setBarQuota( ImageView bar, double valueQuota ) {
+		changeColorResource( bar, 0.43 );
+	}
+	
+	private void setTextQuota( TextView txt, double valueQuota ) {
+		DecimalFormat valueQuotaFormat = new DecimalFormat( "#,###.00" );
+		
+		txt.setText( valueQuotaFormat.format( valueQuota ) );
+		
+		changeColorResource( txt, 0.43 );
 	}
 	
 	/**
