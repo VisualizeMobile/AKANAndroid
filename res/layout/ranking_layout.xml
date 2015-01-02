@@ -3,64 +3,64 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:background="@drawable/extended_bar"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:baselineAligned="false" >
 
     <RelativeLayout
         android:layout_width="100dp"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/layout_ranking_position"
+            android:id="@+id/ranking_layout_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_ranking_imagem_parlamentar"
+            android:layout_below="@+id/ranking_layout_congressman_photo"
             android:layout_centerInParent="true"
             android:layout_marginTop="5dp"
-            android:text="100"
+            android:text="@string/ranking_position"
             android:textColor="#000033"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <ImageView
-            android:id="@+id/layout_ranking_imagem_parlamentar"
+            android:id="@+id/ranking_layout_congressman_photo"
+            android:contentDescription="@string/image_description_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:src="@drawable/default_photo" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/ranking_layout_txt_ordinary_symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/layout_ranking_position"
-            android:layout_alignBottom="@+id/layout_ranking_position"
-            android:layout_alignRight="@+id/layout_ranking_position"
+            android:layout_alignBaseline="@+id/ranking_layout_position"
+            android:layout_alignBottom="@+id/ranking_layout_position"
+            android:layout_alignRight="@+id/ranking_layout_position"
             android:layout_marginRight="-10dp"
             android:layout_marginTop="5dp"
-            android:text="º"
+            android:text="@string/ordinary_symbol"
             android:textColor="#000033"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
     </RelativeLayout>
 
-    
-
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1.39" >
         
         <ImageView
             android:id="@+id/ranking_layout_content_value"
+            android:contentDescription="@string/image_description_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="5dp"
             android:layout_marginRight="80dp"
             android:src="@drawable/ranking1" />
         
         <TextView
-            android:id="@+id/ranking_layout_txt_valor"
+            android:id="@+id/ranking_layout_txt_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -68,82 +68,73 @@
             android:layout_alignRight="@+id/ranking_layout_content_value"
         	android:layout_alignParentBottom="true"
         	android:textColor="#FFF"
-            android:text="Valor" />
+            android:text="@string/total_expenditure" />
         
         <TextView
-            android:id="@+id/ranking_layout_real"
+            android:id="@+id/ranking_layout_txt_monetary_symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/ranking_layout_txt_valor"
+            android:layout_toLeftOf="@+id/ranking_layout_txt_value"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
             android:textColor="#FFF"
             android:layout_alignLeft="@+id/ranking_layout_content_value"
         	android:layout_alignParentBottom="true"
-            
-            android:text="R$ " />
+            android:text="@string/monetary_symbol" />
+        
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           
             android:text="" />
 
         <TextView
-            android:id="@+id/ranking_layout_txt_partido"
+            android:id="@+id/ranking_layout_txt_congressman_party"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/ranking_layout_txt_nome"
+            android:layout_alignLeft="@+id/ranking_layout_txt_congressman_name"
             android:layout_marginTop="30dp"
             android:textColor="#536571"
-            android:text="Partido" />
-        <TextView 
+            android:text="@string/congressman_party" />
+        
+        <TextView
             android:id="@+id/ranking_layout_txt_espace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/ranking_layout_txt_partido"
-            android:layout_alignTop="@+id/ranking_layout_txt_partido"
+            android:layout_toRightOf="@+id/ranking_layout_txt_congressman_party"
+            android:layout_alignTop="@+id/ranking_layout_txt_congressman_party"
             android:layout_marginLeft="2dp"
-            android:text="-"
-            />
+            android:text="@string/trace" />
 
         <TextView
-            android:id="@+id/ranking_layout_txt_uf"
+            android:id="@+id/txt_home_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           	android:layout_alignTop="@+id/ranking_layout_txt_partido"
+           	android:layout_alignTop="@+id/ranking_layout_txt_congressman_party"
            	android:layout_toRightOf="@+id/ranking_layout_txt_espace"
            	android:layout_marginLeft="2dp"
            	android:textColor="#536571"
-            android:text="UF" />
+            android:text="@string/congressman_home_state" />
 
         <TextView
-            android:id="@+id/ranking_layout_txt_nome"
+            android:id="@+id/ranking_layout_txt_congressman_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:textColor="#536571"
-            android:text="nome" />
-
-        
-
+            android:text="@string/congressman_name" />
     </RelativeLayout>
-<RelativeLayout
-    	android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="15dp"		
-        android:layout_marginTop="15dp" >
-        
-    <Button
-               android:id="@+id/btn_follow"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:background="@drawable/inactive_followed" />     
     
-    />
-    
-</RelativeLayout>
-    
-
+	<RelativeLayout
+	    	android:layout_width="40dp"
+	        android:layout_height="40dp"
+	        android:layout_marginRight="15dp"		
+	        android:layout_marginTop="15dp" >
+	        
+	    <Button
+	        android:id="@+id/description_btn_follow"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/inactive_followed" />         
+	</RelativeLayout>
 </LinearLayout>

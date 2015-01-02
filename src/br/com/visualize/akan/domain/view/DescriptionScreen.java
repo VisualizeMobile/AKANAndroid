@@ -122,23 +122,23 @@ public class DescriptionScreen extends Activity {
 		String photoCongressmanUrl = "http://www.camara.gov.br/internet/deputado/bandep/";
 		
 		TextView textViewCongressmanName = (TextView) findViewById( 
-				R.id.congressman_txt_nome );
+				R.id.description_txt_congressman_name );
 		
 		textViewCongressmanName.setText( congressman.getNameCongressman() );
 		
 		TextView textViewCongressmanParitdo = (TextView) findViewById( 
-				R.id.congressman_txt_partido );
+				R.id.description_txt_congressman_party );
 		
 		textViewCongressmanParitdo.setText( congressman.getPartyCongressman() );
 		
 		TextView textViewRankingPosition = (TextView) findViewById( 
-				R.id.description_ranking_position );
+				R.id.description_txt_ranking_position );
 		
 		textViewRankingPosition.setText( Integer.toString( congressman
 		      .getRankingCongressman() ) );
 		
 		ImageView congressmanImage = (ImageView) findViewById( 
-				R.id.description_ranking_imagem_parlamentar );
+				R.id.description_congressman_photo );
 		
 		Picasso.with( getApplicationContext() )
 		      .load( photoCongressmanUrl + idCongressman + ".jpg" )
@@ -369,7 +369,7 @@ public class DescriptionScreen extends Activity {
 	 *           and spaced names with underscore.
 	 */
 	private void setImageQuota( ImageView image, String quota ) {
-		changeColorResource( image, exponentialProbability() );
+		/*! Write Instructions Here. */
 	}
 	
 	/**

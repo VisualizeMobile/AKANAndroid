@@ -64,23 +64,23 @@ public class RankingAdapter extends ArrayAdapter<Congressman> {
 		View view = inflater.inflate( R.layout.ranking_layout, null );
 
 		TextView textViewName = (TextView) view
-		      .findViewById( R.id.ranking_layout_txt_nome );
+		      .findViewById( R.id.ranking_layout_txt_congressman_name );
 
 		textViewName.setText( congressmens.get( position ).getNameCongressman() );
 
 		TextView textViewParty = (TextView) view
-		      .findViewById( R.id.ranking_layout_txt_partido );
+		      .findViewById( R.id.ranking_layout_txt_congressman_party );
 		
 		textViewParty
 		      .setText( congressmens.get( position ).getPartyCongressman() );
 
 		TextView textViewUf = (TextView) view
-		      .findViewById( R.id.ranking_layout_txt_uf );
+		      .findViewById( R.id.txt_home_state );
 		
 		textViewUf.setText( congressmens.get( position ).getUfCongressman() );
 		
 		TextView textViewValue = (TextView) view
-		      .findViewById( R.id.ranking_layout_txt_valor );
+		      .findViewById( R.id.ranking_layout_txt_value );
 		
 		DecimalFormat formatValue = new DecimalFormat( "#,###.00" );
 		
@@ -89,13 +89,13 @@ public class RankingAdapter extends ArrayAdapter<Congressman> {
 		            .getTotalSpentCongressman() ) );
 
 		TextView textViewPosition = (TextView) view
-		      .findViewById( R.id.layout_ranking_position );
+		      .findViewById( R.id.ranking_layout_position );
 		
 		textViewPosition.setText( Integer.toString( congressmens.get( position )
 		      .getRankingCongressman() ) );
 		
 		ImageView congressmanImage = (ImageView) view
-		      .findViewById( R.id.layout_ranking_imagem_parlamentar );
+		      .findViewById( R.id.ranking_layout_congressman_photo );
 
 		Picasso.with( context )
 		      .load( URL_PHOTOS + idCongressman + ".jpg" )

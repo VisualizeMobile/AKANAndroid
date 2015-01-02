@@ -14,5 +14,27 @@
     <string name="value_quota_disclosure_parliamentary_activity">00,00</string>
     <color name="white">#FFFFFF</color>
     <string name="hint_search">Pesquisar</string>
+    <string name="congressman_name">nome</string>
+    <string name="congressman_party">partido</string>
+    <string name="ordinary_symbol">º</string>
+    <string name="congressman_home_state">estado</string>
+    <string name="ranking_position">100</string>
+    <string name="image_description_photo">photo congressman</string>
+    <string name="image_description_default">&quot;&quot;</string>
+    <string name="image_description_quota_telephony">quota of telephony</string>
+    <string name="image_description_quota_technical_work_and_consulting">quota of technical work and consulting</string>
+    <string name="image_description_quota_postal_service">quota of postal services</string>
+    <string name="image_description_quota_issuance_of_air_tickets">quota of issuance of air tickets</string>
+    <string name="image_description_quota_safety">quota of safety</string>
+    <string name="image_description_quota_alimentation">quota of alimentation</string>
+    <string name="image_description_quota_fuel">quota of fuel</string>
+    <string name="image_description_quota_air_freight">quota of air freight</string>
+    <string name="image_description_quota_office">quota of office</string>
+    <string name="image_description_quota_accommodation">quota of accommodation</string>
+    <string name="image_description_quota_disclosure_parliamentary_activity">quota of disclosure parliamentary activity</string>
+    <string name="trace">-</string>
+    <string name="monetary_symbol">R$ </string>
+    <string name="total_expenditure">0000,00</string>
+    <string name="place">Lugar</string>
 
 </resources>

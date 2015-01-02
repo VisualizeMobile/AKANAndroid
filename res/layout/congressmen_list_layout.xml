@@ -14,7 +14,7 @@
         android:layout_height="wrap_content" >
 
         <ImageView
-            android:id="@+id/layout_ranking_imagem_parlamentar"
+            android:id="@+id/ranking_layout_congressman_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -37,10 +37,10 @@
             android:text="" />
 
         <TextView
-            android:id="@+id/ranking_layout_txt_partido"
+            android:id="@+id/ranking_layout_txt_congressman_party"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/ranking_layout_txt_nome"
+            android:layout_alignLeft="@+id/ranking_layout_txt_congressman_name"
             android:layout_marginTop="30dp"
             android:textColor="#536571"
             android:text="Partido" />
@@ -48,24 +48,24 @@
             android:id="@+id/ranking_layout_txt_espace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/ranking_layout_txt_partido"
-            android:layout_alignTop="@+id/ranking_layout_txt_partido"
+            android:layout_toRightOf="@+id/ranking_layout_txt_congressman_party"
+            android:layout_alignTop="@+id/ranking_layout_txt_congressman_party"
             android:layout_marginLeft="2dp"
             android:text="-"
             />
 
         <TextView
-            android:id="@+id/ranking_layout_txt_uf"
+            android:id="@+id/txt_home_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           	android:layout_alignTop="@+id/ranking_layout_txt_partido"
+           	android:layout_alignTop="@+id/ranking_layout_txt_congressman_party"
            	android:layout_toRightOf="@+id/ranking_layout_txt_espace"
            	android:layout_marginLeft="2dp"
            	android:textColor="#536571"
             android:text="UF" />
 
         <TextView
-            android:id="@+id/ranking_layout_txt_nome"
+            android:id="@+id/ranking_layout_txt_congressman_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -83,7 +83,7 @@
         android:layout_marginTop="15dp" >
         
     <Button
-               android:id="@+id/btn_follow"
+               android:id="@+id/description_btn_follow"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:background="@drawable/inactive_followed" />     

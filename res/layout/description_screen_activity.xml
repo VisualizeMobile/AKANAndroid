@@ -13,76 +13,76 @@
         android:orientation="horizontal" >
 
         <ImageView
-            android:id="@+id/description_ranking_imagem_parlamentar"
+            android:id="@+id/description_congressman_photo"
+            android:contentDescription="@string/image_description_photo"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:src="@drawable/default_photo"
-            android:maxHeight="64px"
-           android:maxWidth="64px" />
+            android:maxHeight="64dp"
+            android:maxWidth="64dp" />
 
         <TextView
-            android:id="@+id/congressman_txt_nome"
+            android:id="@+id/description_txt_congressman_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/description_ranking_imagem_parlamentar"
+            android:layout_below="@+id/description_congressman_photo"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:text="nome"
+            android:text="@string/congressman_name"
             android:textColor="#536571"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/congressman_txt_partido"
+            android:id="@+id/description_txt_congressman_party"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/congressman_txt_nome"
+            android:layout_below="@+id/description_txt_congressman_name"
             android:layout_centerHorizontal="true"
-            android:text="Partido"
+            android:text="@string/congressman_party"
             android:textColor="#536571"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btn_follow"
+            android:id="@+id/description_btn_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/congressman_txt_nome"
+            android:layout_above="@+id/description_txt_congressman_name"
             android:layout_alignParentRight="true"
             android:layout_marginRight="23dp"
             android:background="@drawable/inactive_followed" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/description_txt_ordinary_symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/description_ranking_position"
-            android:layout_alignBottom="@+id/description_ranking_position"
-            android:layout_toRightOf="@+id/description_ranking_position"
-            android:text="º"
+            android:layout_alignBaseline="@+id/description_txt_ranking_position"
+            android:layout_alignBottom="@+id/description_txt_ranking_position"
+            android:layout_toRightOf="@+id/description_txt_ranking_position"
+            android:text="@string/ordinary_symbol"
             android:textColor="#000033"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/position"
+            android:id="@+id/description_txt_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/congressman_txt_nome"
-            
+            android:layout_above="@+id/description_txt_congressman_name"
             android:layout_marginLeft="25dp"
-            android:text="Lugar"
+            android:text="@string/place"
             android:textColor="#000033"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/description_ranking_position"
+            android:id="@+id/description_txt_ranking_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/position"
-            android:text="100"
+            android:layout_above="@+id/description_txt_place"
+            android:text="@string/ranking_position"
             android:layout_marginLeft="30dp"
             android:textColor="#000033"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
     </RelativeLayout>
     
@@ -99,6 +99,7 @@
             
            <ImageView
                 android:id="@+id/bkg_quota_technical_work_and_consulting"
+                android:contentDescription="@string/image_description_default"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="30dp"
@@ -107,6 +108,7 @@
             
             <ImageView
                 android:id="@+id/btn_quota_technical_work_and_consulting"
+                android:contentDescription="@string/image_description_quota_technical_work_and_consulting"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="30dp"
@@ -115,6 +117,7 @@
             
             <ImageView
 		        android:id="@+id/bar_quota_technical_work_and_consulting"
+		        android:contentDescription="@string/image_description_default"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignTop="@id/btn_quota_technical_work_and_consulting"
@@ -135,6 +138,7 @@
             
             <ImageView
                 android:id="@+id/bkg_quota_telephony"
+                android:contentDescription="@string/image_description_default"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="50dp"
@@ -144,6 +148,7 @@
 
             <ImageView
                 android:id="@+id/btn_quota_telephony"
+                android:contentDescription="@string/image_description_quota_telephony"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="50dp"
@@ -153,6 +158,7 @@
             
             <ImageView
 		        android:id="@+id/bar_quota_telephony"
+		        android:contentDescription="@string/image_description_default"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignTop="@id/btn_quota_telephony"
@@ -173,6 +179,7 @@
             
             <ImageView
                android:id="@+id/bkg_quota_postal_services"
+               android:contentDescription="@string/image_description_default"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -182,6 +189,7 @@
             
             <ImageView
                android:id="@+id/btn_quota_postal_services"
+               android:contentDescription="@string/image_description_quota_postal_service"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -191,6 +199,7 @@
             
             <ImageView
 		        android:id="@+id/bar_quota_postal_services"
+		        android:contentDescription="@string/image_description_default"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignTop="@id/btn_quota_postal_services"
@@ -211,6 +220,7 @@
             
             <ImageView
                android:id="@+id/bkg_quota_issuance_of_air_tickets" 
+               android:contentDescription="@string/image_description_default"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -220,6 +230,7 @@
             
             <ImageView
                android:id="@+id/btn_quota_issuance_of_air_tickets" 
+               android:contentDescription="@string/image_description_quota_issuance_of_air_tickets"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -229,6 +240,7 @@
             
             <ImageView
 		        android:id="@+id/bar_quota_issuance_of_air_tickets"
+		        android:contentDescription="@string/image_description_default"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignTop="@id/btn_quota_issuance_of_air_tickets"
@@ -249,6 +261,7 @@
             
             <ImageView
                android:id="@+id/bkg_quota_safety"
+               android:contentDescription="@string/image_description_default"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -258,6 +271,7 @@
             
             <ImageView
                android:id="@+id/btn_quota_safety"
+               android:contentDescription="@string/image_description_quota_safety"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -267,6 +281,7 @@
             
             <ImageView
 		        android:id="@+id/bar_quota_safety"
+		        android:contentDescription="@string/image_description_default"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignTop="@id/btn_quota_safety"
@@ -286,7 +301,8 @@
                 android:text="@string/value_quota_safety" />
             
             <ImageView
-               android:id="@+id/bkg_quota_alimentation" 
+               android:id="@+id/bkg_quota_alimentation"
+               android:contentDescription="@string/image_description_default"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -295,7 +311,8 @@
                android:background="@drawable/background_alimentation" />
             
             <ImageView
-               android:id="@+id/btn_quota_alimentation" 
+               android:id="@+id/btn_quota_alimentation"
+               android:contentDescription="@string/image_description_quota_alimentation"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -305,6 +322,7 @@
             
             <ImageView
 		        android:id="@+id/bar_quota_alimentation"
+		        android:contentDescription="@string/image_description_default"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignTop="@id/btn_quota_alimentation"
@@ -325,6 +343,7 @@
             
             <ImageView
                android:id="@+id/bkg_quota_fuel"
+               android:contentDescription="@string/image_description_default"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -334,6 +353,7 @@
             
             <ImageView
                android:id="@+id/btn_quota_fuel"
+               android:contentDescription="@string/image_description_quota_fuel"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -343,6 +363,7 @@
             
             <ImageView
 		        android:id="@+id/bar_quota_fuel"
+		        android:contentDescription="@string/image_description_default"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignTop="@id/btn_quota_fuel"
@@ -363,6 +384,7 @@
             
             <ImageView
                android:id="@+id/bkg_quota_air_freight"
+               android:contentDescription="@string/image_description_default"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -372,6 +394,7 @@
             
             <ImageView
                android:id="@+id/btn_quota_air_freight"
+               android:contentDescription="@string/image_description_quota_air_freight"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -381,6 +404,7 @@
             
             <ImageView
 		        android:id="@+id/bar_quota_air_freight"
+		        android:contentDescription="@string/image_description_default"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignTop="@id/btn_quota_air_freight"
@@ -401,6 +425,7 @@
             
             <ImageView
                android:id="@+id/bkg_quota_office"
+               android:contentDescription="@string/image_description_default"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -410,6 +435,7 @@
             
             <ImageView
                android:id="@+id/btn_quota_office"
+               android:contentDescription="@string/image_description_quota_office"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -419,6 +445,7 @@
             
             <ImageView
 		        android:id="@+id/bar_quota_office"
+		        android:contentDescription="@string/image_description_default"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignTop="@id/btn_quota_office"
@@ -439,6 +466,7 @@
             
             <ImageView
                android:id="@+id/bkg_quota_accommodation"
+               android:contentDescription="@string/image_description_default"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -448,6 +476,7 @@
 
             <ImageView
                android:id="@+id/btn_quota_accommodation"
+               android:contentDescription="@string/image_description_quota_accommodation"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -457,6 +486,7 @@
             
             <ImageView
 		        android:id="@+id/bar_quota_accommodation"
+		        android:contentDescription="@string/image_description_default"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignTop="@id/btn_quota_accommodation"
@@ -477,6 +507,7 @@
             
             <ImageView
                android:id="@+id/bkg_quota_disclosure_parliamentary_activity"
+               android:contentDescription="@string/image_description_default"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -486,6 +517,7 @@
 
             <ImageView
                android:id="@+id/btn_quota_disclosure_parliamentary_activity"
+               android:contentDescription="@string/image_description_quota_disclosure_parliamentary_activity"
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_marginTop="15dp"
@@ -495,6 +527,7 @@
             
             <ImageView
 		        android:id="@+id/bar_quota_disclosure_parliamentary_activity"
+		        android:contentDescription="@string/image_description_default"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignTop="@id/btn_quota_disclosure_parliamentary_activity"
