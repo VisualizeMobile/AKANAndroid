@@ -27,12 +27,14 @@ public class StatisticDao {
 		return instanceStatisticDao;
 	}
 	
-	public Statistic getStatisticByYear() {
+	public Statistic getStatisticByYear( int year ) {
+		/* TODO: remove mock. */
 		Statistic statisticYear = new Statistic();
 		statisticYear.setAverage( 20000 );
 		statisticYear.setMaxValue( 25000 );
 		statisticYear.setStdDeviation( 200 );
 		statisticYear.setSubquota( SubQuota.ACCOMMODATION );
+		statisticYear.setYear( year );
 		
 		return statisticYear;
 	}

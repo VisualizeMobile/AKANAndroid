@@ -28,8 +28,8 @@ public class StatisticController {
 		return instanceStatisticController;
 	}
 	
-	public Statistic getStatisticByYear() {
-		Statistic statisticYear = statisticDao.getStatisticByYear();
+	public Statistic getStatisticByYear( int year ) {
+		Statistic statisticYear = statisticDao.getStatisticByYear( year );
 		
 		return statisticYear;
 	}	

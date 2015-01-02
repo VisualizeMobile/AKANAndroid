@@ -10,7 +10,6 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.http.client.ResponseHandler;
 
@@ -211,11 +210,9 @@ public class DescriptionScreen extends Activity {
 			Quota analyzedQuota = iteratorQuota.next();
 			SubQuota typeSubQuota = analyzedQuota.getTypeQuota();
 			
-			double valueQuota = analyzedQuota.getValueQuota();
+			setSubQuotaAccordingType( typeSubQuota, analyzedQuota );
 			
-			setSubQuotaAccordingType( typeSubQuota, valueQuota );
-			
-			totalAmountSpent = totalAmountSpent + valueQuota;
+			totalAmountSpent = totalAmountSpent + analyzedQuota.getValueQuota();
 		}
 	}
 	
@@ -225,11 +222,11 @@ public class DescriptionScreen extends Activity {
 	 * 
 	 * @param typeSubQuota
 	 *           The type of sub-quota.
-	 * @param valueQuota
+	 * @param quota
 	 *           Amount spent associated with sub-quota.
 	 */
 	private void setSubQuotaAccordingType( SubQuota typeSubQuota,
-	      double valueQuota ) {
+	      Quota quota ) {
 		
 		switch( typeSubQuota ) {
 		
@@ -237,41 +234,41 @@ public class DescriptionScreen extends Activity {
 				String accommodation = SubQuota.ACCOMMODATION
 				      .getRepresentativeNameQuota();
 				
-				setDetailsQuota( accommodation, valueQuota );
+				setDetailsQuota( accommodation, quota );
 				break;
 			
 			case AIR_FREIGHT:
 				String airFreight = SubQuota.AIR_FREIGHT
 				      .getRepresentativeNameQuota();
 				
-				setDetailsQuota( airFreight, valueQuota );
+				setDetailsQuota( airFreight, quota );
 				break;
 			
 			case ALIMENTATION:
 				String alimentation = SubQuota.ALIMENTATION
 				      .getRepresentativeNameQuota();
 				
-				setDetailsQuota( alimentation, valueQuota );
+				setDetailsQuota( alimentation, quota );
 				break;
 			
 			case DISCLOSURE_PARLIAMENTARY_ACTIVITY:
 				String disclosureParliamentaryActivity = SubQuota.DISCLOSURE_PARLIAMENTARY_ACTIVITY
 				      .getRepresentativeNameQuota();
 				
-				setDetailsQuota( disclosureParliamentaryActivity, valueQuota );
+				setDetailsQuota( disclosureParliamentaryActivity, quota );
 				break;
 			
 			case FUEL:
 				String fuel = SubQuota.FUEL.getRepresentativeNameQuota();
 				
-				setDetailsQuota( fuel, valueQuota );
+				setDetailsQuota( fuel, quota );
 				break;
 			
 			case ISSUANCE_OF_AIR_TICKETS:
 				String inssuanceAirTickets = SubQuota.ISSUANCE_OF_AIR_TICKETS
 				      .getRepresentativeNameQuota();
 				
-				setDetailsQuota( inssuanceAirTickets, valueQuota );
+				setDetailsQuota( inssuanceAirTickets, quota );
 				break;
 			
 			case LEASE_OF_VEHICLES:
@@ -281,20 +278,20 @@ public class DescriptionScreen extends Activity {
 			case OFFICE:
 				String office = SubQuota.OFFICE.getRepresentativeNameQuota();
 				
-				setDetailsQuota( office, valueQuota );
+				setDetailsQuota( office, quota );
 				break;
 			
 			case POSTAL_SERVICES:
 				String postalServices = SubQuota.POSTAL_SERVICES
 				      .getRepresentativeNameQuota();
 				
-				setDetailsQuota( postalServices, valueQuota );
+				setDetailsQuota( postalServices, quota );
 				break;
 			
 			case SAFETY:
 				String safety = SubQuota.SAFETY.getRepresentativeNameQuota();
 				
-				setDetailsQuota( safety, valueQuota );
+				setDetailsQuota( safety, quota );
 				break;
 			
 			case SIGNATURE_OF_PUBLICATION:
@@ -305,13 +302,13 @@ public class DescriptionScreen extends Activity {
 				String technicalWorkConsulting = SubQuota.TECHNICAL_WORK_AND_CONSULTING
 				      .getRepresentativeNameQuota();
 				
-				setDetailsQuota( technicalWorkConsulting, valueQuota );
+				setDetailsQuota( technicalWorkConsulting, quota );
 				break;
 			
 			case TELEPHONY:
 				String telephony = SubQuota.TELEPHONY.getRepresentativeNameQuota();
 				
-				setDetailsQuota( telephony, valueQuota );
+				setDetailsQuota( telephony, quota );
 				break;
 			
 			default:
@@ -323,17 +320,17 @@ public class DescriptionScreen extends Activity {
 	 * Sets the information of a quota that will be presented, either graphically
 	 * or numerically.
 	 * 
-	 * @param quota
+	 * @param quotaName
 	 *           Name of the quota. Should be given only with lowercase letters
 	 *           and spaced names with underscore.
 	 * @param valueQuota
 	 *           Amount spent associated with sub-quota
 	 */
-	private void setDetailsQuota( String quota, double valueQuota ) {
-		int idBackgroundResource = getResourceID( BACKGROUND, quota );
-		int idImageResource = getResourceID( BUTTON, quota );
-		int idTextResource = getResourceID( TEXT, quota );
-		int idBarResource = getResourceID( BAR, quota );
+	private void setDetailsQuota( String quotaName, Quota quota ) {
+		int idBackgroundResource = getResourceID( BACKGROUND, quotaName );
+		int idImageResource = getResourceID( BUTTON, quotaName );
+		int idTextResource = getResourceID( TEXT, quotaName );
+		int idBarResource = getResourceID( BAR, quotaName );
 		
 		ImageView backgroundQuota = (ImageView) findViewById( idBackgroundResource );
 		ImageView imageQuota = (ImageView) findViewById( idImageResource );
@@ -341,9 +338,9 @@ public class DescriptionScreen extends Activity {
 		TextView txtQuota = (TextView) findViewById( idTextResource );
 		
 		setBackgroundQuota( backgroundQuota, quota );
-		setImageQuota( imageQuota, quota );
-		setBarQuota( barQuota, valueQuota );
-		setTextQuota( txtQuota, valueQuota );
+		setImageQuota( imageQuota, quotaName );
+		setBarQuota( barQuota, quota );
+		setTextValueQuota( txtQuota, quota );
 	}
 	
 	/**
@@ -355,8 +352,8 @@ public class DescriptionScreen extends Activity {
 	 *           Name of the quota. Should be given only with lowercase letters
 	 *           and spaced names with underscore.
 	 */
-	private void setBackgroundQuota( ImageView background, String quota ) {
-		changeColorResource( background, exponentialProbability() );
+	private void setBackgroundQuota( ImageView background, Quota quota ) {
+		changeColorResource( background, exponentialProbability( quota ) );
 	}
 	
 	/**
@@ -381,8 +378,8 @@ public class DescriptionScreen extends Activity {
 	 * @param valueQuota
 	 *           Amount spent associated with sub-quota.
 	 */
-	private void setBarQuota( ImageView bar, double valueQuota ) {
-		changeColorResource( bar, exponentialProbability() );
+	private void setBarQuota( ImageView bar, Quota quota ) {
+		changeColorResource( bar, exponentialProbability( quota ) );
 	}
 	
 	/**
@@ -393,12 +390,17 @@ public class DescriptionScreen extends Activity {
 	 * @param valueQuota
 	 *           Amount spent associated with sub-quota.
 	 */
-	private void setTextQuota( TextView text, double valueQuota ) {
+	private void setTextValueQuota( TextView text, Quota quota ) {
 		DecimalFormat valueQuotaFormat = new DecimalFormat( "#,###.00" );
 		
-		text.setText( valueQuotaFormat.format( valueQuota ) );
-		
-		changeColorResource( text, exponentialProbability() );
+		if( quota != null ) {
+			text.setText( valueQuotaFormat.format( quota.getValueQuota() ) );
+			
+			changeColorResource( text, exponentialProbability( quota ) );
+			
+		} else {
+			text.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
+		}
 	}
 	
 	/**
@@ -457,7 +459,7 @@ public class DescriptionScreen extends Activity {
 		resetBackgroundQuota( quota );
 		resetImageQuota( quota );
 		resetBarQuota( quota );
-		resetTextQuota( quota );
+		resetTextValueQuota( quota );
 	}
 	
 	/**
@@ -515,12 +517,12 @@ public class DescriptionScreen extends Activity {
 	 *           Name of the quota. Should be given only with lowercase letters
 	 *           and spaced names with underscore.
 	 */
-	private void resetTextQuota( String quota ) {
+	private void resetTextValueQuota( String quota ) {
 		int idTextResource = getResourceID( TEXT, quota );
 		
 		TextView txtQuota = (TextView) findViewById( idTextResource );
 		
-		setTextQuota( txtQuota, EMPTY_VALUE_QUOTA );
+		setTextValueQuota( txtQuota, null );
 	}
 	
 	/**
@@ -529,10 +531,10 @@ public class DescriptionScreen extends Activity {
 	 * 
 	 * @return level of bar corresponding to the amount spent.
 	 */
-	private double exponentialProbability() {
-		Random generator = new Random();
+	private double exponentialProbability( Quota quota ) {
+		double lambda =  1/ quota.getStatisticQuota().getAverage() ;
 		
-		double result = generator.nextDouble();
+		double result = 1 - Math.exp( - lambda * quota.getValueQuota() );
 		
 		return result;
 	}

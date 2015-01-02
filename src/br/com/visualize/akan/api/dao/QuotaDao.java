@@ -25,6 +25,7 @@ public class QuotaDao extends Dao {
 	private static final boolean EMPTY = true;
 	private static final boolean NOT_EMPTY = false;
 	
+	private StatisticDao statisticDao = null;
 	private static QuotaDao instanceQuotaDao = null;
 	private static String tableName = "QUOTA";
 	
@@ -34,6 +35,7 @@ public class QuotaDao extends Dao {
 	
 	protected QuotaDao( Context context ) {
 		QuotaDao.context = context;
+		statisticDao = StatisticDao.getInstance( context );
 	}
 	
 	/**
@@ -162,6 +164,9 @@ public class QuotaDao extends Dao {
 			
 			quota.setValueQuota( cursor.getDouble( cursor
 			      .getColumnIndex( "VALUE_QUOTA" ) ) );
+			
+			quota.setStatisticQuota( statisticDao.getStatisticByYear( 
+					quota.getYearReferenceQuota() ));
 			
 			listQuotas.add( quota );
 		}

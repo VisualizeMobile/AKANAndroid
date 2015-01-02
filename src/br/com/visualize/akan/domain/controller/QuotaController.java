@@ -26,7 +26,7 @@ import br.com.visualize.akan.domain.model.Quota;
 public class QuotaController {
 	private static QuotaController instanceQuotaController = null;
 	private static List<Quota> quotaList = null;
-	
+
 	private UrlController urlController;
 	private QuotaDao quotaDao;
 	

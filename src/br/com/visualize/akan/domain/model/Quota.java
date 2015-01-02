@@ -194,4 +194,12 @@ public void setTypeMonthByNumber (int type){
 	public void setValueQuota( double valueQuota ) {
 		this.valueQuota = valueQuota;
 	}
+
+	public Statistic getStatisticQuota() {
+		return statisticQuota;
+	}
+
+	public void setStatisticQuota( Statistic statisticQuota ) {
+		this.statisticQuota = statisticQuota;
+	}
 }
