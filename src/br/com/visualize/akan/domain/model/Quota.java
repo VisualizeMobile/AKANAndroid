@@ -25,6 +25,8 @@ public class Quota {
 	private String descriptionQuota = "";
 	private double valueQuota = 0;
 	
+	private Statistic statisticQuota = null;
+	
 	public Quota( int id, int idCongressman, SubQuota subquota, double value ) {
 		this.idQuota = id;
 		this.idCongressman = idCongressman;
