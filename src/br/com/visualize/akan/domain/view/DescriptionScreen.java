@@ -1,6 +1,7 @@
 /*
- * File: DescriptionScreen.java Purpose: Brings the implementation of
- * DescriptionScreen, a class that serves to interface with the user.
+ * File: DescriptionScreen.java 
+ * Purpose: Brings the implementation of DescriptionScreen, a class that 
+ * serves to interface with the user.
  */
 package br.com.visualize.akan.domain.view;
 
@@ -54,6 +55,7 @@ public class DescriptionScreen extends Activity {
 	private static final int BUTTON = 1;
 	private static final int TEXT = 2;
 	private static final int BAR = 3;
+	private static final int BACKGROUND = 4;
 	
 	Context context;
 	
@@ -68,9 +70,9 @@ public class DescriptionScreen extends Activity {
 		setContentView( R.layout.description_screen_activity );
 		
 		controllerQuota = QuotaController.getInstance( getApplicationContext() );
+		
 		congressmanController = CongressmanController
 		      .getInstance( getApplicationContext() );
-		
 	}
 	
 	@Override
@@ -97,7 +99,7 @@ public class DescriptionScreen extends Activity {
 			/* ! Nothing To Do. */
 		}
 		
-		resetDetailsQuotas();
+		resetSubQuotaAccordingType();
 	}
 	
 	@Override
@@ -119,20 +121,24 @@ public class DescriptionScreen extends Activity {
 		String idCongressman = Integer.toString( congressman.getIdCongressman() );
 		String photoCongressmanUrl = "http://www.camara.gov.br/internet/deputado/bandep/";
 		
-		TextView textViewCongressmanName = (TextView) findViewById( R.id.congressman_txt_nome );
+		TextView textViewCongressmanName = (TextView) findViewById( 
+				R.id.congressman_txt_nome );
 		
 		textViewCongressmanName.setText( congressman.getNameCongressman() );
 		
-		TextView textViewCongressmanParitdo = (TextView) findViewById( R.id.congressman_txt_partido );
+		TextView textViewCongressmanParitdo = (TextView) findViewById( 
+				R.id.congressman_txt_partido );
 		
 		textViewCongressmanParitdo.setText( congressman.getPartyCongressman() );
 		
-		TextView textViewRankingPosition = (TextView) findViewById( R.id.description_ranking_position );
+		TextView textViewRankingPosition = (TextView) findViewById( 
+				R.id.description_ranking_position );
 		
 		textViewRankingPosition.setText( Integer.toString( congressman
 		      .getRankingCongressman() ) );
 		
-		ImageView congressmanImage = (ImageView) findViewById( R.id.description_ranking_imagem_parlamentar );
+		ImageView congressmanImage = (ImageView) findViewById( 
+				R.id.description_ranking_imagem_parlamentar );
 		
 		Picasso.with( getApplicationContext() )
 		      .load( photoCongressmanUrl + idCongressman + ".jpg" )
@@ -314,20 +320,6 @@ public class DescriptionScreen extends Activity {
 	}
 	
 	/**
-	 * Calculates the level of the corresponding spending bar to the amount
-	 * actually spent in relation to the average of congressmen.
-	 * 
-	 * @return level of bar corresponding to the amount spent.
-	 */
-	private double exponentialProbability() {
-		Random generator = new Random();
-		
-		double result = generator.nextDouble();
-		
-		return result;
-	}
-	
-	/**
 	 * Sets the information of a quota that will be presented, either graphically
 	 * or numerically.
 	 * 
@@ -338,30 +330,46 @@ public class DescriptionScreen extends Activity {
 	 *           Amount spent associated with sub-quota
 	 */
 	private void setDetailsQuota( String quota, double valueQuota ) {
-		int idButtonResource = getResourceID( BUTTON, quota );
+		int idBackgroundResource = getResourceID( BACKGROUND, quota );
+		int idImageResource = getResourceID( BUTTON, quota );
 		int idTextResource = getResourceID( TEXT, quota );
 		int idBarResource = getResourceID( BAR, quota );
 		
-		ImageView imageQuota = (ImageView) findViewById( idButtonResource );
+		ImageView backgroundQuota = (ImageView) findViewById( idBackgroundResource );
+		ImageView imageQuota = (ImageView) findViewById( idImageResource );
 		ImageView barQuota = (ImageView) findViewById( idBarResource );
 		TextView txtQuota = (TextView) findViewById( idTextResource );
 		
+		setBackgroundQuota( backgroundQuota, quota );
 		setImageQuota( imageQuota, quota );
 		setBarQuota( barQuota, valueQuota );
 		setTextQuota( txtQuota, valueQuota );
 	}
 	
 	/**
+	 * Sets the picture that represents the background of the quota.
+	 * 
+	 * @param background
+	 *           ImagemView representing the background of the quota.
+	 * @param quota
+	 *           Name of the quota. Should be given only with lowercase letters
+	 *           and spaced names with underscore.
+	 */
+	private void setBackgroundQuota( ImageView background, String quota ) {
+		changeColorResource( background, exponentialProbability() );
+	}
+	
+	/**
 	 * Sets the picture that represents on the screen a quota.
 	 * 
 	 * @param image
-	 *           ImagemView representing the quota.
+	 *           ImagemView representing the the quota.
 	 * @param quota
 	 *           Name of the quota. Should be given only with lowercase letters
 	 *           and spaced names with underscore.
 	 */
 	private void setImageQuota( ImageView image, String quota ) {
-		// changeColorResource( image, exponentialProbability() );
+		changeColorResource( image, exponentialProbability() );
 	}
 	
 	/**
@@ -396,66 +404,76 @@ public class DescriptionScreen extends Activity {
 	/**
 	 * Resets the value of parliamentary quotas, making them equal to zero.
 	 */
-	private void resetDetailsQuotas() {
-		String accommodation = SubQuota.ACCOMMODATION
+	private void resetSubQuotaAccordingType() {
+		final String accommodation = SubQuota.ACCOMMODATION
 		      .getRepresentativeNameQuota();
-		resetImageQuota( accommodation );
-		resetBarQuota( accommodation );
-		resetTextQuota( accommodation );
+		resetDetailsQuota( accommodation );
 		
-		String airFreight = SubQuota.AIR_FREIGHT.getRepresentativeNameQuota();
-		resetImageQuota( airFreight );
-		resetBarQuota( airFreight );
-		resetTextQuota( airFreight );
-		
-		String alimentation = SubQuota.ALIMENTATION.getRepresentativeNameQuota();
-		resetImageQuota( alimentation );
-		resetBarQuota( alimentation );
-		resetTextQuota( alimentation );
-		
-		String disclosureParliamentaryActivity = SubQuota.DISCLOSURE_PARLIAMENTARY_ACTIVITY
+		final String airFreight = SubQuota.AIR_FREIGHT
 		      .getRepresentativeNameQuota();
-		resetImageQuota( disclosureParliamentaryActivity );
-		resetBarQuota( disclosureParliamentaryActivity );
-		resetTextQuota( disclosureParliamentaryActivity );
+		resetDetailsQuota( airFreight );
 		
-		String fuel = SubQuota.FUEL.getRepresentativeNameQuota();
-		resetImageQuota( fuel );
-		resetBarQuota( fuel );
-		resetTextQuota( fuel );
-		
-		String inssuanceAirTickets = SubQuota.ISSUANCE_OF_AIR_TICKETS
+		final String alimentation = SubQuota.ALIMENTATION
 		      .getRepresentativeNameQuota();
-		resetImageQuota( inssuanceAirTickets );
-		resetBarQuota( inssuanceAirTickets );
-		resetTextQuota( inssuanceAirTickets );
+		resetDetailsQuota( alimentation );
 		
-		String office = SubQuota.OFFICE.getRepresentativeNameQuota();
-		resetImageQuota( office );
-		resetBarQuota( office );
-		resetTextQuota( office );
-		
-		String postalServices = SubQuota.POSTAL_SERVICES
+		final String disclosureParliamentaryActivity = SubQuota.DISCLOSURE_PARLIAMENTARY_ACTIVITY
 		      .getRepresentativeNameQuota();
-		resetImageQuota( postalServices );
-		resetBarQuota( postalServices );
-		resetTextQuota( postalServices );
+		resetDetailsQuota( disclosureParliamentaryActivity );
 		
-		String safety = SubQuota.SAFETY.getRepresentativeNameQuota();
-		resetImageQuota( safety );
-		resetBarQuota( safety );
-		resetTextQuota( safety );
+		final String fuel = SubQuota.FUEL.getRepresentativeNameQuota();
+		resetDetailsQuota( fuel );
 		
-		String technicalWorkConsulting = SubQuota.TECHNICAL_WORK_AND_CONSULTING
+		final String inssuanceAirTickets = SubQuota.ISSUANCE_OF_AIR_TICKETS
 		      .getRepresentativeNameQuota();
-		resetImageQuota( technicalWorkConsulting );
-		resetBarQuota( technicalWorkConsulting );
-		resetTextQuota( technicalWorkConsulting );
+		resetDetailsQuota( inssuanceAirTickets );
 		
-		String telephony = SubQuota.TELEPHONY.getRepresentativeNameQuota();
-		resetImageQuota( telephony );
-		resetBarQuota( telephony );
-		resetTextQuota( telephony );
+		final String office = SubQuota.OFFICE.getRepresentativeNameQuota();
+		resetDetailsQuota( office );
+		
+		final String postalServices = SubQuota.POSTAL_SERVICES
+		      .getRepresentativeNameQuota();
+		resetDetailsQuota( postalServices );
+		
+		final String safety = SubQuota.SAFETY.getRepresentativeNameQuota();
+		resetDetailsQuota( safety );
+		
+		final String technicalWorkConsulting = SubQuota.TECHNICAL_WORK_AND_CONSULTING
+		      .getRepresentativeNameQuota();
+		resetDetailsQuota( technicalWorkConsulting );
+		
+		final String telephony = SubQuota.TELEPHONY.getRepresentativeNameQuota();
+		resetDetailsQuota( telephony );
+	}
+	
+	/**
+	 * Resets the settings of the elements related with a quota on the screen.
+	 * 
+	 * @param quota
+	 *           Name of the quota. Should be given only with lowercase letters
+	 *           and spaced names with underscore.
+	 */
+	private void resetDetailsQuota( String quota ) {
+		resetBackgroundQuota( quota );
+		resetImageQuota( quota );
+		resetBarQuota( quota );
+		resetTextQuota( quota );
+	}
+	
+	/**
+	 * Resets the color of the image represents a quota.
+	 * 
+	 * @param quota
+	 *           Name of the quota. Should be given only with lowercase letters
+	 *           and spaced names with underscore.
+	 */
+	private void resetBackgroundQuota( String quota ) {
+		int idBackgroundResource = getResourceID( BACKGROUND, quota );
+		
+		ImageView backgroundQuota = (ImageView) findViewById( idBackgroundResource );
+		
+		Drawable background = backgroundQuota.getBackground();
+		background.clearColorFilter();
 	}
 	
 	/**
@@ -466,9 +484,9 @@ public class DescriptionScreen extends Activity {
 	 *           and spaced names with underscore.
 	 */
 	private void resetImageQuota( String quota ) {
-		int idButtonResource = getResourceID( BUTTON, quota );
+		int idImageResource = getResourceID( BUTTON, quota );
 		
-		ImageView imageQuota = (ImageView) findViewById( idButtonResource );
+		ImageView imageQuota = (ImageView) findViewById( idImageResource );
 		
 		Drawable background = imageQuota.getBackground();
 		background.clearColorFilter();
@@ -503,6 +521,20 @@ public class DescriptionScreen extends Activity {
 		TextView txtQuota = (TextView) findViewById( idTextResource );
 		
 		setTextQuota( txtQuota, EMPTY_VALUE_QUOTA );
+	}
+	
+	/**
+	 * Calculates the level of the corresponding spending bar to the amount
+	 * actually spent in relation to the average of congressmen.
+	 * 
+	 * @return level of bar corresponding to the amount spent.
+	 */
+	private double exponentialProbability() {
+		Random generator = new Random();
+		
+		double result = generator.nextDouble();
+		
+		return result;
 	}
 	
 	/**
@@ -608,6 +640,7 @@ public class DescriptionScreen extends Activity {
 	 * @return Resource identifier, an ID.
 	 */
 	private int getResourceID( int typeResource, String quota ) {
+		final String RESOURCE_BKG = "bkg_quota_" + quota;
 		final String RESOURCE_BTN = "btn_quota_" + quota;
 		final String RESOURCE_TXT = "txt_quota_" + quota;
 		final String RESOURCE_BAR = "bar_quota_" + quota;
@@ -625,6 +658,10 @@ public class DescriptionScreen extends Activity {
 			
 			case BAR:
 				resource = RESOURCE_BAR;
+				break;
+			
+			case BACKGROUND:
+				resource = RESOURCE_BKG;
 				break;
 			
 			default:
