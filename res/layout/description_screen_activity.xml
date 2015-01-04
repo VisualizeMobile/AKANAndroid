@@ -581,14 +581,15 @@
 
         <TextView
             android:id="@+id/editText1"
-            android:layout_width="190dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="130dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="140dp"
             android:layout_centerVertical="true"
+            android:textColor="#536571"
             android:text="Janeiro de 2015"
-            android:ems="5"
-            android:inputType="date"
-            android:background="#FFFFFF" />      
+            android:gravity="center"
+            android:background="@layout/border"
+            android:textSize="15sp" />      
 
     </RelativeLayout>
   
