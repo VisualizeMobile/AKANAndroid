@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" 
-    android:orientation="vertical" >
-
+    android:layout_height="match_parent" 
+     >     
+	 
     <RelativeLayout
+
         android:id="@+id/layout_crongressman_datas"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_congressman_data"
+        android:layout_alignParentTop="true"
         android:orientation="horizontal" >
 
         <ImageView
@@ -89,13 +91,16 @@
     <ScrollView
         android:id="@+id/scroll_description_screen" 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_crongressman_datas"
+        android:layout_above="@+id/footer" >
         
        <RelativeLayout 
             android:id="@+id/layout_description_quotas"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_description_crongressman" >
+            android:background="@drawable/background_description_crongressman"
+            android:paddingLeft="15dp" >
             
            <ImageView
                 android:id="@+id/bkg_quota_technical_work_and_consulting"
@@ -546,8 +551,46 @@
                 android:layout_marginLeft="33dp"
                 android:text="@string/value_quota_disclosure_parliamentary_activity" />
 
+            
+           
         </RelativeLayout>
+        
+       
     
     </ScrollView>
-    
-</LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#E4E4E4" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:text="Referente a"
+            android:textColor="#536571"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/editText1"
+            android:layout_width="190dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="130dp"
+            android:layout_centerVertical="true"
+            android:text="Janeiro de 2015"
+            android:ems="5"
+            android:inputType="date"
+            android:background="#FFFFFF" />      
+
+    </RelativeLayout>
+  
+</RelativeLayout>
+

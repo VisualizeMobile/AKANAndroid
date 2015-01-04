@@ -33,6 +33,7 @@ import br.com.visualize.akan.domain.controller.QuotaController;
 import br.com.visualize.akan.domain.enumeration.SubQuota;
 import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Quota;
+import br.com.visualize.akan.domain.model.Statistic;
 
 import com.squareup.picasso.Picasso;
 
@@ -202,12 +203,13 @@ public class DescriptionScreen extends Activity {
 		int month = calendar.get( Calendar.MONTH ) + 1;
 		
 		double totalAmountSpent = 0.00;
-		
+		Statistic statistic = new Statistic();
 		Iterator<Quota> iteratorQuota = controllerQuota.getQuotaByDate( month,
 		      year ).iterator();
-		
+			
 		while( iteratorQuota.hasNext() ) {
 			Quota analyzedQuota = iteratorQuota.next();
+				analyzedQuota.setStatisticQuota(statistic);
 			SubQuota typeSubQuota = analyzedQuota.getTypeQuota();
 			
 			setSubQuotaAccordingType( typeSubQuota, analyzedQuota );
