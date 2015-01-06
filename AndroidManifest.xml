@@ -4,7 +4,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="12"
+        android:minSdkVersion="13"
         android:targetSdkVersion="20" />
     
  	<uses-permission android:name="android.permission.INTERNET" />
@@ -19,7 +19,7 @@
         
         <activity android:name=".domain.view.AboutAkanScreen"></activity>
         <activity android:name=".domain.view.DescriptionScreen"
-          android:theme="@android:style/Theme.Holo.Light" ></activity>
+          android:theme="@android:style/Theme.Holo.Light.NoActionBar" ></activity>
         <activity
              android:name=".domain.view.ListScreen"
              android:launchMode="singleTask" >
