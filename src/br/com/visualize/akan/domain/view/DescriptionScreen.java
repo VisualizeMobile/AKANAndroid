@@ -14,6 +14,7 @@ import java.util.List;
 import org.apache.http.client.ResponseHandler;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -21,6 +22,8 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -44,7 +47,7 @@ import com.squareup.picasso.Picasso;
  * this class you can give the user a description of the expenses of the share
  * congressman.
  */
-public class DescriptionScreen extends Activity {
+public class DescriptionScreen extends FragmentActivity {
 	private static final int EMPTY_VALUE_QUOTA = 0; // Measured in Real.
 	
 	private final String GRAY_HEX = "#536571";
@@ -57,7 +60,7 @@ public class DescriptionScreen extends Activity {
 	private static final int TEXT = 2;
 	private static final int BAR = 3;
 	private static final int BACKGROUND = 4;
-	
+	TextView referenceMonth;
 	Context context;
 	
 	private QuotaController controllerQuota = null;
@@ -76,6 +79,10 @@ public class DescriptionScreen extends Activity {
 		congressmanController = CongressmanController
 		      .getInstance( getApplicationContext() );
 		statisticController = StatisticController.getInstance(getApplicationContext());
+		
+	  referenceMonth = (TextView)findViewById(R.id.reference_month);
+	   
+
 	}
 	
 	@Override
@@ -679,5 +686,10 @@ public class DescriptionScreen extends Activity {
 		      getPackageName() );
 		
 		return idResource;
+	}
+	
+	public void showDatePickerDialog(View v) {
+	    DatePickerFragment newFragment = new DatePickerFragment();
+	    newFragment.show(getSupportFragmentManager(), "datePicker");
 	}
 }

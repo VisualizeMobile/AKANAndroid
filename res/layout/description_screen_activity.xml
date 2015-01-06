@@ -580,7 +580,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/editText1"
+            android:id="@+id/reference_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="140dp"
@@ -589,7 +589,9 @@
             android:text="Janeiro de 2015"
             android:gravity="center"
             android:background="@layout/border"
-            android:textSize="15sp" />      
+            android:clickable="true"
+            android:textSize="15sp"
+            android:onClick="showDatePickerDialog" />      
 
     </RelativeLayout>
   

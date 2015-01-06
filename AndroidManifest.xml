@@ -18,12 +18,13 @@
         android:theme="@android:style/Theme.WithActionBar">
         
         <activity android:name=".domain.view.AboutAkanScreen"></activity>
-        <activity android:name=".domain.view.DescriptionScreen"></activity>
+        <activity android:name=".domain.view.DescriptionScreen"
+          android:theme="@android:style/Theme.Holo.Light" ></activity>
         <activity
              android:name=".domain.view.ListScreen"
              android:launchMode="singleTask" >
             <intent-filter>
-                 <action android:name="android.intent.action.SEARCH" />
+                 <action android:name="android.intent.action.SEARCH" /> 
             </intent-filter>
             <meta-data android:name="android.app.searchable"
                   android:resource="@xml/searchable" />           
