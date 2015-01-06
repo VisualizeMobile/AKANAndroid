@@ -36,6 +36,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ "[DEFAULT_URL] VARCHAR (255), [FIRST_URL] VARCHAR (255), "
 			+ "[SECOND_URL] VARCHAR (255));";
 	
+
+	private static final String statisticTable = "CREATE TABLE [STATISTIC] "
+			+ "([ID_STATISTIC] VARCHAR(10), [MONTH_STATISTIC] INT, "
+			+ "[STD_DEVIATION] DOUBLE, [AVERAGE_STATISTIC] DOUBLE, "
+			+ "[MAX_VALUE_STATISTIC] DOUBLE, ID_SUBQUOTA VARCHAR(10));";
+	
 	public DatabaseHelper( Context context ) {
 		super( context, dbName, null, 1 );
 	}
@@ -55,6 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL( congressmanTable );
 		db.execSQL( quotaTable );
 		db.execSQL( urlTable );
+		db.execSQL(statisticTable);
 		
 	}
 
