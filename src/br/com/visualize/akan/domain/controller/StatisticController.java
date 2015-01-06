@@ -5,6 +5,7 @@ import br.com.visualize.akan.api.dao.StatisticDao;
 import br.com.visualize.akan.domain.model.Statistic;
 
 public class StatisticController {
+	private static Statistic statistic; //Verify necessary after
 	private static StatisticController instanceStatisticController = null;
 	private StatisticDao statisticDao = null;
 	
@@ -32,5 +33,13 @@ public class StatisticController {
 		Statistic statisticYear = statisticDao.getStatisticByYear( year );
 		
 		return statisticYear;
-	}	
+	}
+	
+	public void setStatistic(Statistic statistic){
+		StatisticController.statistic = statistic;
+	}
+	
+	public Statistic getStatistic(){
+			return StatisticController.statistic;
+	}
 }

@@ -30,6 +30,7 @@ import br.com.visualize.akan.R;
 import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.controller.QuotaController;
+import br.com.visualize.akan.domain.controller.StatisticController;
 import br.com.visualize.akan.domain.enumeration.SubQuota;
 import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Quota;
@@ -61,6 +62,7 @@ public class DescriptionScreen extends Activity {
 	
 	private QuotaController controllerQuota = null;
 	CongressmanController congressmanController;
+	StatisticController statisticController;
 	static List<Quota> quota;
 	
 	@Override
@@ -73,6 +75,7 @@ public class DescriptionScreen extends Activity {
 		
 		congressmanController = CongressmanController
 		      .getInstance( getApplicationContext() );
+		statisticController = StatisticController.getInstance(getApplicationContext());
 	}
 	
 	@Override
@@ -203,13 +206,13 @@ public class DescriptionScreen extends Activity {
 		int month = calendar.get( Calendar.MONTH ) + 1;
 		
 		double totalAmountSpent = 0.00;
-		Statistic statistic = new Statistic();
+		
 		Iterator<Quota> iteratorQuota = controllerQuota.getQuotaByDate( month,
 		      year ).iterator();
 			
 		while( iteratorQuota.hasNext() ) {
 			Quota analyzedQuota = iteratorQuota.next();
-				analyzedQuota.setStatisticQuota(statistic);
+				analyzedQuota.setStatisticQuota(statisticController.getStatisticByYear(year));
 			SubQuota typeSubQuota = analyzedQuota.getTypeQuota();
 			
 			setSubQuotaAccordingType( typeSubQuota, analyzedQuota );

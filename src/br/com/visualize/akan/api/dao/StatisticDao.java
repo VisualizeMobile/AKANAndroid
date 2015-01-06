@@ -33,7 +33,7 @@ public class StatisticDao {
 		statisticYear.setAverage( 20000 );
 		statisticYear.setMaxValue( 25000 );
 		statisticYear.setStdDeviation( 200 );
-		statisticYear.setSubquota( SubQuota.ACCOMMODATION );
+		statisticYear.setSubquota( SubQuota.POSTAL_SERVICES );
 		statisticYear.setYear( year );
 		
 		return statisticYear;
