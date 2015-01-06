@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
@@ -12,7 +13,7 @@ import android.widget.DatePicker;
 
 public class DatePickerFragment extends DialogFragment implements 
 DatePickerDialog.OnDateSetListener{
-
+	 MyDatePickerDialog datepicker;
 	 @Override
 	    public Dialog onCreateDialog(Bundle savedInstanceState) {
 	        // Use the current date as the default date in the picker
@@ -20,9 +21,12 @@ DatePickerDialog.OnDateSetListener{
 	        int year = c.get(Calendar.YEAR);
 	        int month = c.get(Calendar.MONTH);
 	        int day = c.get(Calendar.DAY_OF_MONTH);
-	        DatePickerDialog datepicker = new DatePickerDialog(getActivity(), this, year, month, day);
-	        datepicker.setTitle("Período");
-	        hideyearCalendar(datepicker);
+	        datepicker =  new MyDatePickerDialog(getActivity(), null, year, month, day);
+	        datepicker.setTitle("Período"); 
+	        
+	        hideDayCalendar(datepicker);
+	          
+	          
 	        // Create a new instance of DatePickerDialog and return it
 	        return datepicker;
 	    }
@@ -30,14 +34,14 @@ DatePickerDialog.OnDateSetListener{
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
-			
+			datepicker.setTitle("Período");
 			
 		}
 		
-		private Dialog hideyearCalendar(DatePickerDialog datePickerDialog) {
+		private Dialog hideDayCalendar(MyDatePickerDialog datePickerDialog) {
 		    try
 		    {
-		         java.lang.reflect.Field[] datePickerDialogFields = datePickerDialog.getClass().getDeclaredFields();
+		         java.lang.reflect.Field[] datePickerDialogFields = datePickerDialog.getClass().getSuperclass().getDeclaredFields();
 		         for (java.lang.reflect.Field datePickerDialogField : datePickerDialogFields) { 
 		                if (datePickerDialogField.getName().equals("mDatePicker")) {
 		                    datePickerDialogField.setAccessible(true);
@@ -51,7 +55,7 @@ DatePickerDialog.OnDateSetListener{
 		                          ((View) dayPicker).setVisibility(View.GONE);
 		                          
 		                       }
-		                       datePickerDialog.setTitle("Periodo");
+		                       datePickerDialog.setTitle("Período");
 		                    }
 		                 }
 
@@ -62,12 +66,13 @@ DatePickerDialog.OnDateSetListener{
 		    }
 		    catch(Exception e)
 		    {
+		        e.printStackTrace();
 		        
-		    return datePickerDialog;    
 		        
 		    }
-		    
+		    return datePickerDialog;
 		}
 
 		
 	}
+
