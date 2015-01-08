@@ -14,6 +14,7 @@ import java.util.List;
 import org.apache.http.client.ResponseHandler;
 
 import android.app.Activity;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -27,6 +28,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
@@ -47,7 +49,8 @@ import com.squareup.picasso.Picasso;
  * this class you can give the user a description of the expenses of the share
  * congressman.
  */
-public class DescriptionScreen extends FragmentActivity {
+public class DescriptionScreen extends FragmentActivity implements
+OnDateSetListener  {
 	private static final int EMPTY_VALUE_QUOTA = 0; // Measured in Real.
 	
 	private final String GRAY_HEX = "#536571";
@@ -66,6 +69,10 @@ public class DescriptionScreen extends FragmentActivity {
 	private QuotaController controllerQuota = null;
 	CongressmanController congressmanController;
 	StatisticController statisticController;
+	Calendar calendar = Calendar.getInstance();
+	
+	int year;
+	int month;
 	static List<Quota> quota;
 	
 	@Override
@@ -73,15 +80,17 @@ public class DescriptionScreen extends FragmentActivity {
 		super.onCreate( savedInstanceState );
 		
 		setContentView( R.layout.description_screen_activity );
+		year = calendar.get( Calendar.YEAR );
+		month = calendar.get( Calendar.MONTH ) + 1;
 		
+		  referenceMonth = (TextView)findViewById(R.id.reference_month);
+		  setRerenceMonth();
 		controllerQuota = QuotaController.getInstance( getApplicationContext() );
 		
 		congressmanController = CongressmanController
 		      .getInstance( getApplicationContext() );
 		statisticController = StatisticController.getInstance(getApplicationContext());
-		
-	  referenceMonth = (TextView)findViewById(R.id.reference_month);
-	   
+	
 
 	}
 	
@@ -89,8 +98,10 @@ public class DescriptionScreen extends FragmentActivity {
 	public void onResume() {
 		super.onResume();
 		
+		   
 		setDescriptionCongressman();
 		requestQuotas();
+		
 	}
 	
 	@Override
@@ -207,10 +218,6 @@ public class DescriptionScreen extends FragmentActivity {
 	 *           quotas.
 	 */
 	public void setValuesQuotas( int idCongressman ) {
-		Calendar calendar = Calendar.getInstance();
-		
-		int year = calendar.get( Calendar.YEAR );
-		int month = calendar.get( Calendar.MONTH ) + 1;
 		
 		double totalAmountSpent = 0.00;
 		
@@ -220,6 +227,7 @@ public class DescriptionScreen extends FragmentActivity {
 		while( iteratorQuota.hasNext() ) {
 			Quota analyzedQuota = iteratorQuota.next();
 				analyzedQuota.setStatisticQuota(statisticController.getStatisticByYear(year));
+				
 			SubQuota typeSubQuota = analyzedQuota.getTypeQuota();
 			
 			setSubQuotaAccordingType( typeSubQuota, analyzedQuota );
@@ -691,5 +699,24 @@ public class DescriptionScreen extends FragmentActivity {
 	public void showDatePickerDialog(View v) {
 	    DatePickerFragment newFragment = new DatePickerFragment();
 	    newFragment.show(getSupportFragmentManager(), "datePicker");
+	    
+	}
+public void setRerenceMonth(){
+
+	String monthText = getApplication().getResources().getStringArray(R.array.month_names)[month-1];
+	referenceMonth.setText(monthText+" de "+year);
+	
+}
+	@Override
+	public void onDateSet(DatePicker view, int year, int monthOfYear,
+			int dayOfMonth) {
+		
+		this.year = year;
+		month = monthOfYear +1;
+		setRerenceMonth();
+		resetSubQuotaAccordingType();
+		setValuesQuotas( congressmanController.getCongresman()
+			      .getIdCongressman() );
+		
 	}
 }
