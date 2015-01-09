@@ -23,16 +23,20 @@
             android:textColor="#ffffff"
             android:textSize="20sp"
              /> 
+           
              
-        <Button 
+        <ImageButton 
             android:id="@+id/topbar_back_button"
-            android:background="@drawable/back_arrow"
+            android:background="@drawable/back_button_topbar"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
+            android:onClick="backToList"
+            
             
             />
+        
             
 </RelativeLayout>
 	 
