@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -112,7 +113,7 @@ OnDateSetListener  {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		
+		Log.e("Passei no onDestroy", "passei no ondestroy");
 		if( !congressmanController.getCongresman().isStatusCogressman() ) {
 			controllerQuota.deleteQuotasFromCongressman( congressmanController
 			      .getCongresman().getIdCongressman() );
@@ -157,6 +158,9 @@ OnDateSetListener  {
 		
 		textViewRankingPosition.setText( Integer.toString( congressman
 		      .getRankingCongressman() ) );
+		TextView textViewTopBarName = (TextView) findViewById(
+				R.id.topbar_congressman);
+				textViewTopBarName.setText(congressman.getNameCongressman());
 		
 		ImageView congressmanImage = (ImageView) findViewById( 
 				R.id.description_congressman_photo );
@@ -696,17 +700,40 @@ OnDateSetListener  {
 		return idResource;
 	}
 	
+	/**
+	 * Instantiates DatePickerFragment and show in screen
+	 * 
+	 * @param v 
+	 * 			receives current view
+	 */
+	
 	public void showDatePickerDialog(View v) {
 	    DatePickerFragment newFragment = new DatePickerFragment();
 	    newFragment.show(getSupportFragmentManager(), "datePicker");
 	    
 	}
+	
+	/**
+	 * Set up reference month text
+	 */
 public void setRerenceMonth(){
 
 	String monthText = getApplication().getResources().getStringArray(R.array.month_names)[month-1];
 	referenceMonth.setText(monthText+" de "+year);
 	
 }
+
+/**
+ * Get date chosen by user to filtered quotas 
+ * 
+ * @param monthOfYear
+ * 			month chosen by user
+ * @param year
+ * 			year chosen by user
+ * @param view 
+ * 			current datepicker
+ * 
+ */
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear,
 			int dayOfMonth) {
@@ -718,5 +745,17 @@ public void setRerenceMonth(){
 		setValuesQuotas( congressmanController.getCongresman()
 			      .getIdCongressman() );
 		
+	}
+	
+	/**
+	 * Back to list of the congressmen
+	 * 
+	 * @param view
+	 * 			current View
+	 */
+	
+	public void backToList(View view){
+		
+		this.finish();
 	}
 }
