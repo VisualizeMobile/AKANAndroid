@@ -4,6 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
      >     
+      
+    <RelativeLayout
+        android:id="@+id/topbar_description"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="#5B6C78"
+        >
+        <TextView
+            android:id="@+id/topbar_congressman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="Nome Parlamentar"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+             /> 
+             
+        <Button 
+            android:id="@+id/topbar_back_button"
+            android:background="@drawable/back_arrow"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            
+            />
+            
+</RelativeLayout>
 	 
     <RelativeLayout
 
@@ -11,7 +42,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_congressman_data"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/topbar_description"
         android:orientation="horizontal" >
 
         <ImageView
@@ -63,7 +94,8 @@
             android:layout_alignBottom="@+id/description_txt_ranking_position"
             android:layout_toRightOf="@+id/description_txt_ranking_position"
             android:text="@string/ordinary_symbol"
-            android:textColor="#000033"
+            android:textColor="#536571"
+            android:textStyle="bold"
             android:textSize="15sp" />
 
         <TextView
@@ -73,7 +105,7 @@
             android:layout_above="@+id/description_txt_congressman_name"
             android:layout_marginLeft="25dp"
             android:text="@string/place"
-            android:textColor="#000033"
+            android:textColor="#536571"
             android:textSize="20sp" />
 
         <TextView
@@ -83,7 +115,7 @@
             android:layout_above="@+id/description_txt_place"
             android:text="@string/ranking_position"
             android:layout_marginLeft="30dp"
-            android:textColor="#000033"
+            android:textColor="#536571"
             android:textSize="20sp" />
 
     </RelativeLayout>
