@@ -2,6 +2,7 @@ package br.com.visualize.akan.domain.view;
 
 import java.text.DateFormat.Field;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -28,6 +29,7 @@ public class DatePickerFragment extends DialogFragment {
 	        
 	        hideDayCalendar(customDatePicker);
 	          datepicker = customDatePicker;
+	          limitDateSpinner();
 	          
 	        // Create a new instance of DatePickerDialog and return it
 	        return datepicker;
@@ -68,7 +70,13 @@ public class DatePickerFragment extends DialogFragment {
 		    }
 		    return datePickerDialog;
 		}
+		
+		public void limitDateSpinner(){
 
+	          datepicker.getDatePicker().setMinDate(new Date().getTime()-10000);
+	          datepicker.getDatePicker().setMaxDate(new Date().getTime()-10000);
+			
+		}
 		
 	}
 
