@@ -1,9 +1,14 @@
 package br.com.visualize.akan.domain.view;
 
 import java.text.DateFormat.Field;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
+import br.com.visualize.akan.domain.controller.QuotaController;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -16,11 +21,12 @@ import android.widget.DatePicker;
 public class DatePickerFragment extends DialogFragment {
 	 MyDatePickerDialog customDatePicker;
 	 DatePickerDialog datepicker;
+	 QuotaController quotaController; 
 	 final Calendar calendar = Calendar.getInstance();
 	 @Override
 	    public Dialog onCreateDialog(Bundle savedInstanceState) {
 	        // Use the current date as the default date in the picker
-		 
+		 quotaController = QuotaController.getInstance((DescriptionScreen)getActivity());
 	        int year = calendar.get(Calendar.YEAR);
 	        int month = calendar.get(Calendar.MONTH);
 	        int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -35,7 +41,12 @@ public class DatePickerFragment extends DialogFragment {
 	        return datepicker;
 	    }
 	 
-		
+		/**
+		 * Hide day in date spinner from datepicker
+		 * 
+		 * @param datePickerDialog
+		 * @return Dialog with day hide
+		 */
 		private Dialog hideDayCalendar(MyDatePickerDialog datePickerDialog) {
 		    try
 		    {
@@ -70,11 +81,27 @@ public class DatePickerFragment extends DialogFragment {
 		    }
 		    return datePickerDialog;
 		}
-		
+		/**
+		 * Limit period date in date spinner
+		 */
 		public void limitDateSpinner(){
-
-	          datepicker.getDatePicker().setMinDate(new Date().getTime()-10000);
-	          datepicker.getDatePicker().setMaxDate(new Date().getTime()-10000);
+			
+			try {
+				List<Long> periodDate = new ArrayList<Long>();
+				periodDate = quotaController.getMinMaxDate();
+				Long dateMin = Collections.min(periodDate);
+				Long dateMax = Collections.max(periodDate);
+				
+				Log.e("Data minima", ""+dateMin);
+				Log.e("Data maxima", ""+dateMax);
+		          datepicker.getDatePicker().setMinDate(dateMin );
+		          datepicker.getDatePicker().setMaxDate(dateMax);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+	          
 			
 		}
 		

@@ -175,7 +175,53 @@ public class QuotaDao extends Dao {
 		
 		return listQuotas;
 	}
-	
+	/**
+	 * Search in database the years available of the quotas
+	 * 
+	 * @return Return a list the years available of the quotas
+	 */
+	public List<Integer> getYears (){
+		
+		sqliteDatabase = database.getReadableDatabase();
+		Cursor cursor = sqliteDatabase.rawQuery(
+			      "SELECT YEAR_QUOTA FROM QUOTA GROUP BY YEAR_QUOTA", null );
+		
+		List<Integer> listYears = new ArrayList<Integer>();
+		while(cursor.moveToNext()){
+			Integer year;
+			year = cursor.getInt(cursor.getColumnIndex("YEAR_QUOTA"));
+			
+			listYears.add(year);
+			
+		}
+		
+		return listYears;
+		 
+		
+	}
+	/**
+	 * Search in database the months available of the quotas in current year
+	 * 
+	 * @param year
+	 * @return The list of the months available of the quotas in current year
+	 */
+	public List<Integer> getMonthsFromCurrentYear( int year){
+
+		sqliteDatabase = database.getReadableDatabase();
+		Cursor cursor = sqliteDatabase.rawQuery(
+			      "SELECT MONTH_QUOTA FROM QUOTA WHERE YEAR_QUOTA = "+year+
+			      " GROUP BY MONTH_QUOTA", null );
+		
+		List<Integer> listMonths = new ArrayList<Integer>();
+		while(cursor.moveToNext()){
+			Integer month;
+			month = cursor.getInt(cursor.getColumnIndex("MONTH_QUOTA"));
+			
+			listMonths.add(month);
+			
+		}
+		return listMonths;
+	}
 	/**
 	 * Inserts in the database a quota.
 	 * <p>
