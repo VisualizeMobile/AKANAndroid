@@ -20,6 +20,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
@@ -147,7 +148,7 @@ OnDateSetListener  {
 				R.id.description_txt_congressman_name );
 		
 		textViewCongressmanName.setText( congressman.getNameCongressman() );
-		
+				
 		TextView textViewCongressmanParitdo = (TextView) findViewById( 
 				R.id.description_txt_congressman_party );
 		
@@ -168,6 +169,23 @@ OnDateSetListener  {
 		Picasso.with( getApplicationContext() )
 		      .load( photoCongressmanUrl + idCongressman + ".jpg" )
 		      .error( R.drawable.default_photo ).into( congressmanImage );
+		
+		Button followCongressman = (Button) findViewById(R.id.description_btn_follow);
+		TextView textViewFollow = (TextView) findViewById(R.id.description_txt_follow);
+		if(congressmanController.getCongresman().isStatusCogressman())
+		{
+			followCongressman.setBackgroundResource(R.drawable.following);
+			textViewFollow.setText("Seguido");
+			textViewFollow.setTextColor(Color.parseColor("#008e8e"));
+			
+		}
+		else
+		{
+			followCongressman.setBackgroundResource(R.drawable.not_following);
+			textViewFollow.setText("Seguir");
+			textViewFollow.setTextColor(Color.parseColor("#536571"));
+			
+		}
 	}
 	
 	/**
@@ -757,5 +775,22 @@ public void setRerenceMonth(){
 	public void backToList(View view){
 		
 		this.finish();
+	}
+	
+	public void onFollowedCongressman(View view){
+		
+		if(congressmanController.getCongresman().isStatusCogressman())
+		{
+			congressmanController.getCongresman().setStatusCogressman(false);
+			congressmanController.updateStatusCongressman();
+			setDescriptionCongressman();
+		}
+		else
+		{
+			congressmanController.getCongresman().setStatusCogressman(true);
+			congressmanController.updateStatusCongressman();
+			setDescriptionCongressman();
+		}
+		
 	}
 }

@@ -13,6 +13,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import br.com.visualize.akan.api.helper.DatabaseHelper;
+import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 
 
@@ -117,6 +118,28 @@ public class CongressmanDao extends Dao {
 		
 		return result;
 	}
+	/**
+	 * Up
+	 * @param congressman
+	 * @return
+	 * @throws NullCongressmanException
+	 */
+	public boolean setFollowedCongressman(Congressman congressman)
+			throws NullCongressmanException {
+
+		if (congressman != null) {
+			sqliteDatabase = database.getWritableDatabase();
+			ContentValues content = new ContentValues();
+			content.put("STATUS_CONGRESSMAN", congressman.isStatusCogressman());
+			boolean result = (sqliteDatabase.update(tableName, content,
+					"ID_CONGRESSMAN=?",
+					new String[] { congressman.getIdCongressman() + "" }) > 0);
+			sqliteDatabase.close();
+			return result;
+		} else {
+			throw new NullCongressmanException();
+		}
+	}
 	
 	/**
 	 * Inserts in the database a list of congressman.
@@ -164,7 +187,7 @@ public class CongressmanDao extends Dao {
 			congressman.setNameCongressman( cursor.getString( cursor
 			      .getColumnIndex( "NAME_CONGRESSMAN" ) ) );
 			
-			congressman.setStatusCogressman( Boolean.parseBoolean( cursor
+			congressman.setStatusCogressman( stringToBool( cursor
 			      .getString( cursor.getColumnIndex( "STATUS_CONGRESSMAN" ) ) ) );
 			
 			congressman.setPartyCongressman( cursor.getString( cursor
@@ -189,6 +212,14 @@ public class CongressmanDao extends Dao {
 		
 		return listParlamentares;
 	}
+	
+	private static boolean stringToBool(String string) {
+		  if (string.equals("1"))
+		    return true;
+		  if (string.equals("0"))
+		    return false;
+		  throw new IllegalArgumentException(string+" is not a bool. Only 1 and 0 are.");
+		}
 	
 	/**
 	 * Retrieves a congressman contained in the database, based on pass name.

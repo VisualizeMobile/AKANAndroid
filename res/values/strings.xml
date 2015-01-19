@@ -36,6 +36,8 @@
     <string name="monetary_symbol">R$ </string>
     <string name="total_expenditure">0000,00</string>
     <string name="place">Lugar</string>
+    <string name="follow">Seguir</string>
+    <string name="followed">Seguido</string>
 
 <string-array name="month_names">
     <item>Janeiro</item>

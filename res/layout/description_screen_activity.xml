@@ -16,7 +16,6 @@
             android:id="@+id/topbar_congressman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:text="Nome Parlamentar"
@@ -69,7 +68,9 @@
             android:layout_marginTop="15dp"
             android:text="@string/congressman_name"
             android:textColor="#536571"
-            android:textSize="20sp" />
+            android:textStyle="bold"
+            android:textSize="15sp"
+             />
 
         <TextView
             android:id="@+id/description_txt_congressman_party"
@@ -79,16 +80,9 @@
             android:layout_centerHorizontal="true"
             android:text="@string/congressman_party"
             android:textColor="#536571"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/description_btn_follow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/description_txt_congressman_name"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="23dp"
-            android:background="@drawable/inactive_followed" />
+            android:textStyle="bold"
+            android:textSize="15sp"
+             />
 
         <TextView
             android:id="@+id/description_txt_ordinary_symbol"
@@ -100,7 +94,7 @@
             android:text="@string/ordinary_symbol"
             android:textColor="#536571"
             android:textStyle="bold"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/description_txt_place"
@@ -110,6 +104,7 @@
             android:layout_marginLeft="25dp"
             android:text="@string/place"
             android:textColor="#536571"
+            android:textStyle="bold"
             android:textSize="20sp" />
 
         <TextView
@@ -120,7 +115,30 @@
             android:text="@string/ranking_position"
             android:layout_marginLeft="30dp"
             android:textColor="#536571"
+            android:textStyle="bold"
             android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/description_btn_follow"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_above="@+id/description_txt_place"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            android:onClick="onFollowedCongressman"
+            android:background="@drawable/followed_button"/>
+
+        <TextView
+            android:id="@+id/description_txt_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/description_txt_place"
+            android:layout_alignBottom="@+id/description_txt_place"
+            android:layout_alignRight="@+id/description_btn_follow"
+            android:text="@string/follow"
+            android:textColor="#536571"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
     

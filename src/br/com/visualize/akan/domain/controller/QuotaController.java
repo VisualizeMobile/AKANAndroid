@@ -32,13 +32,18 @@ import br.com.visualize.akan.domain.model.Quota;
 public class QuotaController {
 	private static QuotaController instanceQuotaController = null;
 	private static List<Quota> quotaList = null;
+	private Context context;
 
 	private UrlController urlController;
 	private QuotaDao quotaDao;
+	private CongressmanController congressmanController;
 	
 	private QuotaController( Context context ) {
+		congressmanController = CongressmanController.getInstance(context);
 		urlController = UrlController.getInstance( context );
 		quotaDao = QuotaDao.getInstance( context );
+		
+		this.context = context;
 	}
 	
 	/**
@@ -116,9 +121,13 @@ public class QuotaController {
 	 */
 	public List<Quota> getQuotaById( int id,
 	      ResponseHandler<String> responseHandler ) throws Exception {
+		Context context;
+		
 		
 		if( responseHandler != null ) {
 			
+			if ( !congressmanController.getCongresman().isStatusCogressman()){
+				
 			
 				String url = urlController.quotasWithCongressmanIdUrl( id );
 				
@@ -132,8 +141,9 @@ public class QuotaController {
 			
 		} else {
 			/* ! Nothing To Do. */
-		}
+		}	
 		
+		}
 		return getQuotaList();
 	}
 	

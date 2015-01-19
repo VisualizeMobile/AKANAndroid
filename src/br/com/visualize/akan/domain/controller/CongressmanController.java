@@ -13,6 +13,7 @@ import android.content.Context;
 import br.com.visualize.akan.api.dao.CongressmanDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
+import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 
 
@@ -37,7 +38,7 @@ public class CongressmanController {
 	private CongressmanDao congressmanDao;
 	
 	private CongressmanController( Context context ) {
-		quotaController = QuotaController.getInstance( context );
+		
 		congressmanDao = CongressmanDao.getInstance( context );
 		urlController = UrlController.getInstance( context );
 		
@@ -100,6 +101,18 @@ public class CongressmanController {
 		}
 		
 		return getCongressmanList();
+	}
+	
+	public boolean updateStatusCongressman(){
+		boolean result = false;
+		try {
+			 result = congressmanDao.setFollowedCongressman(getCongresman());
+		} catch (NullCongressmanException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	/*
