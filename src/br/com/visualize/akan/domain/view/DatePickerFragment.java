@@ -1,22 +1,19 @@
 package br.com.visualize.akan.domain.view;
 
-import java.text.DateFormat.Field;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
-import br.com.visualize.akan.domain.controller.QuotaController;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import br.com.visualize.akan.domain.controller.QuotaController;
 
 public class DatePickerFragment extends DialogFragment {
 	 MyDatePickerDialog customDatePicker;

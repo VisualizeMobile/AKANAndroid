@@ -13,14 +13,13 @@ import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
 
-import android.app.Activity;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff.Mode;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
@@ -29,6 +28,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -41,7 +41,6 @@ import br.com.visualize.akan.domain.controller.StatisticController;
 import br.com.visualize.akan.domain.enumeration.SubQuota;
 import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Quota;
-import br.com.visualize.akan.domain.model.Statistic;
 
 import com.squareup.picasso.Picasso;
 
@@ -55,11 +54,11 @@ public class DescriptionScreen extends FragmentActivity implements
 OnDateSetListener  {
 	private static final int EMPTY_VALUE_QUOTA = 0; // Measured in Real.
 	
-	private final String GRAY_HEX = "#536571";
-	private final String YELLOW_HEX = "#F3D171";
-	private final String GREEN_HEX = "#00A69A";
-	private final String WHITE_HEX = "#F1F1F2";
-	private final String RED_HEX = "#F16068";
+	private final int GRAY_HEX = 0xff536571;
+	private final int YELLOW_HEX = 0xffF3D171;
+	private final int GREEN_HEX = 0xff00A69A;
+	private final int WHITE_HEX = 0xffF1F1F2;
+	private final int RED_HEX = 0xffF16068;
 	
 	private static final int BUTTON = 1;
 	private static final int TEXT = 2;
@@ -395,7 +394,9 @@ OnDateSetListener  {
 	 *           and spaced names with underscore.
 	 */
 	private void setBackgroundQuota( ImageView background, Quota quota ) {
-		changeColorResource( background, exponentialProbability( quota ) );
+		int[] colors = selectImageColor( background, exponentialProbability( quota ) );
+		
+		animateImageColor( background, colors );
 	}
 	
 	/**
@@ -421,7 +422,7 @@ OnDateSetListener  {
 	 *           Amount spent associated with sub-quota.
 	 */
 	private void setBarQuota( ImageView bar, Quota quota ) {
-		changeColorResource( bar, exponentialProbability( quota ) );
+		/*! Write Instructions Here. */
 	}
 	
 	/**
@@ -438,7 +439,7 @@ OnDateSetListener  {
 		if( quota != null ) {
 			text.setText( valueQuotaFormat.format( quota.getValueQuota() ) );
 			
-			changeColorResource( text, exponentialProbability( quota ) );
+			/*! Write Instructions Here. */
 			
 		} else {
 			text.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
@@ -582,29 +583,6 @@ OnDateSetListener  {
 	}
 	
 	/**
-	 * Change the color of a graphic screen feature.
-	 * 
-	 * @param view
-	 *           The interface feature, of the type View, which must have changed
-	 *           color.
-	 * @param percent
-	 *           Value representing the share of spending level.
-	 */
-	private void changeColorResource( View view, double percent ) {
-		
-		if( view instanceof TextView ) {
-			
-			changeColorTextResource( (TextView) view, percent );
-			
-		} else if( view instanceof ImageView ) {
-			changeColorImageResource( (ImageView) view, percent );
-			
-		} else {
-			/* ! Nothing To Do. */
-		}
-	}
-	
-	/**
 	 * Change the color of a TextView.
 	 * 
 	 * @param view
@@ -616,19 +594,19 @@ OnDateSetListener  {
 	private void changeColorTextResource( TextView text, double percent ) {
 		
 		if( percent < 0.05 ) {
-			text.setTextColor( Color.parseColor( WHITE_HEX ) );
+			text.setTextColor( Color.parseColor( Integer.toString( WHITE_HEX ) ) );
 			
 		} else if( 0.05 < percent && percent <= 0.25 ) {
-			text.setTextColor( Color.parseColor( GRAY_HEX ) );
+			text.setTextColor( Color.parseColor( Integer.toString( GRAY_HEX ) ) );
 			
 		} else if( 0.25 < percent && percent <= 0.5 ) {
-			text.setTextColor( Color.parseColor( GREEN_HEX ) );
+			text.setTextColor( Color.parseColor( Integer.toString( GREEN_HEX ) ) );
 			
 		} else if( 0.5 < percent && percent <= 0.75 ) {
-			text.setTextColor( Color.parseColor( YELLOW_HEX ) );
+			text.setTextColor( Color.parseColor( Integer.toString( YELLOW_HEX ) ) );
 			
 		} else if( 0.75 < percent && percent <= 1.0 ) {
-			text.setTextColor( Color.parseColor( RED_HEX ) );
+			text.setTextColor( Color.parseColor( Integer.toString( RED_HEX ) ) );
 			
 		} else {
 			/* ! Nothing To Do. */
@@ -644,31 +622,60 @@ OnDateSetListener  {
 	 * @param percent
 	 *           Value representing the share of spending level.
 	 */
-	private void changeColorImageResource( ImageView image, double percent ) {
-		Drawable background = image.getBackground();
+	private int[] selectImageColor( ImageView image, double percent ) {
+		int[] colors = new int[ 5 ];
 		
 		if( percent < 0.05 ) {
-			background.setColorFilter( Color.parseColor( WHITE_HEX ),
-			      Mode.MULTIPLY );
+			colors[ 0 ] = WHITE_HEX;
+			colors[ 1 ] = WHITE_HEX;
+			colors[ 2 ] = WHITE_HEX;
+			colors[ 3 ] = WHITE_HEX;
+			colors[ 4 ] = WHITE_HEX;
 			
 		} else if( 0.05 < percent && percent <= 0.25 ) {
-			background
-			      .setColorFilter( Color.parseColor( GRAY_HEX ), Mode.MULTIPLY );
+			colors[ 0 ] = WHITE_HEX;
+			colors[ 1 ] = GRAY_HEX;
+			colors[ 2 ] = GRAY_HEX;
+			colors[ 3 ] = GRAY_HEX;
+			colors[ 4 ] = GRAY_HEX;
 			
 		} else if( 0.25 < percent && percent <= 0.5 ) {
-			background.setColorFilter( Color.parseColor( GREEN_HEX ),
-			      Mode.MULTIPLY );
+			colors[ 0 ] = WHITE_HEX;
+			colors[ 1 ] = GRAY_HEX;
+			colors[ 2 ] = GREEN_HEX;
+			colors[ 3 ] = GREEN_HEX;
+			colors[ 4 ] = GREEN_HEX;
 			
 		} else if( 0.5 < percent && percent <= 0.75 ) {
-			background.setColorFilter( Color.parseColor( YELLOW_HEX ),
-			      Mode.MULTIPLY );
+			colors[ 0 ] = WHITE_HEX;
+			colors[ 1 ] = GRAY_HEX;
+			colors[ 2 ] = GREEN_HEX;
+			colors[ 3 ] = YELLOW_HEX;
+			colors[ 4 ] = YELLOW_HEX;
 			
 		} else if( 0.75 < percent && percent <= 1.0 ) {
-			background.setColorFilter( Color.parseColor( RED_HEX ), Mode.MULTIPLY );
+			colors[ 0 ] = WHITE_HEX;
+			colors[ 1 ] = GRAY_HEX;
+			colors[ 2 ] = GREEN_HEX;
+			colors[ 3 ] = YELLOW_HEX;
+			colors[ 4 ] = RED_HEX;
 			
 		} else {
 			/* ! Nothing To Do. */
 		}
+		
+		return colors;
+	}
+	
+	private void animateImageColor( ImageView image, int[] colors ) {
+		
+		ValueAnimator colorAnimator = ObjectAnimator.ofInt( image, "backgroundColor", colors );
+		
+		colorAnimator.setDuration( 3000 );
+		colorAnimator.setEvaluator( new ArgbEvaluator() );
+		colorAnimator.setInterpolator( new DecelerateInterpolator() );
+		
+		colorAnimator.start();
 	}
 	
 	/**
@@ -734,32 +741,35 @@ OnDateSetListener  {
 	/**
 	 * Set up reference month text
 	 */
-public void setRerenceMonth(){
+	public void setRerenceMonth(){
 
 	String monthText = getApplication().getResources().getStringArray(R.array.month_names)[month-1];
 	referenceMonth.setText(monthText+" de "+year);
 	
-}
+	}
 
-/**
- * Get date chosen by user to filtered quotas 
- * 
- * @param monthOfYear
- * 			month chosen by user
- * @param year
- * 			year chosen by user
- * @param view 
- * 			current datepicker
- * 
- */
+	/**
+	 * Get date chosen by user to filtered quotas 
+	 * 
+	 * @param monthOfYear
+	 * 			month chosen by user
+	 * @param year
+	 * 			year chosen by user
+	 * @param view 
+	 * 			current datepicker
+	 * 
+	 */
 	@Override
-	public void onDateSet(DatePicker view, int year, int monthOfYear,
-			int dayOfMonth) {
+	public void onDateSet( DatePicker view, int year, int monthOfYear,
+			int dayOfMonth ) {
 		
 		this.year = year;
 		month = monthOfYear +1;
+		
 		setRerenceMonth();
+		
 		resetSubQuotaAccordingType();
+		
 		setValuesQuotas( congressmanController.getCongresman()
 			      .getIdCongressman() );
 		
@@ -771,26 +781,24 @@ public void setRerenceMonth(){
 	 * @param view
 	 * 			current View
 	 */
-	
-	public void backToList(View view){
-		
+	public void backToList( View view ) {
 		this.finish();
 	}
 	
-	public void onFollowedCongressman(View view){
+	public void onFollowedCongressman( View view ) {
 		
-		if(congressmanController.getCongresman().isStatusCogressman())
-		{
+		if(congressmanController.getCongresman().isStatusCogressman()) {
 			congressmanController.getCongresman().setStatusCogressman(false);
 			congressmanController.updateStatusCongressman();
+			
 			setDescriptionCongressman();
-		}
-		else
+			
+		} else
 		{
 			congressmanController.getCongresman().setStatusCogressman(true);
 			congressmanController.updateStatusCongressman();
+			
 			setDescriptionCongressman();
 		}
-		
 	}
 }

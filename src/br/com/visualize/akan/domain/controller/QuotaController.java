@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.http.client.ResponseHandler;
 
@@ -32,6 +31,8 @@ import br.com.visualize.akan.domain.model.Quota;
 public class QuotaController {
 	private static QuotaController instanceQuotaController = null;
 	private static List<Quota> quotaList = null;
+	
+	@SuppressWarnings("unused")
 	private Context context;
 
 	private UrlController urlController;
