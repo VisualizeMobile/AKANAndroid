@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+   android:id="@+id/LinearLayout"  
+   android:layout_width="fill_parent"  
+   android:layout_height="wrap_content"  
+   android:layout_gravity="center"  
+   android:layout_margin="0dip"  
+   android:background="#E6546672"  
+   android:orientation="vertical"  
+   android:paddingBottom="15dip"  
+   android:paddingLeft="0dip"  
+   android:paddingRight="0dip"  
+   android:paddingTop="0dip" >  
+   <ImageView  
+     android:id="@+id/dialogTitle"  
+     android:layout_width="20dp"  
+     android:layout_height="20dp"  
+     android:layout_marginTop="10dp"  
+     android:background="@drawable/check_symbol"
+     android:layout_centerHorizontal="true"
+     
+      >  
+   </ImageView>  
+   <TextView  
+     android:id="@+id/dialogMessage"  
+     android:layout_width="fill_parent"  
+     android:layout_height="wrap_content"  
+     android:layout_below="@+id/dialogTitle"  
+     android:focusable="true"  
+     android:focusableInTouchMode="true"  
+     android:gravity="center"  
+     android:maxLines="10"  
+     android:padding="10dip"  
+     android:scrollbars="vertical"  
+     android:text=""  
+     android:textColor="#fff"  
+     android:textSize="18sp" >  
+   </TextView>  
+     
+ </RelativeLayout>  
