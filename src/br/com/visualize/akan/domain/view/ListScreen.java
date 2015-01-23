@@ -71,9 +71,9 @@ public class ListScreen extends Activity
 		
 		
 		listView = (ListView) findViewById( R.id.listView );
-		
+
 		listView.setAdapter( listAdapter );
-		listView.setOnItemClickListener( new OnItemClickListenerListViewItem() );
+	
 		
 		listAdapter.notifyDataSetChanged();
 		listView.setTextFilterEnabled( false );
@@ -98,6 +98,7 @@ public class ListScreen extends Activity
 					      .setBackgroundResource( R.drawable.inactive_ranking );
 					listView.setAdapter( listAdapter );
 					listView.setLayoutAnimation( controller );
+					
 				}
 			}
 		} );
@@ -140,6 +141,7 @@ public class ListScreen extends Activity
 		// TODO Auto-generated method stub
 		super.onResume();
 		listAdapter.notifyDataSetChanged();
+		rankingAdapter.notifyDataSetChanged();
 	}
 	
 	@Override
@@ -189,7 +191,7 @@ public class ListScreen extends Activity
 			congressmanController.updateStatusCongressman();
 			quotaController.deleteQuotasFromCongressman(congressman.getIdCongressman());
 			listAdapter.notifyDataSetChanged();
-			
+			rankingAdapter.notifyDataSetChanged();
 			
 			
 		} else
@@ -197,6 +199,7 @@ public class ListScreen extends Activity
 			congressmanController.getCongresman().setStatusCogressman(true);
 			congressmanController.updateStatusCongressman();
 			listAdapter.notifyDataSetChanged();
+			rankingAdapter.notifyDataSetChanged();
 			customDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 			customDialog.show();
 			

@@ -8,17 +8,20 @@ package br.com.visualize.akan.domain.adapters;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.domain.model.Congressman;
+
 import com.squareup.picasso.Picasso;
 
 /**
@@ -101,6 +104,22 @@ public class RankingAdapter extends ArrayAdapter<Congressman> {
 		      .load( URL_PHOTOS + idCongressman + ".jpg" )
 		      .error( R.drawable.default_photo ).into( congressmanImage );
 		
+
+		Button followCongressman = (Button)view.
+				findViewById(R.id.ranking_btn_follow);
+		followCongressman.setTag(congressmens.get(position));
+		if(congressmens.get(position).isStatusCogressman())
+		{
+			followCongressman.setBackgroundResource(R.drawable.following);
+		
+		}
+		else
+		{
+			followCongressman.setBackgroundResource(R.drawable.not_following);			
+			
+		}
+		
+		
 		return view;
 	}
 	
@@ -114,6 +133,10 @@ public class RankingAdapter extends ArrayAdapter<Congressman> {
 		return congressmens.size();
 	}
 	
+	@Override
+	public boolean isEnabled( int position ) {
+		return true;
+	}
 	@Override
 	public Filter getFilter() {
 		
