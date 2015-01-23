@@ -12,6 +12,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -63,6 +64,7 @@ public class ListScreen extends Activity
 		
 		listAdapter = new CongressmenListAdapter( this,
 		      R.layout.congressmen_list_layout, congressmen );
+		
 		
 		listView = (ListView) findViewById( R.id.listView );
 		
@@ -129,6 +131,12 @@ public class ListScreen extends Activity
 			}
 		} );	
 	}
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		listAdapter.notifyDataSetChanged();
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu( final Menu menu ) {
@@ -163,4 +171,25 @@ public class ListScreen extends Activity
     	 return super.onCreateOptionsMenu(menu);
 	}
 
+	public void followedCongressman( View view ) {
+		Congressman congressman = (Congressman)view.getTag();
+		congressmanController.setCongressman(congressman);
+		Log.e("entrei no click", "entrei no click");
+		if(congressmanController.getCongresman().isStatusCogressman()) {
+			congressmanController.getCongresman().setStatusCogressman(false);
+			congressmanController.updateStatusCongressman();
+			quotaController.deleteQuotasFromCongressman(congressman.getIdCongressman());
+			listAdapter.notifyDataSetChanged();
+			
+			
+			
+		} else
+		{
+			congressmanController.getCongresman().setStatusCogressman(true);
+			congressmanController.updateStatusCongressman();
+			listAdapter.notifyDataSetChanged();
+			
+		}
+	}
+	
 }

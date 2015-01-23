@@ -14,7 +14,8 @@
         android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
     	android:dividerHeight="1dp"
-        android:divider="#FFFFFF" >
+        android:divider="#E6E5EC"
+        android:clickable="true" >
            	
         </ListView>
    

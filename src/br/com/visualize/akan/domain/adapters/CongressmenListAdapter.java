@@ -10,15 +10,19 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import br.com.visualize.akan.R;
+import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.model.Congressman;
 
 import com.squareup.picasso.Picasso;
@@ -35,6 +39,7 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 	private List<Congressman> congressmens;
 	private List<Congressman> filteredList;
 	private CongressmanFilter congressmanFilter;
+
 	
 	public CongressmenListAdapter( Context context, int textViewResourceId,
 	      List<Congressman> congressmensList ) {
@@ -47,6 +52,7 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 		
 		congressmens.addAll( congressmensList );
 		filteredList.addAll( congressmens );
+		
 		
 		getFilter();
 	}
@@ -86,13 +92,30 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 		ImageView congressmanImage = (ImageView) view
 		      .findViewById( R.id.ranking_layout_congressman_photo );
 		
+		
 		Picasso.with( context )
 		      .load( URL_PHOTOS + idCongressman + ".jpg" )
 		      .error( R.drawable.default_photo ).into( congressmanImage );
 		
+		Button followCongressman = (Button)view.
+				findViewById(R.id.list_btn_follow);
+		followCongressman.setTag(congressmens.get(position));
+		if(congressmens.get(position).isStatusCogressman())
+		{
+			followCongressman.setBackgroundResource(R.drawable.following);
+		
+		}
+		else
+		{
+			followCongressman.setBackgroundResource(R.drawable.not_following);			
+			
+		}
+		
 		return view;
 	}
 	
+
+
 	/**
 	 * Returns the list item requested.
 	 * <p>
@@ -194,4 +217,7 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 			notifyDataSetInvalidated();
 		}
 	}
+
+		
+	
 }

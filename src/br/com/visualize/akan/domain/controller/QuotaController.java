@@ -127,8 +127,7 @@ public class QuotaController {
 		
 		if( responseHandler != null ) {
 			
-			if ( !congressmanController.getCongresman().isStatusCogressman()){
-				
+			
 			
 				String url = urlController.quotasWithCongressmanIdUrl( id );
 				
@@ -144,7 +143,7 @@ public class QuotaController {
 			/* ! Nothing To Do. */
 		}	
 		
-		}
+		
 		return getQuotaList();
 	}
 	
