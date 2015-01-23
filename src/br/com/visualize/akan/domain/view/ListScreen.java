@@ -5,6 +5,8 @@
  */
 package br.com.visualize.akan.domain.view;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
@@ -44,6 +47,7 @@ public class ListScreen extends Activity
 	String query;
 	Button btn_search;
 	Button btn_ranking;
+	CustomDialog customDialog = null; 
 	
 	@Override
 	public void onCreate( Bundle savedInstanceState ) {
@@ -170,11 +174,16 @@ public class ListScreen extends Activity
     	 
     	 return super.onCreateOptionsMenu(menu);
 	}
-
+/**
+ * Listener click event to follow/unFollow congressman
+ * @param view
+ */
 	public void followedCongressman( View view ) {
+		customDialog = new CustomDialog(this);
+		int timeToDismis = 2000;
 		Congressman congressman = (Congressman)view.getTag();
+		customDialog.setMessage("Parlamentar "+congressman.getNameCongressman()+" seguido");
 		congressmanController.setCongressman(congressman);
-		Log.e("entrei no click", "entrei no click");
 		if(congressmanController.getCongresman().isStatusCogressman()) {
 			congressmanController.getCongresman().setStatusCogressman(false);
 			congressmanController.updateStatusCongressman();
@@ -188,6 +197,22 @@ public class ListScreen extends Activity
 			congressmanController.getCongresman().setStatusCogressman(true);
 			congressmanController.updateStatusCongressman();
 			listAdapter.notifyDataSetChanged();
+			customDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+			customDialog.show();
+			
+			/**
+			 * timer to dismis Dialog
+			 */
+			final Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					customDialog.dismiss();
+					timer.cancel();
+					
+				}
+			}, timeToDismis);
 			
 		}
 	}

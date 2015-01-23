@@ -10,6 +10,8 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.apache.http.client.ResponseHandler;
 
@@ -28,6 +30,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -71,7 +74,7 @@ OnDateSetListener  {
 	CongressmanController congressmanController;
 	StatisticController statisticController;
 	Calendar calendar = Calendar.getInstance();
-	
+	CustomDialog customDialog;
 	int year;
 	int month;
 	static List<Quota> quota;
@@ -786,7 +789,9 @@ OnDateSetListener  {
 	}
 	
 	public void onFollowedCongressman( View view ) {
-		
+		customDialog = new CustomDialog(this);
+		int timeToDismis = 2000;
+		customDialog.setMessage("Parlamentar "+congressmanController.getCongresman().getNameCongressman()+" seguido");
 		if(congressmanController.getCongresman().isStatusCogressman()) {
 			congressmanController.getCongresman().setStatusCogressman(false);
 			congressmanController.updateStatusCongressman();
@@ -799,6 +804,20 @@ OnDateSetListener  {
 			congressmanController.updateStatusCongressman();
 			
 			setDescriptionCongressman();
+			customDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+			customDialog.show();
+			
+			final Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					customDialog.dismiss();
+					timer.cancel();
+					
+				}
+			}, timeToDismis);
+			
 		}
 	}
 }
