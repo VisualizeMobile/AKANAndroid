@@ -3,8 +3,8 @@
     android:id="@+id/container"
     android:layoutAnimation="@anim/layout_animation"	
     android:animateLayoutChanges="true"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#FFFFFF" >
     
@@ -44,13 +44,14 @@
                android:background="@drawable/inactive_ranking" />
 
            <Button
-               android:id="@+id/description_btn_follow"
+               android:id="@+id/btn_follow"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_alignParentBottom="true"
                android:layout_alignParentLeft="true"
                android:layout_marginLeft="34dp"
                android:scaleType="fitXY"
+               android:onClick="onFollowList"
                android:background="@drawable/inactive_followed" />
 
            <Button

@@ -107,12 +107,14 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 		}
 		else
 		{
-			followCongressman.setBackgroundResource(R.drawable.not_following);			
+			followCongressman.setBackgroundResource(R.drawable.not_following);
+			
 			
 		}
 		
 		return view;
 	}
+	
 	
 
 

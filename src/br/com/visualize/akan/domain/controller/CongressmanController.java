@@ -5,16 +5,21 @@
 package br.com.visualize.akan.domain.controller;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
+import android.util.Log;
 import br.com.visualize.akan.api.dao.CongressmanDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
+import br.com.visualize.akan.domain.enumeration.SubQuota;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
+import br.com.visualize.akan.domain.model.Quota;
 
 
 /**
@@ -27,6 +32,7 @@ public class CongressmanController {
 	private static CongressmanController instance = null;
 	private static Congressman congressman;
 	private static List<Congressman> congressmanList;
+	private static List<Congressman> followedCongressmen;
 	
 	@SuppressWarnings( "unused" )
 	private Context context;
@@ -175,4 +181,29 @@ public class CongressmanController {
 	public Congressman getCongresman() {
 		return CongressmanController.congressman;
 	}
+	
+	public List<Congressman> getFollowedCongressman(){
+		List<Congressman> congressmenAnalized = new ArrayList<Congressman>();
+		Iterator<Congressman> iteratorCongressman = congressmanList.iterator();
+		
+			while( iteratorCongressman.hasNext() ) {
+				Congressman congressman = iteratorCongressman.next();
+				if ( congressman.isStatusCogressman()){
+					Log.e("seguido", congressman.getNameCongressman());
+					congressmenAnalized.add(congressman);
+					
+				}
+				else
+				{
+					//nothing to do
+					
+				}
+			}
+			
+			return congressmenAnalized;
+			
+	}
+
+		
+	
 }

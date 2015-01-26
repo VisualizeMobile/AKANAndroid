@@ -4,6 +4,8 @@
  * serves to interface with the user.
  */
 package br.com.visualize.akan.domain.view;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -42,13 +44,15 @@ public class ListScreen extends Activity
 	QuotaController quotaController;
 	CongressmenListAdapter listAdapter;
 	RankingAdapter rankingAdapter;
+	CongressmenListAdapter followAdapter;
 	ListView listView;
 	SearchView search;
 	String query;
 	Button btn_search;
 	Button btn_ranking;
 	CustomDialog customDialog = null; 
-	
+	List<Congressman> congressmen;
+	List<Congressman> followedCongressmen;
 	@Override
 	public void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
@@ -60,7 +64,7 @@ public class ListScreen extends Activity
 		congressmanController = CongressmanController
 		      .getInstance( getBaseContext() );
 		quotaController = QuotaController.getInstance(getApplicationContext());
-		final List<Congressman> congressmen;
+		 
 		congressmen = congressmanController.getAllCongressman();
 		
 		rankingAdapter = new RankingAdapter( this, R.layout.ranking_layout,
@@ -68,6 +72,9 @@ public class ListScreen extends Activity
 		
 		listAdapter = new CongressmenListAdapter( this,
 		      R.layout.congressmen_list_layout, congressmen );
+		followedCongressmen = congressmanController.getFollowedCongressman();
+		followAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
+
 		
 		
 		listView = (ListView) findViewById( R.id.listView );
@@ -136,12 +143,40 @@ public class ListScreen extends Activity
 			}
 		} );	
 	}
+	public void onFollowList(View view){
+		Button btn_follow = (Button)findViewById(R.id.btn_follow);
+		btn_follow.setSelected(!btn_follow.isSelected());
+		followAdapter = null;
+		followAdapter =  new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
+		if (btn_follow.isSelected()){
+			btn_follow.setBackgroundResource(R.drawable.active_followed);
+			
+			listView.setAdapter(followAdapter);
+			Iterator<Congressman> teste = followedCongressmen.iterator();
+			
+			while (teste.hasNext()){
+				
+				Congressman congressman = teste.next();
+				Log.e("parlamentares seguidos listscreen",congressman.getNameCongressman() );
+			}
+			
+			
+			
+		}else{
+		
+			btn_follow.setBackgroundResource(R.drawable.inactive_followed);
+		
+			listView.setAdapter(listAdapter);
+		}
+	}
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		listAdapter.notifyDataSetChanged();
 		rankingAdapter.notifyDataSetChanged();
+		
+		followAdapter.notifyDataSetChanged();
 	}
 	
 	@Override
@@ -189,17 +224,24 @@ public class ListScreen extends Activity
 		if(congressmanController.getCongresman().isStatusCogressman()) {
 			congressmanController.getCongresman().setStatusCogressman(false);
 			congressmanController.updateStatusCongressman();
+			followedCongressmen.remove(view.getTag());
+			//followedCongressmen.addAll(congressmanController.getFollowedCongressman());
 			quotaController.deleteQuotasFromCongressman(congressman.getIdCongressman());
 			listAdapter.notifyDataSetChanged();
 			rankingAdapter.notifyDataSetChanged();
+			followAdapter.notifyDataSetChanged();
 			
 			
 		} else
 		{
 			congressmanController.getCongresman().setStatusCogressman(true);
 			congressmanController.updateStatusCongressman();
+			followedCongressmen.clear();
+			followedCongressmen.addAll(congressmanController.getFollowedCongressman());
 			listAdapter.notifyDataSetChanged();
 			rankingAdapter.notifyDataSetChanged();
+			followAdapter.notifyDataSetChanged();
+			
 			customDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 			customDialog.show();
 			
