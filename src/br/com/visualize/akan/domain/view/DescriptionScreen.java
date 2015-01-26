@@ -57,11 +57,17 @@ public class DescriptionScreen extends FragmentActivity implements
 OnDateSetListener  {
 	private static final int EMPTY_VALUE_QUOTA = 0; // Measured in Real.
 	
-	private final int GRAY_HEX = 0xff536571;
-	private final int YELLOW_HEX = 0xffF3D171;
-	private final int GREEN_HEX = 0xff00A69A;
-	private final int WHITE_HEX = 0xffF1F1F2;
-	private final int RED_HEX = 0xffF16068;
+	private final int GRAY = 0xff536571;
+	private final int YELLOW = 0xffF3D171;
+	private final int GREEN = 0xff00A69A;
+	private final int WHITE = 0xffF1F1F2;
+	private final int RED = 0xffF16068;
+	
+	private final String GRAY_HEX = "#536571";
+	private final String YELLOW_HEX = "#F3D171";
+	private final String GREEN_HEX = "#00A69A";
+	private final String WHITE_HEX = "#F1F1F2";
+	private final String RED_HEX = "#F16068";
 	
 	private static final int BUTTON = 1;
 	private static final int TEXT = 2;
@@ -397,7 +403,7 @@ OnDateSetListener  {
 	 *           and spaced names with underscore.
 	 */
 	private void setBackgroundQuota( ImageView background, Quota quota ) {
-		int[] colors = selectImageColor( background, exponentialProbability( quota ) );
+		int[] colors = selectImageColor( exponentialProbability( quota ) );
 		
 		animateImageColor( background, colors );
 	}
@@ -442,7 +448,7 @@ OnDateSetListener  {
 		if( quota != null ) {
 			text.setText( valueQuotaFormat.format( quota.getValueQuota() ) );
 			
-			/*! Write Instructions Here. */
+			changeColorTextResource( text, exponentialProbability( quota) );
 			
 		} else {
 			text.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
@@ -597,19 +603,19 @@ OnDateSetListener  {
 	private void changeColorTextResource( TextView text, double percent ) {
 		
 		if( percent < 0.05 ) {
-			text.setTextColor( Color.parseColor( Integer.toString( WHITE_HEX ) ) );
+			text.setTextColor( Color.parseColor( WHITE_HEX ) );
 			
 		} else if( 0.05 < percent && percent <= 0.25 ) {
-			text.setTextColor( Color.parseColor( Integer.toString( GRAY_HEX ) ) );
+			text.setTextColor( Color.parseColor( GRAY_HEX ) );
 			
 		} else if( 0.25 < percent && percent <= 0.5 ) {
-			text.setTextColor( Color.parseColor( Integer.toString( GREEN_HEX ) ) );
+			text.setTextColor( Color.parseColor( GREEN_HEX ) );
 			
 		} else if( 0.5 < percent && percent <= 0.75 ) {
-			text.setTextColor( Color.parseColor( Integer.toString( YELLOW_HEX ) ) );
+			text.setTextColor( Color.parseColor( YELLOW_HEX ) );
 			
 		} else if( 0.75 < percent && percent <= 1.0 ) {
-			text.setTextColor( Color.parseColor( Integer.toString( RED_HEX ) ) );
+			text.setTextColor( Color.parseColor( RED_HEX ) );
 			
 		} else {
 			/* ! Nothing To Do. */
@@ -625,43 +631,43 @@ OnDateSetListener  {
 	 * @param percent
 	 *           Value representing the share of spending level.
 	 */
-	private int[] selectImageColor( ImageView image, double percent ) {
+	private int[] selectImageColor( double percent ) {
 		int[] colors = new int[ 5 ];
 		
 		if( percent < 0.05 ) {
-			colors[ 0 ] = WHITE_HEX;
-			colors[ 1 ] = WHITE_HEX;
-			colors[ 2 ] = WHITE_HEX;
-			colors[ 3 ] = WHITE_HEX;
-			colors[ 4 ] = WHITE_HEX;
+			colors[ 0 ] = WHITE;
+			colors[ 1 ] = WHITE;
+			colors[ 2 ] = WHITE;
+			colors[ 3 ] = WHITE;
+			colors[ 4 ] = WHITE;
 			
 		} else if( 0.05 < percent && percent <= 0.25 ) {
-			colors[ 0 ] = WHITE_HEX;
-			colors[ 1 ] = GRAY_HEX;
-			colors[ 2 ] = GRAY_HEX;
-			colors[ 3 ] = GRAY_HEX;
-			colors[ 4 ] = GRAY_HEX;
+			colors[ 0 ] = WHITE;
+			colors[ 1 ] = GRAY;
+			colors[ 2 ] = GRAY;
+			colors[ 3 ] = GRAY;
+			colors[ 4 ] = GRAY;
 			
 		} else if( 0.25 < percent && percent <= 0.5 ) {
-			colors[ 0 ] = WHITE_HEX;
-			colors[ 1 ] = GRAY_HEX;
-			colors[ 2 ] = GREEN_HEX;
-			colors[ 3 ] = GREEN_HEX;
-			colors[ 4 ] = GREEN_HEX;
+			colors[ 0 ] = WHITE;
+			colors[ 1 ] = GRAY;
+			colors[ 2 ] = GREEN;
+			colors[ 3 ] = GREEN;
+			colors[ 4 ] = GREEN;
 			
 		} else if( 0.5 < percent && percent <= 0.75 ) {
-			colors[ 0 ] = WHITE_HEX;
-			colors[ 1 ] = GRAY_HEX;
-			colors[ 2 ] = GREEN_HEX;
-			colors[ 3 ] = YELLOW_HEX;
-			colors[ 4 ] = YELLOW_HEX;
+			colors[ 0 ] = WHITE;
+			colors[ 1 ] = GRAY;
+			colors[ 2 ] = GREEN;
+			colors[ 3 ] = YELLOW;
+			colors[ 4 ] = YELLOW;
 			
 		} else if( 0.75 < percent && percent <= 1.0 ) {
-			colors[ 0 ] = WHITE_HEX;
-			colors[ 1 ] = GRAY_HEX;
-			colors[ 2 ] = GREEN_HEX;
-			colors[ 3 ] = YELLOW_HEX;
-			colors[ 4 ] = RED_HEX;
+			colors[ 0 ] = WHITE;
+			colors[ 1 ] = GRAY;
+			colors[ 2 ] = GREEN;
+			colors[ 3 ] = YELLOW;
+			colors[ 4 ] = RED;
 			
 		} else {
 			/* ! Nothing To Do. */
