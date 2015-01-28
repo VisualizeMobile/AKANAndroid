@@ -2,16 +2,15 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-     >     
+    android:layout_height="match_parent" >     
       
     <RelativeLayout
         android:id="@+id/topbar_description"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="#5B6C78"
-        >
+        android:background="#5B6C78" >
+        
         <TextView
             android:id="@+id/topbar_congressman"
             android:layout_width="wrap_content"
@@ -20,8 +19,7 @@
             android:layout_centerHorizontal="true"
             android:text="Nome Parlamentar"
             android:textColor="#ffffff"
-            android:textSize="20sp"
-             /> 
+            android:textSize="20sp" /> 
            
              
         <ImageButton 
@@ -31,16 +29,11 @@
             android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:onClick="backToList"
-            
-            
-            />
+            android:onClick="backToList" />
         
-            
-</RelativeLayout>
+	</RelativeLayout>
 	 
     <RelativeLayout
-
         android:id="@+id/layout_crongressman_datas"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -69,8 +62,7 @@
             android:text="@string/congressman_name"
             android:textColor="#536571"
             android:textStyle="bold"
-            android:textSize="15sp"
-             />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/description_txt_congressman_party"
@@ -81,8 +73,7 @@
             android:text="@string/congressman_party"
             android:textColor="#536571"
             android:textStyle="bold"
-            android:textSize="15sp"
-             />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/description_txt_ordinary_symbol"
@@ -184,7 +175,7 @@
 		        android:layout_alignLeft="@id/btn_quota_technical_work_and_consulting"
 		        android:layout_alignRight="@id/btn_quota_technical_work_and_consulting"            
 		        android:scaleType="fitXY"
-		        android:background="@drawable/level_technical_work_and_consulting" />
+		        android:src="@drawable/level_technical_work_and_consulting" />
             
             <TextView
                 android:id="@+id/txt_quota_technical_work_and_consulting"
@@ -225,7 +216,7 @@
 		        android:layout_alignLeft="@id/btn_quota_telephony"
 		        android:layout_alignRight="@id/btn_quota_telephony"            
 		        android:scaleType="fitXY"
-		        android:background="@drawable/level_telephony" />
+		        android:src="@drawable/level_telephony" />
             
             <TextView 
                 android:id="@+id/txt_quota_telephony"
@@ -266,7 +257,7 @@
 		        android:layout_alignLeft="@id/btn_quota_postal_services"
 		        android:layout_alignRight="@id/btn_quota_postal_services"            
 		        android:scaleType="fitXY"
-		        android:background="@drawable/level_postal_services" />
+		        android:src="@drawable/level_postal_services" />
             
             <TextView
                 android:id="@+id/txt_quota_postal_services"
@@ -307,7 +298,7 @@
 		        android:layout_alignLeft="@id/btn_quota_issuance_of_air_tickets"
 		        android:layout_alignRight="@id/btn_quota_issuance_of_air_tickets"            
 		        android:scaleType="fitXY"
-		        android:background="@drawable/level_issuance_of_air_tickets" />
+		        android:src="@drawable/level_issuance_of_air_tickets" />
             
             <TextView
                 android:id="@+id/txt_quota_issuance_of_air_tickets"
@@ -348,7 +339,7 @@
 		        android:layout_alignLeft="@id/btn_quota_safety"
 		        android:layout_alignRight="@id/btn_quota_safety"            
 		        android:scaleType="fitXY"
-		        android:background="@drawable/level_safety" />
+		        android:src="@drawable/level_safety" />
             
             <TextView
                 android:id="@+id/txt_quota_safety"
@@ -389,7 +380,7 @@
 		        android:layout_alignLeft="@id/btn_quota_alimentation"
 		        android:layout_alignRight="@id/btn_quota_alimentation"            
 		        android:scaleType="fitXY"
-		        android:background="@drawable/level_alimentation" />
+		        android:src="@drawable/level_alimentation" />
             
             <TextView
                 android:id="@+id/txt_quota_alimentation"
@@ -430,7 +421,7 @@
 		        android:layout_alignLeft="@id/btn_quota_fuel"
 		        android:layout_alignRight="@id/btn_quota_fuel"            
 		        android:scaleType="fitXY"
-		        android:background="@drawable/level_fuel" />
+		        android:src="@drawable/level_fuel" />
             
             <TextView
                 android:id="@+id/txt_quota_fuel"
@@ -471,7 +462,7 @@
 		        android:layout_alignLeft="@id/btn_quota_air_freight"
 		        android:layout_alignRight="@id/btn_quota_air_freight"            
 		        android:scaleType="fitXY"
-		        android:background="@drawable/level_air_freight" />
+		        android:src="@drawable/level_air_freight" />
             
             <TextView
                 android:id="@+id/txt_quota_air_freight"
@@ -512,7 +503,7 @@
 		        android:layout_alignLeft="@id/btn_quota_office"
 		        android:layout_alignRight="@id/btn_quota_office"            
 		        android:scaleType="fitXY"
-		        android:background="@drawable/level_office" />
+		        android:src="@drawable/level_office" />
             
             <TextView
                 android:id="@+id/txt_quota_office"
@@ -553,7 +544,7 @@
 		        android:layout_alignLeft="@id/btn_quota_accommodation"
 		        android:layout_alignRight="@id/btn_quota_accommodation"            
 		        android:scaleType="fitXY"
-		        android:background="@drawable/level_accommodation" />
+		        android:src="@drawable/level_accommodation" />
             
             <TextView
                 android:id="@+id/txt_quota_accommodation"
@@ -594,7 +585,7 @@
 		        android:layout_alignLeft="@id/btn_quota_disclosure_parliamentary_activity"
 		        android:layout_alignRight="@id/btn_quota_disclosure_parliamentary_activity"            
 		        android:scaleType="fitXY"
-		        android:background="@drawable/level_disclosure_parliamentary_activity" />
+		        android:src="@drawable/level_disclosure_parliamentary_activity" />
             
             <TextView
                 android:id="@+id/txt_quota_disclosure_parliamentary_activity"
@@ -605,11 +596,7 @@
                 android:layout_marginLeft="33dp"
                 android:text="@string/value_quota_disclosure_parliamentary_activity" />
 
-            
-           
         </RelativeLayout>
-        
-       
     
     </ScrollView>
 

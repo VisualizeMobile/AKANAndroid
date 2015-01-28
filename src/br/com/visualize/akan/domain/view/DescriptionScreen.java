@@ -22,15 +22,16 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -63,26 +64,24 @@ OnDateSetListener  {
 	private final int WHITE = 0xffF1F1F2;
 	private final int RED = 0xffF16068;
 	
-	private final String GRAY_HEX = "#536571";
-	private final String YELLOW_HEX = "#F3D171";
-	private final String GREEN_HEX = "#00A69A";
-	private final String WHITE_HEX = "#F1F1F2";
-	private final String RED_HEX = "#F16068";
-	
 	private static final int BUTTON = 1;
 	private static final int TEXT = 2;
 	private static final int BAR = 3;
 	private static final int BACKGROUND = 4;
-	TextView referenceMonth;
-	Context context;
+	
+	@SuppressWarnings("unused")
+	private Context context;
+	private TextView referenceMonth;
 	
 	private QuotaController controllerQuota = null;
-	CongressmanController congressmanController;
-	StatisticController statisticController;
-	Calendar calendar = Calendar.getInstance();
-	CustomDialog customDialog;
-	int year;
-	int month;
+	private CongressmanController congressmanController;
+	private StatisticController statisticController;
+	private Calendar calendar = Calendar.getInstance();
+	private CustomDialog customDialog;
+	
+	private int year;
+	private int month;
+	
 	static List<Quota> quota;
 	
 	@Override
@@ -107,11 +106,9 @@ OnDateSetListener  {
 	@Override
 	public void onResume() {
 		super.onResume();
-		
 		   
 		setDescriptionCongressman();
 		requestQuotas();
-		
 	}
 	
 	@Override
@@ -122,7 +119,7 @@ OnDateSetListener  {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		Log.e("Passei no onDestroy", "passei no ondestroy");
+
 		if( !congressmanController.getCongresman().isStatusCogressman() ) {
 			controllerQuota.deleteQuotasFromCongressman( congressmanController
 			      .getCongresman().getIdCongressman() );
@@ -167,9 +164,11 @@ OnDateSetListener  {
 		
 		textViewRankingPosition.setText( Integer.toString( congressman
 		      .getRankingCongressman() ) );
+		
 		TextView textViewTopBarName = (TextView) findViewById(
 				R.id.topbar_congressman);
-				textViewTopBarName.setText(congressman.getNameCongressman());
+		
+		textViewTopBarName.setText(congressman.getNameCongressman());
 		
 		ImageView congressmanImage = (ImageView) findViewById( 
 				R.id.description_congressman_photo );
@@ -180,15 +179,13 @@ OnDateSetListener  {
 		
 		Button followCongressman = (Button) findViewById(R.id.description_btn_follow);
 		TextView textViewFollow = (TextView) findViewById(R.id.description_txt_follow);
-		if(congressmanController.getCongresman().isStatusCogressman())
-		{
+		
+		if( congressmanController.getCongresman().isStatusCogressman() ) {
 			followCongressman.setBackgroundResource(R.drawable.following);
 			textViewFollow.setText("Seguido");
 			textViewFollow.setTextColor(Color.parseColor("#008e8e"));
 			
-		}
-		else
-		{
+		} else {
 			followCongressman.setBackgroundResource(R.drawable.not_following);
 			textViewFollow.setText("Seguir");
 			textViewFollow.setTextColor(Color.parseColor("#536571"));
@@ -220,7 +217,7 @@ OnDateSetListener  {
 					      .getCongresman().getIdCongressman(), responseHandler );
 					
 				} catch( Exception e ) {
-					// TODO: handle exception
+					/*! TODO: Handle Exception. */
 				}
 				
 				runOnUiThread( new Runnable() {
@@ -237,6 +234,7 @@ OnDateSetListener  {
 					}
 				} );
 			}
+			
 		}.start();
 	}
 	
@@ -431,7 +429,7 @@ OnDateSetListener  {
 	 *           Amount spent associated with sub-quota.
 	 */
 	private void setBarQuota( ImageView bar, Quota quota ) {
-		/*! Write Instructions Here. */
+		changeBarColor( bar, exponentialProbability(quota) );
 	}
 	
 	/**
@@ -446,9 +444,10 @@ OnDateSetListener  {
 		DecimalFormat valueQuotaFormat = new DecimalFormat( "#,###.00" );
 		
 		if( quota != null ) {
+			
 			text.setText( valueQuotaFormat.format( quota.getValueQuota() ) );
 			
-			changeColorTextResource( text, exponentialProbability( quota) );
+			animateTextMove( text );
 			
 		} else {
 			text.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
@@ -558,8 +557,21 @@ OnDateSetListener  {
 		
 		ImageView barQuota = (ImageView) findViewById( idBarResource );
 		
-		Drawable background = barQuota.getBackground();
-		background.clearColorFilter();
+		if( barQuota.getBackground() != null ) {
+			Drawable background = barQuota.getBackground();
+			background.clearColorFilter();
+			
+		} else {
+			/*! Nothing To Do. */
+		}
+		
+		if( barQuota.getDrawable() != null ) {
+			Drawable drawable = barQuota.getDrawable();
+			drawable.clearColorFilter();
+			
+		} else {
+			/*! Nothing To Do. */
+		}
 	}
 	
 	/**
@@ -586,40 +598,9 @@ OnDateSetListener  {
 	private double exponentialProbability( Quota quota ) {
 		double lambda =  1/ quota.getStatisticQuota().getAverage() ;
 		
-		double result = 1 - Math.exp( - lambda * quota.getValueQuota() );
+		double result = 1 - Math.exp( -lambda * quota.getValueQuota() );
 		
 		return result;
-	}
-	
-	/**
-	 * Change the color of a TextView.
-	 * 
-	 * @param view
-	 *           The interface feature, of the type TextView, which must have
-	 *           changed color.
-	 * @param percent
-	 *           Value representing the share of spending level.
-	 */
-	private void changeColorTextResource( TextView text, double percent ) {
-		
-		if( percent < 0.05 ) {
-			text.setTextColor( Color.parseColor( WHITE_HEX ) );
-			
-		} else if( 0.05 < percent && percent <= 0.25 ) {
-			text.setTextColor( Color.parseColor( GRAY_HEX ) );
-			
-		} else if( 0.25 < percent && percent <= 0.5 ) {
-			text.setTextColor( Color.parseColor( GREEN_HEX ) );
-			
-		} else if( 0.5 < percent && percent <= 0.75 ) {
-			text.setTextColor( Color.parseColor( YELLOW_HEX ) );
-			
-		} else if( 0.75 < percent && percent <= 1.0 ) {
-			text.setTextColor( Color.parseColor( RED_HEX ) );
-			
-		} else {
-			/* ! Nothing To Do. */
-		}
 	}
 	
 	/**
@@ -687,6 +668,34 @@ OnDateSetListener  {
 		colorAnimator.start();
 	}
 	
+	private void changeBarColor( ImageView bar, double percent ) {
+		Drawable drawable = bar.getDrawable();
+		
+		if( percent < 0.05 ) {
+			drawable.setColorFilter( WHITE, Mode.MULTIPLY );
+			
+		} else if( 0.05 < percent && percent <= 0.25 ) {
+			drawable.setColorFilter( GRAY, Mode.MULTIPLY );
+			
+		} else if( 0.25 < percent && percent <= 0.5 ) {
+			drawable.setColorFilter( GREEN, Mode.MULTIPLY );
+			
+		} else if( 0.5 < percent && percent <= 0.75 ) {
+			drawable.setColorFilter( YELLOW, Mode.MULTIPLY );
+			
+		} else if( 0.75 < percent && percent <= 1.0 ) {
+			drawable.setColorFilter( RED, Mode.MULTIPLY );
+			
+		} else {
+			/* ! Nothing To Do. */
+		}
+	}
+	
+	private void animateTextMove( TextView text ) {
+		text.setAnimation( AnimationUtils.loadAnimation( DescriptionScreen.this, 
+				android.R.anim.fade_in ) );
+	}
+	
 	/**
 	 * Return the ID of a resource by a string, that representing a resource.
 	 * 
@@ -737,14 +746,13 @@ OnDateSetListener  {
 	/**
 	 * Instantiates DatePickerFragment and show in screen
 	 * 
-	 * @param v 
+	 * @param view 
 	 * 			receives current view
 	 */
 	
-	public void showDatePickerDialog(View v) {
+	public void showDatePickerDialog( View view ) {
 	    DatePickerFragment newFragment = new DatePickerFragment();
-	    newFragment.show(getSupportFragmentManager(), "datePicker");
-	    
+	    newFragment.show( getSupportFragmentManager(), "datePicker" );
 	}
 	
 	/**
@@ -752,9 +760,10 @@ OnDateSetListener  {
 	 */
 	public void setRerenceMonth(){
 
-	String monthText = getApplication().getResources().getStringArray(R.array.month_names)[month-1];
-	referenceMonth.setText(monthText+" de "+year);
-	
+		String monthText = getApplication().getResources()
+				.getStringArray( R.array.month_names )[ month - 1 ];
+		
+		referenceMonth.setText( monthText + " de " + year );
 	}
 
 	/**
@@ -773,7 +782,8 @@ OnDateSetListener  {
 			int dayOfMonth ) {
 		
 		this.year = year;
-		month = monthOfYear +1;
+		
+		month = monthOfYear + 1;
 		
 		setRerenceMonth();
 		
@@ -795,35 +805,39 @@ OnDateSetListener  {
 	}
 	
 	public void onFollowedCongressman( View view ) {
-		customDialog = new CustomDialog(this);
+		customDialog = new CustomDialog( this );
 		int timeToDismis = 2000;
-		customDialog.setMessage("Parlamentar "+congressmanController.getCongresman().getNameCongressman()+" seguido");
-		if(congressmanController.getCongresman().isStatusCogressman()) {
-			congressmanController.getCongresman().setStatusCogressman(false);
+		
+		customDialog.setMessage( "Parlamentar " + congressmanController.getCongresman()
+				.getNameCongressman() + " seguido" );
+		
+		if( congressmanController.getCongresman().isStatusCogressman() ) {
+			
+			congressmanController.getCongresman().setStatusCogressman( false );
 			congressmanController.updateStatusCongressman();
 			
 			setDescriptionCongressman();
 			
-		} else
-		{
-			congressmanController.getCongresman().setStatusCogressman(true);
+		} else {
+			congressmanController.getCongresman().setStatusCogressman( true );
 			congressmanController.updateStatusCongressman();
 			
 			setDescriptionCongressman();
-			customDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+			
+			customDialog.getWindow().clearFlags( WindowManager.LayoutParams.FLAG_DIM_BEHIND );
 			customDialog.show();
 			
 			final Timer timer = new Timer();
-			timer.schedule(new TimerTask() {
+			
+			timer.schedule( new TimerTask() {
 				
 				@Override
 				public void run() {
 					customDialog.dismiss();
 					timer.cancel();
-					
 				}
-			}, timeToDismis);
-			
+				
+			}, timeToDismis );
 		}
 	}
 }
