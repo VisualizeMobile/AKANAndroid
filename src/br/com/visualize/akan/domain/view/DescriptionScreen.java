@@ -22,7 +22,6 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
@@ -403,7 +402,7 @@ OnDateSetListener  {
 	private void setBackgroundQuota( ImageView background, Quota quota ) {
 		int[] colors = selectImageColor( exponentialProbability( quota ) );
 		
-		animateImageColor( background, colors );
+		animateBackgroundColor( background, colors );
 	}
 	
 	/**
@@ -424,12 +423,17 @@ OnDateSetListener  {
 	 * quota.
 	 * 
 	 * @param bar
-	 *           ImagemView graphically representing the spending on a quota.
+	 *           ImagemView graphically representing the speinding on a quota.
 	 * @param valueQuota
 	 *           Amount spent associated with sub-quota.
 	 */
 	private void setBarQuota( ImageView bar, Quota quota ) {
-		changeBarColor( bar, exponentialProbability(quota) );
+		double percent = exponentialProbability( quota );
+		
+		int[] colors = selectImageColor( percent );
+		
+		animateBarColor( bar, colors );
+		animateBarHeight( bar, percent );
 	}
 	
 	/**
@@ -657,7 +661,7 @@ OnDateSetListener  {
 		return colors;
 	}
 	
-	private void animateImageColor( ImageView image, int[] colors ) {
+	private void animateBackgroundColor( ImageView image, int[] colors ) {
 		
 		ValueAnimator colorAnimator = ObjectAnimator.ofInt( image, "backgroundColor", colors );
 		
@@ -668,27 +672,25 @@ OnDateSetListener  {
 		colorAnimator.start();
 	}
 	
-	private void changeBarColor( ImageView bar, double percent ) {
-		Drawable drawable = bar.getDrawable();
+	private void animateBarColor( ImageView bar, int[] colors ) {
+		ValueAnimator colorAnimator = ObjectAnimator.ofInt( bar, "colorFilter", colors );
 		
-		if( percent < 0.05 ) {
-			drawable.setColorFilter( WHITE, Mode.MULTIPLY );
-			
-		} else if( 0.05 < percent && percent <= 0.25 ) {
-			drawable.setColorFilter( GRAY, Mode.MULTIPLY );
-			
-		} else if( 0.25 < percent && percent <= 0.5 ) {
-			drawable.setColorFilter( GREEN, Mode.MULTIPLY );
-			
-		} else if( 0.5 < percent && percent <= 0.75 ) {
-			drawable.setColorFilter( YELLOW, Mode.MULTIPLY );
-			
-		} else if( 0.75 < percent && percent <= 1.0 ) {
-			drawable.setColorFilter( RED, Mode.MULTIPLY );
-			
-		} else {
-			/* ! Nothing To Do. */
-		}
+		colorAnimator.setDuration( 3000 );
+		colorAnimator.setEvaluator( new ArgbEvaluator() );
+		colorAnimator.setInterpolator( new DecelerateInterpolator() );
+		
+		colorAnimator.start();
+	}
+	
+	private void animateBarHeight( ImageView bar, double newHeight ) {
+		int height = (int) newHeight;
+		
+		ValueAnimator heightAnimator = ObjectAnimator.ofInt( bar, "maxHeight", height );
+		
+		heightAnimator.setDuration( 3000 );
+		heightAnimator.setInterpolator( new DecelerateInterpolator() );
+		
+		heightAnimator.start();
 	}
 	
 	private void animateTextMove( TextView text ) {
@@ -696,7 +698,7 @@ OnDateSetListener  {
 				android.R.anim.fade_in ) );
 	}
 	
-	/**
+	/**	
 	 * Return the ID of a resource by a string, that representing a resource.
 	 * 
 	 * @param typeResource
