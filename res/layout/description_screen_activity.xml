@@ -21,7 +21,6 @@
             android:textColor="#ffffff"
             android:textSize="20sp" /> 
            
-             
         <ImageButton 
             android:id="@+id/topbar_back_button"
             android:background="@drawable/back_button_topbar"
@@ -175,7 +174,7 @@
 		        android:layout_alignLeft="@id/btn_quota_technical_work_and_consulting"
 		        android:layout_alignRight="@id/btn_quota_technical_work_and_consulting"            
 		        android:scaleType="fitXY"
-		        android:src="@drawable/level_technical_work_and_consulting" />
+		        android:src="@anim/level_bar_technical_work_and_consulting" />
             
             <TextView
                 android:id="@+id/txt_quota_technical_work_and_consulting"
@@ -216,7 +215,7 @@
 		        android:layout_alignLeft="@id/btn_quota_telephony"
 		        android:layout_alignRight="@id/btn_quota_telephony"            
 		        android:scaleType="fitXY"
-		        android:src="@drawable/level_telephony" />
+		        android:src="@anim/level_bar_telephony" />
             
             <TextView 
                 android:id="@+id/txt_quota_telephony"
@@ -257,7 +256,7 @@
 		        android:layout_alignLeft="@id/btn_quota_postal_services"
 		        android:layout_alignRight="@id/btn_quota_postal_services"            
 		        android:scaleType="fitXY"
-		        android:src="@drawable/level_postal_services" />
+		        android:src="@anim/level_bar_postal_services" />
             
             <TextView
                 android:id="@+id/txt_quota_postal_services"
@@ -298,7 +297,7 @@
 		        android:layout_alignLeft="@id/btn_quota_issuance_of_air_tickets"
 		        android:layout_alignRight="@id/btn_quota_issuance_of_air_tickets"            
 		        android:scaleType="fitXY"
-		        android:src="@drawable/level_issuance_of_air_tickets" />
+		        android:src="@anim/level_bar_issuance_of_air_tickets" />
             
             <TextView
                 android:id="@+id/txt_quota_issuance_of_air_tickets"
@@ -339,7 +338,7 @@
 		        android:layout_alignLeft="@id/btn_quota_safety"
 		        android:layout_alignRight="@id/btn_quota_safety"            
 		        android:scaleType="fitXY"
-		        android:src="@drawable/level_safety" />
+		        android:src="@anim/level_bar_safety" />
             
             <TextView
                 android:id="@+id/txt_quota_safety"
@@ -380,7 +379,7 @@
 		        android:layout_alignLeft="@id/btn_quota_alimentation"
 		        android:layout_alignRight="@id/btn_quota_alimentation"            
 		        android:scaleType="fitXY"
-		        android:src="@drawable/level_alimentation" />
+		        android:src="@anim/level_bar_alimentation" />
             
             <TextView
                 android:id="@+id/txt_quota_alimentation"
@@ -421,7 +420,7 @@
 		        android:layout_alignLeft="@id/btn_quota_fuel"
 		        android:layout_alignRight="@id/btn_quota_fuel"            
 		        android:scaleType="fitXY"
-		        android:src="@drawable/level_fuel" />
+		        android:src="@anim/level_bar_fuel" />
             
             <TextView
                 android:id="@+id/txt_quota_fuel"
@@ -462,7 +461,7 @@
 		        android:layout_alignLeft="@id/btn_quota_air_freight"
 		        android:layout_alignRight="@id/btn_quota_air_freight"            
 		        android:scaleType="fitXY"
-		        android:src="@drawable/level_air_freight" />
+		        android:src="@anim/level_bar_air_freight" />
             
             <TextView
                 android:id="@+id/txt_quota_air_freight"
@@ -503,7 +502,7 @@
 		        android:layout_alignLeft="@id/btn_quota_office"
 		        android:layout_alignRight="@id/btn_quota_office"            
 		        android:scaleType="fitXY"
-		        android:src="@drawable/level_office" />
+		        android:src="@anim/level_bar_office" />
             
             <TextView
                 android:id="@+id/txt_quota_office"
@@ -544,7 +543,7 @@
 		        android:layout_alignLeft="@id/btn_quota_accommodation"
 		        android:layout_alignRight="@id/btn_quota_accommodation"            
 		        android:scaleType="fitXY"
-		        android:src="@drawable/level_accommodation" />
+		        android:src="@anim/level_bar_accommodation" />
             
             <TextView
                 android:id="@+id/txt_quota_accommodation"
@@ -585,7 +584,7 @@
 		        android:layout_alignLeft="@id/btn_quota_disclosure_parliamentary_activity"
 		        android:layout_alignRight="@id/btn_quota_disclosure_parliamentary_activity"            
 		        android:scaleType="fitXY"
-		        android:src="@drawable/level_disclosure_parliamentary_activity" />
+		        android:src="@anim/level_bar_disclosure_parliamentary_activity" />
             
             <TextView
                 android:id="@+id/txt_quota_disclosure_parliamentary_activity"

@@ -26,6 +26,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -683,9 +684,23 @@ OnDateSetListener  {
 	}
 	
 	private void animateBarHeight( ImageView bar, double newHeight ) {
-		int height = (int) newHeight;
 		
-		ValueAnimator heightAnimator = ObjectAnimator.ofInt( bar, "maxHeight", height );
+		/* The Mathematical Expression:
+		 * 
+		 * ( newHeight * 1000000 )/ 100
+		 * 
+		 * Serves to maintain the proportionality between the last decimal value and 
+		 * the total possible for the size of a ImagemView. A ImageView may have a 
+		 * level value between 0 and 10000, where 10000 corresponds to 100%. 
+		 * 
+		 * Becomes the last decimal value for percentage and then does the proportion 
+		 * between this value and the equivalent value in the range 0-10000.
+		 * */
+		int height = (int) ( newHeight * 1000000 )/ 100;
+		
+		Drawable level = bar.getDrawable();
+		
+		ValueAnimator heightAnimator = ObjectAnimator.ofInt(level, "level", height );
 		
 		heightAnimator.setDuration( 3000 );
 		heightAnimator.setInterpolator( new DecelerateInterpolator() );
