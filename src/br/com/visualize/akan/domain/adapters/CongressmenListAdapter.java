@@ -219,7 +219,4 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 			notifyDataSetInvalidated();
 		}
 	}
-
-		
-	
 }

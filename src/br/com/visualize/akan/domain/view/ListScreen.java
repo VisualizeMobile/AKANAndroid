@@ -44,12 +44,13 @@ public class ListScreen extends Activity
 	QuotaController quotaController;
 	CongressmenListAdapter listAdapter;
 	RankingAdapter rankingAdapter;
-	CongressmenListAdapter followAdapter;
+//	CongressmenListAdapter followAdapter;
 	ListView listView;
 	SearchView search;
 	String query;
 	Button btn_search;
 	Button btn_ranking;
+	Button btn_follow;
 	CustomDialog customDialog = null; 
 	List<Congressman> congressmen;
 	List<Congressman> followedCongressmen;
@@ -73,7 +74,7 @@ public class ListScreen extends Activity
 		listAdapter = new CongressmenListAdapter( this,
 		      R.layout.congressmen_list_layout, congressmen );
 		followedCongressmen = congressmanController.getFollowedCongressman();
-		followAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
+//		listAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
 
 		
 		
@@ -127,6 +128,8 @@ public class ListScreen extends Activity
 			}
 		} );
 		
+		btn_follow  = (Button)findViewById(R.id.btn_follow);
+		
 		listView.setOnItemClickListener( new OnItemClickListener() {
 			
 			@Override
@@ -144,14 +147,13 @@ public class ListScreen extends Activity
 		} );	
 	}
 	public void onFollowList(View view){
-		Button btn_follow = (Button)findViewById(R.id.btn_follow);
 		btn_follow.setSelected(!btn_follow.isSelected());
-		followAdapter = null;
-		followAdapter =  new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
+		listAdapter = null;
+		listAdapter =  new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
 		if (btn_follow.isSelected()){
 			btn_follow.setBackgroundResource(R.drawable.active_followed);
 			
-			listView.setAdapter(followAdapter);
+			listView.setAdapter(listAdapter);
 			Iterator<Congressman> teste = followedCongressmen.iterator();
 			
 			while (teste.hasNext()){
@@ -165,7 +167,8 @@ public class ListScreen extends Activity
 		}else{
 		
 			btn_follow.setBackgroundResource(R.drawable.inactive_followed);
-		
+			listAdapter = null;
+			listAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, congressmen);
 			listView.setAdapter(listAdapter);
 		}
 	}
@@ -175,8 +178,6 @@ public class ListScreen extends Activity
 		super.onResume();
 		listAdapter.notifyDataSetChanged();
 		rankingAdapter.notifyDataSetChanged();
-		
-		followAdapter.notifyDataSetChanged();
 	}
 	
 	@Override
@@ -224,23 +225,25 @@ public class ListScreen extends Activity
 		if(congressmanController.getCongresman().isStatusCogressman()) {
 			congressmanController.getCongresman().setStatusCogressman(false);
 			congressmanController.updateStatusCongressman();
-			followedCongressmen.remove(view.getTag());
-			//followedCongressmen.addAll(congressmanController.getFollowedCongressman());
+			followedCongressmen.remove(congressman);
+			if(btn_follow.isSelected()){
+				listAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
+			}
+			else{
+				listAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, congressmen);
+			}
+			listView.setAdapter(listAdapter);
+			Log.e("Cheguei no followed", "cheguei no followed: "+followedCongressmen.size());
 			quotaController.deleteQuotasFromCongressman(congressman.getIdCongressman());
-			listAdapter.notifyDataSetChanged();
-			rankingAdapter.notifyDataSetChanged();
-			followAdapter.notifyDataSetChanged();
-			
+//			rankingAdapter.notifyDataSetChanged();
 			
 		} else
 		{
 			congressmanController.getCongresman().setStatusCogressman(true);
 			congressmanController.updateStatusCongressman();
-			followedCongressmen.clear();
-			followedCongressmen.addAll(congressmanController.getFollowedCongressman());
+			followedCongressmen.add(congressman);
 			listAdapter.notifyDataSetChanged();
-			rankingAdapter.notifyDataSetChanged();
-			followAdapter.notifyDataSetChanged();
+//			rankingAdapter.notifyDataSetChanged();
 			
 			customDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 			customDialog.show();
