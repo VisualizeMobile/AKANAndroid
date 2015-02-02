@@ -132,7 +132,7 @@
 	
 	        
 	     <Button
-               android:id="@+id/ranking_btn_follow"
+               android:id="@+id/list_btn_follow"
                android:layout_width="40dp"
                android:layout_height="40dp"
                android:onClick="followedCongressman"

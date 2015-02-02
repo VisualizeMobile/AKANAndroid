@@ -5,12 +5,14 @@
 package br.com.visualize.akan.domain.adapters;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,13 +41,13 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 	private List<Congressman> congressmens;
 	private List<Congressman> filteredList;
 	private CongressmanFilter congressmanFilter;
-
+	private int layoutInflated;
 	
 	public CongressmenListAdapter( Context context, int textViewResourceId,
 	      List<Congressman> congressmensList ) {
 		
 		super( context, textViewResourceId, congressmensList );
-		
+		this.layoutInflated = textViewResourceId;
 		this.context = context;
 		this.congressmens = new ArrayList<Congressman>();
 		this.filteredList = new ArrayList<Congressman>();
@@ -71,7 +73,7 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 		LayoutInflater inflater = (LayoutInflater) context
 		      .getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 		
-		View view = inflater.inflate( R.layout.congressmen_list_layout, null );
+		View view = inflater.inflate( layoutInflated, null );
 		
 		TextView textViewName = (TextView) view
 		      .findViewById( R.id.ranking_layout_txt_congressman_name );
@@ -99,6 +101,7 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 		
 		Button followCongressman = (Button)view.
 				findViewById(R.id.list_btn_follow);
+		
 		followCongressman.setTag(congressmens.get(position));
 		if(congressmens.get(position).isStatusCogressman())
 		{
@@ -110,6 +113,23 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 			followCongressman.setBackgroundResource(R.drawable.not_following);
 			
 			
+		}
+		
+		if(layoutInflated == R.layout.ranking_layout){
+			TextView textViewValue = (TextView) view
+				      .findViewById( R.id.ranking_layout_txt_value );
+				
+				DecimalFormat formatValue = new DecimalFormat( "#,###.00" );
+				
+				textViewValue.setText( ""
+				      + formatValue.format( congressmens.get( position )
+				            .getTotalSpentCongressman() ) );
+
+				TextView textViewPosition = (TextView) view
+				      .findViewById( R.id.ranking_layout_position );
+				
+				textViewPosition.setText( Integer.toString( congressmens.get( position )
+				      .getRankingCongressman() ) );
 		}
 		
 		return view;

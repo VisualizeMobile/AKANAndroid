@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
@@ -32,7 +33,6 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.domain.adapters.CongressmenListAdapter;
-import br.com.visualize.akan.domain.adapters.RankingAdapter;
 import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.controller.QuotaController;
 import br.com.visualize.akan.domain.model.Congressman;
@@ -43,7 +43,6 @@ public class ListScreen extends Activity
 	CongressmanController congressmanController;
 	QuotaController quotaController;
 	CongressmenListAdapter listAdapter;
-	RankingAdapter rankingAdapter;
 //	CongressmenListAdapter followAdapter;
 	ListView listView;
 	SearchView search;
@@ -54,6 +53,10 @@ public class ListScreen extends Activity
 	CustomDialog customDialog = null; 
 	List<Congressman> congressmen;
 	List<Congressman> followedCongressmen;
+	LayoutAnimationController listAnimation;
+	List<Congressman> currentListCongressmen;
+	int currentLayout;
+	
 	@Override
 	public void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
@@ -67,26 +70,25 @@ public class ListScreen extends Activity
 		quotaController = QuotaController.getInstance(getApplicationContext());
 		 
 		congressmen = congressmanController.getAllCongressman();
-		
-		rankingAdapter = new RankingAdapter( this, R.layout.ranking_layout,
-		      congressmen );
+		currentListCongressmen = congressmen;
 		
 		listAdapter = new CongressmenListAdapter( this,
 		      R.layout.congressmen_list_layout, congressmen );
+		currentLayout = R.layout.congressmen_list_layout;
 		followedCongressmen = congressmanController.getFollowedCongressman();
 //		listAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
 
 		
 		
 		listView = (ListView) findViewById( R.id.listView );
-
+		
 		listView.setAdapter( listAdapter );
 	
 		
 		listAdapter.notifyDataSetChanged();
 		listView.setTextFilterEnabled( false );
 		
-		final LayoutAnimationController controller = AnimationUtils
+		  listAnimation = AnimationUtils
 		      .loadLayoutAnimation( this, R.anim.layout_animation );
 		
 		btn_ranking.setOnClickListener( new View.OnClickListener() {
@@ -97,15 +99,21 @@ public class ListScreen extends Activity
 
 				if( btn_ranking.isSelected() ) {
 					btn_ranking.setBackgroundResource( R.drawable.active_ranking );
-
-					listView.setAdapter( rankingAdapter );
-					listView.setLayoutAnimation( controller );
+					Log.e("peguei parlamentar no adapter",congressmen.get(0).getNameCongressman());
+					listAdapter = new CongressmenListAdapter(ListScreen.this,
+							R.layout.ranking_layout, currentListCongressmen);
+					listView.setAdapter(listAdapter);
+					listView.setLayoutAnimation( listAnimation );
+					currentLayout = R.layout.ranking_layout;
 					
-				} else {
+				}else {
 					btn_ranking
 					      .setBackgroundResource( R.drawable.inactive_ranking );
+					listAdapter = new CongressmenListAdapter(ListScreen.this,
+							R.layout.congressmen_list_layout, currentListCongressmen);
 					listView.setAdapter( listAdapter );
-					listView.setLayoutAnimation( controller );
+					listView.setLayoutAnimation( listAnimation );
+					currentLayout = R.layout.congressmen_list_layout;
 					
 				}
 			}
@@ -147,37 +155,33 @@ public class ListScreen extends Activity
 		} );	
 	}
 	public void onFollowList(View view){
+		Animation followAnimation = AnimationUtils.loadAnimation(this, R.anim.up_from_bottom);
 		btn_follow.setSelected(!btn_follow.isSelected());
 		listAdapter = null;
-		listAdapter =  new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
+		listAdapter =  new CongressmenListAdapter(this, currentLayout, followedCongressmen);
 		if (btn_follow.isSelected()){
 			btn_follow.setBackgroundResource(R.drawable.active_followed);
-			
 			listView.setAdapter(listAdapter);
-			Iterator<Congressman> teste = followedCongressmen.iterator();
-			
-			while (teste.hasNext()){
-				
-				Congressman congressman = teste.next();
-				Log.e("parlamentares seguidos listscreen",congressman.getNameCongressman() );
-			}
-			
-			
-			
+			listView.setAnimation(followAnimation);
+			currentListCongressmen = followedCongressmen;
 		}else{
 		
 			btn_follow.setBackgroundResource(R.drawable.inactive_followed);
 			listAdapter = null;
-			listAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, congressmen);
+			listAdapter = new CongressmenListAdapter(this, currentLayout, congressmen);
+			
 			listView.setAdapter(listAdapter);
+			listView.setAnimation(followAnimation);
+			currentListCongressmen = congressmen;
 		}
 	}
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		followedCongressmen = congressmanController.getFollowedCongressman();
 		listAdapter.notifyDataSetChanged();
-		rankingAdapter.notifyDataSetChanged();
+		
 	}
 	
 	@Override
@@ -203,7 +207,7 @@ public class ListScreen extends Activity
 			 @Override
 			 public boolean onQueryTextChange(String newText) {
 				 listAdapter.getFilter().filter(newText);
-				 rankingAdapter.getFilter().filter(newText);
+				
 					return true;
 				}
     	 });
@@ -225,7 +229,7 @@ public class ListScreen extends Activity
 		if(congressmanController.getCongresman().isStatusCogressman()) {
 			congressmanController.getCongresman().setStatusCogressman(false);
 			congressmanController.updateStatusCongressman();
-			followedCongressmen.remove(congressman);
+			followedCongressmen = congressmanController.getFollowedCongressman();
 			if(btn_follow.isSelected()){
 				listAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
 			}
