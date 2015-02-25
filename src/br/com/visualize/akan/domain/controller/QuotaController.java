@@ -8,6 +8,7 @@ package br.com.visualize.akan.domain.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -16,6 +17,7 @@ import java.util.List;
 import org.apache.http.client.ResponseHandler;
 
 import android.content.Context;
+import android.os.Looper;
 import android.util.Log;
 import br.com.visualize.akan.api.dao.QuotaDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
@@ -38,11 +40,13 @@ public class QuotaController {
 	private UrlController urlController;
 	private QuotaDao quotaDao;
 	private CongressmanController congressmanController;
-	
+	private Calendar calendar;
+
 	private QuotaController( Context context ) {
 		congressmanController = CongressmanController.getInstance(context);
 		urlController = UrlController.getInstance( context );
 		quotaDao = QuotaDao.getInstance( context );
+		calendar = Calendar.getInstance();
 		
 		this.context = context;
 	}
@@ -236,6 +240,19 @@ public class QuotaController {
 			periodDate.add(dateMax);
 			periodDate.add(dateMin);
 			return periodDate;
+	}
+	
+	public int InitializeDateFromQuotas(){
+		int majorMonth = 0; 
+		
+						Log.e("Entrei no initalize", "entrei");
+						int majorYear = Collections.max(quotaDao.getYears());
+						  majorMonth = Collections.max(quotaDao.getMonthsFromCurrentYear(majorYear));	
+						Log.e("mes corrent", ""+majorMonth);
+						calendar.set(majorYear, majorMonth, 1);
+						
+					  
+		return majorMonth;
 	}
 	
 	/**

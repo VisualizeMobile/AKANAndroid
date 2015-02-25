@@ -46,6 +46,7 @@ import br.com.visualize.akan.domain.enumeration.SubQuota;
 import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Quota;
 
+import com.google.gson.annotations.Since;
 import com.squareup.picasso.Picasso;
 
 
@@ -89,16 +90,16 @@ OnDateSetListener  {
 		super.onCreate( savedInstanceState );
 		
 		setContentView( R.layout.description_screen_activity );
-		year = calendar.get( Calendar.YEAR );
-		month = calendar.get( Calendar.MONTH ) + 1;
-		
-		  referenceMonth = (TextView)findViewById(R.id.reference_month);
-		  setRerenceMonth();
 		controllerQuota = QuotaController.getInstance( getApplicationContext() );
-		
 		congressmanController = CongressmanController
 		      .getInstance( getApplicationContext() );
 		statisticController = StatisticController.getInstance(getApplicationContext());
+		year = calendar.get( Calendar.YEAR );
+		
+		month = calendar.get(Calendar.MONTH);
+		
+		  
+		
 	
 
 	}
@@ -109,6 +110,10 @@ OnDateSetListener  {
 		   
 		setDescriptionCongressman();
 		requestQuotas();
+		
+		Log.e("PEGUEI MES", "PEGUEI MES"+month);
+		referenceMonth = (TextView)findViewById(R.id.reference_month);
+		  setRerenceMonth();
 	}
 	
 	@Override
@@ -228,7 +233,9 @@ OnDateSetListener  {
 						
 						setValuesQuotas( congressmanController.getCongresman()
 						      .getIdCongressman() );
-						
+						month = controllerQuota.InitializeDateFromQuotas();
+						Log.e("PEGUEI MES DENTRO DA REQUISIÇÃO", ""+month);
+						setRerenceMonth();
 						progress.dismiss();
 						Looper.loop();
 					}
