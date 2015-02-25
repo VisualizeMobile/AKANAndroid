@@ -230,6 +230,7 @@ public class ListScreen extends Activity
 			congressmanController.getCongresman().setStatusCogressman(false);
 			congressmanController.updateStatusCongressman();
 			followedCongressmen = congressmanController.getFollowedCongressman();
+			currentListCongressmen = followedCongressmen;
 			if(btn_follow.isSelected()){
 				listAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
 			}
