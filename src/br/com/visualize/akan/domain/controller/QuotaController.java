@@ -203,6 +203,8 @@ public class QuotaController {
 		List<Integer> listYears = new ArrayList<Integer>();
 		List<Integer> monthsMajorYear = new ArrayList<Integer>();
 		List<Long> periodDate = new ArrayList<Long>();
+		int idCongressman = congressmanController.getCongresman().getIdCongressman();
+		Log.e("ID CONGRESSMAN NAS DATAS", ""+idCongressman);
 		Long dateMin;
 		Long dateMax;
 		String dateToConversion;
@@ -220,7 +222,7 @@ public class QuotaController {
 		minorYear = Collections.min(listYears);
 		Log.e("Maior ano", ""+majorYear);
 		Log.e("Menor ano", ""+minorYear);
-		monthsMajorYear = quotaDao.getMonthsFromCurrentYear(majorYear);
+		monthsMajorYear = quotaDao.getMonthsFromCurrentYear(majorYear,idCongressman);
 		majorMonth = Collections.max(monthsMajorYear);
 		Log.e("Maior mes", ""+majorMonth);
 		//convert to date format
@@ -243,13 +245,20 @@ public class QuotaController {
 	}
 	
 	public int InitializeDateFromQuotas(){
-		int majorMonth = 0; 
+		int majorMonth = 1;
 		
-						Log.e("Entrei no initalize", "entrei");
-						int majorYear = Collections.max(quotaDao.getYears());
-						  majorMonth = Collections.max(quotaDao.getMonthsFromCurrentYear(majorYear));	
-						Log.e("mes corrent", ""+majorMonth);
-						calendar.set(majorYear, majorMonth, 1);
+		try {
+			int idCongressman = congressmanController.getCongresman().getIdCongressman();
+			
+			int majorYear = Collections.max(quotaDao.getYears());
+			  majorMonth = Collections.max(quotaDao.getMonthsFromCurrentYear(majorYear,idCongressman));	
+			Log.e("mes corrent", ""+majorMonth);
+			calendar.set(majorYear, majorMonth, 1);
+			
+		} catch (Exception e) {
+			
+		}
+		
 						
 					  
 		return majorMonth;

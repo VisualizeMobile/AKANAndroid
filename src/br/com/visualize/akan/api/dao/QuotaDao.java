@@ -205,12 +205,12 @@ public class QuotaDao extends Dao {
 	 * @param year
 	 * @return The list of the months available of the quotas in current year
 	 */
-	public List<Integer> getMonthsFromCurrentYear( int year){
+	public List<Integer> getMonthsFromCurrentYear( int year, int idCongressman){
 
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery(
 			      "SELECT MONTH_QUOTA FROM QUOTA WHERE YEAR_QUOTA = "+year+
-			      " GROUP BY MONTH_QUOTA", null );
+			      " AND ID_CONGRESSMAN = "+idCongressman+" GROUP BY MONTH_QUOTA", null );
 		
 		List<Integer> listMonths = new ArrayList<Integer>();
 		while(cursor.moveToNext()){

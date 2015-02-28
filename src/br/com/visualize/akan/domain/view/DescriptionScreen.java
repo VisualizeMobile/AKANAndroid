@@ -230,10 +230,10 @@ OnDateSetListener  {
 					@Override
 					public void run() {
 						progress.setMessage( "Dados carregados" );
-						
+						month = controllerQuota.InitializeDateFromQuotas();
 						setValuesQuotas( congressmanController.getCongresman()
 						      .getIdCongressman() );
-						month = controllerQuota.InitializeDateFromQuotas();
+						
 						Log.e("PEGUEI MES DENTRO DA REQUISIÇÃO", ""+month);
 						setRerenceMonth();
 						progress.dismiss();
