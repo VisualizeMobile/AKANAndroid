@@ -10,12 +10,15 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.apache.http.client.ResponseHandler;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +35,7 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 import br.com.visualize.akan.R;
+import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.adapters.CongressmenListAdapter;
 import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.controller.QuotaController;
@@ -223,7 +227,7 @@ public class ListScreen extends Activity
 	public void followedCongressman( View view ) {
 		customDialog = new CustomDialog(this);
 		int timeToDismis = 2000;
-		Congressman congressman = (Congressman)view.getTag();
+		final Congressman congressman = (Congressman)view.getTag();
 		customDialog.setMessage("Parlamentar "+congressman.getNameCongressman()+" seguido");
 		congressmanController.setCongressman(congressman);
 		if(congressmanController.getCongresman().isStatusCogressman()) {
@@ -252,6 +256,29 @@ public class ListScreen extends Activity
 			
 			customDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 			customDialog.show();
+			
+			new Thread( new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					Looper.prepare();
+					ResponseHandler<String> responseHandler = HttpConnection
+							.getResponseHandler();
+					try {
+						
+						quotaController
+								.getQuotaById(congressman.getIdCongressman(),  responseHandler );
+						Log.e(""+congressman.getIdCongressman(), "REQUISITEI QUOTA NO SEGUIR");
+					} catch ( Exception e ) {
+						//TODO launch error alert
+						e.printStackTrace();
+						
+					} 
+					
+					Looper.loop();
+				}
+			} ).start();
 			
 			/**
 			 * timer to dismis Dialog

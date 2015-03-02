@@ -109,7 +109,16 @@ OnDateSetListener  {
 		super.onResume();
 		   
 		setDescriptionCongressman();
-		requestQuotas();
+		if(!congressmanController.getCongresman().isStatusCogressman()){
+			requestQuotas();
+		}
+		else
+		{	
+			month = controllerQuota.InitializeDateFromQuotas();
+			setValuesQuotas( congressmanController.getCongresman()
+			      .getIdCongressman() );
+		}
+		
 		
 		Log.e("PEGUEI MES", "PEGUEI MES"+month);
 		referenceMonth = (TextView)findViewById(R.id.reference_month);
