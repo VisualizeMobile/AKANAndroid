@@ -1,7 +1,6 @@
 /*
- * File: DescriptionScreen.java 
- * Purpose: Brings the implementation of DescriptionScreen, a class that 
- * serves to interface with the user.
+ * File: DescriptionScreen.java Purpose: Brings the implementation of
+ * DescriptionScreen, a class that serves to interface with the user.
  */
 package br.com.visualize.akan.domain.view;
 
@@ -26,7 +25,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -46,7 +44,6 @@ import br.com.visualize.akan.domain.enumeration.SubQuota;
 import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Quota;
 
-import com.google.gson.annotations.Since;
 import com.squareup.picasso.Picasso;
 
 
@@ -56,7 +53,7 @@ import com.squareup.picasso.Picasso;
  * congressman.
  */
 public class DescriptionScreen extends FragmentActivity implements
-OnDateSetListener  {
+        OnDateSetListener {
 	private static final int EMPTY_VALUE_QUOTA = 0; // Measured in Real.
 	
 	private final int GRAY = 0xff536571;
@@ -70,11 +67,11 @@ OnDateSetListener  {
 	private static final int BAR = 3;
 	private static final int BACKGROUND = 4;
 	
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private Context context;
 	private TextView referenceMonth;
 	
-	private QuotaController controllerQuota = null;
+	private QuotaController quotaController = null;
 	private CongressmanController congressmanController;
 	private StatisticController statisticController;
 	private Calendar calendar = Calendar.getInstance();
@@ -90,39 +87,36 @@ OnDateSetListener  {
 		super.onCreate( savedInstanceState );
 		
 		setContentView( R.layout.description_screen_activity );
-		controllerQuota = QuotaController.getInstance( getApplicationContext() );
+		
+		quotaController = QuotaController.getInstance( getApplicationContext() );
+		statisticController = StatisticController
+		        .getInstance( getApplicationContext() );
 		congressmanController = CongressmanController
-		      .getInstance( getApplicationContext() );
-		statisticController = StatisticController.getInstance(getApplicationContext());
+		        .getInstance( getApplicationContext() );
+		
 		year = calendar.get( Calendar.YEAR );
-		
-		month = calendar.get(Calendar.MONTH);
-		
-		  
-		
-	
-
+		month = calendar.get( Calendar.MONTH );
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
-		   
+		
 		setDescriptionCongressman();
-		if(!congressmanController.getCongresman().isStatusCogressman()){
+		
+		if( !congressmanController.getCongresman().isStatusCogressman() ) {
 			requestQuotas();
-		}
-		else
-		{	
-			month = controllerQuota.InitializeDateFromQuotas();
+			
+		} else {
+			month = quotaController.InitializeDateFromQuotas();
+			
 			setValuesQuotas( congressmanController.getCongresman()
-			      .getIdCongressman() );
+			        .getIdCongressman() );
 		}
+
+		referenceMonth = (TextView)findViewById( R.id.reference_month );
 		
-		
-		Log.e("PEGUEI MES", "PEGUEI MES"+month);
-		referenceMonth = (TextView)findViewById(R.id.reference_month);
-		  setRerenceMonth();
+		setRerenceMonth();
 	}
 	
 	@Override
@@ -133,10 +127,10 @@ OnDateSetListener  {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-
+		
 		if( !congressmanController.getCongresman().isStatusCogressman() ) {
-			controllerQuota.deleteQuotasFromCongressman( congressmanController
-			      .getCongresman().getIdCongressman() );
+			quotaController.deleteQuotasFromCongressman( congressmanController
+			        .getCongresman().getIdCongressman() );
 		} else {
 			/* ! Nothing To Do. */
 		}
@@ -160,49 +154,47 @@ OnDateSetListener  {
 		Congressman congressman;
 		
 		congressman = congressmanController.getCongresman();
-		String idCongressman = Integer.toString( congressman.getIdCongressman() );
+		String idCongressman = Integer
+		        .toString( congressman.getIdCongressman() );
 		String photoCongressmanUrl = "http://www.camara.gov.br/internet/deputado/bandep/";
 		
-		TextView textViewCongressmanName = (TextView) findViewById( 
-				R.id.description_txt_congressman_name );
+		TextView textViewCongressmanName = (TextView)findViewById( R.id.description_txt_congressman_name );
 		
 		textViewCongressmanName.setText( congressman.getNameCongressman() );
-				
-		TextView textViewCongressmanParitdo = (TextView) findViewById( 
-				R.id.description_txt_congressman_party );
+		
+		TextView textViewCongressmanParitdo = (TextView)findViewById( R.id.description_txt_congressman_party );
 		
 		textViewCongressmanParitdo.setText( congressman.getPartyCongressman() );
 		
-		TextView textViewRankingPosition = (TextView) findViewById( 
-				R.id.description_txt_ranking_position );
+		TextView textViewRankingPosition = (TextView)findViewById( R.id.description_txt_ranking_position );
 		
 		textViewRankingPosition.setText( Integer.toString( congressman
-		      .getRankingCongressman() ) );
+		        .getRankingCongressman() ) );
 		
-		TextView textViewTopBarName = (TextView) findViewById(
-				R.id.topbar_congressman);
+		TextView textViewTopBarName = (TextView)findViewById( R.id.topbar_congressman );
 		
-		textViewTopBarName.setText(congressman.getNameCongressman());
+		textViewTopBarName.setText( congressman.getNameCongressman() );
 		
-		ImageView congressmanImage = (ImageView) findViewById( 
-				R.id.description_congressman_photo );
+		ImageView congressmanImage = (ImageView)findViewById( R.id.description_congressman_photo );
 		
 		Picasso.with( getApplicationContext() )
-		      .load( photoCongressmanUrl + idCongressman + ".jpg" )
-		      .error( R.drawable.default_photo ).into( congressmanImage );
+		        .load( photoCongressmanUrl + idCongressman + ".jpg" )
+		        .error( R.drawable.default_photo ).into( congressmanImage );
 		
-		Button followCongressman = (Button) findViewById(R.id.description_btn_follow);
-		TextView textViewFollow = (TextView) findViewById(R.id.description_txt_follow);
+		Button followCongressman = (Button)findViewById( R.id.description_btn_follow );
+		TextView textViewFollow = (TextView)findViewById( R.id.description_txt_follow );
 		
 		if( congressmanController.getCongresman().isStatusCogressman() ) {
-			followCongressman.setBackgroundResource(R.drawable.following);
-			textViewFollow.setText("Seguido");
-			textViewFollow.setTextColor(Color.parseColor("#008e8e"));
+			followCongressman.setBackgroundResource( R.drawable.following );
+			
+			textViewFollow.setText( "Seguido" );
+			textViewFollow.setTextColor( Color.parseColor( "#008e8e" ) );
 			
 		} else {
-			followCongressman.setBackgroundResource(R.drawable.not_following);
-			textViewFollow.setText("Seguir");
-			textViewFollow.setTextColor(Color.parseColor("#536571"));
+			followCongressman.setBackgroundResource( R.drawable.not_following );
+			
+			textViewFollow.setText( "Seguir" );
+			textViewFollow.setTextColor( Color.parseColor( "#536571" ) );
 			
 		}
 	}
@@ -225,13 +217,14 @@ OnDateSetListener  {
 				
 				try {
 					ResponseHandler<String> responseHandler = HttpConnection
-					      .getResponseHandler();
+					        .getResponseHandler();
 					
-					controllerQuota.getQuotaById( congressmanController
-					      .getCongresman().getIdCongressman(), responseHandler );
+					quotaController.getQuotaById( congressmanController
+					        .getCongresman().getIdCongressman(),
+					        responseHandler );
 					
 				} catch( Exception e ) {
-					/*! TODO: Handle Exception. */
+					/* ! TODO: Handle Exception. */
 				}
 				
 				runOnUiThread( new Runnable() {
@@ -239,13 +232,16 @@ OnDateSetListener  {
 					@Override
 					public void run() {
 						progress.setMessage( "Dados carregados" );
-						month = controllerQuota.InitializeDateFromQuotas();
-						setValuesQuotas( congressmanController.getCongresman()
-						      .getIdCongressman() );
 						
-						Log.e("PEGUEI MES DENTRO DA REQUISIÇÃO", ""+month);
+						month = quotaController.InitializeDateFromQuotas();
+						
+						setValuesQuotas( congressmanController.getCongresman()
+						        .getIdCongressman() );
+						
 						setRerenceMonth();
+						
 						progress.dismiss();
+						
 						Looper.loop();
 					}
 				} );
@@ -258,20 +254,22 @@ OnDateSetListener  {
 	 * Sets the value of each parliamentary quota regarding the Congressman.
 	 * 
 	 * @param idCongressman
-	 *           Numeric identifier of congressman that must have deleted the
-	 *           quotas.
+	 *            Numeric identifier of congressman that must have deleted the
+	 *            quotas.
 	 */
 	public void setValuesQuotas( int idCongressman ) {
 		
 		double totalAmountSpent = 0.00;
 		
-		Iterator<Quota> iteratorQuota = controllerQuota.getQuotaByDate( month,
-		      year ).iterator();
-			
+		Iterator<Quota> iteratorQuota = quotaController.getQuotaByDate( month,
+		        year ).iterator();
+		
 		while( iteratorQuota.hasNext() ) {
 			Quota analyzedQuota = iteratorQuota.next();
-				analyzedQuota.setStatisticQuota(statisticController.getStatisticByYear(year));
-				
+			
+			analyzedQuota.setStatisticQuota( statisticController
+			        .getStatisticByYear( year ) );
+			
 			SubQuota typeSubQuota = analyzedQuota.getTypeQuota();
 			
 			setSubQuotaAccordingType( typeSubQuota, analyzedQuota );
@@ -285,54 +283,48 @@ OnDateSetListener  {
 	 * indicative of spending, according to the type associated with it.
 	 * 
 	 * @param typeSubQuota
-	 *           The type of sub-quota.
+	 *            The type of sub-quota.
 	 * @param quota
-	 *           Amount spent associated with sub-quota.
+	 *            Amount spent associated with sub-quota.
 	 */
-	private void setSubQuotaAccordingType( SubQuota typeSubQuota,
-	      Quota quota ) {
+	private void setSubQuotaAccordingType( SubQuota typeSubQuota, Quota quota ) {
+		String type = "";
 		
 		switch( typeSubQuota ) {
 		
 			case ACCOMMODATION:
-				String accommodation = SubQuota.ACCOMMODATION
-				      .getRepresentativeNameQuota();
+				type = SubQuota.ACCOMMODATION
+				        .getRepresentativeNameQuota();
 				
-				setDetailsQuota( accommodation, quota );
 				break;
 			
 			case AIR_FREIGHT:
-				String airFreight = SubQuota.AIR_FREIGHT
-				      .getRepresentativeNameQuota();
+				type = SubQuota.AIR_FREIGHT
+				        .getRepresentativeNameQuota();
 				
-				setDetailsQuota( airFreight, quota );
 				break;
 			
 			case ALIMENTATION:
-				String alimentation = SubQuota.ALIMENTATION
-				      .getRepresentativeNameQuota();
+				type = SubQuota.ALIMENTATION
+				        .getRepresentativeNameQuota();
 				
-				setDetailsQuota( alimentation, quota );
 				break;
 			
 			case DISCLOSURE_PARLIAMENTARY_ACTIVITY:
-				String disclosureParliamentaryActivity = SubQuota.DISCLOSURE_PARLIAMENTARY_ACTIVITY
-				      .getRepresentativeNameQuota();
+				type = SubQuota.DISCLOSURE_PARLIAMENTARY_ACTIVITY
+				        .getRepresentativeNameQuota();
 				
-				setDetailsQuota( disclosureParliamentaryActivity, quota );
 				break;
 			
 			case FUEL:
-				String fuel = SubQuota.FUEL.getRepresentativeNameQuota();
+				type = SubQuota.FUEL.getRepresentativeNameQuota();
 				
-				setDetailsQuota( fuel, quota );
 				break;
 			
 			case ISSUANCE_OF_AIR_TICKETS:
-				String inssuanceAirTickets = SubQuota.ISSUANCE_OF_AIR_TICKETS
-				      .getRepresentativeNameQuota();
+				type = SubQuota.ISSUANCE_OF_AIR_TICKETS
+				        .getRepresentativeNameQuota();
 				
-				setDetailsQuota( inssuanceAirTickets, quota );
 				break;
 			
 			case LEASE_OF_VEHICLES:
@@ -340,22 +332,19 @@ OnDateSetListener  {
 				break;
 			
 			case OFFICE:
-				String office = SubQuota.OFFICE.getRepresentativeNameQuota();
+				type = SubQuota.OFFICE.getRepresentativeNameQuota();
 				
-				setDetailsQuota( office, quota );
 				break;
 			
 			case POSTAL_SERVICES:
-				String postalServices = SubQuota.POSTAL_SERVICES
-				      .getRepresentativeNameQuota();
+				type = SubQuota.POSTAL_SERVICES
+				        .getRepresentativeNameQuota();
 				
-				setDetailsQuota( postalServices, quota );
 				break;
 			
 			case SAFETY:
-				String safety = SubQuota.SAFETY.getRepresentativeNameQuota();
+				type = SubQuota.SAFETY.getRepresentativeNameQuota();
 				
-				setDetailsQuota( safety, quota );
 				break;
 			
 			case SIGNATURE_OF_PUBLICATION:
@@ -363,32 +352,33 @@ OnDateSetListener  {
 				break;
 			
 			case TECHNICAL_WORK_AND_CONSULTING:
-				String technicalWorkConsulting = SubQuota.TECHNICAL_WORK_AND_CONSULTING
-				      .getRepresentativeNameQuota();
+				type = SubQuota.TECHNICAL_WORK_AND_CONSULTING
+				        .getRepresentativeNameQuota();
 				
-				setDetailsQuota( technicalWorkConsulting, quota );
 				break;
 			
 			case TELEPHONY:
-				String telephony = SubQuota.TELEPHONY.getRepresentativeNameQuota();
+				type = SubQuota.TELEPHONY
+				        .getRepresentativeNameQuota();
 				
-				setDetailsQuota( telephony, quota );
 				break;
 			
 			default:
 				/* ! Nothing To Do. */
 		}
+		
+		setDetailsQuota( type, quota );
 	}
 	
 	/**
-	 * Sets the information of a quota that will be presented, either graphically
-	 * or numerically.
+	 * Sets the information of a quota that will be presented, either
+	 * graphically or numerically.
 	 * 
 	 * @param quotaName
-	 *           Name of the quota. Should be given only with lowercase letters
-	 *           and spaced names with underscore.
+	 *            Name of the quota. Should be given only with lowercase letters
+	 *            and spaced names with underscore.
 	 * @param valueQuota
-	 *           Amount spent associated with sub-quota
+	 *            Amount spent associated with sub-quota
 	 */
 	private void setDetailsQuota( String quotaName, Quota quota ) {
 		int idBackgroundResource = getResourceID( BACKGROUND, quotaName );
@@ -396,10 +386,10 @@ OnDateSetListener  {
 		int idTextResource = getResourceID( TEXT, quotaName );
 		int idBarResource = getResourceID( BAR, quotaName );
 		
-		ImageView backgroundQuota = (ImageView) findViewById( idBackgroundResource );
-		ImageView imageQuota = (ImageView) findViewById( idImageResource );
-		ImageView barQuota = (ImageView) findViewById( idBarResource );
-		TextView txtQuota = (TextView) findViewById( idTextResource );
+		ImageView backgroundQuota = (ImageView)findViewById( idBackgroundResource );
+		ImageView imageQuota = (ImageView)findViewById( idImageResource );
+		ImageView barQuota = (ImageView)findViewById( idBarResource );
+		TextView txtQuota = (TextView)findViewById( idTextResource );
 		
 		setBackgroundQuota( backgroundQuota, quota );
 		setImageQuota( imageQuota, quotaName );
@@ -411,13 +401,13 @@ OnDateSetListener  {
 	 * Sets the picture that represents the background of the quota.
 	 * 
 	 * @param background
-	 *           ImagemView representing the background of the quota.
+	 *            ImagemView representing the background of the quota.
 	 * @param quota
-	 *           Name of the quota. Should be given only with lowercase letters
-	 *           and spaced names with underscore.
+	 *            Name of the quota. Should be given only with lowercase letters
+	 *            and spaced names with underscore.
 	 */
 	private void setBackgroundQuota( ImageView background, Quota quota ) {
-		int[] colors = selectImageColor( exponentialProbability( quota ) );
+		int[ ] colors = selectImageColor( exponentialProbability( quota ) );
 		
 		animateBackgroundColor( background, colors );
 	}
@@ -426,13 +416,13 @@ OnDateSetListener  {
 	 * Sets the picture that represents on the screen a quota.
 	 * 
 	 * @param image
-	 *           ImagemView representing the the quota.
+	 *            ImagemView representing the the quota.
 	 * @param quota
-	 *           Name of the quota. Should be given only with lowercase letters
-	 *           and spaced names with underscore.
+	 *            Name of the quota. Should be given only with lowercase letters
+	 *            and spaced names with underscore.
 	 */
 	private void setImageQuota( ImageView image, String quota ) {
-		/*! Write Instructions Here. */
+		/* ! Write Instructions Here. */
 	}
 	
 	/**
@@ -440,26 +430,27 @@ OnDateSetListener  {
 	 * quota.
 	 * 
 	 * @param bar
-	 *           ImagemView graphically representing the speinding on a quota.
+	 *            ImagemView graphically representing the speinding on a quota.
 	 * @param valueQuota
-	 *           Amount spent associated with sub-quota.
+	 *            Amount spent associated with sub-quota.
 	 */
 	private void setBarQuota( ImageView bar, Quota quota ) {
 		double percent = exponentialProbability( quota );
 		
-		int[] colors = selectImageColor( percent );
+		int[ ] colors = selectImageColor( percent );
 		
 		animateBarColor( bar, colors );
 		animateBarHeight( bar, percent );
 	}
 	
 	/**
-	 * Sets the text that represents on the screen the spending level of a quota.
+	 * Sets the text that represents on the screen the spending level of a
+	 * quota.
 	 * 
 	 * @param text
-	 *           TextView numerically representing the spending on a quota.
+	 *            TextView numerically representing the spending on a quota.
 	 * @param valueQuota
-	 *           Amount spent associated with sub-quota.
+	 *            Amount spent associated with sub-quota.
 	 */
 	private void setTextValueQuota( TextView text, Quota quota ) {
 		DecimalFormat valueQuotaFormat = new DecimalFormat( "#,###.00" );
@@ -480,43 +471,44 @@ OnDateSetListener  {
 	 */
 	private void resetSubQuotaAccordingType() {
 		final String accommodation = SubQuota.ACCOMMODATION
-		      .getRepresentativeNameQuota();
+		        .getRepresentativeNameQuota();
 		resetDetailsQuota( accommodation );
 		
 		final String airFreight = SubQuota.AIR_FREIGHT
-		      .getRepresentativeNameQuota();
+		        .getRepresentativeNameQuota();
 		resetDetailsQuota( airFreight );
 		
 		final String alimentation = SubQuota.ALIMENTATION
-		      .getRepresentativeNameQuota();
+		        .getRepresentativeNameQuota();
 		resetDetailsQuota( alimentation );
 		
 		final String disclosureParliamentaryActivity = SubQuota.DISCLOSURE_PARLIAMENTARY_ACTIVITY
-		      .getRepresentativeNameQuota();
+		        .getRepresentativeNameQuota();
 		resetDetailsQuota( disclosureParliamentaryActivity );
 		
 		final String fuel = SubQuota.FUEL.getRepresentativeNameQuota();
 		resetDetailsQuota( fuel );
 		
 		final String inssuanceAirTickets = SubQuota.ISSUANCE_OF_AIR_TICKETS
-		      .getRepresentativeNameQuota();
+		        .getRepresentativeNameQuota();
 		resetDetailsQuota( inssuanceAirTickets );
 		
 		final String office = SubQuota.OFFICE.getRepresentativeNameQuota();
 		resetDetailsQuota( office );
 		
 		final String postalServices = SubQuota.POSTAL_SERVICES
-		      .getRepresentativeNameQuota();
+		        .getRepresentativeNameQuota();
 		resetDetailsQuota( postalServices );
 		
 		final String safety = SubQuota.SAFETY.getRepresentativeNameQuota();
 		resetDetailsQuota( safety );
 		
 		final String technicalWorkConsulting = SubQuota.TECHNICAL_WORK_AND_CONSULTING
-		      .getRepresentativeNameQuota();
+		        .getRepresentativeNameQuota();
 		resetDetailsQuota( technicalWorkConsulting );
 		
-		final String telephony = SubQuota.TELEPHONY.getRepresentativeNameQuota();
+		final String telephony = SubQuota.TELEPHONY
+		        .getRepresentativeNameQuota();
 		resetDetailsQuota( telephony );
 	}
 	
@@ -524,8 +516,8 @@ OnDateSetListener  {
 	 * Resets the settings of the elements related with a quota on the screen.
 	 * 
 	 * @param quota
-	 *           Name of the quota. Should be given only with lowercase letters
-	 *           and spaced names with underscore.
+	 *            Name of the quota. Should be given only with lowercase letters
+	 *            and spaced names with underscore.
 	 */
 	private void resetDetailsQuota( String quota ) {
 		resetBackgroundQuota( quota );
@@ -538,13 +530,13 @@ OnDateSetListener  {
 	 * Resets the color of the image represents a quota.
 	 * 
 	 * @param quota
-	 *           Name of the quota. Should be given only with lowercase letters
-	 *           and spaced names with underscore.
+	 *            Name of the quota. Should be given only with lowercase letters
+	 *            and spaced names with underscore.
 	 */
 	private void resetBackgroundQuota( String quota ) {
 		int idBackgroundResource = getResourceID( BACKGROUND, quota );
 		
-		ImageView backgroundQuota = (ImageView) findViewById( idBackgroundResource );
+		ImageView backgroundQuota = (ImageView)findViewById( idBackgroundResource );
 		
 		Drawable background = backgroundQuota.getBackground();
 		background.clearColorFilter();
@@ -554,13 +546,13 @@ OnDateSetListener  {
 	 * Resets the color of the image represents a quota.
 	 * 
 	 * @param quota
-	 *           Name of the quota. Should be given only with lowercase letters
-	 *           and spaced names with underscore.
+	 *            Name of the quota. Should be given only with lowercase letters
+	 *            and spaced names with underscore.
 	 */
 	private void resetImageQuota( String quota ) {
 		int idImageResource = getResourceID( BUTTON, quota );
 		
-		ImageView imageQuota = (ImageView) findViewById( idImageResource );
+		ImageView imageQuota = (ImageView)findViewById( idImageResource );
 		
 		Drawable background = imageQuota.getBackground();
 		background.clearColorFilter();
@@ -570,20 +562,20 @@ OnDateSetListener  {
 	 * Resets the level and color of the bar related of quota.
 	 * 
 	 * @param quota
-	 *           Name of the quota. Should be given only with lowercase letters
-	 *           and spaced names with underscore.
+	 *            Name of the quota. Should be given only with lowercase letters
+	 *            and spaced names with underscore.
 	 */
 	private void resetBarQuota( String quota ) {
 		int idBarResource = getResourceID( BAR, quota );
 		
-		ImageView barQuota = (ImageView) findViewById( idBarResource );
+		ImageView barQuota = (ImageView)findViewById( idBarResource );
 		
 		if( barQuota.getBackground() != null ) {
 			Drawable background = barQuota.getBackground();
 			background.clearColorFilter();
 			
 		} else {
-			/*! Nothing To Do. */
+			/* ! Nothing To Do. */
 		}
 		
 		if( barQuota.getDrawable() != null ) {
@@ -591,7 +583,7 @@ OnDateSetListener  {
 			drawable.clearColorFilter();
 			
 		} else {
-			/*! Nothing To Do. */
+			/* ! Nothing To Do. */
 		}
 	}
 	
@@ -599,13 +591,13 @@ OnDateSetListener  {
 	 * Resets the text that represents numerically the spending of quota.
 	 * 
 	 * @param quota
-	 *           Name of the quota. Should be given only with lowercase letters
-	 *           and spaced names with underscore.
+	 *            Name of the quota. Should be given only with lowercase letters
+	 *            and spaced names with underscore.
 	 */
 	private void resetTextValueQuota( String quota ) {
 		int idTextResource = getResourceID( TEXT, quota );
 		
-		TextView txtQuota = (TextView) findViewById( idTextResource );
+		TextView txtQuota = (TextView)findViewById( idTextResource );
 		
 		setTextValueQuota( txtQuota, null );
 	}
@@ -617,7 +609,7 @@ OnDateSetListener  {
 	 * @return level of bar corresponding to the amount spent.
 	 */
 	private double exponentialProbability( Quota quota ) {
-		double lambda =  1/ quota.getStatisticQuota().getAverage() ;
+		double lambda = 1 / quota.getStatisticQuota().getAverage();
 		
 		double result = 1 - Math.exp( -lambda * quota.getValueQuota() );
 		
@@ -628,13 +620,13 @@ OnDateSetListener  {
 	 * Change the color of a ImageView.
 	 * 
 	 * @param view
-	 *           The interface feature, of the type ImageView, which must have
-	 *           changed color.
+	 *            The interface feature, of the type ImageView, which must have
+	 *            changed color.
 	 * @param percent
-	 *           Value representing the share of spending level.
+	 *            Value representing the share of spending level.
 	 */
-	private int[] selectImageColor( double percent ) {
-		int[] colors = new int[ 5 ];
+	private int[ ] selectImageColor( double percent ) {
+		int[ ] colors = new int[ 5 ];
 		
 		if( percent < 0.05 ) {
 			colors[ 0 ] = WHITE;
@@ -678,9 +670,10 @@ OnDateSetListener  {
 		return colors;
 	}
 	
-	private void animateBackgroundColor( ImageView image, int[] colors ) {
+	private void animateBackgroundColor( ImageView image, int[ ] colors ) {
 		
-		ValueAnimator colorAnimator = ObjectAnimator.ofInt( image, "backgroundColor", colors );
+		ValueAnimator colorAnimator = ObjectAnimator.ofInt( image,
+		        "backgroundColor", colors );
 		
 		colorAnimator.setDuration( 3000 );
 		colorAnimator.setEvaluator( new ArgbEvaluator() );
@@ -689,8 +682,9 @@ OnDateSetListener  {
 		colorAnimator.start();
 	}
 	
-	private void animateBarColor( ImageView bar, int[] colors ) {
-		ValueAnimator colorAnimator = ObjectAnimator.ofInt( bar, "colorFilter", colors );
+	private void animateBarColor( ImageView bar, int[ ] colors ) {
+		ValueAnimator colorAnimator = ObjectAnimator.ofInt( bar, "colorFilter",
+		        colors );
 		
 		colorAnimator.setDuration( 3000 );
 		colorAnimator.setEvaluator( new ArgbEvaluator() );
@@ -701,22 +695,26 @@ OnDateSetListener  {
 	
 	private void animateBarHeight( ImageView bar, double newHeight ) {
 		
-		/* The Mathematical Expression:
+		/*
+		 * The Mathematical Expression:
 		 * 
 		 * ( newHeight * 1000000 )/ 100
 		 * 
-		 * Serves to maintain the proportionality between the last decimal value and 
-		 * the total possible for the size of a ImagemView. A ImageView may have a 
-		 * level value between 0 and 10000, where 10000 corresponds to 100%. 
+		 * Serves to maintain the proportionality between the last decimal value
+		 * and the total possible for the size of a ImagemView. A ImageView may
+		 * have a level value between 0 and 10000, where 10000 corresponds to
+		 * 100%.
 		 * 
-		 * Becomes the last decimal value for percentage and then does the proportion 
-		 * between this value and the equivalent value in the range 0-10000.
-		 * */
-		int height = (int) ( newHeight * 1000000 )/ 100;
+		 * Becomes the last decimal value for percentage and then does the
+		 * proportion between this value and the equivalent value in the range
+		 * 0-10000.
+		 */
+		int height = (int)( newHeight * 1000000 ) / 100;
 		
 		Drawable level = bar.getDrawable();
 		
-		ValueAnimator heightAnimator = ObjectAnimator.ofInt(level, "level", height );
+		ValueAnimator heightAnimator = ObjectAnimator.ofInt( level, "level",
+		        height );
 		
 		heightAnimator.setDuration( 3000 );
 		heightAnimator.setInterpolator( new DecelerateInterpolator() );
@@ -725,19 +723,19 @@ OnDateSetListener  {
 	}
 	
 	private void animateTextMove( TextView text ) {
-		text.setAnimation( AnimationUtils.loadAnimation( DescriptionScreen.this, 
-				android.R.anim.fade_in ) );
+		text.setAnimation( AnimationUtils.loadAnimation(
+		        DescriptionScreen.this, android.R.anim.fade_in ) );
 	}
 	
-	/**	
+	/**
 	 * Return the ID of a resource by a string, that representing a resource.
 	 * 
 	 * @param typeResource
-	 *           Reference to the resource type. Within the application can be a
-	 *           button - BTN - or text - TXT.
+	 *            Reference to the resource type. Within the application can be
+	 *            a button - BTN - or text - TXT.
 	 * @param quota
-	 *           Name of the quota. Should be given only with lowercase letters
-	 *           and spaced names with underscore.
+	 *            Name of the quota. Should be given only with lowercase letters
+	 *            and spaced names with underscore.
 	 * 
 	 * @return Resource identifier, an ID.
 	 */
@@ -771,7 +769,7 @@ OnDateSetListener  {
 		}
 		
 		int idResource = getResources().getIdentifier( resource, "id",
-		      getPackageName() );
+		        getPackageName() );
 		
 		return idResource;
 	}
@@ -779,40 +777,41 @@ OnDateSetListener  {
 	/**
 	 * Instantiates DatePickerFragment and show in screen
 	 * 
-	 * @param view 
-	 * 			receives current view
+	 * @param view
+	 *            receives current view
 	 */
 	
 	public void showDatePickerDialog( View view ) {
-	    DatePickerFragment newFragment = new DatePickerFragment();
-	    newFragment.show( getSupportFragmentManager(), "datePicker" );
+		DatePickerFragment newFragment = new DatePickerFragment();
+		
+		newFragment.show( getSupportFragmentManager(), "datePicker" );
 	}
 	
 	/**
 	 * Set up reference month text
 	 */
-	public void setRerenceMonth(){
-
-		String monthText = getApplication().getResources()
-				.getStringArray( R.array.month_names )[ month - 1 ];
+	public void setRerenceMonth() {
+		
+		String monthText = getApplication().getResources().getStringArray(
+		        R.array.month_names )[ month - 1 ];
 		
 		referenceMonth.setText( monthText + " de " + year );
 	}
-
+	
 	/**
-	 * Get date chosen by user to filtered quotas 
+	 * Get date chosen by user to filtered quotas
 	 * 
 	 * @param monthOfYear
-	 * 			month chosen by user
+	 *            month chosen by user
 	 * @param year
-	 * 			year chosen by user
-	 * @param view 
-	 * 			current datepicker
+	 *            year chosen by user
+	 * @param datapicker
+	 *            current datepicker
 	 * 
 	 */
 	@Override
-	public void onDateSet( DatePicker view, int year, int monthOfYear,
-			int dayOfMonth ) {
+	public void onDateSet( DatePicker datapicker, int year, int monthOfYear,
+	        int dayOfMonth ) {
 		
 		this.year = year;
 		
@@ -820,18 +819,17 @@ OnDateSetListener  {
 		
 		setRerenceMonth();
 		
-		resetSubQuotaAccordingType();
-		
 		setValuesQuotas( congressmanController.getCongresman()
-			      .getIdCongressman() );
+		        .getIdCongressman() );
 		
+		resetSubQuotaAccordingType();
 	}
 	
 	/**
 	 * Back to list of the congressmen
 	 * 
 	 * @param view
-	 * 			current View
+	 *            current View
 	 */
 	public void backToList( View view ) {
 		this.finish();
@@ -841,8 +839,9 @@ OnDateSetListener  {
 		customDialog = new CustomDialog( this );
 		int timeToDismis = 2000;
 		
-		customDialog.setMessage( "Parlamentar " + congressmanController.getCongresman()
-				.getNameCongressman() + " seguido" );
+		customDialog.setMessage( "Parlamentar "
+		        + congressmanController.getCongresman().getNameCongressman()
+		        + " seguido" );
 		
 		if( congressmanController.getCongresman().isStatusCogressman() ) {
 			
@@ -857,7 +856,8 @@ OnDateSetListener  {
 			
 			setDescriptionCongressman();
 			
-			customDialog.getWindow().clearFlags( WindowManager.LayoutParams.FLAG_DIM_BEHIND );
+			customDialog.getWindow().clearFlags(
+			        WindowManager.LayoutParams.FLAG_DIM_BEHIND );
 			customDialog.show();
 			
 			final Timer timer = new Timer();
