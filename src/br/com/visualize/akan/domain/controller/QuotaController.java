@@ -244,7 +244,7 @@ public class QuotaController {
 			return periodDate;
 	}
 	
-	public int InitializeDateFromQuotas(){
+	public int initializeDateFromQuotas(){
 		int majorMonth = 1;
 		
 		try {

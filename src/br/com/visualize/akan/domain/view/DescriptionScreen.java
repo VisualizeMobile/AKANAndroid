@@ -108,7 +108,7 @@ public class DescriptionScreen extends FragmentActivity implements
 			requestQuotas();
 			
 		} else {
-			month = quotaController.InitializeDateFromQuotas();
+			month = quotaController.initializeDateFromQuotas();
 			
 			setValuesQuotas( congressmanController.getCongresman()
 			        .getIdCongressman() );
@@ -136,6 +136,32 @@ public class DescriptionScreen extends FragmentActivity implements
 		}
 		
 		resetSubQuotaAccordingType();
+	}
+	
+	/**
+	 * Get date chosen by user to filtered quotas
+	 * 
+	 * @param monthOfYear
+	 *            month chosen by user
+	 * @param year
+	 *            year chosen by user
+	 * @param datapicker
+	 *            current datepicker
+	 * 
+	 */
+	@Override
+	public void onDateSet( DatePicker datapicker, int year, int monthOfYear,
+	        int dayOfMonth ) {
+		this.year = year;
+		
+		this.month = monthOfYear + 1;
+		
+		resetSubQuotaAccordingType();
+		
+		setRerenceMonth();
+		
+		 setValuesQuotas( congressmanController.getCongresman()
+		        .getIdCongressman() );
 	}
 	
 	@Override
@@ -233,7 +259,7 @@ public class DescriptionScreen extends FragmentActivity implements
 					public void run() {
 						progress.setMessage( "Dados carregados" );
 						
-						month = quotaController.InitializeDateFromQuotas();
+						month = quotaController.initializeDateFromQuotas();
 						
 						setValuesQuotas( congressmanController.getCongresman()
 						        .getIdCongressman() );
@@ -538,8 +564,14 @@ public class DescriptionScreen extends FragmentActivity implements
 		
 		ImageView backgroundQuota = (ImageView)findViewById( idBackgroundResource );
 		
-		Drawable background = backgroundQuota.getBackground();
-		background.clearColorFilter();
+		ValueAnimator colorAnimator = ObjectAnimator.ofInt( backgroundQuota,
+		        "backgroundColor", WHITE );
+		
+		colorAnimator.setDuration( 100 );
+		colorAnimator.setEvaluator( new ArgbEvaluator() );
+		colorAnimator.setInterpolator( new DecelerateInterpolator() );
+		
+		colorAnimator.start();
 	}
 	
 	/**
@@ -554,8 +586,7 @@ public class DescriptionScreen extends FragmentActivity implements
 		
 		ImageView imageQuota = (ImageView)findViewById( idImageResource );
 		
-		Drawable background = imageQuota.getBackground();
-		background.clearColorFilter();
+		imageQuota.clearAnimation();
 	}
 	
 	/**
@@ -571,16 +602,48 @@ public class DescriptionScreen extends FragmentActivity implements
 		ImageView barQuota = (ImageView)findViewById( idBarResource );
 		
 		if( barQuota.getBackground() != null ) {
-			Drawable background = barQuota.getBackground();
-			background.clearColorFilter();
+			ValueAnimator colorAnimator = ObjectAnimator.ofInt( barQuota, "colorFilter",
+			        WHITE );
+			
+			colorAnimator.setDuration( 100 );
+			colorAnimator.setEvaluator( new ArgbEvaluator() );
+			colorAnimator.setInterpolator( new DecelerateInterpolator() );
+			
+			colorAnimator.start();
+			
+			Drawable level = barQuota.getDrawable();
+			
+			ValueAnimator heightAnimator = ObjectAnimator.ofInt( level, "level",
+			        0 );
+			
+			heightAnimator.setDuration( 100 );
+			heightAnimator.setInterpolator( new DecelerateInterpolator() );
+			
+			heightAnimator.start();
 			
 		} else {
 			/* ! Nothing To Do. */
 		}
 		
 		if( barQuota.getDrawable() != null ) {
-			Drawable drawable = barQuota.getDrawable();
-			drawable.clearColorFilter();
+			ValueAnimator colorAnimator = ObjectAnimator.ofInt( barQuota, "colorFilter",
+			        WHITE );
+			
+			colorAnimator.setDuration( 100 );
+			colorAnimator.setEvaluator( new ArgbEvaluator() );
+			colorAnimator.setInterpolator( new DecelerateInterpolator() );
+			
+			colorAnimator.start();
+			
+			Drawable level = barQuota.getDrawable();
+			
+			ValueAnimator heightAnimator = ObjectAnimator.ofInt( level, "level",
+			        0 );
+			
+			heightAnimator.setDuration( 100 );
+			heightAnimator.setInterpolator( new DecelerateInterpolator() );
+			
+			heightAnimator.start();
 			
 		} else {
 			/* ! Nothing To Do. */
@@ -796,33 +859,6 @@ public class DescriptionScreen extends FragmentActivity implements
 		        R.array.month_names )[ month - 1 ];
 		
 		referenceMonth.setText( monthText + " de " + year );
-	}
-	
-	/**
-	 * Get date chosen by user to filtered quotas
-	 * 
-	 * @param monthOfYear
-	 *            month chosen by user
-	 * @param year
-	 *            year chosen by user
-	 * @param datapicker
-	 *            current datepicker
-	 * 
-	 */
-	@Override
-	public void onDateSet( DatePicker datapicker, int year, int monthOfYear,
-	        int dayOfMonth ) {
-		
-		this.year = year;
-		
-		month = monthOfYear + 1;
-		
-		setRerenceMonth();
-		
-		setValuesQuotas( congressmanController.getCongresman()
-		        .getIdCongressman() );
-		
-		resetSubQuotaAccordingType();
 	}
 	
 	/**
