@@ -13,10 +13,12 @@ import java.util.TimerTask;
 import org.apache.http.client.ResponseHandler;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
@@ -33,6 +35,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.TextView;
 import android.widget.Toast;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.api.request.HttpConnection;
@@ -65,6 +68,7 @@ public class ListScreen extends Activity
 	public void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.list_screen_activity );
+		
 		
 		btn_ranking = (Button) findViewById( R.id.btn_ranking );
 		btn_search = (Button) findViewById( R.id.btn_search );
@@ -196,6 +200,9 @@ public class ListScreen extends Activity
 		SearchManager searchManager = (SearchManager) getSystemService( 
 				Context.SEARCH_SERVICE );
 		
+		
+		getActionBar().setCustomView(R.layout.action_bar);
+		getActionBar().setDisplayShowCustomEnabled(true);
 		search = (SearchView) menu.findItem( R.id.action_search ).getActionView();
 		
 		search.setSearchableInfo( searchManager
@@ -215,10 +222,23 @@ public class ListScreen extends Activity
 					return true;
 				}
     	 });
- 			
+		 int searchPlateId = search.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+	        View searchPlate = search.findViewById(searchPlateId);
+	        if (searchPlate!=null) {
+	        	
+	            searchPlate.setBackgroundColor(Color.WHITE);
+	            int searchTextId = searchPlate.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+	            TextView searchText = (TextView) searchPlate.findViewById(searchTextId);
+	            if (searchText!=null) {
+		            searchText.setTextColor(Color.GRAY);
+		            searchText.setHintTextColor(Color.GRAY);
+	            }
+	        }
+	        return true;
+		
  		
-    	 
-    	 return super.onCreateOptionsMenu(menu);
+
+    	// return super.onCreateOptionsMenu(menu);
 	}
 /**
  * Listener click event to follow/unFollow congressman
