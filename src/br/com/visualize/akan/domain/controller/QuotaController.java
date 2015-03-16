@@ -1,6 +1,6 @@
 /*
- * File: QuotaController.java 
- * Purpose: Brings the implementation of class QuotaController.
+ * File: QuotaController.java Purpose: Brings the implementation of class
+ * QuotaController.
  */
 package br.com.visualize.akan.domain.controller;
 
@@ -13,11 +13,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
 import org.apache.http.client.ResponseHandler;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Looper;
 import android.util.Log;
 import br.com.visualize.akan.api.dao.QuotaDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
@@ -34,16 +32,16 @@ public class QuotaController {
 	private static QuotaController instanceQuotaController = null;
 	private static List<Quota> quotaList = null;
 	
-	@SuppressWarnings("unused")
+	@SuppressWarnings( "unused" )
 	private Context context;
-
+	
 	private UrlController urlController;
 	private QuotaDao quotaDao;
 	private CongressmanController congressmanController;
 	private Calendar calendar;
-
+	
 	private QuotaController( Context context ) {
-		congressmanController = CongressmanController.getInstance(context);
+		congressmanController = CongressmanController.getInstance( context );
 		urlController = UrlController.getInstance( context );
 		quotaDao = QuotaDao.getInstance( context );
 		calendar = Calendar.getInstance();
@@ -54,6 +52,7 @@ public class QuotaController {
 	/**
 	 * Return the unique instance of QuotaController active in the project.
 	 * <p>
+	 * 
 	 * @return The unique instance of QuotaController.
 	 */
 	public static QuotaController getInstance( Context context ) {
@@ -73,8 +72,9 @@ public class QuotaController {
 	 * Inserts in the database quotas, referring to a congressman in particular,
 	 * passed as parameter in the local database of the application.
 	 * <p>
+	 * 
 	 * @param insertedQuotas
-	 *           List of quotas to be inserted.
+	 *            List of quotas to be inserted.
 	 */
 	public void insertQuotasOnCongressman( List<Quota> insertedQuotas ) {
 		/* ! Write Instructions Here. */
@@ -84,9 +84,10 @@ public class QuotaController {
 	 * Deletes all quotas of the database relating to the past as parameter
 	 * congressman for his numerical identifier.
 	 * <p>
+	 * 
 	 * @param idCongressman
-	 *           Numeric identifier of congressman that must have deleted the
-	 *           quotas.
+	 *            Numeric identifier of congressman that must have deleted the
+	 *            quotas.
 	 */
 	public void deleteQuotasFromCongressman( int idCongressman ) {
 		quotaDao.deleteQuotasFromCongressman( idCongressman );
@@ -98,16 +99,16 @@ public class QuotaController {
 	 * <p>
 	 * 
 	 * @param idCongressman
-	 *           Numeric identifier of congressman that must have deleted the
-	 *           quotas.
-	 * <p>
+	 *            Numeric identifier of congressman that must have deleted the
+	 *            quotas.
+	 *            <p>
 	 * @return The list of referenced quotas belonging to the congressman.
 	 */
 	public List<Quota> getQuotasByIdCongressman( int idCongressman ) {
 		List<Quota> foundQuotas = new ArrayList<Quota>();
-
+		
 		foundQuotas = quotaDao.getQuotasByIdCongressman( idCongressman );
-
+		
 		return foundQuotas;
 	}
 	
@@ -115,45 +116,43 @@ public class QuotaController {
 	 * Asks the server for quotas for a particular Congressman. This Congressman
 	 * is identified by ID.
 	 * <P>
+	 * 
 	 * @param id
-	 *           Congressman identifier related to Quotas.
+	 *            Congressman identifier related to Quotas.
 	 * @param responseHandler
-	 *           Handler of welcoming server responses.
-	 * <p>
+	 *            Handler of welcoming server responses.
+	 *            <p>
 	 * @return List of Quotas resulting from the server.
-	 * <p>
+	 *         <p>
 	 * @throws Exception
 	 */
 	public List<Quota> getQuotaById( int id,
-	      ResponseHandler<String> responseHandler ) throws Exception {
-		Context context;
+	        ResponseHandler<String> responseHandler ) throws Exception {
 		
+		@SuppressWarnings( "unused" )
+		Context context;
 		
 		if( responseHandler != null ) {
 			
+			String url = urlController.quotasWithCongressmanIdUrl( id );
 			
+			String jsonQuota = HttpConnection.request( responseHandler, url );
 			
-				String url = urlController.quotasWithCongressmanIdUrl( id );
-				
-				String jsonQuota = HttpConnection.request( responseHandler, url );
-				
-				setQuotaList( JsonHelper
-				      .listQuotaByIdCongressmanFromJSON( jsonQuota ) );
-				
-				quotaDao.insertQuotasById( getQuotaList() );
+			setQuotaList( JsonHelper
+			        .listQuotaByIdCongressmanFromJSON( jsonQuota ) );
 			
+			quotaDao.insertQuotasById( getQuotaList() );
 			
 		} else {
 			/* ! Nothing To Do. */
-		}	
-		
+		}
 		
 		return getQuotaList();
 	}
 	
 	/* TODO: Write JAVADOC. */
 	public void setQuotaFromCongressmanSelected( Integer id,
-	      ResponseHandler<String> responseHandler ) throws Exception {
+	        ResponseHandler<String> responseHandler ) throws Exception {
 		
 		String url = urlController.quotasWithCongressmanIdUrl( id );
 		
@@ -167,6 +166,7 @@ public class QuotaController {
 	/**
 	 * Returns the list of quotas associated with QuotaController.
 	 * <p>
+	 * 
 	 * @return List of quotas associated with QuotaController.
 	 */
 	private List<Quota> getQuotaList() {
@@ -177,20 +177,22 @@ public class QuotaController {
 	/**
 	 * Returns the list of quotas filtered by month and year
 	 * <p>
+	 * 
 	 * @return List of quotas filtered by month and year .
 	 */
-	public List<Quota> getQuotaByDate(int month , int year){
+	public List<Quota> getQuotaByDate( int month, int year ) {
 		List<Quota> quotasByDate = new ArrayList<Quota>();
 		Iterator<Quota> iterator = getQuotaList().iterator();
 		
-		while(iterator.hasNext()){
+		while( iterator.hasNext() ) {
 			Quota quota = iterator.next();
 			
-			if((quota.getMonthReferenceQuota().getvalueMonth() == month) && (quota.getYearReferenceQuota() == year)){
-				quotasByDate.add(quota);
-			}			
+			if( ( quota.getMonthReferenceQuota().getvalueMonth() == month )
+			        && ( quota.getYearReferenceQuota() == year ) ) {
+				quotasByDate.add( quota );
+			}
 		}
-				
+		
 		return quotasByDate;
 	}
 	
@@ -199,12 +201,14 @@ public class QuotaController {
 	 * @return Return a list with max and min Date to show date spinner
 	 * @throws ParseException
 	 */
-	public List<Long> getMinMaxDate() throws ParseException{
+	@SuppressLint( "SimpleDateFormat" )
+	public List<Long> getMinMaxDate() throws ParseException {
 		List<Integer> listYears = new ArrayList<Integer>();
 		List<Integer> monthsMajorYear = new ArrayList<Integer>();
 		List<Long> periodDate = new ArrayList<Long>();
-		int idCongressman = congressmanController.getCongresman().getIdCongressman();
-		Log.e("ID CONGRESSMAN NAS DATAS", ""+idCongressman);
+		int idCongressman = congressmanController.getCongresman()
+		        .getIdCongressman();
+		Log.e( "ID CONGRESSMAN NAS DATAS", "" + idCongressman );
 		Long dateMin;
 		Long dateMax;
 		String dateToConversion;
@@ -214,64 +218,78 @@ public class QuotaController {
 		Integer minorYear;
 		Integer majorMonth;
 		
-		//get list of all years available
+		// get list of all years available
 		listYears = quotaDao.getYears();
 		
-		//get interval date
-		majorYear = Collections.max(listYears);
-		minorYear = Collections.min(listYears);
-		Log.e("Maior ano", ""+majorYear);
-		Log.e("Menor ano", ""+minorYear);
-		monthsMajorYear = quotaDao.getMonthsFromCurrentYear(majorYear,idCongressman);
-		majorMonth = Collections.max(monthsMajorYear);
-		Log.e("Maior mes", ""+majorMonth);
-		//convert to date format
-		dateToConversion = minorYear+"-01-01 00:00:00";
-		Log.e("Data a ser convertida", dateToConversion);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// get interval date
+		majorYear = Collections.max( listYears );
+		minorYear = Collections.min( listYears );
 		
-			date = dateFormat.parse(dateToConversion);
-			
-			dateMin = date.getTime();
-			Log.e("dentro do maxmin", ""+dateMin);
-			dateToConversion = majorYear+"-"+majorMonth+"-01 00:00:01";
-			Log.e("Data a ser convertida", dateToConversion);
-			date = dateFormat.parse(dateToConversion);
-			dateMax = date.getTime();	
+		Log.e( "Maior ano", "" + majorYear );
+		Log.e( "Menor ano", "" + minorYear );
 		
-			periodDate.add(dateMax);
-			periodDate.add(dateMin);
-			return periodDate;
+		monthsMajorYear = quotaDao.getMonthsFromCurrentYear( majorYear,
+		        idCongressman );
+		majorMonth = Collections.max( monthsMajorYear );
+		
+		Log.e( "Maior mes", "" + majorMonth );
+		
+		// convert to date format
+		dateToConversion = minorYear + "-01-01 00:00:00";
+		
+		Log.e( "Data a ser convertida", dateToConversion );
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+		        "yyyy-MM-dd HH:mm:ss" );
+		
+		date = dateFormat.parse( dateToConversion );
+		
+		dateMin = date.getTime();
+		
+		Log.e( "dentro do maxmin", "" + dateMin );
+		
+		dateToConversion = majorYear + "-" + majorMonth + "-01 00:00:01";
+		
+		Log.e( "Data a ser convertida", dateToConversion );
+		
+		date = dateFormat.parse( dateToConversion );
+		dateMax = date.getTime();
+		
+		periodDate.add( dateMax );
+		periodDate.add( dateMin );
+		
+		return periodDate;
 	}
 	
-	public int initializeDateFromQuotas(){
+	public int initializeDateFromQuotas() {
 		int majorMonth = 1;
 		
 		try {
-			int idCongressman = congressmanController.getCongresman().getIdCongressman();
+			int idCongressman = congressmanController.getCongresman()
+			        .getIdCongressman();
 			
-			int majorYear = Collections.max(quotaDao.getYears());
-			  majorMonth = Collections.max(quotaDao.getMonthsFromCurrentYear(majorYear,idCongressman));	
-			Log.e("mes corrent", ""+majorMonth);
-			calendar.set(majorYear, majorMonth, 1);
+			int majorYear = Collections.max( quotaDao.getYears() );
+			majorMonth = Collections.max( quotaDao.getMonthsFromCurrentYear(
+			        majorYear, idCongressman ) );
+			Log.e( "mes corrent", "" + majorMonth );
+			calendar.set( majorYear, majorMonth, 1 );
 			
-		} catch (Exception e) {
+		} catch( Exception e ) {
 			
 		}
 		
-						
-					  
 		return majorMonth;
 	}
 	
 	/**
 	 * Associates the list of quotas on QuotaController.
 	 * <p>
+	 * 
 	 * @param listQuotaByIdCongressmanFromJSON
 	 */
 	private static void setQuotaList(
-	      List<Quota> listQuotaByIdCongressmanFromJSON ) {
-	
+	        List<Quota> listQuotaByIdCongressmanFromJSON ) {
+		
 		QuotaController.quotaList = listQuotaByIdCongressmanFromJSON;
 		
 	}

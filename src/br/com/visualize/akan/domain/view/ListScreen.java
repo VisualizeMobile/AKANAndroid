@@ -1,11 +1,10 @@
 /*
- * File: ListScreen.java
- * Purpose: Brings the implementation of ListScreen, a class that 
- * serves to interface with the user.
+ * File: ListScreen.java Purpose: Brings the implementation of ListScreen, a
+ * class that serves to interface with the user.
  */
 package br.com.visualize.akan.domain.view;
-import java.util.ArrayList;
-import java.util.Iterator;
+
+
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,7 +12,6 @@ import java.util.TimerTask;
 import org.apache.http.client.ResponseHandler;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -44,20 +42,20 @@ import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.controller.QuotaController;
 import br.com.visualize.akan.domain.model.Congressman;
 
-@SuppressLint("NewApi")
-public class ListScreen extends Activity 
-{
+
+@SuppressLint( "NewApi" )
+public class ListScreen extends Activity {
 	CongressmanController congressmanController;
 	QuotaController quotaController;
 	CongressmenListAdapter listAdapter;
-//	CongressmenListAdapter followAdapter;
+	// CongressmenListAdapter followAdapter;
 	ListView listView;
 	SearchView search;
 	String query;
 	Button btn_search;
 	Button btn_ranking;
 	Button btn_follow;
-	CustomDialog customDialog = null; 
+	CustomDialog customDialog = null;
 	List<Congressman> congressmen;
 	List<Congressman> followedCongressmen;
 	LayoutAnimationController listAnimation;
@@ -69,56 +67,56 @@ public class ListScreen extends Activity
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.list_screen_activity );
 		
-		
-		btn_ranking = (Button) findViewById( R.id.btn_ranking );
-		btn_search = (Button) findViewById( R.id.btn_search );
+		btn_ranking = (Button)findViewById( R.id.btn_ranking );
+		btn_search = (Button)findViewById( R.id.btn_search );
 		search = new SearchView( getApplicationContext() );
 		congressmanController = CongressmanController
-		      .getInstance( getBaseContext() );
-		quotaController = QuotaController.getInstance(getApplicationContext());
-		 
+		        .getInstance( getBaseContext() );
+		quotaController = QuotaController.getInstance( getApplicationContext() );
+		
 		congressmen = congressmanController.getAllCongressman();
 		currentListCongressmen = congressmen;
 		
 		listAdapter = new CongressmenListAdapter( this,
-		      R.layout.congressmen_list_layout, congressmen );
+		        R.layout.congressmen_list_layout, congressmen );
 		currentLayout = R.layout.congressmen_list_layout;
 		followedCongressmen = congressmanController.getFollowedCongressman();
-//		listAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
-
+		// listAdapter = new CongressmenListAdapter(this,
+		// R.layout.congressmen_list_layout, followedCongressmen);
 		
-		
-		listView = (ListView) findViewById( R.id.listView );
+		listView = (ListView)findViewById( R.id.listView );
 		
 		listView.setAdapter( listAdapter );
-	
 		
 		listAdapter.notifyDataSetChanged();
 		listView.setTextFilterEnabled( false );
 		
-		  listAnimation = AnimationUtils
-		      .loadLayoutAnimation( this, R.anim.layout_animation );
+		listAnimation = AnimationUtils.loadLayoutAnimation( this,
+		        R.anim.layout_animation );
 		
 		btn_ranking.setOnClickListener( new View.OnClickListener() {
 			
 			@Override
 			public void onClick( View v ) {
 				btn_ranking.setSelected( !btn_ranking.isSelected() );
-
+				
 				if( btn_ranking.isSelected() ) {
-					btn_ranking.setBackgroundResource( R.drawable.active_ranking );
-					Log.e("peguei parlamentar no adapter",congressmen.get(0).getNameCongressman());
-					listAdapter = new CongressmenListAdapter(ListScreen.this,
-							R.layout.ranking_layout, currentListCongressmen);
-					listView.setAdapter(listAdapter);
+					btn_ranking
+					        .setBackgroundResource( R.drawable.active_ranking );
+					Log.e( "peguei parlamentar no adapter", congressmen.get( 0 )
+					        .getNameCongressman() );
+					listAdapter = new CongressmenListAdapter( ListScreen.this,
+					        R.layout.ranking_layout, currentListCongressmen );
+					listView.setAdapter( listAdapter );
 					listView.setLayoutAnimation( listAnimation );
 					currentLayout = R.layout.ranking_layout;
 					
-				}else {
+				} else {
 					btn_ranking
-					      .setBackgroundResource( R.drawable.inactive_ranking );
-					listAdapter = new CongressmenListAdapter(ListScreen.this,
-							R.layout.congressmen_list_layout, currentListCongressmen);
+					        .setBackgroundResource( R.drawable.inactive_ranking );
+					listAdapter = new CongressmenListAdapter( ListScreen.this,
+					        R.layout.congressmen_list_layout,
+					        currentListCongressmen );
 					listView.setAdapter( listAdapter );
 					listView.setLayoutAnimation( listAnimation );
 					currentLayout = R.layout.congressmen_list_layout;
@@ -138,51 +136,59 @@ public class ListScreen extends Activity
 					search.setIconified( false );
 					
 				} else {
-					btn_search.setBackgroundResource( R.drawable.inactive_search );
-					search.setIconified( true );			
+					btn_search
+					        .setBackgroundResource( R.drawable.inactive_search );
+					search.setIconified( true );
 				}
 			}
 		} );
 		
-		btn_follow  = (Button)findViewById(R.id.btn_follow);
+		btn_follow = (Button)findViewById( R.id.btn_follow );
 		
 		listView.setOnItemClickListener( new OnItemClickListener() {
 			
 			@Override
 			public void onItemClick( AdapterView<?> parent, View view,
-			      int position, long id ) {
-
-				 final Congressman congressman = (Congressman) parent.getItemAtPosition(position);
-				 congressmanController.setCongressman(congressman);
-						 
-				 Intent i = new Intent(ListScreen.this, DescriptionScreen.class);
-				 startActivity(i);
-				Toast toast=Toast.makeText(getApplicationContext(), congressman.getNameCongressman(), Toast.LENGTH_SHORT);
-		            toast.show();
+			        int position, long id ) {
+				
+				final Congressman congressman = (Congressman)parent
+				        .getItemAtPosition( position );
+				congressmanController.setCongressman( congressman );
+				
+				Intent i = new Intent( ListScreen.this, DescriptionScreen.class );
+				startActivity( i );
+				Toast toast = Toast.makeText( getApplicationContext(),
+				        congressman.getNameCongressman(), Toast.LENGTH_SHORT );
+				toast.show();
 			}
-		} );	
+		} );
 	}
-	public void onFollowList(View view){
-		Animation followAnimation = AnimationUtils.loadAnimation(this, R.anim.up_from_bottom);
-		btn_follow.setSelected(!btn_follow.isSelected());
+	
+	public void onFollowList( View view ) {
+		Animation followAnimation = AnimationUtils.loadAnimation( this,
+		        R.anim.up_from_bottom );
+		btn_follow.setSelected( !btn_follow.isSelected() );
 		listAdapter = null;
-		listAdapter =  new CongressmenListAdapter(this, currentLayout, followedCongressmen);
-		if (btn_follow.isSelected()){
-			btn_follow.setBackgroundResource(R.drawable.active_followed);
-			listView.setAdapter(listAdapter);
-			listView.setAnimation(followAnimation);
+		listAdapter = new CongressmenListAdapter( this, currentLayout,
+		        followedCongressmen );
+		if( btn_follow.isSelected() ) {
+			btn_follow.setBackgroundResource( R.drawable.active_followed );
+			listView.setAdapter( listAdapter );
+			listView.setAnimation( followAnimation );
 			currentListCongressmen = followedCongressmen;
-		}else{
-		
-			btn_follow.setBackgroundResource(R.drawable.inactive_followed);
-			listAdapter = null;
-			listAdapter = new CongressmenListAdapter(this, currentLayout, congressmen);
+		} else {
 			
-			listView.setAdapter(listAdapter);
-			listView.setAnimation(followAnimation);
+			btn_follow.setBackgroundResource( R.drawable.inactive_followed );
+			listAdapter = null;
+			listAdapter = new CongressmenListAdapter( this, currentLayout,
+			        congressmen );
+			
+			listView.setAdapter( listAdapter );
+			listView.setAnimation( followAnimation );
 			currentListCongressmen = congressmen;
 		}
 	}
+	
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
@@ -197,104 +203,113 @@ public class ListScreen extends Activity
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate( R.menu.menu, menu );
 		
-		SearchManager searchManager = (SearchManager) getSystemService( 
-				Context.SEARCH_SERVICE );
+		SearchManager searchManager = (SearchManager)getSystemService( Context.SEARCH_SERVICE );
 		
-		
-		getActionBar().setCustomView(R.layout.action_bar);
-		getActionBar().setDisplayShowCustomEnabled(true);
-		search = (SearchView) menu.findItem( R.id.action_search ).getActionView();
+		getActionBar().setCustomView( R.layout.action_bar );
+		getActionBar().setDisplayShowCustomEnabled( true );
+		search = (SearchView)menu.findItem( R.id.action_search )
+		        .getActionView();
 		
 		search.setSearchableInfo( searchManager
-		      .getSearchableInfo( getComponentName() ) );
+		        .getSearchableInfo( getComponentName() ) );
 		
 		search.setIconifiedByDefault( true );
 		search.setOnQueryTextListener( new OnQueryTextListener() {
 			
 			@Override
 			public boolean onQueryTextSubmit( String newText ) {
-			return false;	
+				return false;
 			}
-			 @Override
-			 public boolean onQueryTextChange(String newText) {
-				 listAdapter.getFilter().filter(newText);
+			
+			@Override
+			public boolean onQueryTextChange( String newText ) {
+				listAdapter.getFilter().filter( newText );
 				
-					return true;
-				}
-    	 });
-		 int searchPlateId = search.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
-	        View searchPlate = search.findViewById(searchPlateId);
-	        if (searchPlate!=null) {
-	        	
-	            searchPlate.setBackgroundColor(Color.WHITE);
-	            int searchTextId = searchPlate.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-	            TextView searchText = (TextView) searchPlate.findViewById(searchTextId);
-	            if (searchText!=null) {
-		            searchText.setTextColor(Color.GRAY);
-		            searchText.setHintTextColor(Color.GRAY);
-	            }
-	        }
-	        return true;
+				return true;
+			}
+		} );
+		int searchPlateId = search.getContext().getResources()
+		        .getIdentifier( "android:id/search_plate", null, null );
+		View searchPlate = search.findViewById( searchPlateId );
+		if( searchPlate != null ) {
+			
+			searchPlate.setBackgroundColor( Color.WHITE );
+			int searchTextId = searchPlate.getContext().getResources()
+			        .getIdentifier( "android:id/search_src_text", null, null );
+			TextView searchText = (TextView)searchPlate
+			        .findViewById( searchTextId );
+			if( searchText != null ) {
+				searchText.setTextColor( Color.GRAY );
+				searchText.setHintTextColor( Color.GRAY );
+			}
+		}
+		return true;
 		
- 		
-
-    	// return super.onCreateOptionsMenu(menu);
+		// return super.onCreateOptionsMenu(menu);
 	}
-/**
- * Listener click event to follow/unFollow congressman
- * @param view
- */
+	
+	/**
+	 * Listener click event to follow/unFollow congressman
+	 * 
+	 * @param view
+	 */
 	public void followedCongressman( View view ) {
-		customDialog = new CustomDialog(this);
+		customDialog = new CustomDialog( this );
 		int timeToDismis = 2000;
 		final Congressman congressman = (Congressman)view.getTag();
-		customDialog.setMessage("Parlamentar "+congressman.getNameCongressman()+" seguido");
-		congressmanController.setCongressman(congressman);
-		if(congressmanController.getCongresman().isStatusCogressman()) {
-			congressmanController.getCongresman().setStatusCogressman(false);
+		customDialog.setMessage( "Parlamentar "
+		        + congressman.getNameCongressman() + " seguido" );
+		congressmanController.setCongressman( congressman );
+		if( congressmanController.getCongresman().isStatusCogressman() ) {
+			congressmanController.getCongresman().setStatusCogressman( false );
 			congressmanController.updateStatusCongressman();
-			followedCongressmen = congressmanController.getFollowedCongressman();
+			followedCongressmen = congressmanController
+			        .getFollowedCongressman();
 			currentListCongressmen = followedCongressmen;
-			if(btn_follow.isSelected()){
-				listAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, followedCongressmen);
+			if( btn_follow.isSelected() ) {
+				listAdapter = new CongressmenListAdapter( this,
+				        R.layout.congressmen_list_layout, followedCongressmen );
+			} else {
+				listAdapter = new CongressmenListAdapter( this,
+				        R.layout.congressmen_list_layout, congressmen );
 			}
-			else{
-				listAdapter = new CongressmenListAdapter(this, R.layout.congressmen_list_layout, congressmen);
-			}
-			listView.setAdapter(listAdapter);
-			Log.e("Cheguei no followed", "cheguei no followed: "+followedCongressmen.size());
-			quotaController.deleteQuotasFromCongressman(congressman.getIdCongressman());
-//			rankingAdapter.notifyDataSetChanged();
+			listView.setAdapter( listAdapter );
+			Log.e( "Cheguei no followed", "cheguei no followed: "
+			        + followedCongressmen.size() );
+			quotaController.deleteQuotasFromCongressman( congressman
+			        .getIdCongressman() );
+			// rankingAdapter.notifyDataSetChanged();
 			
-		} else
-		{
-			congressmanController.getCongresman().setStatusCogressman(true);
+		} else {
+			congressmanController.getCongresman().setStatusCogressman( true );
 			congressmanController.updateStatusCongressman();
-			followedCongressmen.add(congressman);
+			followedCongressmen.add( congressman );
 			listAdapter.notifyDataSetChanged();
-//			rankingAdapter.notifyDataSetChanged();
+			// rankingAdapter.notifyDataSetChanged();
 			
-			customDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+			customDialog.getWindow().clearFlags(
+			        WindowManager.LayoutParams.FLAG_DIM_BEHIND );
 			customDialog.show();
 			
 			new Thread( new Runnable() {
-
+				
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
 					Looper.prepare();
 					ResponseHandler<String> responseHandler = HttpConnection
-							.getResponseHandler();
+					        .getResponseHandler();
 					try {
 						
-						quotaController
-								.getQuotaById(congressman.getIdCongressman(),  responseHandler );
-						Log.e(""+congressman.getIdCongressman(), "REQUISITEI QUOTA NO SEGUIR");
-					} catch ( Exception e ) {
-						//TODO launch error alert
+						quotaController.getQuotaById(
+						        congressman.getIdCongressman(), responseHandler );
+						Log.e( "" + congressman.getIdCongressman(),
+						        "REQUISITEI QUOTA NO SEGUIR" );
+					} catch( Exception e ) {
+						// TODO launch error alert
 						e.printStackTrace();
 						
-					} 
+					}
 					
 					Looper.loop();
 				}
@@ -304,7 +319,7 @@ public class ListScreen extends Activity
 			 * timer to dismis Dialog
 			 */
 			final Timer timer = new Timer();
-			timer.schedule(new TimerTask() {
+			timer.schedule( new TimerTask() {
 				
 				@Override
 				public void run() {
@@ -312,7 +327,7 @@ public class ListScreen extends Activity
 					timer.cancel();
 					
 				}
-			}, timeToDismis);
+			}, timeToDismis );
 			
 		}
 	}

@@ -16,10 +16,8 @@ import android.util.Log;
 import br.com.visualize.akan.api.dao.CongressmanDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
-import br.com.visualize.akan.domain.enumeration.SubQuota;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
-import br.com.visualize.akan.domain.model.Quota;
 
 
 /**
@@ -32,7 +30,9 @@ public class CongressmanController {
 	private static CongressmanController instance = null;
 	private static Congressman congressman;
 	private static List<Congressman> congressmanList;
-	private static List<Congressman> followedCongressmen;
+	
+	@SuppressWarnings( "unused" )
+    private static List<Congressman> followedCongressmen;
 	
 	@SuppressWarnings( "unused" )
 	private Context context;
