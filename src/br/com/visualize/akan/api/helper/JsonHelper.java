@@ -1,6 +1,5 @@
 /*
- * File: JsonHelper.java
- * Purpose: Brings the implementation of class JsonHelper.
+ * File: JsonHelper.java Purpose: Brings the implementation of class JsonHelper.
  */
 package br.com.visualize.akan.api.helper;
 
@@ -25,18 +24,18 @@ public class JsonHelper {
 	
 	/**
 	 * This server response to produce and return a list of Congressman.
-	 * <p>
+	 * 
 	 * @param jsonCongressmanList
-	 *           Representation of the JSON of Congressman list.
-	 * <p>
+	 *            Representation of the JSON of Congressman list.
+	 * 
 	 * @return List of Congressman
-	 * <p>
+	 * 
 	 * @throws NullCongressmanException
 	 * @throws JSONException
 	 */
 	public static List<Congressman> listCongressmanFromJSON(
-	      String jsonCongressmanList ) throws NullCongressmanException,
-	      JSONException {
+	        String jsonCongressmanList ) throws NullCongressmanException,
+	        JSONException {
 		
 		JSONArray jArray = new JSONArray( jsonCongressmanList );
 		
@@ -47,23 +46,28 @@ public class JsonHelper {
 				
 				congressman = new Congressman();
 				
-				congressman.setIdCongressman( jArray.getJSONObject( index ).getInt(
-				      "pk" ) );
+				congressman.setIdCongressman( jArray.getJSONObject( index )
+				        .getInt( "pk" ) );
 				
-				congressman.setTotalSpentCongressman( jArray.getJSONObject( index )
-				      .getJSONObject( "fields" ).getDouble( "valor" ) );
+				congressman.setTotalSpentCongressman( jArray
+				        .getJSONObject( index ).getJSONObject( "fields" )
+				        .getDouble( "valor" ) );
 				
 				congressman.setRankingCongressman( jArray.getJSONObject( index )
-				      .getJSONObject( "fields" ).getInt( "ranking" ) );
+				        .getJSONObject( "fields" ).getInt( "ranking" ) );
 				
-				congressman.setUfCongressman( jArray.getJSONObject( index )
-				      .getJSONObject( "fields" ).getString( "ufparlamentar" ) );
+				congressman
+				        .setUfCongressman( jArray.getJSONObject( index )
+				                .getJSONObject( "fields" )
+				                .getString( "ufparlamentar" ) );
 				
 				congressman.setPartyCongressman( jArray.getJSONObject( index )
-				      .getJSONObject( "fields" ).getString( "partidoparlamentar" ) );
+				        .getJSONObject( "fields" )
+				        .getString( "partidoparlamentar" ) );
 				
 				congressman.setNameCongressman( jArray.getJSONObject( index )
-				      .getJSONObject( "fields" ).getString( "nomeparlamentar" ) );
+				        .getJSONObject( "fields" )
+				        .getString( "nomeparlamentar" ) );
 				
 				congressmanList.add( congressman );
 			}
@@ -78,17 +82,18 @@ public class JsonHelper {
 	/**
 	 * This server response to produce and return a list of Quotas.
 	 * <p>
+	 * 
 	 * @param jsonQuotaByIdCongressmanList
-	 *           Representation of the JSON of Quotas list.
-	 * <p>
+	 *            Representation of the JSON of Quotas list.
+	 *            <p>
 	 * @return List of Quotas
-	 * <p>
+	 *         <p>
 	 * @throws NullCongressmanException
 	 * @throws JSONException
 	 */
 	public static List<Quota> listQuotaByIdCongressmanFromJSON(
-	      String jsonQuotaByIdCongressmanList ) throws NullCongressmanException,
-	      JSONException {
+	        String jsonQuotaByIdCongressmanList )
+	        throws NullCongressmanException, JSONException {
 		
 		List<Quota> quotaList = new ArrayList<Quota>();
 		
@@ -103,25 +108,25 @@ public class JsonHelper {
 				quota.setIdQuota( jArray.getJSONObject( index ).getInt( "pk" ) );
 				
 				quota.setIdUpdateQuota( jArray.getJSONObject( index )
-				      .getJSONObject( "fields" ).getInt( "versaoupdate" ) );
+				        .getJSONObject( "fields" ).getInt( "versaoupdate" ) );
 				
 				quota.setYearReferenceQuota( jArray.getJSONObject( index )
-				      .getJSONObject( "fields" ).getInt( "ano" ) );
+				        .getJSONObject( "fields" ).getInt( "ano" ) );
 				
 				quota.setValueQuota( jArray.getJSONObject( index )
-				      .getJSONObject( "fields" ).getDouble( "valor" ) );
+				        .getJSONObject( "fields" ).getDouble( "valor" ) );
 				
 				quota.setIdCongressmanQuota( jArray.getJSONObject( index )
-				      .getJSONObject( "fields" ).getInt( "idparlamentar" ) );
+				        .getJSONObject( "fields" ).getInt( "idparlamentar" ) );
 				
 				quota.setTypeQuotaByNumber( jArray.getJSONObject( index )
-				      .getJSONObject( "fields" ).getInt( "numsubcota" ) );
+				        .getJSONObject( "fields" ).getInt( "numsubcota" ) );
 				
 				quota.setDescriptionQuota( jArray.getJSONObject( index )
-				      .getJSONObject( "fields" ).getString( "descricao" ) );
+				        .getJSONObject( "fields" ).getString( "descricao" ) );
 				
 				quota.setTypeMonthByNumber( jArray.getJSONObject( index )
-				      .getJSONObject( "fields" ).getInt( "mes" ) );
+				        .getJSONObject( "fields" ).getInt( "mes" ) );
 				
 				quotaList.add( quota );
 			}

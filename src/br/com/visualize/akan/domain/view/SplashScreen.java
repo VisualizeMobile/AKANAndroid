@@ -1,6 +1,6 @@
 /*
- * File: SplashScreen.java
- * Purpose: Provides access to an application's initial presentation.
+ * File: SplashScreen.java Purpose: Provides access to an application's initial
+ * presentation.
  */
 package br.com.visualize.akan.domain.view;
 
@@ -27,44 +27,46 @@ public class SplashScreen extends Activity {
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
-		setContentView(R.layout.splash_screen_activity);
+		setContentView( R.layout.splash_screen_activity );
 		congressmanController = CongressmanController
-		      .getInstance( getApplicationContext() );
+		        .getInstance( getApplicationContext() );
 		
-				requestCongressman();
+		requestCongressman();
 	}
 	
 	/**
-	 * Providence the actions that should be made to the initial request for 
-	 * the operation of the Thread.
+	 * Providence the actions that should be made to the initial request for the
+	 * operation of the Thread.
 	 */
-	public void requestCongressman(){
-		final ProgressDialog progress = new ProgressDialog(this);
+	public void requestCongressman() {
+		final ProgressDialog progress = new ProgressDialog( this );
 		
-		progress.setMessage("Carregando dados...");
+		progress.setMessage( "Carregando dados..." );
 		progress.show();
 		
-		new Thread(){
+		new Thread() {
 			
-			public void run(){
+			public void run() {
 				
 				Looper.prepare();
 				try {
 					ResponseHandler<String> responseHandler = HttpConnection
-						      .getResponseHandler();
+					        .getResponseHandler();
 					
-					congressmanController.requestAllCongressman( responseHandler );
-				} catch (Exception e) {
+					congressmanController
+					        .requestAllCongressman( responseHandler );
+				} catch( Exception e ) {
 					// TODO: handle exception
 				}
 				
-				runOnUiThread(new Runnable() {
+				runOnUiThread( new Runnable() {
 					
 					@Override
 					public void run() {
-						progress.setMessage("Dados carregados");
+						progress.setMessage( "Dados carregados" );
 						
-						Intent myAction = new Intent( SplashScreen.this, ListScreen.class );
+						Intent myAction = new Intent( SplashScreen.this,
+						        ListScreen.class );
 						
 						SplashScreen.this.startActivity( myAction );
 						SplashScreen.this.finish();
@@ -72,8 +74,8 @@ public class SplashScreen extends Activity {
 						progress.dismiss();
 						Looper.loop();
 					}
-				});
-			
+				} );
+				
 			}
 		}.start();
 	}

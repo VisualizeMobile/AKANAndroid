@@ -1,6 +1,5 @@
 /*
- * File: UrlDao.java 
- * Purpose: Bringing the implementation of model URL, a class
+ * File: UrlDao.java Purpose: Bringing the implementation of model URL, a class
  * that directly references the business domain.
  */
 package br.com.visualize.akan.api.dao;
@@ -14,9 +13,8 @@ import br.com.visualize.akan.domain.model.Url;
 
 
 /**
- * This class represents the Data Access Object for the URL,
- * responsible for all data base operations like selections, insertions
- * and updates.
+ * This class represents the Data Access Object for the URL, responsible for all
+ * data base operations like selections, insertions and updates.
  */
 public class UrlDao extends Dao {
 	private static final boolean EMPTY = true;
@@ -27,8 +25,8 @@ public class UrlDao extends Dao {
 	
 	private static UrlDao instanceUrlDao = null;
 	private static String tableUrl = "Url";
-	private static String tableColumns[] = { "ID_URL", "ID_UPDATE_URL",
-	      "DEFAULT_URL", "FIRST_URL", "SECOND_URL" };
+	private static String tableColumns[ ] = { "ID_URL", "ID_UPDATE_URL",
+	        "DEFAULT_URL", "FIRST_URL", "SECOND_URL" };
 	
 	protected UrlDao( Context context ) {
 		UrlDao.database = new DatabaseHelper( context );
@@ -37,6 +35,7 @@ public class UrlDao extends Dao {
 	/**
 	 * Return the unique instance of UrlDao active in the project.
 	 * <p>
+	 * 
 	 * @return The unique instance of UrlDao.
 	 */
 	public static UrlDao getInstance( Context context ) {
@@ -60,16 +59,16 @@ public class UrlDao extends Dao {
 		String query = "SELECT 1 FROM " + tableName;
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
-
+		
 		boolean isEmpty = NOT_EMPTY;
 		
 		if( cursor != null ) {
 			
 			if( cursor.getCount() <= 0 ) {
 				isEmpty = EMPTY;
-
+				
 			} else {
-				/*! Nothing To Do. */
+				/* ! Nothing To Do. */
 			}
 			
 		} else {
@@ -81,9 +80,9 @@ public class UrlDao extends Dao {
 	
 	/**
 	 * Inserts in the database URL.
-	 * <p>
+	 * 
 	 * @param url
-	 *           URL to be inserted.
+	 *            URL to be inserted.
 	 */
 	public void insertUrl( Url url ) {
 		sqliteDatabase = database.getWritableDatabase();
@@ -102,15 +101,15 @@ public class UrlDao extends Dao {
 	/**
 	 * Deletes a URL of the database relating to the past as parameter
 	 * congressman for his numerical identifier.
-	 * <p>
+	 * 
 	 * @param url
-	 *           URL to be deleted.
+	 *            URL to be deleted.
 	 */
 	public void deleteUrl( Url url ) {
 		sqliteDatabase = database.getWritableDatabase();
 		
 		sqliteDatabase.delete( tableUrl, "ID_UPDATE_URL=?",
-		      new String[] { url.getIdUpdateUrl() + "" } );
+		        new String[] { url.getIdUpdateUrl() + "" } );
 		
 		sqliteDatabase.close();
 	}
@@ -119,6 +118,7 @@ public class UrlDao extends Dao {
 	 * Search the database all URLs related to the referenced congressman and
 	 * returns them as a list.
 	 * <p>
+	 * 
 	 * @return The list of referenced URLs belonging to the congressman.
 	 */
 	public Url getUrl() {
@@ -142,16 +142,16 @@ public class UrlDao extends Dao {
 			cursor.moveToFirst();
 			
 			url.setIdUpdateUrl( cursor.getInt( cursor
-			      .getColumnIndex( tableColumns[ 1 ] ) ) );
+			        .getColumnIndex( tableColumns[ 1 ] ) ) );
 			
 			url.setDefaultUrl( cursor.getString( cursor
-			      .getColumnIndex( tableColumns[ 2 ] ) ) );
+			        .getColumnIndex( tableColumns[ 2 ] ) ) );
 			
 			url.setFirstAlternativeUrl( cursor.getString( cursor
-			      .getColumnIndex( tableColumns[ 3 ] ) ) );
+			        .getColumnIndex( tableColumns[ 3 ] ) ) );
 			
 			url.setSecondAlternativeUrl( cursor.getString( cursor
-			      .getColumnIndex( tableColumns[ 4 ] ) ) );
+			        .getColumnIndex( tableColumns[ 4 ] ) ) );
 		}
 		
 		return url;

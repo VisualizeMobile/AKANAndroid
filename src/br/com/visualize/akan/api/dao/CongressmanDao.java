@@ -28,17 +28,10 @@ public class CongressmanDao extends Dao {
 	private static CongressmanDao instance;
 	private static String tableName = "CONGRESSMAN";
 	
-	private static String tableColumns[] = { 
-		"ID_CONGRESSMAN", 
-		"ID_UPDATE", 
-		"NAME_CONGRESSMAN", 
-		"PARTY", 
-		"UF_CONGRESSMAN", 
-		"TOTAL_SPENT_CONGRESSMAN", 
-		"STATUS_CONGRESSMAN", 
-		"PHOTO_CONGRESSMAN", 
-		"RANKING_CONGRESSMAN"
-		};
+	private static String tableColumns[ ] = { "ID_CONGRESSMAN", "ID_UPDATE",
+	        "NAME_CONGRESSMAN", "PARTY", "UF_CONGRESSMAN",
+	        "TOTAL_SPENT_CONGRESSMAN", "STATUS_CONGRESSMAN",
+	        "PHOTO_CONGRESSMAN", "RANKING_CONGRESSMAN" };
 	
 	private CongressmanDao( Context context ) {
 		CongressmanDao.database = new DatabaseHelper( context );
@@ -47,6 +40,7 @@ public class CongressmanDao extends Dao {
 	/**
 	 * Return the unique instance of CongressmanDao active in the project.
 	 * <p>
+	 * 
 	 * @return The unique instance of CongressmanDao.
 	 */
 	public static CongressmanDao getInstance( Context context ) {
@@ -93,10 +87,10 @@ public class CongressmanDao extends Dao {
 	
 	/**
 	 * Inserts in the database a congressman.
-	 * <p>
+	 * 
 	 * @param congressman
-	 *           Congressman to be inserted.
-	 * <p>
+	 *            Congressman to be inserted.
+	 * 
 	 * @return Result if the operation was successful or not.
 	 */
 	private boolean insertCongressman( Congressman congressman ) {
@@ -118,24 +112,31 @@ public class CongressmanDao extends Dao {
 		
 		return result;
 	}
+	
 	/**
 	 * Up
+	 * 
 	 * @param congressman
 	 * @return
 	 * @throws NullCongressmanException
 	 */
-	public boolean setFollowedCongressman(Congressman congressman)
-			throws NullCongressmanException {
-
-		if (congressman != null) {
+	public boolean setFollowedCongressman( Congressman congressman )
+	        throws NullCongressmanException {
+		
+		if( congressman != null ) {
 			sqliteDatabase = database.getWritableDatabase();
+			
 			ContentValues content = new ContentValues();
-			content.put("STATUS_CONGRESSMAN", congressman.isStatusCogressman());
-			boolean result = (sqliteDatabase.update(tableName, content,
-					"ID_CONGRESSMAN=?",
-					new String[] { congressman.getIdCongressman() + "" }) > 0);
+			content.put( "STATUS_CONGRESSMAN", congressman.isStatusCogressman() );
+			
+			boolean result = ( sqliteDatabase.update( tableName, content,
+			        "ID_CONGRESSMAN=?",
+			        new String[] { congressman.getIdCongressman() + "" } ) > 0 );
+			
 			sqliteDatabase.close();
+			
 			return result;
+			
 		} else {
 			throw new NullCongressmanException();
 		}
@@ -143,10 +144,10 @@ public class CongressmanDao extends Dao {
 	
 	/**
 	 * Inserts in the database a list of congressman.
-	 * <p>
+	 * 
 	 * @param congressmanList
-	 *           List of Congressman to be inserted.
-	 * <p>
+	 *            List of Congressman to be inserted.
+	 * 
 	 * @return Result if the operation was successful or not.
 	 */
 	public boolean insertAllCongressman( List<Congressman> congressmanList ) {
@@ -163,7 +164,7 @@ public class CongressmanDao extends Dao {
 	
 	/**
 	 * Retrieves all congressman contained in the database.
-	 * <p>
+	 * 
 	 * @return List of all congressman contained in the database.
 	 */
 	public List<Congressman> getAll() {
@@ -171,7 +172,7 @@ public class CongressmanDao extends Dao {
 		sqliteDatabase = database.getReadableDatabase();
 		
 		String query = "SELECT * FROM " + tableName
-		      + " ORDER BY TOTAL_SPENT_CONGRESSMAN DESC";
+		        + " ORDER BY TOTAL_SPENT_CONGRESSMAN DESC";
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 		
@@ -182,28 +183,30 @@ public class CongressmanDao extends Dao {
 			Congressman congressman = new Congressman();
 			
 			congressman.setIdCongressman( cursor.getInt( cursor
-			      .getColumnIndex( "ID_CONGRESSMAN" ) ) );
+			        .getColumnIndex( "ID_CONGRESSMAN" ) ) );
 			
 			congressman.setNameCongressman( cursor.getString( cursor
-			      .getColumnIndex( "NAME_CONGRESSMAN" ) ) );
+			        .getColumnIndex( "NAME_CONGRESSMAN" ) ) );
 			
-			congressman.setStatusCogressman( stringToBool( cursor
-			      .getString( cursor.getColumnIndex( "STATUS_CONGRESSMAN" ) ) ) );
+			congressman
+			        .setStatusCogressman( stringToBool( cursor
+			                .getString( cursor
+			                        .getColumnIndex( "STATUS_CONGRESSMAN" ) ) ) );
 			
 			congressman.setPartyCongressman( cursor.getString( cursor
-			      .getColumnIndex( "PARTY" ) ) );
+			        .getColumnIndex( "PARTY" ) ) );
 			
 			congressman.setUfCongressman( cursor.getString( cursor
-			      .getColumnIndex( "UF_CONGRESSMAN" ) ) );
+			        .getColumnIndex( "UF_CONGRESSMAN" ) ) );
 			
 			congressman.setTotalSpentCongressman( cursor.getDouble( cursor
-			      .getColumnIndex( "TOTAL_SPENT_CONGRESSMAN" ) ) );
+			        .getColumnIndex( "TOTAL_SPENT_CONGRESSMAN" ) ) );
 			
 			congressman.setRankingCongressman( cursor.getInt( cursor
-			      .getColumnIndex( "RANKING_CONGRESSMAN" ) ) );
+			        .getColumnIndex( "RANKING_CONGRESSMAN" ) ) );
 			
 			congressman.setIdUpdateCongressman( cursor.getInt( cursor
-			      .getColumnIndex( "ID_UPDATE" ) ) );
+			        .getColumnIndex( "ID_UPDATE" ) ) );
 			
 			listParlamentares.add( congressman );
 		}
@@ -213,20 +216,22 @@ public class CongressmanDao extends Dao {
 		return listParlamentares;
 	}
 	
-	private static boolean stringToBool(String string) {
-		  if (string.equals("1"))
-		    return true;
-		  if (string.equals("0"))
-		    return false;
-		  throw new IllegalArgumentException(string+" is not a bool. Only 1 and 0 are.");
-		}
+	private static boolean stringToBool( String string ) {
+		if( string.equals( "1" ) )
+			return true;
+		if( string.equals( "0" ) )
+			return false;
+		throw new IllegalArgumentException( string
+		        + " is not a bool. Only 1 and 0 are." );
+	}
 	
 	/**
 	 * Retrieves a congressman contained in the database, based on pass name.
 	 * <p>
+	 * 
 	 * @param congressmanName
-	 *           The name of the congressman sought.
-	 * <p>
+	 *            The name of the congressman sought.
+	 *            <p>
 	 * @return A congressman sought.
 	 */
 	public List<Congressman> selectCongressmanByName( String congressmanName ) {
@@ -234,7 +239,7 @@ public class CongressmanDao extends Dao {
 		sqliteDatabase = database.getReadableDatabase();
 		
 		String query = "SELECT * FROM " + tableName
-		      + " WHERE NAME_CONGRESSMAN = " + congressmanName;
+		        + " WHERE NAME_CONGRESSMAN = " + congressmanName;
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 		
@@ -245,28 +250,30 @@ public class CongressmanDao extends Dao {
 			Congressman congressman = new Congressman();
 			
 			congressman.setIdCongressman( cursor.getInt( cursor
-			      .getColumnIndex( "ID_CONGRESSMAN" ) ) );
+			        .getColumnIndex( "ID_CONGRESSMAN" ) ) );
 			
 			congressman.setNameCongressman( cursor.getString( cursor
-			      .getColumnIndex( "NAME_CONGRESSMAN" ) ) );
+			        .getColumnIndex( "NAME_CONGRESSMAN" ) ) );
 			
-			congressman.setStatusCogressman( Boolean.parseBoolean( cursor
-			      .getString( cursor.getColumnIndex( "STATUS_CONGRESSMAN" ) ) ) );
+			congressman
+			        .setStatusCogressman( Boolean.parseBoolean( cursor
+			                .getString( cursor
+			                        .getColumnIndex( "STATUS_CONGRESSMAN" ) ) ) );
 			
 			congressman.setPartyCongressman( cursor.getString( cursor
-			      .getColumnIndex( "PARTY" ) ) );
+			        .getColumnIndex( "PARTY" ) ) );
 			
 			congressman.setUfCongressman( cursor.getString( cursor
-			      .getColumnIndex( "UF_CONGRESSMAN" ) ) );
+			        .getColumnIndex( "UF_CONGRESSMAN" ) ) );
 			
 			congressman.setTotalSpentCongressman( cursor.getDouble( cursor
-			      .getColumnIndex( "TOTAL_SPENT_CONGRESSMAN" ) ) );
+			        .getColumnIndex( "TOTAL_SPENT_CONGRESSMAN" ) ) );
 			
 			congressman.setRankingCongressman( cursor.getInt( cursor
-			      .getColumnIndex( "RANKING_CONGRESSMAN" ) ) );
+			        .getColumnIndex( "RANKING_CONGRESSMAN" ) ) );
 			
 			congressman.setIdUpdateCongressman( cursor.getInt( cursor
-			      .getColumnIndex( "ID_UPDATE" ) ) );
+			        .getColumnIndex( "ID_UPDATE" ) ) );
 			
 			listParlamentares.add( congressman );
 		}

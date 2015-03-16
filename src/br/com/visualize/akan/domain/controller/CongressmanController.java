@@ -1,6 +1,6 @@
 /*
- * File: CongressmanController.java 
- * Purpose: Brings the implementation of class CongressmanController.
+ * File: CongressmanController.java Purpose: Brings the implementation of class
+ * CongressmanController.
  */
 package br.com.visualize.akan.domain.controller;
 
@@ -32,7 +32,7 @@ public class CongressmanController {
 	private static List<Congressman> congressmanList;
 	
 	@SuppressWarnings( "unused" )
-    private static List<Congressman> followedCongressmen;
+	private static List<Congressman> followedCongressmen;
 	
 	@SuppressWarnings( "unused" )
 	private Context context;
@@ -52,15 +52,16 @@ public class CongressmanController {
 	}
 	
 	/**
-	 * Return the unique instance of CongressmanController active in the project.
-	 * <p>
+	 * Return the unique instance of CongressmanController active in the
+	 * project.
+	 * 
 	 * @return The unique instance of CongressmanController.
 	 */
 	public static CongressmanController getInstance( Context context ) {
 		if( instance == null ) {
 			instance = new CongressmanController( context );
 		} else {
-			/*! Nothing To Do. */
+			/* ! Nothing To Do. */
 		}
 		
 		return instance;
@@ -68,8 +69,9 @@ public class CongressmanController {
 	
 	/**
 	 * Associates a congressman on CongressmanController.
-	 * <p>
-	 * @param congressman Congressman to be associated
+	 * 
+	 * @param congressman
+	 *            Congressman to be associated
 	 */
 	public void setCongressman( Congressman congressman ) {
 		CongressmanController.congressman = congressman;
@@ -77,27 +79,28 @@ public class CongressmanController {
 	
 	/**
 	 * Search the database all congressman and returns them as a list.
-	 * <p>
-	 * @param responseHandler Handler of welcoming server responses
-	 * <p>
+	 * 
+	 * @param responseHandler
+	 *            Handler of welcoming server responses
+	 * 
 	 * @return List of Congressman resulting from the server.
-	 * <p>
+	 * 
 	 * @throws Exception
 	 */
 	public List<Congressman> requestAllCongressman(
-	      ResponseHandler<String> responseHandler ) throws Exception {
+	        ResponseHandler<String> responseHandler ) throws Exception {
 		
 		if( responseHandler != null ) {
 			
 			if( congressmanDao.checkEmptyLocalDb() ) {
 				
 				String url = urlController.getAllCongressmanUrl();
-
-				String jsonCongressman = HttpConnection.request( responseHandler,
-				      url );
+				
+				String jsonCongressman = HttpConnection.request(
+				        responseHandler, url );
 				
 				setCongressmanList( JsonHelper
-				      .listCongressmanFromJSON( jsonCongressman ) );
+				        .listCongressmanFromJSON( jsonCongressman ) );
 				
 				congressmanDao.insertAllCongressman( getCongressmanList() );
 				
@@ -109,13 +112,13 @@ public class CongressmanController {
 		return getCongressmanList();
 	}
 	
-	public boolean updateStatusCongressman(){
+	public boolean updateStatusCongressman() throws NullCongressmanException {
 		boolean result = false;
+		
 		try {
-			 result = congressmanDao.setFollowedCongressman(getCongresman());
-		} catch (NullCongressmanException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			result = congressmanDao.setFollowedCongressman( getCongresman() );
+		} catch( NullCongressmanException e ) {
+			throw new NullCongressmanException();
 		}
 		
 		return result;
@@ -124,22 +127,22 @@ public class CongressmanController {
 	/*
 	 * TODO: Investigate Duplication.
 	 * 
-	 * 	It seems that the methods getCongressmanList() and getAllCongressman() 
-	 * 	are repeated. It should be investigated whether there is duplication.
+	 * It seems that the methods getCongressmanList() and getAllCongressman()
+	 * are repeated. It should be investigated whether there is duplication.
 	 */
 	
 	/**
 	 * Returns all congressman stored in the local database.
-	 * <p>
+	 * 
 	 * @return List of Congressman.
 	 */
-	public static List<Congressman> getCongressmanList() {	
+	public static List<Congressman> getCongressmanList() {
 		return congressmanList;
 	}
 	
 	/**
 	 * Returns all congressman stored in the local database.
-	 * <p>
+	 * 
 	 * @return List of Congressman.
 	 */
 	public List<Congressman> getAllCongressman() {
@@ -150,60 +153,59 @@ public class CongressmanController {
 	
 	/**
 	 * Associates a list of congressman on CongressmanController.
-	 * <p>
-	 * @param congressmanList List of congressman to be associated
+	 * 
+	 * @param congressmanList
+	 *            List of congressman to be associated
 	 */
 	private static void setCongressmanList( List<Congressman> congressmanList ) {
 		CongressmanController.congressmanList = congressmanList;
 	}
 	
-	
 	/**
-	 * Returns all congressman that match the search and are stored in the 
-	 * local database.
-	 * <p>
-	 * @param congressmanName name of congressman to be searched.
-	 * <p>
+	 * Returns all congressman that match the search and are stored in the local
+	 * database.
+	 * 
+	 * @param congressmanName
+	 *            name of congressman to be searched.
+	 *            <p>
 	 * @return List of congressman that match this search by name.
 	 */
 	public List<Congressman> getByName( String congressmanName ) {
 		congressmanList = congressmanDao
-		      .selectCongressmanByName( congressmanName );
+		        .selectCongressmanByName( congressmanName );
 		
 		return congressmanList;
 	}
 	
 	/**
 	 * Returns the congressman associated with CongressmanController.
-	 * <p>
+	 * 
 	 * @return Congressman associated with CongressmanController.
 	 */
 	public Congressman getCongresman() {
 		return CongressmanController.congressman;
 	}
 	
-	public List<Congressman> getFollowedCongressman(){
+	public List<Congressman> getFollowedCongressman() {
 		List<Congressman> congressmenAnalized = new ArrayList<Congressman>();
 		Iterator<Congressman> iteratorCongressman = congressmanList.iterator();
 		
-			while( iteratorCongressman.hasNext() ) {
-				Congressman congressman = iteratorCongressman.next();
-				if ( congressman.isStatusCogressman()){
-					Log.e("seguido", congressman.getNameCongressman());
-					congressmenAnalized.add(congressman);
-					
-				}
-				else
-				{
-					//nothing to do
-					
-				}
+		while( iteratorCongressman.hasNext() ) {
+			Congressman congressman = iteratorCongressman.next();
+			
+			if( congressman.isStatusCogressman() ) {
+				
+				Log.e( "seguido", congressman.getNameCongressman() );
+				
+				congressmenAnalized.add( congressman );
+				
+			} else {
+				// nothing to do
+				
 			}
-			
-			return congressmenAnalized;
-			
-	}
-
+		}
 		
+		return congressmenAnalized;		
+	}
 	
 }

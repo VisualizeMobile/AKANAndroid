@@ -44,6 +44,7 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 	        List<Congressman> congressmensList ) {
 		
 		super( context, textViewResourceId, congressmensList );
+		
 		this.layoutInflated = textViewResourceId;
 		this.context = context;
 		this.congressmens = new ArrayList<Congressman>();
@@ -97,12 +98,12 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 		        .findViewById( R.id.list_btn_follow );
 		
 		followCongressman.setTag( congressmens.get( position ) );
+		
 		if( congressmens.get( position ).isStatusCogressman() ) {
 			followCongressman.setBackgroundResource( R.drawable.following );
 			
 		} else {
 			followCongressman.setBackgroundResource( R.drawable.not_following );
-			
 		}
 		
 		if( layoutInflated == R.layout.ranking_layout ) {
@@ -127,11 +128,10 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 	
 	/**
 	 * Returns the list item requested.
-	 * <p>
 	 * 
 	 * @param position
 	 *            Position of the item to be returned.
-	 *            <p>
+	 * 
 	 * @return Congressman associated with position.
 	 */
 	@Override
@@ -141,7 +141,6 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 	
 	/**
 	 * Returns the number of elements associated with the list.
-	 * <p>
 	 * 
 	 * @return Number of elements.
 	 */

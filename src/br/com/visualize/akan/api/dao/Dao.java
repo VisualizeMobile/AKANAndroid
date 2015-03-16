@@ -28,14 +28,14 @@ public abstract class Dao {
 	/**
 	 * Opens the database so that you can insert content within a given table in
 	 * a given database present in the application.
-	 * <p>
+	 * 
 	 * @param sqlitedatabase
 	 *           Database where the table.
 	 * @param table
 	 *           Table to alter
 	 * @param values
 	 *           Set of values to be added.
-	 * <p>
+	 * 
 	 * @return the row ID of the newly inserted row, or -1 if an error occurred.
 	 */
 	protected long insertAndClose( SQLiteDatabase sqliteDatabase, String table,

@@ -40,6 +40,7 @@ import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.adapters.CongressmenListAdapter;
 import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.controller.QuotaController;
+import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 
 
@@ -255,17 +256,29 @@ public class ListScreen extends Activity {
 	 */
 	public void followedCongressman( View view ) {
 		customDialog = new CustomDialog( this );
+		
 		int timeToDismis = 2000;
 		final Congressman congressman = (Congressman)view.getTag();
+		
 		customDialog.setMessage( "Parlamentar "
 		        + congressman.getNameCongressman() + " seguido" );
 		congressmanController.setCongressman( congressman );
+		
 		if( congressmanController.getCongresman().isStatusCogressman() ) {
 			congressmanController.getCongresman().setStatusCogressman( false );
-			congressmanController.updateStatusCongressman();
+			
+			try {
+	            congressmanController.updateStatusCongressman();
+	            
+            } catch( NullCongressmanException nce ) {
+            	// TODO: Show a Alert about the exception
+            }
+			
 			followedCongressmen = congressmanController
 			        .getFollowedCongressman();
+			
 			currentListCongressmen = followedCongressmen;
+			
 			if( btn_follow.isSelected() ) {
 				listAdapter = new CongressmenListAdapter( this,
 				        R.layout.congressmen_list_layout, followedCongressmen );
@@ -274,28 +287,40 @@ public class ListScreen extends Activity {
 				        R.layout.congressmen_list_layout, congressmen );
 			}
 			listView.setAdapter( listAdapter );
+			
 			Log.e( "Cheguei no followed", "cheguei no followed: "
 			        + followedCongressmen.size() );
+			
 			quotaController.deleteQuotasFromCongressman( congressman
 			        .getIdCongressman() );
+			
 			// rankingAdapter.notifyDataSetChanged();
 			
 		} else {
 			congressmanController.getCongresman().setStatusCogressman( true );
-			congressmanController.updateStatusCongressman();
+			
+			try {
+	            congressmanController.updateStatusCongressman();
+	            
+            } catch( NullCongressmanException nce ) {
+            	// TODO: Show a Alert about the exception
+            }
+			
 			followedCongressmen.add( congressman );
 			listAdapter.notifyDataSetChanged();
+			
 			// rankingAdapter.notifyDataSetChanged();
 			
 			customDialog.getWindow().clearFlags(
 			        WindowManager.LayoutParams.FLAG_DIM_BEHIND );
+			
 			customDialog.show();
 			
 			new Thread( new Runnable() {
 				
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
+
 					Looper.prepare();
 					ResponseHandler<String> responseHandler = HttpConnection
 					        .getResponseHandler();
@@ -303,8 +328,10 @@ public class ListScreen extends Activity {
 						
 						quotaController.getQuotaById(
 						        congressman.getIdCongressman(), responseHandler );
+						
 						Log.e( "" + congressman.getIdCongressman(),
 						        "REQUISITEI QUOTA NO SEGUIR" );
+						
 					} catch( Exception e ) {
 						// TODO launch error alert
 						e.printStackTrace();
@@ -316,7 +343,7 @@ public class ListScreen extends Activity {
 			} ).start();
 			
 			/**
-			 * timer to dismis Dialog
+			 * timer to dismiss Dialog
 			 */
 			final Timer timer = new Timer();
 			timer.schedule( new TimerTask() {

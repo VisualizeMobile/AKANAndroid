@@ -1,7 +1,6 @@
 /*
- * File: OnItemClickListenerViewItem.java
- * Purpose: Brings the implementation of the Listener for the 
- * DescriptionScreen buttons.
+ * File: OnItemClickListenerViewItem.java Purpose: Brings the implementation of
+ * the Listener for the DescriptionScreen buttons.
  */
 package br.com.visualize.akan.domain.view;
 
@@ -20,12 +19,12 @@ public class OnItemClickListenerListViewItem implements OnItemClickListener {
 	
 	@Override
 	public void onItemClick( AdapterView<?> parent, View view, int position,
-	      long id ) {
+	        long id ) {
 		
 		Context context = view.getContext();
 		Intent myAction = new Intent( context, DescriptionScreen.class );
 		
-		( (ListScreen) context ).startActivity( myAction );
-		( (ListScreen) context ).finish();
+		( (ListScreen)context ).startActivity( myAction );
+		( (ListScreen)context ).finish();
 	}
 }

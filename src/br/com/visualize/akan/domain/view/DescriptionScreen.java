@@ -41,6 +41,7 @@ import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.controller.QuotaController;
 import br.com.visualize.akan.domain.controller.StatisticController;
 import br.com.visualize.akan.domain.enumeration.SubQuota;
+import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Quota;
 
@@ -113,7 +114,7 @@ public class DescriptionScreen extends FragmentActivity implements
 			setValuesQuotas( congressmanController.getCongresman()
 			        .getIdCongressman() );
 		}
-
+		
 		referenceMonth = (TextView)findViewById( R.id.reference_month );
 		
 		setRerenceMonth();
@@ -160,7 +161,7 @@ public class DescriptionScreen extends FragmentActivity implements
 		
 		setRerenceMonth();
 		
-		 setValuesQuotas( congressmanController.getCongresman()
+		setValuesQuotas( congressmanController.getCongresman()
 		        .getIdCongressman() );
 	}
 	
@@ -319,20 +320,17 @@ public class DescriptionScreen extends FragmentActivity implements
 		switch( typeSubQuota ) {
 		
 			case ACCOMMODATION:
-				type = SubQuota.ACCOMMODATION
-				        .getRepresentativeNameQuota();
+				type = SubQuota.ACCOMMODATION.getRepresentativeNameQuota();
 				
 				break;
 			
 			case AIR_FREIGHT:
-				type = SubQuota.AIR_FREIGHT
-				        .getRepresentativeNameQuota();
+				type = SubQuota.AIR_FREIGHT.getRepresentativeNameQuota();
 				
 				break;
 			
 			case ALIMENTATION:
-				type = SubQuota.ALIMENTATION
-				        .getRepresentativeNameQuota();
+				type = SubQuota.ALIMENTATION.getRepresentativeNameQuota();
 				
 				break;
 			
@@ -363,8 +361,7 @@ public class DescriptionScreen extends FragmentActivity implements
 				break;
 			
 			case POSTAL_SERVICES:
-				type = SubQuota.POSTAL_SERVICES
-				        .getRepresentativeNameQuota();
+				type = SubQuota.POSTAL_SERVICES.getRepresentativeNameQuota();
 				
 				break;
 			
@@ -384,8 +381,7 @@ public class DescriptionScreen extends FragmentActivity implements
 				break;
 			
 			case TELEPHONY:
-				type = SubQuota.TELEPHONY
-				        .getRepresentativeNameQuota();
+				type = SubQuota.TELEPHONY.getRepresentativeNameQuota();
 				
 				break;
 			
@@ -602,8 +598,8 @@ public class DescriptionScreen extends FragmentActivity implements
 		ImageView barQuota = (ImageView)findViewById( idBarResource );
 		
 		if( barQuota.getBackground() != null ) {
-			ValueAnimator colorAnimator = ObjectAnimator.ofInt( barQuota, "colorFilter",
-			        WHITE );
+			ValueAnimator colorAnimator = ObjectAnimator.ofInt( barQuota,
+			        "colorFilter", WHITE );
 			
 			colorAnimator.setDuration( 100 );
 			colorAnimator.setEvaluator( new ArgbEvaluator() );
@@ -613,8 +609,8 @@ public class DescriptionScreen extends FragmentActivity implements
 			
 			Drawable level = barQuota.getDrawable();
 			
-			ValueAnimator heightAnimator = ObjectAnimator.ofInt( level, "level",
-			        0 );
+			ValueAnimator heightAnimator = ObjectAnimator.ofInt( level,
+			        "level", 0 );
 			
 			heightAnimator.setDuration( 100 );
 			heightAnimator.setInterpolator( new DecelerateInterpolator() );
@@ -626,8 +622,8 @@ public class DescriptionScreen extends FragmentActivity implements
 		}
 		
 		if( barQuota.getDrawable() != null ) {
-			ValueAnimator colorAnimator = ObjectAnimator.ofInt( barQuota, "colorFilter",
-			        WHITE );
+			ValueAnimator colorAnimator = ObjectAnimator.ofInt( barQuota,
+			        "colorFilter", WHITE );
 			
 			colorAnimator.setDuration( 100 );
 			colorAnimator.setEvaluator( new ArgbEvaluator() );
@@ -637,8 +633,8 @@ public class DescriptionScreen extends FragmentActivity implements
 			
 			Drawable level = barQuota.getDrawable();
 			
-			ValueAnimator heightAnimator = ObjectAnimator.ofInt( level, "level",
-			        0 );
+			ValueAnimator heightAnimator = ObjectAnimator.ofInt( level,
+			        "level", 0 );
 			
 			heightAnimator.setDuration( 100 );
 			heightAnimator.setInterpolator( new DecelerateInterpolator() );
@@ -882,13 +878,25 @@ public class DescriptionScreen extends FragmentActivity implements
 		if( congressmanController.getCongresman().isStatusCogressman() ) {
 			
 			congressmanController.getCongresman().setStatusCogressman( false );
-			congressmanController.updateStatusCongressman();
+			
+			try {
+				congressmanController.updateStatusCongressman();
+				
+			} catch( NullCongressmanException e ) {
+				// TODO: Show a Alert about the exception
+			}
 			
 			setDescriptionCongressman();
 			
 		} else {
 			congressmanController.getCongresman().setStatusCogressman( true );
-			congressmanController.updateStatusCongressman();
+			
+			try {
+				congressmanController.updateStatusCongressman();
+				
+			} catch( NullCongressmanException e ) {
+				// TODO: Show a Alert about the exception
+			}
 			
 			setDescriptionCongressman();
 			

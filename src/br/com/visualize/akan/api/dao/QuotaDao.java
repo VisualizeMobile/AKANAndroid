@@ -1,6 +1,5 @@
 /*
- * File: QuotaDao.java 
- * Purpose: Brings the implementation of class QuotaDao.
+ * File: QuotaDao.java Purpose: Brings the implementation of class QuotaDao.
  */
 package br.com.visualize.akan.api.dao;
 
@@ -29,9 +28,9 @@ public class QuotaDao extends Dao {
 	private static QuotaDao instanceQuotaDao = null;
 	private static String tableName = "QUOTA";
 	
-	private static String tableColumns[] = { "ID_QUOTA", "ID_CONGRESSMAN",
-	      "ID_UPDATE", "TYPE_QUOTA", "DESCRIPTION_QUOTA", "MONTH_QUOTA",
-	      "YEAR_QUOTA", "VALUE_QUOTA" };
+	private static String tableColumns[ ] = { "ID_QUOTA", "ID_CONGRESSMAN",
+	        "ID_UPDATE", "TYPE_QUOTA", "DESCRIPTION_QUOTA", "MONTH_QUOTA",
+	        "YEAR_QUOTA", "VALUE_QUOTA" };
 	
 	protected QuotaDao( Context context ) {
 		QuotaDao.context = context;
@@ -40,7 +39,7 @@ public class QuotaDao extends Dao {
 	
 	/**
 	 * Return the unique instance of QuotaDao active in the project.
-	 * <p>
+	 * 
 	 * @return The unique instance of QuotaDao.
 	 */
 	public static QuotaDao getInstance( Context context ) {
@@ -74,7 +73,7 @@ public class QuotaDao extends Dao {
 				isEmpty = EMPTY;
 				
 			} else {
-				/*! Nothing To Do */
+				/* ! Nothing To Do */
 			}
 			
 		} else {
@@ -87,9 +86,9 @@ public class QuotaDao extends Dao {
 	/**
 	 * Inserts in the database quotas, referring to a congressman in particular,
 	 * passed as parameter in the local database of the application.
-	 * <p>
+	 * 
 	 * @param insertedQuotas
-	 *           List of quotas to be inserted.
+	 *            List of quotas to be inserted.
 	 */
 	public boolean insertQuotasById( List<Quota> insertedQuotas ) {
 		Iterator<Quota> index = insertedQuotas.iterator();
@@ -107,16 +106,17 @@ public class QuotaDao extends Dao {
 	 * Deletes all quotas of the database relating to the past as parameter
 	 * congressman for his numerical identifier.
 	 * <p>
+	 * 
 	 * @param idCongressman
-	 *           Numeric identifier of congressman that must have deleted the
-	 *           quotas.
+	 *            Numeric identifier of congressman that must have deleted the
+	 *            quotas.
 	 */
 	public boolean deleteQuotasFromCongressman( int idCongressman ) {
 		sqliteDatabase = database.getWritableDatabase();
 		
-		boolean result = ( sqliteDatabase.delete( tableName, "ID_CONGRESSMAN=?",
-		      new String[] { idCongressman + "" } ) > 0 );
-
+		boolean result = ( sqliteDatabase.delete( tableName,
+		        "ID_CONGRESSMAN=?", new String[] { idCongressman + "" } ) > 0 );
+		
 		sqliteDatabase.close();
 		
 		return result;
@@ -125,18 +125,19 @@ public class QuotaDao extends Dao {
 	/**
 	 * Search the database all quotas related to the referenced congressman and
 	 * returns them as a list.
-	 * <p>
+	 * 
 	 * @param idCongressman
-	 *           Numeric identifier of congressman that must have deleted the
-	 *           quotas.
-	 * <p>
+	 *            Numeric identifier of congressman that must have deleted the
+	 *            quotas.
+	 * 
 	 * @return The list of referenced quotas belonging to the congressman.
 	 */
 	public List<Quota> getQuotasByIdCongressman( int idCongressman ) {
 		sqliteDatabase = database.getReadableDatabase();
 		
 		Cursor cursor = sqliteDatabase.rawQuery(
-		      "SELECT * FROM QUOTA WHERE ID_CONGRESSMAN=" + idCongressman, null );
+		        "SELECT * FROM QUOTA WHERE ID_CONGRESSMAN=" + idCongressman,
+		        null );
 		
 		List<Quota> listQuotas = new ArrayList<Quota>();
 		
@@ -146,27 +147,27 @@ public class QuotaDao extends Dao {
 			quota.setIdQuota( cursor.getInt( cursor.getColumnIndex( "ID_QUOTA" ) ) );
 			
 			quota.setIdCongressmanQuota( cursor.getInt( cursor
-			      .getColumnIndex( "ID_CONGRESSMAN" ) ) );
+			        .getColumnIndex( "ID_CONGRESSMAN" ) ) );
 			
 			quota.setIdUpdateQuota( cursor.getColumnIndex( "ID_UPDATE" ) );
 			
 			quota.setTypeQuotaByNumber( cursor.getInt( cursor
-			      .getColumnIndex( "TYPE_QUOTA" ) ) );
+			        .getColumnIndex( "TYPE_QUOTA" ) ) );
 			
 			quota.setDescriptionQuota( cursor.getString( cursor
-			      .getColumnIndex( "DESCRIPTION_QUOTA" ) ) );
+			        .getColumnIndex( "DESCRIPTION_QUOTA" ) ) );
 			
 			quota.setTypeMonthByNumber( cursor.getInt( cursor
-			      .getColumnIndex( "MONTH_QUOTA" ) ) );
+			        .getColumnIndex( "MONTH_QUOTA" ) ) );
 			
 			quota.setYearReferenceQuota( cursor.getInt( cursor
-			      .getColumnIndex( "YEAR_QUOTA" ) ) );
+			        .getColumnIndex( "YEAR_QUOTA" ) ) );
 			
 			quota.setValueQuota( cursor.getDouble( cursor
-			      .getColumnIndex( "VALUE_QUOTA" ) ) );
+			        .getColumnIndex( "VALUE_QUOTA" ) ) );
 			
-			quota.setStatisticQuota( statisticDao.getStatisticByYear( 
-					quota.getYearReferenceQuota() ));
+			quota.setStatisticQuota( statisticDao.getStatisticByYear( quota
+			        .getYearReferenceQuota() ) );
 			
 			listQuotas.add( quota );
 		}
@@ -175,59 +176,65 @@ public class QuotaDao extends Dao {
 		
 		return listQuotas;
 	}
+	
 	/**
 	 * Search in database the years available of the quotas
 	 * 
 	 * @return Return a list the years available of the quotas
 	 */
-	public List<Integer> getYears (){
+	public List<Integer> getYears() {
 		
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery(
-			      "SELECT YEAR_QUOTA FROM QUOTA GROUP BY YEAR_QUOTA", null );
+		        "SELECT YEAR_QUOTA FROM QUOTA GROUP BY YEAR_QUOTA", null );
 		
 		List<Integer> listYears = new ArrayList<Integer>();
-		while(cursor.moveToNext()){
+		while( cursor.moveToNext() ) {
 			Integer year;
-			year = cursor.getInt(cursor.getColumnIndex("YEAR_QUOTA"));
 			
-			listYears.add(year);
+			year = cursor.getInt( cursor.getColumnIndex( "YEAR_QUOTA" ) );
 			
+			listYears.add( year );			
 		}
 		
 		return listYears;
-		 
 		
 	}
+	
 	/**
 	 * Search in database the months available of the quotas in current year
 	 * 
 	 * @param year
 	 * @return The list of the months available of the quotas in current year
 	 */
-	public List<Integer> getMonthsFromCurrentYear( int year, int idCongressman){
-
+	public List<Integer> getMonthsFromCurrentYear( int year, int idCongressman ) {
+		
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery(
-			      "SELECT MONTH_QUOTA FROM QUOTA WHERE YEAR_QUOTA = "+year+
-			      " AND ID_CONGRESSMAN = "+idCongressman+" GROUP BY MONTH_QUOTA", null );
+		        "SELECT MONTH_QUOTA FROM QUOTA WHERE YEAR_QUOTA = " + year
+		                + " AND ID_CONGRESSMAN = " + idCongressman
+		                + " GROUP BY MONTH_QUOTA", null );
 		
 		List<Integer> listMonths = new ArrayList<Integer>();
-		while(cursor.moveToNext()){
+		
+		while( cursor.moveToNext() ) {
 			Integer month;
-			month = cursor.getInt(cursor.getColumnIndex("MONTH_QUOTA"));
 			
-			listMonths.add(month);
+			month = cursor.getInt( cursor.getColumnIndex( "MONTH_QUOTA" ) );
+			
+			listMonths.add( month );
 			
 		}
+		
 		return listMonths;
 	}
+	
 	/**
 	 * Inserts in the database a quota.
-	 * <p>
-	 * @param quota 
-	 * 			Quota to be inserted.
-	 * <p>
+	 * 
+	 * @param quota
+	 *            Quota to be inserted.
+	 * 
 	 * @return Result if the operation was successful or not.
 	 */
 	private boolean insertQuota( Quota quota ) {
@@ -240,7 +247,7 @@ public class QuotaDao extends Dao {
 		content.put( tableColumns[ 3 ], quota.getTypeQuota().getValueSubQuota() );
 		content.put( tableColumns[ 4 ], quota.getDescriptionQuota() );
 		content.put( tableColumns[ 5 ], quota.getMonthReferenceQuota()
-		      .getvalueMonth() );
+		        .getvalueMonth() );
 		
 		content.put( tableColumns[ 6 ], quota.getYearReferenceQuota() );
 		content.put( tableColumns[ 7 ], quota.getValueQuota() );
