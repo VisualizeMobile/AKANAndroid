@@ -86,34 +86,6 @@ public class CongressmanDao extends Dao {
 	}
 	
 	/**
-	 * Inserts in the database a congressman.
-	 * 
-	 * @param congressman
-	 *            Congressman to be inserted.
-	 * 
-	 * @return Result if the operation was successful or not.
-	 */
-	private boolean insertCongressman( Congressman congressman ) {
-		sqliteDatabase = database.getWritableDatabase();
-		
-		ContentValues content = new ContentValues();
-		
-		content.put( tableColumns[ 0 ], congressman.getIdCongressman() );
-		content.put( tableColumns[ 1 ], congressman.getIdUpdateCongressman() );
-		content.put( tableColumns[ 2 ], congressman.getNameCongressman() );
-		content.put( tableColumns[ 3 ], congressman.getPartyCongressman() );
-		content.put( tableColumns[ 4 ], congressman.getUfCongressman() );
-		content.put( tableColumns[ 5 ], congressman.getTotalSpentCongressman() );
-		content.put( tableColumns[ 6 ], congressman.isStatusCogressman() );
-		content.put( tableColumns[ 7 ], congressman.getPhotoCongressman() );
-		content.put( tableColumns[ 8 ], congressman.getRankingCongressman() );
-		
-		boolean result = ( insertAndClose( sqliteDatabase, tableName, content ) > 0 );
-		
-		return result;
-	}
-	
-	/**
 	 * Up
 	 * 
 	 * @param congressman
@@ -162,6 +134,18 @@ public class CongressmanDao extends Dao {
 		return result;
 	}
 	
+	public boolean deleteAllCongressman() throws NullCongressmanException {
+		Iterator<Congressman> index = this.getAll().iterator();
+		
+		boolean result = true;
+		
+		while( index.hasNext() ) {
+			result = deleteCongressman( index.next() );
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * Retrieves all congressman contained in the database.
 	 * 
@@ -189,7 +173,7 @@ public class CongressmanDao extends Dao {
 			        .getColumnIndex( "NAME_CONGRESSMAN" ) ) );
 			
 			congressman
-			        .setStatusCogressman( stringToBool( cursor
+			        .setStatusCogressman( convertStringToBool( cursor
 			                .getString( cursor
 			                        .getColumnIndex( "STATUS_CONGRESSMAN" ) ) ) );
 			
@@ -214,15 +198,6 @@ public class CongressmanDao extends Dao {
 		sqliteDatabase.close();
 		
 		return listParlamentares;
-	}
-	
-	private static boolean stringToBool( String string ) {
-		if( string.equals( "1" ) )
-			return true;
-		if( string.equals( "0" ) )
-			return false;
-		throw new IllegalArgumentException( string
-		        + " is not a bool. Only 1 and 0 are." );
 	}
 	
 	/**
@@ -281,5 +256,60 @@ public class CongressmanDao extends Dao {
 		sqliteDatabase.close();
 		
 		return listParlamentares;
+	}
+	
+	private static boolean convertStringToBool( String string ) {
+		if( string.equals( "1" ) )
+			return true;
+		if( string.equals( "0" ) )
+			return false;
+		throw new IllegalArgumentException( string
+		        + " is not a bool. Only 1 and 0 are." );
+	}
+	
+	/**
+	 * Inserts in the database a congressman.
+	 * 
+	 * @param congressman
+	 *            Congressman to be inserted.
+	 * 
+	 * @return Result if the operation was successful or not.
+	 */
+	private boolean insertCongressman( Congressman congressman ) {
+		sqliteDatabase = database.getWritableDatabase();
+		
+		ContentValues content = new ContentValues();
+		
+		content.put( tableColumns[ 0 ], congressman.getIdCongressman() );
+		content.put( tableColumns[ 1 ], congressman.getIdUpdateCongressman() );
+		content.put( tableColumns[ 2 ], congressman.getNameCongressman() );
+		content.put( tableColumns[ 3 ], congressman.getPartyCongressman() );
+		content.put( tableColumns[ 4 ], congressman.getUfCongressman() );
+		content.put( tableColumns[ 5 ], congressman.getTotalSpentCongressman() );
+		content.put( tableColumns[ 6 ], congressman.isStatusCogressman() );
+		content.put( tableColumns[ 7 ], congressman.getPhotoCongressman() );
+		content.put( tableColumns[ 8 ], congressman.getRankingCongressman() );
+		
+		boolean result = ( insertAndClose( sqliteDatabase, tableName, content ) > 0 );
+		
+		return result;
+	}
+	
+	private boolean deleteCongressman( Congressman congressman )
+	        throws NullCongressmanException {
+		
+		if( congressman != null ) {
+			sqliteDatabase = database.getWritableDatabase();
+			
+			boolean result = ( sqliteDatabase.delete( tableName,
+			        "ID_CONGRESSMAN=?",
+			        new String[] { congressman.getIdCongressman() + "" } ) > 0 );
+			
+			sqliteDatabase.close();
+			
+			return result;
+		} else {
+			throw new NullCongressmanException();
+		}
 	}
 }
