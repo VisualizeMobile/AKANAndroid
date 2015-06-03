@@ -53,7 +53,7 @@ public class UrlDao extends Dao {
 	/**
 	 * Checks if database is empty.
 	 */
-	protected boolean checkEmptyLocalDb() {
+	public boolean checkEmptyLocalDb() {
 		sqliteDatabase = database.getReadableDatabase();
 		
 		String query = "SELECT 1 FROM " + tableName;
