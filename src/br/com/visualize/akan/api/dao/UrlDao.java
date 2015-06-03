@@ -84,18 +84,28 @@ public class UrlDao extends Dao {
 	 * @param url
 	 *            URL to be inserted.
 	 */
-	public void insertUrl( Url url ) {
-		sqliteDatabase = database.getWritableDatabase();
+	public boolean insertUrl( Url url ) {
+		boolean result = false;
 		
-		ContentValues content = new ContentValues();
+		if( url != null ) {
+			sqliteDatabase = database.getWritableDatabase();
+			
+			ContentValues content = new ContentValues();
+			
+			content.put( "ID_UPDATE_URL", url.getIdUpdateUrl() );
+			content.put( "UPDATE_VERIFIER_URL", url.getUpdateVerifierUrl() );
+			content.put( "DEFAULT_URL", url.getDefaultUrl() );
+			content.put( "FIRST_ALTERNATIVE_URL", url.getFirstAlternativeUrl() );
+			content.put( "SECOND_ALTERNATIVE_URL", url.getSecondAlternativeUrl() );
+			
+			insertAndClose( sqliteDatabase, tableUrl, content );
+			
+			result = true;
+		} else {
+			result = false;
+		}
 		
-		content.put( "ID_UPDATE_URL", url.getIdUpdateUrl() );
-		content.put( "UPDATE_VERIFIER_URL", url.getUpdateVerifierUrl() );
-		content.put( "DEFAULT_URL", url.getDefaultUrl() );
-		content.put( "FIRST_ALTERNATIVE_URL", url.getFirstAlternativeUrl() );
-		content.put( "SECOND_ALTERNATIVE_URL", url.getSecondAlternativeUrl() );
-		
-		insertAndClose( sqliteDatabase, tableUrl, content );
+		return result;
 	}
 	
 	/**
@@ -105,13 +115,23 @@ public class UrlDao extends Dao {
 	 * @param url
 	 *            URL to be deleted.
 	 */
-	public void deleteUrl( Url url ) {
-		sqliteDatabase = database.getWritableDatabase();
+	public boolean deleteUrl( Url url ) {
+		boolean result = false;
 		
-		sqliteDatabase.delete( tableUrl, "ID_UPDATE_URL=?",
-		        new String[] { url.getIdUpdateUrl() + "" } );
+		if( url != null ) {
+			sqliteDatabase = database.getWritableDatabase();
+			
+			sqliteDatabase.delete( tableUrl, "ID_UPDATE_URL=?",
+			        new String[] { url.getIdUpdateUrl() + "" } );
+			
+			sqliteDatabase.close();
+			
+			result = true;
+		} else {
+			result = false;
+		}
 		
-		sqliteDatabase.close();
+		return result;
 	}
 	
 	/**
