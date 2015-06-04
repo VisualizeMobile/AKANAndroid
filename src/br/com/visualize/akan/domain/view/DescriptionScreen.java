@@ -57,10 +57,10 @@ public class DescriptionScreen extends FragmentActivity implements
         OnDateSetListener {
 	private static final int EMPTY_VALUE_QUOTA = 0; // Measured in Real.
 	
+	private final int WHITE = 0xffF1F1F2;
+	private final int GREEN = 0xff00A69A;
 	private final int GRAY = 0xff536571;
 	private final int YELLOW = 0xffF3D171;
-	private final int GREEN = 0xff00A69A;
-	private final int WHITE = 0xffF1F1F2;
 	private final int RED = 0xffF16068;
 	
 	private static final int BUTTON = 1;
@@ -696,29 +696,29 @@ public class DescriptionScreen extends FragmentActivity implements
 			
 		} else if( 0.05 < percent && percent <= 0.25 ) {
 			colors[ 0 ] = WHITE;
-			colors[ 1 ] = GRAY;
-			colors[ 2 ] = GRAY;
-			colors[ 3 ] = GRAY;
-			colors[ 4 ] = GRAY;
-			
-		} else if( 0.25 < percent && percent <= 0.5 ) {
-			colors[ 0 ] = WHITE;
-			colors[ 1 ] = GRAY;
+			colors[ 1 ] = GREEN;
 			colors[ 2 ] = GREEN;
 			colors[ 3 ] = GREEN;
 			colors[ 4 ] = GREEN;
 			
+		} else if( 0.25 < percent && percent <= 0.5 ) {
+			colors[ 0 ] = WHITE;
+			colors[ 1 ] = GREEN;
+			colors[ 2 ] = GRAY;
+			colors[ 3 ] = GRAY;
+			colors[ 4 ] = GRAY;
+			
 		} else if( 0.5 < percent && percent <= 0.75 ) {
 			colors[ 0 ] = WHITE;
-			colors[ 1 ] = GRAY;
-			colors[ 2 ] = GREEN;
+			colors[ 1 ] = GREEN;
+			colors[ 2 ] = GRAY;
 			colors[ 3 ] = YELLOW;
 			colors[ 4 ] = YELLOW;
 			
 		} else if( 0.75 < percent && percent <= 1.0 ) {
 			colors[ 0 ] = WHITE;
-			colors[ 1 ] = GRAY;
-			colors[ 2 ] = GREEN;
+			colors[ 1 ] = GREEN;
+			colors[ 2 ] = GRAY;
 			colors[ 3 ] = YELLOW;
 			colors[ 4 ] = RED;
 			
