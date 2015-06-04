@@ -757,7 +757,7 @@ public class DescriptionScreen extends FragmentActivity implements
 		/*
 		 * The Mathematical Expression:
 		 * 
-		 * ( newHeight * 1000000 )/ 100
+		 * ( newHeight * 1000000 )/ 100 = newHeight * 10000 
 		 * 
 		 * Serves to maintain the proportionality between the last decimal value
 		 * and the total possible for the size of a ImagemView. A ImageView may
@@ -768,7 +768,7 @@ public class DescriptionScreen extends FragmentActivity implements
 		 * proportion between this value and the equivalent value in the range
 		 * 0-10000.
 		 */
-		int height = (int)( newHeight * 1000000 ) / 100;
+		int height = (int)( newHeight * 10000 );
 		
 		Drawable level = bar.getDrawable();
 		

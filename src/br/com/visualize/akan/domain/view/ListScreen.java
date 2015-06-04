@@ -82,8 +82,6 @@ public class ListScreen extends Activity {
 		        R.layout.congressmen_list_layout, congressmen );
 		currentLayout = R.layout.congressmen_list_layout;
 		followedCongressmen = congressmanController.getFollowedCongressman();
-		// listAdapter = new CongressmenListAdapter(this,
-		// R.layout.congressmen_list_layout, followedCongressmen);
 		
 		listView = (ListView)findViewById( R.id.listView );
 		
@@ -246,7 +244,7 @@ public class ListScreen extends Activity {
 		}
 		return true;
 		
-		// return super.onCreateOptionsMenu(menu);
+		//return super.onCreateOptionsMenu(menu);
 	}
 	
 	/**

@@ -21,6 +21,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
+import br.com.visualize.akan.api.helper.RoundedImageView;
 import br.com.visualize.akan.domain.model.Congressman;
 
 import com.squareup.picasso.Picasso;
@@ -88,10 +89,11 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 		
 		textViewUf.setText( congressmens.get( position ).getUfCongressman() );
 		
-		ImageView congressmanImage = (ImageView)view
+		RoundedImageView congressmanImage = (RoundedImageView)view
 		        .findViewById( R.id.ranking_layout_congressman_photo );
 		
 		Picasso.with( context ).load( URL_PHOTOS + idCongressman + ".jpg" )
+				.placeholder(R.drawable.default_photo)
 		        .error( R.drawable.default_photo ).into( congressmanImage );
 		
 		Button followCongressman = (Button)view
