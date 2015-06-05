@@ -240,7 +240,6 @@ public class ListScreen extends Activity {
 		}
 		return true;
 		
-		//return super.onCreateOptionsMenu(menu);
 	}
 	
 	/**
@@ -288,8 +287,6 @@ public class ListScreen extends Activity {
 			quotaController.deleteQuotasFromCongressman( congressman
 			        .getIdCongressman() );
 			
-			// rankingAdapter.notifyDataSetChanged();
-			
 		} else {
 			congressmanController.getCongresman().setStatusCogressman( true );
 			
@@ -303,7 +300,6 @@ public class ListScreen extends Activity {
 			followedCongressmen.add( congressman );
 			listAdapter.notifyDataSetChanged();
 			
-			// rankingAdapter.notifyDataSetChanged();
 			
 			customDialog.getWindow().clearFlags(
 			        WindowManager.LayoutParams.FLAG_DIM_BEHIND );

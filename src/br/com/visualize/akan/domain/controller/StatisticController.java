@@ -56,8 +56,6 @@ public class StatisticController {
 		String jsonStatisticList;
 		
 		jsonStatisticList = HttpConnection.request( responseHandler, url );
-		
-		//Log.e("STATISTIC 1 ",jsonStatisticList);
 		insertStatistics( JsonHelper.listStatisticsFromJSON(jsonStatisticList));
 	}
 	
@@ -70,7 +68,6 @@ public class StatisticController {
 		String jsonStatisticList;
 		
 		jsonStatisticList = HttpConnection.request( responseHandler, url );
-		//Log.e("STATISTIC 2 ",jsonStatisticList);
 		insertStatistics( JsonHelper.listStatisticsFromJSON(jsonStatisticList));
 	}
 	

@@ -8,7 +8,6 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import br.com.visualize.akan.domain.model.Statistic;
 
 
@@ -33,23 +32,18 @@ public class StatisticDao extends Dao{
 	public static StatisticDao getInstance( Context context ) {
 		if( instanceStatisticDao != null ) {
 			/* !Nothing To Do. */
-			
 		} else {
 			instanceStatisticDao = new StatisticDao( context );
 		}
-		
 		return instanceStatisticDao;
 	}
 	
 	public boolean insertStatisticsList( List<Statistic> insertedStatistics ) {
 		Iterator<Statistic> index = insertedStatistics.iterator();
-		
 		boolean result = true;
-		
 		while( index.hasNext() ) {
 			result = insertStatistic( index.next() );
 		}
-		
 		return result;
 	}
 	
@@ -79,21 +73,14 @@ public class StatisticDao extends Dao{
 		
 		while( cursor.moveToNext() ) {
 			Statistic statistic = new Statistic();
-			
 			statistic.setMonthByNumber( cursor.getInt( cursor.getColumnIndex( tableColumns[1] ) ) );
-			
 			statistic.setStdDeviation(cursor.getDouble(cursor.getColumnIndex(tableColumns[2])));
-			
 			statistic.setAverage(cursor.getDouble(cursor.getColumnIndex(tableColumns[3])));
-			
 			statistic.setMaxValue(cursor.getDouble(cursor.getColumnIndex(tableColumns[4])));
-			
 			statistic.setYear(cursor.getInt(cursor.getColumnIndex(tableColumns[5])));
-			Log.e("GET STATISTIC YEAR", statistic.getYear()+"");
 			statistic.setSubquotaByNumber(cursor.getInt(cursor.getColumnIndex(tableColumns[6])));
 					
 			listStatistic.add( statistic );
-			
 			}
 		return listStatistic;
 	}

@@ -18,7 +18,6 @@ import org.apache.http.client.ResponseHandler;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import br.com.visualize.akan.api.dao.QuotaDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
@@ -216,7 +215,6 @@ public class QuotaController {
 		List<Long> periodDate = new ArrayList<Long>();
 		int idCongressman = congressmanController.getCongresman()
 		        .getIdCongressman();
-		Log.e( "ID CONGRESSMAN NAS DATAS", "" + idCongressman );
 		Long dateMin;
 		Long dateMax;
 		String dateToConversion;
@@ -233,19 +231,14 @@ public class QuotaController {
 		majorYear = Collections.max( listYears );
 		minorYear = Collections.min( listYears );
 		
-		Log.e( "Maior ano", "" + majorYear );
-		Log.e( "Menor ano", "" + minorYear );
-		
 		monthsMajorYear = quotaDao.getMonthsFromCurrentYear( majorYear,
 		        idCongressman );
 		majorMonth = Collections.max( monthsMajorYear );
 		
-		Log.e( "Maior mes", "" + majorMonth );
 		
 		// convert to date format
 		dateToConversion = minorYear + "-01-01 00:00:00";
 		
-		Log.e( "Data a ser convertida", dateToConversion );
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 		        "yyyy-MM-dd HH:mm:ss" );
@@ -254,11 +247,7 @@ public class QuotaController {
 		
 		dateMin = date.getTime();
 		
-		Log.e( "dentro do maxmin", "" + dateMin );
-		
 		dateToConversion = majorYear + "-" + majorMonth + "-01 00:00:01";
-		
-		Log.e( "Data a ser convertida", dateToConversion );
 		
 		date = dateFormat.parse( dateToConversion );
 		dateMax = date.getTime();
@@ -279,7 +268,6 @@ public class QuotaController {
 			int majorYear = Collections.max( quotaDao.getYears() );
 			majorMonth = Collections.max( quotaDao.getMonthsFromCurrentYear(
 			        majorYear, idCongressman ) );
-			Log.e( "mes corrent", "" + majorMonth );
 			calendar.set( majorYear, majorMonth, 1 );
 			
 		} catch( Exception e ) {
