@@ -215,17 +215,19 @@ public class CongressmanDao extends Dao {
 	 *            The name of the congressman sought.
 	 *            <p>
 	 * @return A congressman sought.
+	 * @throws LocalDatabaseInvalidOperationException 
 	 */
 	public List<Congressman> selectCongressmanByName( String congressmanName ) {
+	    List<Congressman> listCongressmen = new ArrayList<Congressman>();
 		
 		sqliteDatabase = database.getReadableDatabase();
 		
+		String[] whereArgs = { congressmanName };
+		
 		String query = "SELECT * FROM " + tableName
-		        + " WHERE NAME_CONGRESSMAN = " + congressmanName;
+		        + " WHERE NAME_CONGRESSMAN = ?";
 		
-		Cursor cursor = sqliteDatabase.rawQuery( query, null );
-		
-		List<Congressman> listParlamentares = new ArrayList<Congressman>();
+		Cursor cursor = sqliteDatabase.rawQuery( query, whereArgs );
 		
 		while( cursor.moveToNext() ) {
 			
@@ -257,12 +259,12 @@ public class CongressmanDao extends Dao {
 			congressman.setIdUpdateCongressman( cursor.getInt( cursor
 			        .getColumnIndex( "ID_UPDATE" ) ) );
 			
-			listParlamentares.add( congressman );
+			listCongressmen.add( congressman );
 		}
-		
+	
 		sqliteDatabase.close();
 		
-		return listParlamentares;
+		return listCongressmen;
 	}
 	
 	private static boolean convertStringToBool( String string ) {
