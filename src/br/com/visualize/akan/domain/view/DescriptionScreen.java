@@ -36,6 +36,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
+import br.com.visualize.akan.api.helper.RoundedImageView;
 import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.controller.QuotaController;
@@ -203,10 +204,11 @@ public class DescriptionScreen extends FragmentActivity implements
 		
 		textViewTopBarName.setText( congressman.getNameCongressman() );
 		
-		ImageView congressmanImage = (ImageView)findViewById( R.id.description_congressman_photo );
+		RoundedImageView congressmanImage = (RoundedImageView)findViewById( R.id.description_congressman_photo );
 		
 		Picasso.with( context )
 		        .load( photoCongressmanUrl + idCongressman + ".jpg" )
+		        .placeholder(R.drawable.default_photo)
 		        .error( R.drawable.default_photo ).into( congressmanImage );
 		
 		Button followCongressman = (Button)findViewById( R.id.description_btn_follow );
