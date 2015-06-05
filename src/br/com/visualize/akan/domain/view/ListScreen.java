@@ -49,7 +49,6 @@ public class ListScreen extends Activity {
 	CongressmanController congressmanController;
 	QuotaController quotaController;
 	CongressmenListAdapter listAdapter;
-	// CongressmenListAdapter followAdapter;
 	ListView listView;
 	SearchView search;
 	String query;
@@ -156,9 +155,6 @@ public class ListScreen extends Activity {
 				
 				Intent i = new Intent( ListScreen.this, DescriptionScreen.class );
 				startActivity( i );
-				Toast toast = Toast.makeText( getApplicationContext(),
-				        congressman.getNameCongressman(), Toast.LENGTH_SHORT );
-				toast.show();
 			}
 		} );
 	}
@@ -333,7 +329,6 @@ public class ListScreen extends Activity {
 					} catch( Exception e ) {
 						// TODO launch error alert
 						e.printStackTrace();
-						
 					}
 					
 					Looper.loop();

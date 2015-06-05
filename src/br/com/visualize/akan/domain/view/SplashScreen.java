@@ -15,6 +15,7 @@ import android.os.Looper;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.controller.CongressmanController;
+import br.com.visualize.akan.domain.controller.StatisticController;
 
 
 /**
@@ -23,6 +24,7 @@ import br.com.visualize.akan.domain.controller.CongressmanController;
 public class SplashScreen extends Activity {
 	
 	public CongressmanController congressmanController;
+	public StatisticController statisticController;
 	
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
@@ -30,6 +32,8 @@ public class SplashScreen extends Activity {
 		setContentView( R.layout.splash_screen_activity );
 		congressmanController = CongressmanController
 		        .getInstance( getApplicationContext() );
+		statisticController = StatisticController
+				.getInstance(getApplicationContext());
 		
 		requestCongressman();
 	}
@@ -53,8 +57,9 @@ public class SplashScreen extends Activity {
 					ResponseHandler<String> responseHandler = HttpConnection
 					        .getResponseHandler();
 					
-					congressmanController
-					        .requestAllCongressman( responseHandler );
+					congressmanController.requestAllCongressman( responseHandler );
+					statisticController.requestStatistics(responseHandler);
+					
 				} catch( Exception e ) {
 					// TODO: handle exception
 				}

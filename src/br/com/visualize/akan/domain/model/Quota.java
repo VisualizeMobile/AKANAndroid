@@ -112,10 +112,9 @@ public class Quota {
 			break;
 		default:
 			setTypeQuota(SubQuota.WITHOUT_TYPE);
-			
-			
 		}
 	}
+	
 public void setTypeMonthByNumber (int type){
 		
 		switch(type){

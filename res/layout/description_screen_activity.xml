@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:text="Nome Parlamentar"
+            android:text="@string/congressman_name"
             android:textColor="#ffffff"
             android:textSize="20sp" /> 
            
@@ -27,7 +27,9 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
+            android:contentDescription="@string/image_description_default"
             android:onClick="backToList" />
         
 	</RelativeLayout>
@@ -99,6 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/description_txt_congressman_name"
+            android:layout_marginStart="25dp"
             android:layout_marginLeft="25dp"
             android:text="@string/place"
             android:textColor="#536571"
@@ -111,6 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/description_txt_place"
             android:text="@string/ranking_position"
+            android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp"
             android:textColor="#536571"
             android:textStyle="bold"
@@ -121,7 +125,9 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_above="@+id/description_txt_place"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_marginEnd="40dp"
             android:layout_marginRight="40dp"
             android:onClick="onFollowedCongressman"
             android:background="@drawable/followed_button"/>
@@ -132,6 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/description_txt_place"
             android:layout_alignBottom="@+id/description_txt_place"
+            android:layout_alignEnd="@+id/description_btn_follow"
             android:layout_alignRight="@+id/description_btn_follow"
             android:text="@string/follow"
             android:textColor="#536571"
@@ -151,14 +158,14 @@
             android:id="@+id/layout_description_quotas"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_description_crongressman"
-            android:paddingLeft="15dp" >
+            android:background="@drawable/background_description_crongressman" >
             
            <ImageView
                 android:id="@+id/bkg_quota_technical_work_and_consulting"
                 android:contentDescription="@string/image_description_default"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/background_technical_work_and_consulting" />

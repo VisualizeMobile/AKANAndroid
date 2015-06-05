@@ -8,31 +8,298 @@
 package br.com.visualize.akan;
 
 public final class R {
+    public static final class anim {
+        public static final int bounce=0x7f040000;
+        public static final int layout_animation=0x7f040001;
+        public static final int level_bar_accommodation=0x7f040002;
+        public static final int level_bar_air_freight=0x7f040003;
+        public static final int level_bar_alimentation=0x7f040004;
+        public static final int level_bar_disclosure_parliamentary_activity=0x7f040005;
+        public static final int level_bar_fuel=0x7f040006;
+        public static final int level_bar_issuance_of_air_tickets=0x7f040007;
+        public static final int level_bar_office=0x7f040008;
+        public static final int level_bar_postal_services=0x7f040009;
+        public static final int level_bar_safety=0x7f04000a;
+        public static final int level_bar_signature_of_publication=0x7f04000b;
+        public static final int level_bar_technical_work_and_consulting=0x7f04000c;
+        public static final int level_bar_telephony=0x7f04000d;
+        public static final int scale=0x7f04000e;
+        public static final int up_from_bottom=0x7f04000f;
+    }
+    public static final class array {
+        public static final int month_names=0x7f090000;
+    }
     public static final class attr {
     }
+    public static final class color {
+        public static final int white=0x7f080000;
+    }
+    public static final class dimen {
+        /**  Default screen margins, per the Android Design guidelines. 
+         */
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
+    }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int active_followed=0x7f020000;
+        public static final int active_followed_bigger=0x7f020001;
+        public static final int active_option=0x7f020002;
+        public static final int active_ranking=0x7f020003;
+        public static final int active_ranking_bigger=0x7f020004;
+        public static final int active_search=0x7f020005;
+        public static final int active_search_bigger=0x7f020006;
+        public static final int back_arrow=0x7f020007;
+        public static final int back_arrow_pressed=0x7f020008;
+        public static final int back_button_topbar=0x7f020009;
+        public static final int background_accommodation=0x7f02000a;
+        public static final int background_air_freight=0x7f02000b;
+        public static final int background_alimentation=0x7f02000c;
+        public static final int background_congressman_data=0x7f02000d;
+        public static final int background_description_crongressman=0x7f02000e;
+        public static final int background_disclosure_parliamentary_activity=0x7f02000f;
+        public static final int background_fuel=0x7f020010;
+        public static final int background_issuance_of_air_tickets=0x7f020011;
+        public static final int background_office=0x7f020012;
+        public static final int background_photo=0x7f020013;
+        public static final int background_postal_services=0x7f020014;
+        public static final int background_safety=0x7f020015;
+        public static final int background_signature_of_publication=0x7f020016;
+        public static final int background_technical_work_and_consulting=0x7f020017;
+        public static final int background_telephony=0x7f020018;
+        public static final int bottom_bar=0x7f020019;
+        public static final int check_symbol=0x7f02001a;
+        public static final int close=0x7f02001b;
+        public static final int complete_list_bar=0x7f02001c;
+        public static final int configuration=0x7f02001d;
+        public static final int configuration_bigger=0x7f02001e;
+        public static final int default_photo=0x7f02001f;
+        public static final int default_photo_bigger=0x7f020020;
+        public static final int design=0x7f020021;
+        public static final int design_bigger=0x7f020022;
+        public static final int development=0x7f020023;
+        public static final int development_bigger=0x7f020024;
+        public static final int dismiss=0x7f020025;
+        public static final int extended_bar=0x7f020026;
+        public static final int filter_party=0x7f020027;
+        public static final int filter_spent=0x7f020028;
+        public static final int filter_state=0x7f020029;
+        public static final int followed_bar=0x7f02002a;
+        public static final int followed_button=0x7f02002b;
+        public static final int following=0x7f02002c;
+        public static final int forefinger_black=0x7f02002d;
+        public static final int forefinger_green=0x7f02002e;
+        public static final int forefinger_red=0x7f02002f;
+        public static final int frame_party=0x7f020030;
+        public static final int frame_spent=0x7f020031;
+        public static final int frame_state=0x7f020032;
+        public static final int hand_black=0x7f020033;
+        public static final int hand_red=0x7f020034;
+        public static final int ic_launcher=0x7f020035;
+        public static final int inactive_followed=0x7f020036;
+        public static final int inactive_followed_bigger=0x7f020037;
+        public static final int inactive_option=0x7f020038;
+        public static final int inactive_ranking=0x7f020039;
+        public static final int inactive_ranking_bigger=0x7f02003a;
+        public static final int inactive_search=0x7f02003b;
+        public static final int inactive_search_bigger=0x7f02003c;
+        public static final int indicate=0x7f02003d;
+        public static final int indicate_diagonal=0x7f02003e;
+        public static final int launch=0x7f02003f;
+        public static final int launch_bigger=0x7f020040;
+        public static final int level_accommodation=0x7f020041;
+        public static final int level_air_freight=0x7f020042;
+        public static final int level_alimentation=0x7f020043;
+        public static final int level_disclosure_parliamentary_activity=0x7f020044;
+        public static final int level_fuel=0x7f020045;
+        public static final int level_issuance_of_air_tickets=0x7f020046;
+        public static final int level_office=0x7f020047;
+        public static final int level_postal_services=0x7f020048;
+        public static final int level_safety=0x7f020049;
+        public static final int level_signature_of_publication=0x7f02004a;
+        public static final int level_technical_work_and_consulting=0x7f02004b;
+        public static final int level_telephony=0x7f02004c;
+        public static final int logo=0x7f02004d;
+        public static final int logo_bigger=0x7f02004e;
+        public static final int normal_bar=0x7f02004f;
+        public static final int not_following=0x7f020050;
+        public static final int order_active_alphabetic=0x7f020051;
+        public static final int order_active_party=0x7f020052;
+        public static final int order_active_ranking=0x7f020053;
+        public static final int order_active_state=0x7f020054;
+        public static final int order_inactive_alphabetic=0x7f020055;
+        public static final int order_inactive_party=0x7f020056;
+        public static final int order_inactive_ranking=0x7f020057;
+        public static final int order_inactive_state=0x7f020058;
+        public static final int pesquisa=0x7f020059;
+        public static final int profile_configuration=0x7f02005a;
+        public static final int quota_accommodation=0x7f02005b;
+        public static final int quota_air_freight=0x7f02005c;
+        public static final int quota_alimentation=0x7f02005d;
+        public static final int quota_disclosure_parliamentary_activity=0x7f02005e;
+        public static final int quota_fuel=0x7f02005f;
+        public static final int quota_issuance_of_air_tickets=0x7f020060;
+        public static final int quota_office=0x7f020061;
+        public static final int quota_postal_services=0x7f020062;
+        public static final int quota_safety=0x7f020063;
+        public static final int quota_signature_of_publication=0x7f020064;
+        public static final int quota_technical_work_and_consulting=0x7f020065;
+        public static final int quota_telephony=0x7f020066;
+        public static final int ranking1=0x7f020067;
+        public static final int search_bar=0x7f020068;
+        public static final int share=0x7f020069;
+        public static final int share_bigger=0x7f02006a;
+        public static final int top_bar=0x7f02006b;
+    }
+    public static final class id {
+        public static final int LinearLayout=0x7f0c0046;
+        public static final int action_search=0x7f0c0054;
+        public static final int bar_quota_accommodation=0x7f0c003e;
+        public static final int bar_quota_air_freight=0x7f0c0036;
+        public static final int bar_quota_alimentation=0x7f0c002e;
+        public static final int bar_quota_disclosure_parliamentary_activity=0x7f0c0042;
+        public static final int bar_quota_fuel=0x7f0c0032;
+        public static final int bar_quota_issuance_of_air_tickets=0x7f0c0026;
+        public static final int bar_quota_office=0x7f0c003a;
+        public static final int bar_quota_postal_services=0x7f0c0022;
+        public static final int bar_quota_safety=0x7f0c002a;
+        public static final int bar_quota_technical_work_and_consulting=0x7f0c001a;
+        public static final int bar_quota_telephony=0x7f0c001e;
+        public static final int bkg_quota_accommodation=0x7f0c003c;
+        public static final int bkg_quota_air_freight=0x7f0c0034;
+        public static final int bkg_quota_alimentation=0x7f0c002c;
+        public static final int bkg_quota_disclosure_parliamentary_activity=0x7f0c0040;
+        public static final int bkg_quota_fuel=0x7f0c0030;
+        public static final int bkg_quota_issuance_of_air_tickets=0x7f0c0024;
+        public static final int bkg_quota_office=0x7f0c0038;
+        public static final int bkg_quota_postal_services=0x7f0c0020;
+        public static final int bkg_quota_safety=0x7f0c0028;
+        public static final int bkg_quota_technical_work_and_consulting=0x7f0c0018;
+        public static final int bkg_quota_telephony=0x7f0c001c;
+        public static final int btn_follow=0x7f0c004c;
+        public static final int btn_quota_accommodation=0x7f0c003d;
+        public static final int btn_quota_air_freight=0x7f0c0035;
+        public static final int btn_quota_alimentation=0x7f0c002d;
+        public static final int btn_quota_disclosure_parliamentary_activity=0x7f0c0041;
+        public static final int btn_quota_fuel=0x7f0c0031;
+        public static final int btn_quota_issuance_of_air_tickets=0x7f0c0025;
+        public static final int btn_quota_office=0x7f0c0039;
+        public static final int btn_quota_postal_services=0x7f0c0021;
+        public static final int btn_quota_safety=0x7f0c0029;
+        public static final int btn_quota_technical_work_and_consulting=0x7f0c0019;
+        public static final int btn_quota_telephony=0x7f0c001d;
+        public static final int btn_ranking=0x7f0c004b;
+        public static final int btn_search=0x7f0c004d;
+        public static final int container=0x7f0c0049;
+        public static final int description_btn_follow=0x7f0c0013;
+        public static final int description_congressman_photo=0x7f0c000d;
+        public static final int description_txt_congressman_name=0x7f0c000e;
+        public static final int description_txt_congressman_party=0x7f0c000f;
+        public static final int description_txt_follow=0x7f0c0014;
+        public static final int description_txt_ordinary_symbol=0x7f0c0010;
+        public static final int description_txt_place=0x7f0c0012;
+        public static final int description_txt_ranking_position=0x7f0c0011;
+        public static final int dialogMessage=0x7f0c0048;
+        public static final int dialogTitle=0x7f0c0047;
+        public static final int footer=0x7f0c0016;
+        public static final int hint_search=0x7f0c0055;
+        public static final int layout_crongressman_datas=0x7f0c000c;
+        public static final int layout_description_quotas=0x7f0c0017;
+        public static final int layout_style_photo=0x7f0c0001;
+        public static final int listView=0x7f0c004a;
+        public static final int list_btn_follow=0x7f0c0008;
+        public static final int ranking_layout_congressman_photo=0x7f0c0002;
+        public static final int ranking_layout_content_value=0x7f0c0050;
+        public static final int ranking_layout_position=0x7f0c004e;
+        public static final int ranking_layout_txt_congressman_name=0x7f0c0005;
+        public static final int ranking_layout_txt_congressman_party=0x7f0c0004;
+        public static final int ranking_layout_txt_espace=0x7f0c0006;
+        public static final int ranking_layout_txt_monetary_symbol=0x7f0c0052;
+        public static final int ranking_layout_txt_ordinary_symbol=0x7f0c004f;
+        public static final int ranking_layout_txt_value=0x7f0c0051;
+        public static final int reference_month=0x7f0c0045;
+        public static final int scroll_description_screen=0x7f0c0015;
+        public static final int teste=0x7f0c0053;
+        public static final int textView1=0x7f0c0044;
+        public static final int textView2=0x7f0c0003;
+        public static final int title_action_bar=0x7f0c0000;
+        public static final int topbar_back_button=0x7f0c000b;
+        public static final int topbar_congressman=0x7f0c000a;
+        public static final int topbar_description=0x7f0c0009;
+        public static final int txt_home_state=0x7f0c0007;
+        public static final int txt_quota_accommodation=0x7f0c003f;
+        public static final int txt_quota_air_freight=0x7f0c0037;
+        public static final int txt_quota_alimentation=0x7f0c002f;
+        public static final int txt_quota_disclosure_parliamentary_activity=0x7f0c0043;
+        public static final int txt_quota_fuel=0x7f0c0033;
+        public static final int txt_quota_issuance_of_air_tickets=0x7f0c0027;
+        public static final int txt_quota_office=0x7f0c003b;
+        public static final int txt_quota_postal_services=0x7f0c0023;
+        public static final int txt_quota_safety=0x7f0c002b;
+        public static final int txt_quota_technical_work_and_consulting=0x7f0c001b;
+        public static final int txt_quota_telephony=0x7f0c001f;
     }
     public static final class layout {
         public static final int about_akan_screen_activity=0x7f030000;
-        public static final int description_screen_activity=0x7f030001;
-        public static final int list_screen_activity=0x7f030002;
-        public static final int splash_screen_activity=0x7f030003;
+        public static final int action_bar=0x7f030001;
+        public static final int activity_quota_graph_screen=0x7f030002;
+        public static final int back_button_topbar=0x7f030003;
+        public static final int border=0x7f030004;
+        public static final int congressmen_list_layout=0x7f030005;
+        public static final int description_screen_activity=0x7f030006;
+        public static final int dialog_layout=0x7f030007;
+        public static final int list_screen_activity=0x7f030008;
+        public static final int ranking_layout=0x7f030009;
+        public static final int splash_screen_activity=0x7f03000a;
+    }
+    public static final class menu {
+        public static final int menu=0x7f0b0000;
     }
     public static final class string {
-        public static final int app_name=0x7f040000;
+        public static final int FedUnity=0x7f070027;
+        public static final int app_name=0x7f070000;
+        public static final int congressman=0x7f070029;
+        public static final int congressman_home_state=0x7f070010;
+        public static final int congressman_name=0x7f07000d;
+        public static final int congressman_party=0x7f07000e;
+        public static final int follow=0x7f070023;
+        public static final int followed=0x7f070024;
+        public static final int hint_search=0x7f07000c;
+        public static final int image_description_default=0x7f070013;
+        public static final int image_description_photo=0x7f070012;
+        public static final int image_description_quota_accommodation=0x7f07001d;
+        public static final int image_description_quota_air_freight=0x7f07001b;
+        public static final int image_description_quota_alimentation=0x7f070019;
+        public static final int image_description_quota_disclosure_parliamentary_activity=0x7f07001e;
+        public static final int image_description_quota_fuel=0x7f07001a;
+        public static final int image_description_quota_issuance_of_air_tickets=0x7f070017;
+        public static final int image_description_quota_office=0x7f07001c;
+        public static final int image_description_quota_postal_service=0x7f070016;
+        public static final int image_description_quota_safety=0x7f070018;
+        public static final int image_description_quota_technical_work_and_consulting=0x7f070015;
+        public static final int image_description_quota_telephony=0x7f070014;
+        public static final int layout_style_photo=0x7f070026;
+        public static final int monetary_symbol=0x7f070020;
+        public static final int name=0x7f070028;
+        public static final int ordinary_symbol=0x7f07000f;
+        public static final int party=0x7f070025;
+        public static final int place=0x7f070022;
+        public static final int ranking_position=0x7f070011;
+        public static final int total_expenditure=0x7f070021;
+        public static final int trace=0x7f07001f;
+        public static final int value_quota_accommodation=0x7f07000a;
+        public static final int value_quota_air_freight=0x7f070008;
+        public static final int value_quota_alimentation=0x7f070006;
+        public static final int value_quota_disclosure_parliamentary_activity=0x7f07000b;
+        public static final int value_quota_fuel=0x7f070007;
+        public static final int value_quota_issuance_of_air_tickets=0x7f070004;
+        public static final int value_quota_office=0x7f070009;
+        public static final int value_quota_postal_sevices=0x7f070003;
+        public static final int value_quota_safety=0x7f070005;
+        public static final int value_quota_technical_work_and_consulting=0x7f070001;
+        public static final int value_quota_telephony=0x7f070002;
     }
     public static final class style {
         /** 
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
-
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
     
@@ -44,10 +311,18 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f050000;
+        public static final int AppBaseTheme=0x7f0a0002;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f050001;
+        public static final int CustomActionBar=0x7f0a0001;
+        /** 
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+         */
+        public static final int CustomActionBarTheme=0x7f0a0000;
+    }
+    public static final class xml {
+        public static final int searchable=0x7f050000;
     }
 }

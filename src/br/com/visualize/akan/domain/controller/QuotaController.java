@@ -13,13 +13,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
 import org.apache.http.client.ResponseHandler;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import br.com.visualize.akan.api.dao.QuotaDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
+import br.com.visualize.akan.domain.exception.NullQuotaException;
 import br.com.visualize.akan.domain.model.Quota;
 
 
@@ -77,7 +80,12 @@ public class QuotaController {
 	 *            List of quotas to be inserted.
 	 */
 	public void insertQuotasOnCongressman( List<Quota> insertedQuotas ) {
-		/* ! Write Instructions Here. */
+		try {
+			quotaDao.insertQuotasById(insertedQuotas);
+		} catch (NullQuotaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -129,9 +137,6 @@ public class QuotaController {
 	public List<Quota> getQuotaById( int id,
 	        ResponseHandler<String> responseHandler ) throws Exception {
 		
-		@SuppressWarnings( "unused" )
-		Context context;
-		
 		if( responseHandler != null ) {
 			
 			String url = urlController.quotasWithCongressmanIdUrl( id );
@@ -141,13 +146,13 @@ public class QuotaController {
 			setQuotaList( JsonHelper
 			        .listQuotaByIdCongressmanFromJSON( jsonQuota ) );
 			
-			quotaDao.insertQuotasById( getQuotaList() );
+			quotaDao.insertQuotasById( getQuotaList(id) );
 			
 		} else {
 			/* ! Nothing To Do. */
 		}
 		
-		return getQuotaList();
+		return getQuotaList(id);
 	}
 	
 	/* TODO: Write JAVADOC. */
@@ -169,8 +174,11 @@ public class QuotaController {
 	 * 
 	 * @return List of quotas associated with QuotaController.
 	 */
-	private List<Quota> getQuotaList() {
-		
+	private List<Quota> getQuotaList(int idCongressman) {
+		if(quotaList==null){
+			quotaList = quotaDao.getQuotasByIdCongressman(idCongressman);
+				
+		}
 		return quotaList;
 	}
 	
@@ -180,9 +188,9 @@ public class QuotaController {
 	 * 
 	 * @return List of quotas filtered by month and year .
 	 */
-	public List<Quota> getQuotaByDate( int month, int year ) {
+	public List<Quota> getQuotaByDate( int month, int year, int id ) {
 		List<Quota> quotasByDate = new ArrayList<Quota>();
-		Iterator<Quota> iterator = getQuotaList().iterator();
+		Iterator<Quota> iterator = getQuotaList(id).iterator();
 		
 		while( iterator.hasNext() ) {
 			Quota quota = iterator.next();

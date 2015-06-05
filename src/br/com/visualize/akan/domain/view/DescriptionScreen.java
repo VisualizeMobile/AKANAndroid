@@ -112,14 +112,12 @@ public class DescriptionScreen extends FragmentActivity implements
 			
 		} else {
 			month = quotaController.initializeDateFromQuotas();
-			
-			setValuesQuotas( congressmanController.getCongresman()
-			        .getIdCongressman() );
+			setValuesQuotas();
 		}
 		
 		referenceMonth = (TextView)findViewById( R.id.reference_month );
 		
-		setRerenceMonth();
+		setReferenceMonth();
 	}
 	
 	@Override
@@ -161,10 +159,9 @@ public class DescriptionScreen extends FragmentActivity implements
 		
 		resetSubQuotaAccordingType();
 		
-		setRerenceMonth();
+		setReferenceMonth();
 		
-		setValuesQuotas( congressmanController.getCongresman()
-		        .getIdCongressman() );
+		setValuesQuotas();
 	}
 	
 	@Override
@@ -265,10 +262,9 @@ public class DescriptionScreen extends FragmentActivity implements
 						
 						month = quotaController.initializeDateFromQuotas();
 						
-						setValuesQuotas( congressmanController.getCongresman()
-						        .getIdCongressman() );
+						setValuesQuotas();
 						
-						setRerenceMonth();
+						setReferenceMonth();
 						
 						progress.dismiss();
 						
@@ -287,18 +283,18 @@ public class DescriptionScreen extends FragmentActivity implements
 	 *            Numeric identifier of congressman that must have deleted the
 	 *            quotas.
 	 */
-	public void setValuesQuotas( int idCongressman ) {
+	public void setValuesQuotas() {
 		
 		double totalAmountSpent = 0.00;
 		
 		Iterator<Quota> iteratorQuota = quotaController.getQuotaByDate( month,
-		        year ).iterator();
+		        year, congressmanController.getCongresman().getIdCongressman()).iterator();
 		
 		while( iteratorQuota.hasNext() ) {
 			Quota analyzedQuota = iteratorQuota.next();
 			
 			analyzedQuota.setStatisticQuota( statisticController
-			        .getStatisticByYear( year ) );
+			        .getGeneralStatistic( analyzedQuota.getTypeQuota().getValueSubQuota() ) );
 			
 			SubQuota typeSubQuota = analyzedQuota.getTypeQuota();
 			
@@ -690,14 +686,7 @@ public class DescriptionScreen extends FragmentActivity implements
 	private int[ ] selectImageColor( double percent ) {
 		int[ ] colors = new int[ 5 ];
 		
-		if( percent < 0.05 ) {
-			colors[ 0 ] = WHITE;
-			colors[ 1 ] = WHITE;
-			colors[ 2 ] = WHITE;
-			colors[ 3 ] = WHITE;
-			colors[ 4 ] = WHITE;
-			
-		} else if( 0.05 < percent && percent <= 0.25 ) {
+		if( 0.0 < percent && percent <= 0.25 ) {
 			colors[ 0 ] = WHITE;
 			colors[ 1 ] = GREEN;
 			colors[ 2 ] = GREEN;
@@ -737,7 +726,7 @@ public class DescriptionScreen extends FragmentActivity implements
 		ValueAnimator colorAnimator = ObjectAnimator.ofInt( image,
 		        "backgroundColor", colors );
 		
-		colorAnimator.setDuration( 3000 );
+		colorAnimator.setDuration( 1000 );
 		colorAnimator.setEvaluator( new ArgbEvaluator() );
 		colorAnimator.setInterpolator( new DecelerateInterpolator() );
 		
@@ -748,7 +737,7 @@ public class DescriptionScreen extends FragmentActivity implements
 		ValueAnimator colorAnimator = ObjectAnimator.ofInt( bar, "colorFilter",
 		        colors );
 		
-		colorAnimator.setDuration( 3000 );
+		colorAnimator.setDuration( 1000 );
 		colorAnimator.setEvaluator( new ArgbEvaluator() );
 		colorAnimator.setInterpolator( new DecelerateInterpolator() );
 		
@@ -771,6 +760,7 @@ public class DescriptionScreen extends FragmentActivity implements
 		 * proportion between this value and the equivalent value in the range
 		 * 0-10000.
 		 */
+		
 		int height = (int)( newHeight * 10000 );
 		
 		Drawable level = bar.getDrawable();
@@ -778,7 +768,7 @@ public class DescriptionScreen extends FragmentActivity implements
 		ValueAnimator heightAnimator = ObjectAnimator.ofInt( level, "level",
 		        height );
 		
-		heightAnimator.setDuration( 3000 );
+		heightAnimator.setDuration( 1000 );
 		heightAnimator.setInterpolator( new DecelerateInterpolator() );
 		
 		heightAnimator.start();
@@ -852,7 +842,7 @@ public class DescriptionScreen extends FragmentActivity implements
 	/**
 	 * Set up reference month text
 	 */
-	public void setRerenceMonth() {
+	public void setReferenceMonth() {
 		
 		String monthText = getApplication().getResources().getStringArray(
 		        R.array.month_names )[ month - 1 ];

@@ -40,7 +40,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String statisticTable = "CREATE TABLE [STATISTIC] "
 	        + "([ID_STATISTIC] VARCHAR(10), [MONTH_STATISTIC] INT, "
 	        + "[STD_DEVIATION] DOUBLE, [AVERAGE_STATISTIC] DOUBLE, "
-	        + "[MAX_VALUE_STATISTIC] DOUBLE, ID_SUBQUOTA VARCHAR(10));";
+	        + "[MAX_VALUE_STATISTIC] DOUBLE, [YEAR_STATISTIC] INT,"
+	        + "ID_SUBQUOTA INT(10));";
 	
 	public DatabaseHelper( Context context ) {
 		super( context, dbName, null, 1 );

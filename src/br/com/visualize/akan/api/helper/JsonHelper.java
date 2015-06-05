@@ -13,6 +13,7 @@ import org.json.JSONException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Quota;
+import br.com.visualize.akan.domain.model.Statistic;
 
 
 /**
@@ -136,5 +137,82 @@ public class JsonHelper {
 		}
 		
 		return quotaList;
+	}
+	
+	/**
+	 * This server response to produce and return a list of Statistics.
+	 * <p>
+	 * 
+	 * @param jsonStatisticList
+	 *            Representation of the JSON of Quotas list.
+	 *            <p>
+	 * @return List of Quotas
+	 *         <p>
+	 * @throws JSONException
+	 */
+	public static List<Statistic> listStatisticsFromJSON(
+	        String jsonStatisticList )
+	        throws NullCongressmanException, JSONException {
+		
+		List<Statistic> statisticList = new ArrayList<Statistic>();
+		
+		Statistic statistic;
+		JSONArray jArray = new JSONArray( jsonStatisticList );
+		
+		try {
+			
+			for( int index = 0; index < jArray.length(); index++ ) {
+				statistic = new Statistic();
+				/*
+				 * some statistics does not have referenced month
+				 * */
+				int month;
+				try{
+					month = jArray.getJSONObject( index ).getInt( "mes" );
+				}catch(JSONException e) {
+					month = 0;
+				}
+				statistic.setMonthByNumber(month);
+				
+				statistic.setSubquotaByNumber(jArray.getJSONObject(index)
+						.getInt( "numsubcota"));
+				
+				/*
+				 * some statistics does not have referenced year
+				 * */
+				int year;
+				try{
+					year = jArray.getJSONObject( index ).getInt( "ano" );
+				}catch(JSONException e) {
+					year = 0;
+				}
+				statistic.setYear(year);
+				
+				statistic.setAverage( jArray.getJSONObject( index )
+				        .getDouble( "valor_medio" ) );
+				
+				statistic.setMaxValue( jArray.getJSONObject( index )
+				        .getDouble( "valor_maximo" ) );
+				
+				/*
+				 * some statistics does not have referenced std deviation
+				 * */
+				double stdDevition;
+				try{
+					stdDevition = jArray.getJSONObject( index )
+				        .getDouble( "desvio_padrao" );
+				}catch(JSONException e) {
+					stdDevition = 0.0;
+				}
+				statistic.setStdDeviation(stdDevition);
+							
+				statisticList.add( statistic );
+			}
+			
+		} catch( NullPointerException npe ) {
+			throw new NullCongressmanException();
+		}
+		
+		return statisticList;
 	}
 }

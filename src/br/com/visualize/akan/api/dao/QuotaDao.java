@@ -169,8 +169,7 @@ public class QuotaDao extends Dao {
 			quota.setValueQuota( cursor.getDouble( cursor
 			        .getColumnIndex( "VALUE_QUOTA" ) ) );
 			
-			quota.setStatisticQuota( statisticDao.getStatisticByYear( quota
-			        .getYearReferenceQuota() ) );
+			quota.setStatisticQuota( statisticDao.getGeneralStatistic( quota.getTypeQuota().getValueSubQuota() ) );
 			
 			listQuotas.add( quota );
 		}

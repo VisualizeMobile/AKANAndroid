@@ -70,7 +70,19 @@ public class UrlController {
 	public String quotasWithCongressmanIdUrl( Integer id ) {
 		String url = "http://107.170.177.5/akan/cota/parlamentar/"+id+"/";
 				
+		return url;
+	}
+	
+	public String statisticsPerMonthUrl(){
+		String url = "http://107.170.177.5/akan/cota/media-maximo-por-periodo";
 		
 		return url;
 	}
+	
+	public String statisticsStdDeviationUrl(){
+		String url = "http://107.170.177.5/akan/cota/media-maximo-desvio";
+		
+		return url;
+	}
+	
 }
