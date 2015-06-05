@@ -13,6 +13,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import br.com.visualize.akan.api.helper.DatabaseHelper;
+import br.com.visualize.akan.domain.exception.LocalDatabaseInvalidOperationException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 
@@ -134,13 +135,19 @@ public class CongressmanDao extends Dao {
 		return result;
 	}
 	
-	public boolean deleteAllCongressman() throws NullCongressmanException {
+	public boolean deleteAllCongressman() throws NullCongressmanException,
+	    LocalDatabaseInvalidOperationException {
 		Iterator<Congressman> index = this.getAll().iterator();
 		
-		boolean result = true;
+		boolean result = false;
+		boolean isEmptyDB = checkEmptyLocalDb();
 		
-		while( index.hasNext() ) {
-			result = deleteCongressman( index.next() );
+		if( !isEmptyDB ) {
+    		while( index.hasNext() ) {
+    			result = deleteCongressman( index.next() );
+    		}
+		} else {
+		     throw new LocalDatabaseInvalidOperationException();
 		}
 		
 		return result;
