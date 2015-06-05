@@ -42,7 +42,7 @@
     <string name="layout_style_photo">imagem de fundo</string>
     <string name="FedUnity">UF</string>
     <string name="name">Nome</string>
-    
+    <string name="congressman">Parlamentares</string>
 <string-array name="month_names">
     <item>Janeiro</item>
     <item>Fevereiro</item>
