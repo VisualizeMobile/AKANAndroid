@@ -68,7 +68,6 @@ public class DescriptionScreen extends FragmentActivity implements
 	private static final int BAR = 3;
 	private static final int BACKGROUND = 4;
 	
-	@SuppressWarnings( "unused" )
 	private Context context;
 	private TextView referenceMonth;
 	
@@ -87,13 +86,15 @@ public class DescriptionScreen extends FragmentActivity implements
 	protected void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		
+		this.context = getApplicationContext();
+		
 		setContentView( R.layout.description_screen_activity );
 		
-		quotaController = QuotaController.getInstance( getApplicationContext() );
+		quotaController = QuotaController.getInstance( context );
 		statisticController = StatisticController
-		        .getInstance( getApplicationContext() );
+		        .getInstance( context );
 		congressmanController = CongressmanController
-		        .getInstance( getApplicationContext() );
+		        .getInstance( context );
 		
 		year = calendar.get( Calendar.YEAR );
 		month = calendar.get( Calendar.MONTH );
@@ -204,7 +205,7 @@ public class DescriptionScreen extends FragmentActivity implements
 		
 		ImageView congressmanImage = (ImageView)findViewById( R.id.description_congressman_photo );
 		
-		Picasso.with( getApplicationContext() )
+		Picasso.with( context )
 		        .load( photoCongressmanUrl + idCongressman + ".jpg" )
 		        .error( R.drawable.default_photo ).into( congressmanImage );
 		
