@@ -228,7 +228,7 @@ public class CongressmanDao extends Dao {
 		
 		String query = "SELECT * FROM " + tableName
 		        + " WHERE NAME_CONGRESSMAN = ?";
-		
+
 		Cursor cursor = sqliteDatabase.rawQuery( query, whereArgs );
 		
 		while( cursor.moveToNext() ) {
