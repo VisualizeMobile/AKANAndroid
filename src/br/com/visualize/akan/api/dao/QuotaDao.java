@@ -11,6 +11,7 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import br.com.visualize.akan.domain.exception.NullQuotaException;
 import br.com.visualize.akan.domain.model.Quota;
 
 
@@ -89,8 +90,10 @@ public class QuotaDao extends Dao {
 	 * 
 	 * @param insertedQuotas
 	 *            List of quotas to be inserted.
+	 * @throws NullQuotaException 
 	 */
-	public boolean insertQuotasById( List<Quota> insertedQuotas ) {
+	public boolean insertQuotasById( List<Quota> insertedQuotas )
+	        throws NullQuotaException {
 		Iterator<Quota> index = insertedQuotas.iterator();
 		
 		boolean result = true;
@@ -236,24 +239,29 @@ public class QuotaDao extends Dao {
 	 *            Quota to be inserted.
 	 * 
 	 * @return Result if the operation was successful or not.
+	 * @throws NullQuotaException 
 	 */
-	private boolean insertQuota( Quota quota ) {
-		sqliteDatabase = database.getWritableDatabase();
-		ContentValues content = new ContentValues();
-		
-		content.put( tableColumns[ 0 ], quota.getIdQuota() );
-		content.put( tableColumns[ 1 ], quota.getIdCongressmanQuota() );
-		content.put( tableColumns[ 2 ], quota.getIdUpdateQuota() );
-		content.put( tableColumns[ 3 ], quota.getTypeQuota().getValueSubQuota() );
-		content.put( tableColumns[ 4 ], quota.getDescriptionQuota() );
-		content.put( tableColumns[ 5 ], quota.getMonthReferenceQuota()
-		        .getvalueMonth() );
-		
-		content.put( tableColumns[ 6 ], quota.getYearReferenceQuota() );
-		content.put( tableColumns[ 7 ], quota.getValueQuota() );
-		
-		boolean result = ( insertAndClose( sqliteDatabase, tableName, content ) > 0 );
-		
-		return result;
+	private boolean insertQuota( Quota quota ) throws NullQuotaException {
+	    if( quota != null ) {
+    		sqliteDatabase = database.getWritableDatabase();
+    		ContentValues content = new ContentValues();
+    		
+    		content.put( tableColumns[ 0 ], quota.getIdQuota() );
+    		content.put( tableColumns[ 1 ], quota.getIdCongressmanQuota() );
+    		content.put( tableColumns[ 2 ], quota.getIdUpdateQuota() );
+    		content.put( tableColumns[ 3 ], quota.getTypeQuota().getValueSubQuota() );
+    		content.put( tableColumns[ 4 ], quota.getDescriptionQuota() );
+    		content.put( tableColumns[ 5 ], quota.getMonthReferenceQuota()
+    		        .getvalueMonth() );
+    		
+    		content.put( tableColumns[ 6 ], quota.getYearReferenceQuota() );
+    		content.put( tableColumns[ 7 ], quota.getValueQuota() );
+    		
+    		boolean result = ( insertAndClose( sqliteDatabase, tableName, content ) > 0 );
+    		
+    		return result;
+	    } else {
+	        throw new NullQuotaException();
+	    }
 	}
 }
