@@ -18,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.api.helper.RoundedImageView;
