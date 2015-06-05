@@ -122,8 +122,10 @@ public class CongressmanDao extends Dao {
 	 *            List of Congressman to be inserted.
 	 * 
 	 * @return Result if the operation was successful or not.
+	 * @throws NullCongressmanException 
 	 */
-	public boolean insertAllCongressman( List<Congressman> congressmanList ) {
+	public boolean insertAllCongressman( List<Congressman> congressmanList ) 
+	        throws NullCongressmanException {
 		Iterator<Congressman> index = congressmanList.iterator();
 		
 		boolean result = true;
@@ -283,23 +285,35 @@ public class CongressmanDao extends Dao {
 	 *            Congressman to be inserted.
 	 * 
 	 * @return Result if the operation was successful or not.
+	 * @throws NullCongressmanException 
 	 */
-	private boolean insertCongressman( Congressman congressman ) {
-		sqliteDatabase = database.getWritableDatabase();
-		
-		ContentValues content = new ContentValues();
-		
-		content.put( tableColumns[ 0 ], congressman.getIdCongressman() );
-		content.put( tableColumns[ 1 ], congressman.getIdUpdateCongressman() );
-		content.put( tableColumns[ 2 ], congressman.getNameCongressman() );
-		content.put( tableColumns[ 3 ], congressman.getPartyCongressman() );
-		content.put( tableColumns[ 4 ], congressman.getUfCongressman() );
-		content.put( tableColumns[ 5 ], congressman.getTotalSpentCongressman() );
-		content.put( tableColumns[ 6 ], congressman.isStatusCogressman() );
-		content.put( tableColumns[ 7 ], congressman.getPhotoCongressman() );
-		content.put( tableColumns[ 8 ], congressman.getRankingCongressman() );
-		
-		boolean result = ( insertAndClose( sqliteDatabase, tableName, content ) > 0 );
+	private boolean insertCongressman( Congressman congressman ) 
+	        throws NullCongressmanException {
+	    boolean result = false;
+	    
+	    if( congressman != null ) {
+    		sqliteDatabase = database.getWritableDatabase();
+    		
+    		ContentValues content = new ContentValues();
+    		
+    		content.put( tableColumns[ 0 ], congressman.getIdCongressman() );
+    		content.put( tableColumns[ 1 ], congressman.
+    		        getIdUpdateCongressman() );
+    		content.put( tableColumns[ 2 ], congressman.getNameCongressman() );
+    		content.put( tableColumns[ 3 ], congressman.getPartyCongressman() );
+    		content.put( tableColumns[ 4 ], congressman.getUfCongressman() );
+    		content.put( tableColumns[ 5 ], congressman.
+    		        getTotalSpentCongressman() );
+    		content.put( tableColumns[ 6 ], congressman.isStatusCogressman() );
+    		content.put( tableColumns[ 7 ], congressman.getPhotoCongressman() );
+    		content.put( tableColumns[ 8 ], congressman.
+    		        getRankingCongressman() );
+    		
+    		result = ( 
+    		        insertAndClose( sqliteDatabase, tableName, content ) > 0 );
+	    } else {
+	        throw new NullCongressmanException();
+	    }
 		
 		return result;
 	}

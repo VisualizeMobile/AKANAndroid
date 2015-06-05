@@ -88,7 +88,8 @@ public class CongressmanController {
 	 * @throws Exception
 	 */
 	public List<Congressman> requestAllCongressman(
-	        ResponseHandler<String> responseHandler ) throws Exception {
+	        ResponseHandler<String> responseHandler ) 
+	                throws NullCongressmanException, Exception {
 		
 		if( responseHandler != null ) {
 			
