@@ -1,41 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:baselineAligned="false" 
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="100dp"
     android:background="@drawable/extended_bar"
     android:orientation="horizontal"
+    android:baselineAligned="false"
     android:clickable="false"
-	android:descendantFocusability="blocksDescendants"
-	android:focusable="false"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
 	android:focusableInTouchMode="false" >
 
     <RelativeLayout
         android:layout_width="100dp"
         android:layout_height="wrap_content" >
-
+        
       	<ImageView
             android:id="@+id/layout_style_photo"
             android:layout_margin="5dp"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_centerHorizontal="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/background_photo"
-            android:contentDescription="@string/layout_style_photo" />
- 
-        <br.com.visualize.akan.api.helper.RoundedImageView
-            android:layout_margin="10dp"
-            android:id="@+id/ranking_layout_congressman_photo"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
             android:scaleType="fitXY"
+            android:src="@drawable/background_photo"
+            android:contentDescription="@string/image_description_default" />
+ 
+        <br.com.visualize.akan.api.helper.RoundedImageView
+            android:layout_margin="10dp"
+            android:id="@+id/ranking_layout_congressman_photo"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
             android:src="@drawable/default_photo" />
-
+        
     </RelativeLayout>
-
-    
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -43,32 +41,27 @@
         android:layout_weight="1.39" >
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-           
-            android:text="" />
-
-        <TextView
             android:id="@+id/ranking_layout_txt_congressman_party"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/ranking_layout_txt_congressman_name"
             android:layout_alignLeft="@+id/ranking_layout_txt_congressman_name"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
+            android:textSize="12sp"
             android:textColor="#536571"
-            android:text="@string/party" />
-        <TextView 
+            android:text="@string/congressman_party" />
+        
+        <TextView
             android:id="@+id/ranking_layout_txt_espace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/ranking_layout_txt_congressman_party"
             android:layout_toRightOf="@+id/ranking_layout_txt_congressman_party"
             android:layout_alignTop="@+id/ranking_layout_txt_congressman_party"
-            android:layout_marginStart="2dp" 
+            android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
-            android:text="@string/trace"
-            />
+            android:textSize="12sp"
+            android:text="@string/trace" />
 
         <TextView
             android:id="@+id/txt_home_state"
@@ -80,33 +73,30 @@
            	android:layout_marginStart="2dp"
            	android:layout_marginLeft="2dp"
            	android:textColor="#536571"
-            android:text="@string/FedUnity" />
+           	android:textSize="12sp"
+            android:text="@string/congressman_home_state" />
 
         <TextView
+            android:layout_margin="15dp"
             android:id="@+id/ranking_layout_txt_congressman_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:textColor="#536571"
-            android:text="@string/name" />
-
-        
-
+            android:text="@string/congressman_name" />
     </RelativeLayout>
-	<RelativeLayout
-    	android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"		
-        android:layout_marginTop="15dp" >
-        
-    		<Button
-               android:id="@+id/list_btn_follow"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:onClick="followedCongressman"
-               android:background="@drawable/followed_button" />     
     
-	</RelativeLayout>
+	
+	        
+	     <Button
+               android:id="@+id/list_btn_follow"
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:onClick="followedCongressman"
+               android:layout_marginEnd="15dp"
+               android:layout_marginRight="15dp"
+               android:layout_marginTop="25dp"
+               android:background="@drawable/followed_button" />            
+	
 </LinearLayout>

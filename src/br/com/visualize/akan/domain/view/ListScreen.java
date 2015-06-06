@@ -11,7 +11,6 @@ import java.util.TimerTask;
 
 import org.apache.http.client.ResponseHandler;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -34,7 +33,6 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
-import android.widget.Toast;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.adapters.CongressmenListAdapter;
@@ -44,7 +42,6 @@ import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 
 
-@SuppressLint( "NewApi" )
 public class ListScreen extends Activity {
 	CongressmanController congressmanController;
 	QuotaController quotaController;

@@ -86,7 +86,8 @@ public class StatisticDao extends Dao{
 	}
 	
 	public Statistic getGeneralStatistic(int subquota){
-		return getStatisticByYearAndMonthAndType(0,0, subquota).get(0);
+		List<Statistic> list = getStatisticByYearAndMonthAndType(0,0, subquota);
+		return (list.size()>0)? list.get(0) : new Statistic();
 	}
 	
 	@Override
