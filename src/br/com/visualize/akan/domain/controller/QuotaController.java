@@ -77,14 +77,11 @@ public class QuotaController {
 	 * 
 	 * @param insertedQuotas
 	 *            List of quotas to be inserted.
+	 * @throws NullQuotaException 
 	 */
-	public void insertQuotasOnCongressman( List<Quota> insertedQuotas ) {
-		try {
-			quotaDao.insertQuotasById(insertedQuotas);
-		} catch (NullQuotaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void insertQuotasOnCongressman( List<Quota> insertedQuotas ) 
+	        throws NullQuotaException {
+		quotaDao.insertQuotasById(insertedQuotas);
 	}
 	
 	/**
