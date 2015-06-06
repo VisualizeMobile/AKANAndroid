@@ -91,8 +91,18 @@ public class QuotaDao extends Dao {
 	 * 
 	 * @param insertedQuotas
 	 *            List of quotas to be inserted.
+<<<<<<< HEAD
 	 * @throws NullQuotaException 
 	 * @throws DatabaseInvalidOperationException 
+=======
+<<<<<<< HEAD
+	 * @throws NullQuotaException
+	 * @throws DatabaseInvalidOperationException
+=======
+	 * @throws NullQuotaException
+	 * @throws DatabaseInvalidOperationException
+>>>>>>> Implementing exception handling on insertQuota(), in QuotaDao, and new method checkCongressmanExist(), in CongressmanDao
+>>>>>>> Implementing exception handling on insertQuota(), in QuotaDao, and new method checkCongressmanExist(), in CongressmanDao
 	 */
 	public boolean insertQuotasById( List<Quota> insertedQuotas )
 	        throws NullQuotaException, DatabaseInvalidOperationException {
@@ -358,7 +368,6 @@ public class QuotaDao extends Dao {
         		content.put( tableColumns[ 4 ], quota.getDescriptionQuota() );
         		content.put( tableColumns[ 5 ], quota.getMonthReferenceQuota()
         		        .getvalueMonth() );
-        		
         		content.put( tableColumns[ 6 ], quota.getYearReferenceQuota() );
         		content.put( tableColumns[ 7 ], quota.getValueQuota() );
         		
