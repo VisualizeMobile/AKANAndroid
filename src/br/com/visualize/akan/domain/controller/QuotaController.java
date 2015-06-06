@@ -21,6 +21,7 @@ import android.content.Context;
 import br.com.visualize.akan.api.dao.QuotaDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
+import br.com.visualize.akan.domain.exception.DatabaseInvalidOperationException;
 import br.com.visualize.akan.domain.exception.NullQuotaException;
 import br.com.visualize.akan.domain.model.Quota;
 
@@ -78,9 +79,10 @@ public class QuotaController {
 	 * @param insertedQuotas
 	 *            List of quotas to be inserted.
 	 * @throws NullQuotaException 
+	 * @throws DatabaseInvalidOperationException 
 	 */
 	public void insertQuotasOnCongressman( List<Quota> insertedQuotas ) 
-	        throws NullQuotaException {
+	        throws NullQuotaException, DatabaseInvalidOperationException {
 		quotaDao.insertQuotasById(insertedQuotas);
 	}
 	
