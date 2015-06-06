@@ -34,7 +34,6 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
-import android.widget.Toast;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.adapters.CongressmenListAdapter;

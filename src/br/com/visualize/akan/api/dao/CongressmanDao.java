@@ -13,7 +13,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import br.com.visualize.akan.api.helper.DatabaseHelper;
-import br.com.visualize.akan.domain.exception.LocalDatabaseInvalidOperationException;
+import br.com.visualize.akan.domain.exception.DatabaseInvalidOperationException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 
@@ -138,7 +138,7 @@ public class CongressmanDao extends Dao {
 	}
 	
 	public boolean deleteAllCongressman() throws NullCongressmanException,
-	    LocalDatabaseInvalidOperationException {
+	    DatabaseInvalidOperationException {
 		Iterator<Congressman> index = this.getAll().iterator();
 		
 		boolean result = false;
@@ -149,7 +149,7 @@ public class CongressmanDao extends Dao {
     			result = deleteCongressman( index.next() );
     		}
 		} else {
-		     throw new LocalDatabaseInvalidOperationException();
+		     throw new DatabaseInvalidOperationException();
 		}
 		
 		return result;
@@ -217,7 +217,7 @@ public class CongressmanDao extends Dao {
 	 *            The name of the congressman sought.
 	 *            <p>
 	 * @return A congressman sought.
-	 * @throws LocalDatabaseInvalidOperationException 
+	 * @throws DatabaseInvalidOperationException 
 	 */
 	public List<Congressman> selectCongressmanByName( String congressmanName ) {
 	    List<Congressman> listCongressmen = new ArrayList<Congressman>();
@@ -267,6 +267,26 @@ public class CongressmanDao extends Dao {
 		sqliteDatabase.close();
 		
 		return listCongressmen;
+	}
+	
+	/* TODO: JAVADOC. */
+	/* TODO: Unit Test. */
+	public boolean checkCongressmanExist( int idCongressman ) {
+	    List<Congressman> congressmanList = this.getAll();
+	    
+	    boolean result = false;
+	    
+	    for( Congressman congressman : congressmanList ) {
+	        int idCurrentCongressman = congressman.getIdCongressman();
+	        
+	        if( idCongressman == idCurrentCongressman ) {
+	            result = true;
+	        } else {
+	            /*! Nothing To Do. */
+	        }
+	    }
+	    
+	    return result;
 	}
 	
 	private static boolean convertStringToBool( String string ) {
