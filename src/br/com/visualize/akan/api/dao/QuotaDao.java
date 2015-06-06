@@ -140,9 +140,10 @@ public class QuotaDao extends Dao {
 	public List<Quota> getQuotasByIdCongressman( int idCongressman ) {
 		sqliteDatabase = database.getReadableDatabase();
 		
+		String[] selectArgs = { String.valueOf( idCongressman ) };
+		
 		Cursor cursor = sqliteDatabase.rawQuery(
-		        "SELECT * FROM QUOTA WHERE ID_CONGRESSMAN=" + idCongressman,
-		        null );
+		        "SELECT * FROM QUOTA WHERE ID_CONGRESSMAN= ?", selectArgs );
 		
 		List<Quota> listQuotas = new ArrayList<Quota>();
 		
@@ -171,7 +172,8 @@ public class QuotaDao extends Dao {
 			quota.setValueQuota( cursor.getDouble( cursor
 			        .getColumnIndex( "VALUE_QUOTA" ) ) );
 			
-			quota.setStatisticQuota( statisticDao.getGeneralStatistic( quota.getTypeQuota().getValueSubQuota() ) );
+			quota.setStatisticQuota( statisticDao.getGeneralStatistic( 
+			        quota.getTypeQuota().getValueSubQuota() ) );
 			
 			listQuotas.add( quota );
 		}
