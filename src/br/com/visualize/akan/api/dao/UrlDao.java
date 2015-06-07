@@ -133,17 +133,38 @@ public class UrlDao extends Dao {
 	public boolean deleteUrl( Url url ) {
 		boolean result = false;
 		
-		if( url != null ) {
-			sqliteDatabase = database.getWritableDatabase();
-			
-			sqliteDatabase.delete( tableName, "ID_UPDATE_URL=?",
-			        new String[] { url.getIdUpdateUrl() + "" } );
-			
-			sqliteDatabase.close();
-			
-			result = true;
+		if( !checkEmptyLocalDb() ) {
+    		if( url != null ) {
+    		    String prefixUrl = "http://www.";
+                
+                String urlDefault = url.getDefaultUrl();
+                String urlFirstAlternative = url.getFirstAlternativeUrl();
+                String urlSecondAlternative = url.getSecondAlternativeUrl();
+                
+                boolean deafultTest = ( urlDefault.contains( prefixUrl ) );
+                boolean firstAlternativeTest = ( urlFirstAlternative.
+                        contains( prefixUrl ) );
+                boolean secondAlternativeTest = ( urlSecondAlternative.
+                        contains( prefixUrl ) );
+                
+                if( deafultTest && firstAlternativeTest && 
+                        secondAlternativeTest ) {
+        			sqliteDatabase = database.getWritableDatabase();
+        			
+        			sqliteDatabase.delete( tableName, "ID_UPDATE_URL=?",
+        			        new String[] { url.getIdUpdateUrl() + "" } );
+        			
+        			sqliteDatabase.close();
+        			
+        			result = true;
+                } else {
+                    result = false;
+                }
+    		} else {
+    			result = false;
+    		}
 		} else {
-			result = false;
+		    result = false;
 		}
 		
 		return result;
