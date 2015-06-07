@@ -31,13 +31,18 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.api.helper.RoundedImageView;
 import br.com.visualize.akan.api.request.HttpConnection;
+import br.com.visualize.akan.domain.adapters.DescriptionGridAdapter;
 import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.controller.QuotaController;
 import br.com.visualize.akan.domain.controller.StatisticController;
@@ -81,7 +86,7 @@ public class DescriptionScreen extends FragmentActivity implements
 	private int year;
 	private int month;
 	
-	static List<Quota> quota;
+	static List<Quota> quotas;
 	
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
@@ -90,12 +95,27 @@ public class DescriptionScreen extends FragmentActivity implements
 		this.context = getApplicationContext();
 		
 		setContentView( R.layout.description_screen_activity );
-		
-		quotaController = QuotaController.getInstance( context );
-		statisticController = StatisticController
-		        .getInstance( context );
+
 		congressmanController = CongressmanController
 		        .getInstance( context );
+		int idCongressman = congressmanController.getCongresman().getIdCongressman();
+		quotaController = QuotaController.getInstance( context );
+		quotas = quotaController.getQuotasByIdCongressman(idCongressman);
+		statisticController = StatisticController
+		        .getInstance( context );
+		
+		GridView gridview = (GridView) findViewById(R.id.quota_gridview);
+	    gridview.setAdapter(new DescriptionGridAdapter(getBaseContext(), R.layout.quota_grid_item, quotas));
+
+	    gridview.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				Toast.makeText(DescriptionScreen.this, "" + position,
+	                    Toast.LENGTH_SHORT).show();
+			}
+	    });
 		
 		year = calendar.get( Calendar.YEAR );
 		month = calendar.get( Calendar.MONTH );
@@ -136,7 +156,7 @@ public class DescriptionScreen extends FragmentActivity implements
 			/* ! Nothing To Do. */
 		}
 		
-		resetSubQuotaAccordingType();
+		//resetSubQuotaAccordingType();
 	}
 	
 	/**
@@ -157,7 +177,7 @@ public class DescriptionScreen extends FragmentActivity implements
 		
 		this.month = monthOfYear + 1;
 		
-		resetSubQuotaAccordingType();
+		//resetSubQuotaAccordingType();
 		
 		setReferenceMonth();
 		
@@ -388,7 +408,7 @@ public class DescriptionScreen extends FragmentActivity implements
 				/* ! Nothing To Do. */
 		}
 		
-		setDetailsQuota( type, quota );
+		//setDetailsQuota( type, quota );
 	}
 	
 	/**
@@ -430,7 +450,7 @@ public class DescriptionScreen extends FragmentActivity implements
 	private void setBackgroundQuota( ImageView background, Quota quota ) {
 		int[ ] colors = selectImageColor( exponentialProbability( quota ) );
 		
-		animateBackgroundColor( background, colors );
+		//animateBackgroundColor( background, colors );
 	}
 	
 	/**
@@ -460,8 +480,8 @@ public class DescriptionScreen extends FragmentActivity implements
 		
 		int[ ] colors = selectImageColor( percent );
 		
-		animateBarColor( bar, colors );
-		animateBarHeight( bar, percent );
+		//animateBarColor( bar, colors );
+		//animateBarHeight( bar, percent );
 	}
 	
 	/**
@@ -480,184 +500,11 @@ public class DescriptionScreen extends FragmentActivity implements
 			
 			text.setText( valueQuotaFormat.format( quota.getValueQuota() ) );
 			
-			animateTextMove( text );
+			//animateTextMove( text );
 			
 		} else {
 			text.setText( valueQuotaFormat.format( EMPTY_VALUE_QUOTA ) );
 		}
-	}
-	
-	/**
-	 * Resets the value of parliamentary quotas, making them equal to zero.
-	 */
-	private void resetSubQuotaAccordingType() {
-		final String accommodation = SubQuota.ACCOMMODATION
-		        .getRepresentativeNameQuota();
-		resetDetailsQuota( accommodation );
-		
-		final String airFreight = SubQuota.AIR_FREIGHT
-		        .getRepresentativeNameQuota();
-		resetDetailsQuota( airFreight );
-		
-		final String alimentation = SubQuota.ALIMENTATION
-		        .getRepresentativeNameQuota();
-		resetDetailsQuota( alimentation );
-		
-		final String disclosureParliamentaryActivity = SubQuota.DISCLOSURE_PARLIAMENTARY_ACTIVITY
-		        .getRepresentativeNameQuota();
-		resetDetailsQuota( disclosureParliamentaryActivity );
-		
-		final String fuel = SubQuota.FUEL.getRepresentativeNameQuota();
-		resetDetailsQuota( fuel );
-		
-		final String inssuanceAirTickets = SubQuota.ISSUANCE_OF_AIR_TICKETS
-		        .getRepresentativeNameQuota();
-		resetDetailsQuota( inssuanceAirTickets );
-		
-		final String office = SubQuota.OFFICE.getRepresentativeNameQuota();
-		resetDetailsQuota( office );
-		
-		final String postalServices = SubQuota.POSTAL_SERVICES
-		        .getRepresentativeNameQuota();
-		resetDetailsQuota( postalServices );
-		
-		final String safety = SubQuota.SAFETY.getRepresentativeNameQuota();
-		resetDetailsQuota( safety );
-		
-		final String technicalWorkConsulting = SubQuota.TECHNICAL_WORK_AND_CONSULTING
-		        .getRepresentativeNameQuota();
-		resetDetailsQuota( technicalWorkConsulting );
-		
-		final String telephony = SubQuota.TELEPHONY
-		        .getRepresentativeNameQuota();
-		resetDetailsQuota( telephony );
-	}
-	
-	/**
-	 * Resets the settings of the elements related with a quota on the screen.
-	 * 
-	 * @param quota
-	 *            Name of the quota. Should be given only with lowercase letters
-	 *            and spaced names with underscore.
-	 */
-	private void resetDetailsQuota( String quota ) {
-		resetBackgroundQuota( quota );
-		resetImageQuota( quota );
-		resetBarQuota( quota );
-		resetTextValueQuota( quota );
-	}
-	
-	/**
-	 * Resets the color of the image represents a quota.
-	 * 
-	 * @param quota
-	 *            Name of the quota. Should be given only with lowercase letters
-	 *            and spaced names with underscore.
-	 */
-	private void resetBackgroundQuota( String quota ) {
-		int idBackgroundResource = getResourceID( BACKGROUND, quota );
-		
-		ImageView backgroundQuota = (ImageView)findViewById( idBackgroundResource );
-		
-		ValueAnimator colorAnimator = ObjectAnimator.ofInt( backgroundQuota,
-		        "backgroundColor", WHITE );
-		
-		colorAnimator.setDuration( 100 );
-		colorAnimator.setEvaluator( new ArgbEvaluator() );
-		colorAnimator.setInterpolator( new DecelerateInterpolator() );
-		
-		colorAnimator.start();
-	}
-	
-	/**
-	 * Resets the color of the image represents a quota.
-	 * 
-	 * @param quota
-	 *            Name of the quota. Should be given only with lowercase letters
-	 *            and spaced names with underscore.
-	 */
-	private void resetImageQuota( String quota ) {
-		int idImageResource = getResourceID( BUTTON, quota );
-		
-		ImageView imageQuota = (ImageView)findViewById( idImageResource );
-		
-		imageQuota.clearAnimation();
-	}
-	
-	/**
-	 * Resets the level and color of the bar related of quota.
-	 * 
-	 * @param quota
-	 *            Name of the quota. Should be given only with lowercase letters
-	 *            and spaced names with underscore.
-	 */
-	private void resetBarQuota( String quota ) {
-		int idBarResource = getResourceID( BAR, quota );
-		
-		ImageView barQuota = (ImageView)findViewById( idBarResource );
-		
-		if( barQuota.getBackground() != null ) {
-			ValueAnimator colorAnimator = ObjectAnimator.ofInt( barQuota,
-			        "colorFilter", WHITE );
-			
-			colorAnimator.setDuration( 100 );
-			colorAnimator.setEvaluator( new ArgbEvaluator() );
-			colorAnimator.setInterpolator( new DecelerateInterpolator() );
-			
-			colorAnimator.start();
-			
-			Drawable level = barQuota.getDrawable();
-			
-			ValueAnimator heightAnimator = ObjectAnimator.ofInt( level,
-			        "level", 0 );
-			
-			heightAnimator.setDuration( 100 );
-			heightAnimator.setInterpolator( new DecelerateInterpolator() );
-			
-			heightAnimator.start();
-			
-		} else {
-			/* ! Nothing To Do. */
-		}
-		
-		if( barQuota.getDrawable() != null ) {
-			ValueAnimator colorAnimator = ObjectAnimator.ofInt( barQuota,
-			        "colorFilter", WHITE );
-			
-			colorAnimator.setDuration( 100 );
-			colorAnimator.setEvaluator( new ArgbEvaluator() );
-			colorAnimator.setInterpolator( new DecelerateInterpolator() );
-			
-			colorAnimator.start();
-			
-			Drawable level = barQuota.getDrawable();
-			
-			ValueAnimator heightAnimator = ObjectAnimator.ofInt( level,
-			        "level", 0 );
-			
-			heightAnimator.setDuration( 100 );
-			heightAnimator.setInterpolator( new DecelerateInterpolator() );
-			
-			heightAnimator.start();
-			
-		} else {
-			/* ! Nothing To Do. */
-		}
-	}
-	
-	/**
-	 * Resets the text that represents numerically the spending of quota.
-	 * 
-	 * @param quota
-	 *            Name of the quota. Should be given only with lowercase letters
-	 *            and spaced names with underscore.
-	 */
-	private void resetTextValueQuota( String quota ) {
-		int idTextResource = getResourceID( TEXT, quota );
-		
-		TextView txtQuota = (TextView)findViewById( idTextResource );
-		
-		setTextValueQuota( txtQuota, null );
 	}
 	
 	/**

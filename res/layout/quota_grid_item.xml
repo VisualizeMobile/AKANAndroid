@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/layout_description_quotas"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/background_description_crongressman" >
+     
+    <ImageView
+         android:id="@+id/bkg_quota_imageview"
+         android:contentDescription="@string/image_description_default"
+         android:layout_width="100dp"
+         android:layout_height="100dp"
+         android:background="@drawable/background_technical_work_and_consulting" />
+     
+     <ImageView
+         android:id="@+id/btn_quota_imageview"
+         android:contentDescription="@string/image_description_quota_technical_work_and_consulting"
+         android:layout_width="100dp"
+         android:layout_height="100dp"
+         android:background="@drawable/quota_technical_work_and_consulting" />
+     
+     <ImageView
+		 android:id="@+id/bar_quota_imageview"
+		 android:contentDescription="@string/image_description_default"
+		 android:layout_width="wrap_content"
+		 android:layout_height="wrap_content"            
+		 android:scaleType="fitXY"
+		 android:src="@anim/level_bar_technical_work_and_consulting" />
+     
+     <TextView
+         android:id="@+id/quota_text"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/btn_quota_imageview"
+         android:layout_centerHorizontal="true"
+         android:text="@string/value_quota_technical_work_and_consulting" />
+
+</RelativeLayout>

@@ -147,7 +147,19 @@
 
     </RelativeLayout>
     
-    <ScrollView
+    <GridView
+		    android:id="@+id/quota_gridview"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:columnWidth="90dp"
+		    android:numColumns="auto_fit"
+		    android:verticalSpacing="10dp"
+		    android:horizontalSpacing="10dp"
+		    android:stretchMode="columnWidth"
+		    android:gravity="center"
+		/>
+
+    <!-- <ScrollView
         android:id="@+id/scroll_description_screen" 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -612,7 +624,7 @@
 
         </RelativeLayout>
     
-    </ScrollView>
+    </ScrollView> -->
 
     <RelativeLayout
         android:id="@+id/footer"

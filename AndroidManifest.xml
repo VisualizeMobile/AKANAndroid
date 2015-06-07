@@ -23,6 +23,7 @@
         android:theme="@style/CustomActionBarTheme">
         
         <activity android:name=".domain.view.AboutAkanScreen"></activity>
+        <activity android:name=".domain.view.QuotaGraphScreen" />
         <activity android:name=".domain.view.DescriptionScreen"
           android:theme="@android:style/Theme.Holo.Light.NoActionBar" ></activity>
         <activity
@@ -35,7 +36,8 @@
                   android:resource="@xml/searchable" />           
         </activity>
         
-        <activity android:name=".domain.view.SplashScreen" >
+        <activity android:name=".domain.view.SplashScreen" 
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter> 
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" /> 

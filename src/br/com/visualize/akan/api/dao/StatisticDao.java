@@ -63,7 +63,7 @@ public class StatisticDao extends Dao{
 		return result;
 	}
 	
-	public List<Statistic> getStatisticByYearAndMonthAndType( int year, int month, int subquota ) {
+	public List<Statistic> getStatisticByYearAndType( int year, int subquota ) {
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery(
 		        "SELECT * FROM STATISTIC WHERE ID_SUBQUOTA=" + subquota,
@@ -86,7 +86,7 @@ public class StatisticDao extends Dao{
 	}
 	
 	public Statistic getGeneralStatistic(int subquota){
-		List<Statistic> list = getStatisticByYearAndMonthAndType(0,0, subquota);
+		List<Statistic> list = getStatisticByYearAndType(0, subquota);
 		return (list.size()>0)? list.get(0) : new Statistic();
 	}
 	
