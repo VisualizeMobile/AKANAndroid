@@ -33,9 +33,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	        + "[VALUE_QUOTA] DOUBLE);";
 	
 	private static final String urlTable = "CREATE TABLE [URL] "
-	        + "([ID_URL] VARCHAR(10), [ID_UPDATE_URL] VARCHAR(255), "
-	        + "[DEFAULT_URL] VARCHAR (255), [FIRST_URL] VARCHAR (255), "
-	        + "[SECOND_URL] VARCHAR (255));";
+	        + "([UPDATE_VERIFIER_URL] VARCHAR(10), "
+	        + "[ID_UPDATE_URL] VARCHAR(255), [DEFAULT_URL] VARCHAR (255), "
+	        + "[FIRST_URL] VARCHAR (255), [SECOND_URL] VARCHAR (255));";
 	
 	private static final String statisticTable = "CREATE TABLE [STATISTIC] "
 	        + "([ID_STATISTIC] VARCHAR(10), [MONTH_STATISTIC] INT, "

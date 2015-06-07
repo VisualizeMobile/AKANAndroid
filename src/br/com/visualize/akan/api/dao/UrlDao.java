@@ -24,9 +24,8 @@ public class UrlDao extends Dao {
 	private String tableName = "URL";
 	
 	private static UrlDao instanceUrlDao = null;
-	private static String tableUrl = "Url";
-	private static String tableColumns[ ] = { "ID_URL", "ID_UPDATE_URL",
-	        "DEFAULT_URL", "FIRST_URL", "SECOND_URL" };
+	private static String tableColumns[ ] = { "UPDATE_VERIFIER_URL", 
+	    "ID_UPDATE_URL", "DEFAULT_URL", "FIRST_URL", "SECOND_URL" };
 	
 	protected UrlDao( Context context ) {
 		UrlDao.database = new DatabaseHelper( context );
@@ -88,19 +87,35 @@ public class UrlDao extends Dao {
 		boolean result = false;
 		
 		if( url != null ) {
-			sqliteDatabase = database.getWritableDatabase();
-			
-			ContentValues content = new ContentValues();
-			
-			content.put( "ID_UPDATE_URL", url.getIdUpdateUrl() );
-			content.put( "UPDATE_VERIFIER_URL", url.getUpdateVerifierUrl() );
-			content.put( "DEFAULT_URL", url.getDefaultUrl() );
-			content.put( "FIRST_ALTERNATIVE_URL", url.getFirstAlternativeUrl() );
-			content.put( "SECOND_ALTERNATIVE_URL", url.getSecondAlternativeUrl() );
-			
-			insertAndClose( sqliteDatabase, tableUrl, content );
-			
-			result = true;
+		    String prefixUrl = "http://www.";
+		    
+		    String urlDefault = url.getDefaultUrl();
+		    String urlFirstAlternative = url.getFirstAlternativeUrl();
+		    String urlSecondAlternative = url.getSecondAlternativeUrl();
+		    
+		    boolean deafultTest = ( urlDefault.contains( prefixUrl ) );
+		    boolean firstAlternativeTest = ( urlFirstAlternative.
+		            contains( prefixUrl ) );
+		    boolean secondAlternativeTest = ( urlSecondAlternative.
+		            contains( prefixUrl ) );
+		    
+		    if( deafultTest && firstAlternativeTest && secondAlternativeTest ) {
+    			sqliteDatabase = database.getWritableDatabase();
+    			
+    			ContentValues content = new ContentValues();
+    			
+    			content.put( tableColumns[ 0 ], url.getUpdateVerifierUrl() );
+    			content.put( tableColumns[ 1 ], url.getIdUpdateUrl() );
+    			content.put( tableColumns[ 2 ], url.getDefaultUrl() );
+    			content.put( tableColumns[ 3 ], url.getFirstAlternativeUrl() );
+    			content.put( tableColumns[ 4 ], url.getSecondAlternativeUrl() );
+    			
+    			insertAndClose( sqliteDatabase, tableName, content );
+    			
+    			result = true;
+		    } else {
+		        result = false;
+		    }
 		} else {
 			result = false;
 		}
@@ -121,7 +136,7 @@ public class UrlDao extends Dao {
 		if( url != null ) {
 			sqliteDatabase = database.getWritableDatabase();
 			
-			sqliteDatabase.delete( tableUrl, "ID_UPDATE_URL=?",
+			sqliteDatabase.delete( tableName, "ID_UPDATE_URL=?",
 			        new String[] { url.getIdUpdateUrl() + "" } );
 			
 			sqliteDatabase.close();
@@ -162,7 +177,7 @@ public class UrlDao extends Dao {
 			cursor.moveToFirst();
 			
 			url.setIdUpdateUrl( cursor.getInt( cursor
-			        .getColumnIndex( tableColumns[ 1 ] ) ) );
+			        .getColumnIndex( tableColumns[ 0 ] ) ) );
 			
 			url.setDefaultUrl( cursor.getString( cursor
 			        .getColumnIndex( tableColumns[ 2 ] ) ) );
