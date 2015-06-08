@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
-    android:layoutAnimation="@anim/layout_animation"	
+    android:layoutAnimation="@anim/layout_animation"
     android:animateLayoutChanges="true"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#FFFFFF" >
-    
-    
+
+    <RelativeLayout
+        android:id="@+id/topbar_description"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="#5B6C78" >
+
+        <TextView
+            android:id="@+id/topbar_congressman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/congressman"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/topbar_about_button"
+            android:background="@drawable/back_button_topbar"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/image_description_default"/>
+            <!--  android:onClick="backToList" -->
+
+        <ImageButton
+            android:id="@+id/topbar_config_button"
+            android:background="@drawable/back_button_topbar"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/image_description_default"/>
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="wrap_content"
@@ -16,16 +54,15 @@
     	android:dividerHeight="1dp"
         android:divider="#E6E5EC"
         android:clickable="true" >
-           	
-        </ListView>
-   
+    </ListView>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
-        
+
         <ImageView
             android:id="@+id/ranking_layout_congressman_photo"
             android:layout_width="match_parent"
@@ -71,6 +108,6 @@
                android:layout_marginRight="30dp"
                android:scaleType="fitXY"
                android:background="@drawable/inactive_search" />
-        
+
     </RelativeLayout>
 </RelativeLayout>

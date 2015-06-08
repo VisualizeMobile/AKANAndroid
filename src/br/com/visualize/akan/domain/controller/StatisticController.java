@@ -14,7 +14,6 @@ import br.com.visualize.akan.domain.model.Statistic;
 
 public class StatisticController {
 	private UrlController urlController;
-	private static Statistic statistic; //Verify necessary after
 	private static List<Statistic> statisticList;
 	private static StatisticController instanceStatisticController = null;
 	private StatisticDao statisticDao = null;
@@ -90,14 +89,6 @@ public class StatisticController {
 		return statisticDao.getStatisticByYearAndType(year, subquota);
 	}
 	
-	public void setStatistic(Statistic statistic){
-		StatisticController.statistic = statistic;
-	}
-	
-	public Statistic getStatistic(){
-			return StatisticController.statistic;
-	}
-
 	public static List<Statistic> getStatisticList() {
 		return statisticList;
 	}

@@ -110,16 +110,19 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
         xAxis.setDrawAxisLine(false);
         xAxis.setSpaceBetweenLabels(1);
 
+        float max = Math.max((float)quotaController.getMaxQuotaValue(quotas),
+        		(float)statisticController.getMaxStatisticValue(statistics)) * 1.3f;
+        
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setTypeface(tf);
         leftAxis.setTextColor(Color.BLACK);
-        leftAxis.setAxisMaxValue((float)quotaController.getMaxQuotaValue(quotas));
+        leftAxis.setAxisMaxValue(max);
         leftAxis.setDrawGridLines(true);
         leftAxis.setAxisMinValue(0);
         
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setTypeface(tf);
-        rightAxis.setAxisMaxValue((float)statisticController.getMaxStatisticValue(statistics));
+        rightAxis.setAxisMaxValue(0);
         rightAxis.setStartAtZero(false);
         rightAxis.setAxisMinValue(0);
         rightAxis.setDrawGridLines(false);
