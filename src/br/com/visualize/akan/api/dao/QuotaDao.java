@@ -182,6 +182,100 @@ public class QuotaDao extends Dao {
 		
 		return listQuotas;
 	}
+
+	/**
+	 * Search the quota with passed id.
+	 * 
+	 * @param idQuota
+	 *            Numeric identifier of quota.
+	 * 
+	 * @return an Instance of quota.
+	 */
+	public Quota getQuotaById( int idQuota ) {
+		sqliteDatabase = database.getReadableDatabase();
+		
+		Cursor cursor = sqliteDatabase.rawQuery(
+		        "SELECT * FROM QUOTA WHERE ID_QUOTA=" + idQuota,
+		        null );
+		Quota quota = new Quota();
+		
+		while( cursor.moveToNext() ) {
+			quota.setIdQuota( cursor.getInt( cursor.getColumnIndex( "ID_QUOTA" ) ) );
+			
+			quota.setIdCongressmanQuota( cursor.getInt( cursor
+			        .getColumnIndex( "ID_CONGRESSMAN" ) ) );
+			
+			quota.setIdUpdateQuota( cursor.getColumnIndex( "ID_UPDATE" ) );
+			
+			quota.setTypeQuotaByNumber( cursor.getInt( cursor
+			        .getColumnIndex( "TYPE_QUOTA" ) ) );
+			
+			quota.setDescriptionQuota( cursor.getString( cursor
+			        .getColumnIndex( "DESCRIPTION_QUOTA" ) ) );
+			
+			quota.setTypeMonthByNumber( cursor.getInt( cursor
+			        .getColumnIndex( "MONTH_QUOTA" ) ) );
+			
+			quota.setYearReferenceQuota( cursor.getInt( cursor
+			        .getColumnIndex( "YEAR_QUOTA" ) ) );
+			
+			quota.setValueQuota( cursor.getDouble( cursor
+			        .getColumnIndex( "VALUE_QUOTA" ) ) );
+			
+			quota.setStatisticQuota( statisticDao.getGeneralStatistic( quota.getTypeQuota().getValueSubQuota() ) );
+			
+			sqliteDatabase.close();
+			
+			break;
+		}
+		return quota;
+	}
+
+	
+	public List<Quota> getQuotasByIdCongressmanAndType( int idCongressman, int subquota ) {
+		sqliteDatabase = database.getReadableDatabase();
+		
+		Cursor cursor = sqliteDatabase.rawQuery(
+		        "SELECT * FROM QUOTA WHERE ID_CONGRESSMAN=" + idCongressman +
+		        "AND TYPE_QUOTA="+ subquota,
+		        null );
+		
+		List<Quota> listQuotas = new ArrayList<Quota>();
+		
+		while( cursor.moveToNext() ) {
+			Quota quota = new Quota();
+			
+			quota.setIdQuota( cursor.getInt( cursor.getColumnIndex( "ID_QUOTA" ) ) );
+			
+			quota.setIdCongressmanQuota( cursor.getInt( cursor
+			        .getColumnIndex( "ID_CONGRESSMAN" ) ) );
+			
+			quota.setIdUpdateQuota( cursor.getColumnIndex( "ID_UPDATE" ) );
+			
+			quota.setTypeQuotaByNumber( cursor.getInt( cursor
+			        .getColumnIndex( "TYPE_QUOTA" ) ) );
+			
+			quota.setDescriptionQuota( cursor.getString( cursor
+			        .getColumnIndex( "DESCRIPTION_QUOTA" ) ) );
+			
+			quota.setTypeMonthByNumber( cursor.getInt( cursor
+			        .getColumnIndex( "MONTH_QUOTA" ) ) );
+			
+			quota.setYearReferenceQuota( cursor.getInt( cursor
+			        .getColumnIndex( "YEAR_QUOTA" ) ) );
+			
+			quota.setValueQuota( cursor.getDouble( cursor
+			        .getColumnIndex( "VALUE_QUOTA" ) ) );
+			
+			quota.setStatisticQuota( statisticDao.getGeneralStatistic( quota.getTypeQuota().getValueSubQuota() ) );
+			
+			listQuotas.add( quota );
+		}
+		
+		sqliteDatabase.close();
+		
+		return listQuotas;
+	}
 	
 	/**
 	 * Search in database the years available of the quotas

@@ -34,6 +34,7 @@ import br.com.visualize.akan.domain.model.Quota;
 public class QuotaController {
 	private static QuotaController instanceQuotaController = null;
 	private static List<Quota> quotaList = null;
+	private static Quota quota = null;
 	
 	@SuppressWarnings( "unused" )
 	private Context context;
@@ -114,7 +115,15 @@ public class QuotaController {
 		List<Quota> foundQuotas = new ArrayList<Quota>();
 		
 		foundQuotas = quotaDao.getQuotasByIdCongressman( idCongressman );
+		quotaList = foundQuotas;
+		return foundQuotas;
+	}
+	
+	public List<Quota> getQuotasByIdCongressmanAndType( int idCongressman, int subquota ) {
+		List<Quota> foundQuotas = new ArrayList<Quota>();
 		
+		foundQuotas = quotaDao.getQuotasByIdCongressmanAndType( idCongressman, subquota );
+		quotaList = foundQuotas;
 		return foundQuotas;
 	}
 	
@@ -141,10 +150,8 @@ public class QuotaController {
 			
 			String jsonQuota = HttpConnection.request( responseHandler, url );
 			
-			setQuotaList( JsonHelper
+			quotaDao.insertQuotasById( JsonHelper
 			        .listQuotaByIdCongressmanFromJSON( jsonQuota ) );
-			
-			quotaDao.insertQuotasById( getQuotaList(id) );
 			
 		} else {
 			/* ! Nothing To Do. */
@@ -163,7 +170,7 @@ public class QuotaController {
 		
 		jsonQuota = HttpConnection.request( responseHandler, url );
 		
-		setQuotaList( JsonHelper.listQuotaByIdCongressmanFromJSON( jsonQuota ) );
+		quotaDao.insertQuotasById( JsonHelper.listQuotaByIdCongressmanFromJSON( jsonQuota ) );
 	}
 	
 	/**
@@ -173,11 +180,28 @@ public class QuotaController {
 	 * @return List of quotas associated with QuotaController.
 	 */
 	private List<Quota> getQuotaList(int idCongressman) {
-		if(quotaList==null){
-			quotaList = quotaDao.getQuotasByIdCongressman(idCongressman);
-				
-		}
+		quotaList = quotaDao.getQuotasByIdCongressman(idCongressman);
 		return quotaList;
+	}
+	
+	/**
+	 * Returns the quota associated with QuotaController.
+	 * <p>
+	 * 
+	 * @return Instance of quota associated with QuotaController.
+	 */
+	public Quota getQuota(int idQuota) {
+		quota = quotaDao.getQuotaById(idQuota);
+		return quota;
+	}
+	/**
+	 * Returns the quota associated with QuotaController.
+	 * <p>
+	 * 
+	 * @return Instance of quota associated with QuotaController.
+	 */
+	public Quota getQuota() {
+		return quota;
 	}
 	
 	/**
@@ -198,8 +222,27 @@ public class QuotaController {
 				quotasByDate.add( quota );
 			}
 		}
-		
 		return quotasByDate;
+	}
+	
+	/**
+	 * Returns the list of quotas filtered by type
+	 * <p>
+	 * 
+	 * @return List of quotas filtered by month and year .
+	 */
+	public List<Quota> getQuotasByTypeAndYear( int subquota, int year ) {
+		List<Quota> quotasByType = new ArrayList<Quota>();
+		Iterator<Quota> iterator = getQuotaList(quota.getIdCongressmanQuota()).iterator();
+		
+		while( iterator.hasNext() ) {
+			Quota quota = iterator.next();
+			
+			if( quota.getYearReferenceQuota() == year && quota.getTypeQuota().getValueSubQuota() == subquota) {
+				quotasByType.add( quota );
+			}
+		}
+		return quotasByType;
 	}
 	
 	/**
@@ -234,7 +277,6 @@ public class QuotaController {
 		        idCongressman );
 		majorMonth = Collections.max( monthsMajorYear );
 		
-		
 		// convert to date format
 		dateToConversion = minorYear + "-01-01 00:00:00";
 		
@@ -257,6 +299,16 @@ public class QuotaController {
 		return periodDate;
 	}
 	
+	public double getMaxQuotaValue(List<Quota> quotas){
+		double maxValue = 0.0;
+		Iterator<Quota> i = quotas.iterator();
+		while(i.hasNext()){
+			Quota quota = i.next();
+			maxValue= (quota.getValueQuota()>maxValue)? quota.getValueQuota() : maxValue;
+		}
+		return maxValue;
+	}
+
 	public int initializeDateFromQuotas() {
 		int majorMonth = 1;
 		
@@ -274,18 +326,5 @@ public class QuotaController {
 		}
 		
 		return majorMonth;
-	}
-	
-	/**
-	 * Associates the list of quotas on QuotaController.
-	 * <p>
-	 * 
-	 * @param listQuotaByIdCongressmanFromJSON
-	 */
-	private static void setQuotaList(
-	        List<Quota> listQuotaByIdCongressmanFromJSON ) {
-		
-		QuotaController.quotaList = listQuotaByIdCongressmanFromJSON;
-		
 	}
 }

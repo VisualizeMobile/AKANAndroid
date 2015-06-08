@@ -34,9 +34,16 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
 	private LineChart mChart;
 	private Context context;
 	
+	
 	private QuotaController quotaController;
 	private CongressmanController congressmanController;
 	private StatisticController statisticController;
+	
+	int subquota;
+	int year;
+	List<Quota> quotas;
+    List<Statistic> statistics;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,6 +53,11 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
         congressmanController = CongressmanController.getInstance(context);
         quotaController = QuotaController.getInstance(context);
         statisticController = StatisticController.getInstance(context);
+        
+        subquota = quotaController.getQuota().getTypeQuota().getValueSubQuota();
+        year = quotaController.getQuota().getYearReferenceQuota();
+        quotas = quotaController.getQuotasByTypeAndYear(subquota, year);
+        statistics = statisticController.getStatisticByYearAndType( year, subquota);
         
         mChart = (LineChart) findViewById(R.id.chart1);
         mChart.setOnChartValueSelectedListener(this);
@@ -81,9 +93,6 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
 
         Typeface tf = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
 
-        ArrayList<String> legendLabels = new ArrayList<String>();
-        legendLabels.add(congressmanController.getCongresman().getNameCongressman());
-        legendLabels.add("Média dos Parlamentares");
         // get the legend (only possible after setting data)
         Legend l = mChart.getLegend();
         
@@ -104,13 +113,13 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setTypeface(tf);
         leftAxis.setTextColor(Color.BLACK);
-        leftAxis.setAxisMaxValue(500f);
+        leftAxis.setAxisMaxValue((float)quotaController.getMaxQuotaValue(quotas));
         leftAxis.setDrawGridLines(true);
-        leftAxis.setAxisMinValue(-500f);
+        leftAxis.setAxisMinValue(0);
         
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setTypeface(tf);
-        rightAxis.setAxisMaxValue(0);
+        rightAxis.setAxisMaxValue((float)statisticController.getMaxStatisticValue(statistics));
         rightAxis.setStartAtZero(false);
         rightAxis.setAxisMinValue(0);
         rightAxis.setDrawGridLines(false);
@@ -130,15 +139,10 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
 	}
 	
 	private void setData(int count, float range) {
-
-		int congressmanId = congressmanController.getCongresman().getIdCongressman();
-        List<Quota> quotas = quotaController.getQuotasByIdCongressman(congressmanId);
-        int year = quotas.get(0).getYearReferenceQuota();
-        int subquota = quotas.get(0).getTypeQuota().getValueSubQuota();
-        List<Statistic> statistic = statisticController.getStatisticByYearAndType( year, subquota);
+		
         
         ArrayList<String> xVals = new ArrayList<String>();
-        for (int i = 0; i < quotas.size(); i++) {
+        for (int i = 1; i <= quotas.size(); i++) {
             xVals.add((i) + "");
         }
         
@@ -148,7 +152,7 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
         }
 
         // create a dataset and give it a type
-        LineDataSet set1 = new LineDataSet(yVals1, "DataSet 1");
+        LineDataSet set1 = new LineDataSet(yVals1, congressmanController.getCongresman().getNameCongressman());
         set1.setAxisDependency(AxisDependency.LEFT);
         set1.setColor(ColorTemplate.getHoloBlue());
         set1.setCircleColor(Color.WHITE);
@@ -161,12 +165,12 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
 
         ArrayList<Entry> yVals2 = new ArrayList<Entry>();
 
-        for (int i = 0; i < count; i++) {
-        	yVals1.add(new Entry((float) statistic.get(i).getAverage(), i));
+        for (int i = 0; i < statistics.size(); i++) {
+        	yVals1.add(new Entry((float) statistics.get(i).getAverage(), i));
         }
 
-        // create a dataset and give it a type
-        LineDataSet set2 = new LineDataSet(yVals2, "DataSet 2");
+         //create a dataset and give it a type
+        LineDataSet set2 = new LineDataSet(yVals2, "Média dos Deputados");
         set2.setAxisDependency(AxisDependency.LEFT);
         set2.setColor(Color.RED);
         set2.setCircleColor(Color.WHITE);

@@ -1,5 +1,6 @@
 package br.com.visualize.akan.domain.controller;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
@@ -38,6 +39,16 @@ public class StatisticController {
 		}
 		
 		return instanceStatisticController;
+	}
+	
+	public double getMaxStatisticValue(List<Statistic> statistics){
+		double maxValue = 0.0;
+		Iterator<Statistic> i = statistics.iterator();
+		while(i.hasNext()){
+			Statistic statistic = i.next();
+			maxValue= (statistic.getAverage()>maxValue)? statistic.getAverage() : maxValue;
+		}
+		return maxValue;
 	}
 	
 	/* TODO: Write JAVADOC. */

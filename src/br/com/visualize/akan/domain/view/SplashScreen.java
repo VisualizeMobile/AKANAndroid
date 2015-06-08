@@ -62,7 +62,7 @@ public class SplashScreen extends Activity {
 					        .getResponseHandler();
 					
 					congressmanController.requestAllCongressman( responseHandler );
-					statisticController.requestStatistics(responseHandler);
+					statisticController.requestStatistics( responseHandler );
 					
 				} catch( Exception e ) {
 					// TODO: handle exception

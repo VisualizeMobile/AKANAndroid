@@ -12,7 +12,7 @@
          android:layout_height="100dp"
          android:layout_centerHorizontal="true"
          android:layout_alignParentTop="true"
-         android:background="@drawable/background_technical_work_and_consulting" />
+         android:background="@drawable/background_quota" />
      
      <ImageView
          android:id="@+id/btn_quota_imageview"
@@ -33,7 +33,7 @@
 		 android:layout_centerHorizontal="true"
          android:layout_alignParentTop="true"         
 		 android:scaleType="fitXY"
-		 android:src="@anim/level_bar_technical_work_and_consulting" />
+		 android:src="@anim/level_bars_lease_of_vehicles" />
      
      <TextView
          android:id="@+id/quota_text"
