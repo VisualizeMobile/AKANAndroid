@@ -57,7 +57,7 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
         subquota = quotaController.getQuota().getTypeQuota().getValueSubQuota();
         year = quotaController.getQuota().getYearReferenceQuota();
         quotas = quotaController.getQuotasByTypeAndYear(subquota, year);
-        statistics = statisticController.getStatisticByYearAndType( year, subquota);
+        statistics = statisticController.getStatisticByTypeAndYear( subquota, year);
         
         mChart = (LineChart) findViewById(R.id.chart1);
         mChart.setOnChartValueSelectedListener(this);
@@ -168,8 +168,10 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
 
         ArrayList<Entry> yVals2 = new ArrayList<Entry>();
 
-        for (int i = 0; i < statistics.size(); i++) {
-        	yVals1.add(new Entry((float) statistics.get(i).getAverage(), i));
+        
+        //TODO: Fix statistics list from dao.
+        for (int i = 0; i < quotas.size(); i++) {
+        	yVals2.add(new Entry((float) statistics.get(i).getAverage(), i));
         }
 
          //create a dataset and give it a type

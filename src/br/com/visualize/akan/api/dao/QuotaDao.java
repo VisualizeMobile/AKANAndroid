@@ -359,7 +359,6 @@ public class QuotaDao extends Dao {
 	        if( congressmanDao.checkCongressmanExist( idCongressman ) ) {
         		sqliteDatabase = database.getWritableDatabase();
         		ContentValues content = new ContentValues();
-        		
         		content.put( tableColumns[ 0 ], quota.getIdQuota() );
         		content.put( tableColumns[ 1 ], quota.getIdCongressmanQuota() );
         		content.put( tableColumns[ 2 ], quota.getIdUpdateQuota() );

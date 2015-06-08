@@ -85,7 +85,7 @@ public class StatisticController {
 		return statisticDao.getGeneralStatistic(subquota);
 	}
 	
-	public List<Statistic> getStatisticByYearAndType(int subquota, int year){
+	public List<Statistic> getStatisticByTypeAndYear(int subquota, int year){
 		return statisticDao.getStatisticByYearAndType(year, subquota);
 	}
 	
