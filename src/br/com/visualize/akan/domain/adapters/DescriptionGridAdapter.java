@@ -105,7 +105,6 @@ public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 		        context.getPackageName() );
 		int barId = context.getResources().getIdentifier( "level_bars_"+quotaName, "anim",
 		        context.getPackageName() );
-		Log.e("barId","id: "+ barId + "; quotaName: " + quotaName);
 		btnQuota.setBackgroundResource(btnId);
 		barQuota.setBackgroundResource(barId);
 		
@@ -222,7 +221,7 @@ public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 	
 	private void animateBackgroundColor( ImageView image, double percent ) {
 		int[ ] colors = selectImageColor( percent );
-		
+		Log.e("imageId","id: "+ image.getId() + "; quotaPercent: " + percent);
 		ValueAnimator colorAnimator = ObjectAnimator.ofInt( image,
 		        "backgroundColor", colors );
 		
@@ -235,6 +234,7 @@ public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 	
 	private void animateBarColor( ImageView bar, double percent ) {
 		int[ ] colors = selectImageColor( percent );
+		Log.e("barId","id: "+ bar.getX() + "; quotaPercent: " + percent);
 		ValueAnimator colorAnimator = ObjectAnimator.ofInt( bar, "colorFilter",
 		        colors );
 		

@@ -54,17 +54,15 @@ public class DatePickerFragment extends DialogFragment {
 		                    DatePicker datePicker = (DatePicker) datePickerDialogField.get(datePickerDialog);
 		                    java.lang.reflect.Field[] datePickerFields = datePickerDialogField.getType().getDeclaredFields();
 		                    for (java.lang.reflect.Field datePickerField : datePickerFields) {
-		                       if ("mDayPicker".equals(datePickerField.getName())|"mDaySpinner".equals(datePickerField.getName())) {
+		                    	if ("mDayPicker".equals(datePickerField.getName())|"mDaySpinner".equals(datePickerField.getName())) {
 		                          datePickerField.setAccessible(true);
 		                          Object dayPicker= new Object();
 		                          dayPicker = datePickerField.get(datePicker);
-		                          ((View) dayPicker).setVisibility(View.GONE);
-		                          
+		                          ((View) dayPicker).setVisibility(View.GONE); 
 		                       }
 		                       datePickerDialog.setTitle("Período");
 		                    }
 		                 }
-
 		              }
 		        
 		         datePickerDialog.getDatePicker().setCalendarViewShown(false);

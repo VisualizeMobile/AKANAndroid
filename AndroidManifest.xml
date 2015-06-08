@@ -28,7 +28,8 @@
           android:theme="@android:style/Theme.Holo.Light.NoActionBar" ></activity>
         <activity
              android:name=".domain.view.ListScreen"
-             android:launchMode="singleTask" >
+             android:launchMode="singleTask"
+             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
             <intent-filter>
                  <action android:name="android.intent.action.SEARCH" /> 
             </intent-filter>

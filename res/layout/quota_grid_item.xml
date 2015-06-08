@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/layout_description_quotas"
 	android:layout_width="120dp"
-	android:layout_height="130dp" >
+	android:layout_height="110dp" >
      
     <ImageView
          android:id="@+id/bkg_quota_imageview"
          android:contentDescription="@string/image_description_default"
          android:layout_margin="2dp"
-         android:layout_width="100dp"
-         android:layout_height="100dp"
+         android:layout_width="110dp"
+         android:layout_height="95dp"
          android:layout_centerHorizontal="true"
          android:layout_alignParentTop="true"
          android:background="@drawable/background_quota" />
@@ -18,8 +18,8 @@
          android:id="@+id/btn_quota_imageview"
          android:contentDescription="@string/image_description_quota_technical_work_and_consulting"
          android:layout_margin="2dp"
-         android:layout_width="100dp"
-         android:layout_height="100dp"	
+         android:layout_width="110dp"
+         android:layout_height="95dp"	
          android:layout_centerHorizontal="true"
          android:layout_alignParentTop="true"
          android:background="@drawable/quota_technical_work_and_consulting" />
@@ -28,8 +28,8 @@
 		 android:id="@+id/bar_quota_imageview"
 		 android:contentDescription="@string/image_description_default"
 		 android:layout_margin="2dp"
-		 android:layout_width="100dp"
-		 android:layout_height="100dp"  
+		 android:layout_width="110dp"
+		 android:layout_height="95dp"  
 		 android:layout_centerHorizontal="true"
          android:layout_alignParentTop="true"         
 		 android:scaleType="fitXY"
@@ -37,8 +37,8 @@
      
      <TextView
          android:id="@+id/quota_text"
-         android:layout_width="100dp"
-         android:layout_height="30dp"
+         android:layout_width="110dp"
+         android:layout_height="25dp"
          android:layout_below="@id/btn_quota_imageview"
          android:layout_centerHorizontal="true"
          android:gravity="center_horizontal"
