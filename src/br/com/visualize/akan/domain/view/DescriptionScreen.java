@@ -79,12 +79,12 @@ public class DescriptionScreen extends FragmentActivity implements
 	
 	private QuotaController quotaController = null;
 	private CongressmanController congressmanController;
-	private StatisticController statisticController;
 	private Calendar calendar = Calendar.getInstance();
 	private CustomDialog customDialog;
 	
 	private int year;
 	private int month;
+	private DescriptionGridAdapter gridAdapter;
 	
 	static List<Quota> quotas;
 	
@@ -100,12 +100,16 @@ public class DescriptionScreen extends FragmentActivity implements
 		        .getInstance( context );
 		int idCongressman = congressmanController.getCongresman().getIdCongressman();
 		quotaController = QuotaController.getInstance( context );
+
+		year = calendar.get( Calendar.YEAR );
+		month = calendar.get( Calendar.MONTH );
+		
 		quotas = quotaController.getQuotasByIdCongressman(idCongressman);
-		statisticController = StatisticController
-		        .getInstance( context );
+		//quotas = quotaController.getQuotaByDate(month, year, idCongressman);
 		
 		GridView gridview = (GridView) findViewById(R.id.quota_gridview);
-	    gridview.setAdapter(new DescriptionGridAdapter(getBaseContext(), R.layout.quota_grid_item, quotas));
+	    gridAdapter = new DescriptionGridAdapter(getBaseContext(), R.layout.quota_grid_item, quotas);
+		gridview.setAdapter(gridAdapter);
 
 	    gridview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -117,8 +121,6 @@ public class DescriptionScreen extends FragmentActivity implements
 			}
 	    });
 		
-		year = calendar.get( Calendar.YEAR );
-		month = calendar.get( Calendar.MONTH );
 	}
 	
 	@Override
@@ -282,13 +284,14 @@ public class DescriptionScreen extends FragmentActivity implements
 						
 						month = quotaController.initializeDateFromQuotas();
 						
-						setValuesQuotas();
-						
 						setReferenceMonth();
+						
+						setValuesQuotas();
 						
 						progress.dismiss();
 						
 						Looper.loop();
+						
 					}
 				} );
 			}
@@ -305,23 +308,13 @@ public class DescriptionScreen extends FragmentActivity implements
 	 */
 	public void setValuesQuotas() {
 		
-		double totalAmountSpent = 0.00;
+		int idCongressman = congressmanController.getCongresman().getIdCongressman();
+		quotas = quotaController.getQuotaByDate( month, year, idCongressman);
 		
-		Iterator<Quota> iteratorQuota = quotaController.getQuotaByDate( month,
-		        year, congressmanController.getCongresman().getIdCongressman()).iterator();
+		gridAdapter.quotas = quotas;
 		
-		while( iteratorQuota.hasNext() ) {
-			Quota analyzedQuota = iteratorQuota.next();
-			
-			analyzedQuota.setStatisticQuota( statisticController
-			        .getGeneralStatistic( analyzedQuota.getTypeQuota().getValueSubQuota() ) );
-			
-			SubQuota typeSubQuota = analyzedQuota.getTypeQuota();
-			
-			setSubQuotaAccordingType( typeSubQuota, analyzedQuota );
-			
-			totalAmountSpent = totalAmountSpent + analyzedQuota.getValueQuota();
-		}
+		gridAdapter.notifyDataSetChanged();
+
 	}
 	
 	/**

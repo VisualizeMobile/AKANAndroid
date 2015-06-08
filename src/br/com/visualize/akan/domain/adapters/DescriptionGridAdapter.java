@@ -11,14 +11,11 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
@@ -33,7 +30,7 @@ import br.com.visualize.akan.domain.model.Quota;
 public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 	
 	private final Context context;
-	private List<Quota> Quotas;
+	public List<Quota> quotas;
 	private List<Quota> filteredList;
 	private int layoutInflated;
 	
@@ -44,11 +41,11 @@ public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 		
 		this.layoutInflated = textViewResourceId;
 		this.context = context;
-		this.Quotas = new ArrayList<Quota>();
+		this.quotas = new ArrayList<Quota>();
 		this.filteredList = new ArrayList<Quota>();
 		
-		Quotas.addAll( quotasList );
-		filteredList.addAll( Quotas );
+		quotas.addAll( quotasList );
+		filteredList.addAll( quotas );
 		
 		getFilter();
 	}
@@ -59,14 +56,14 @@ public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 	 */
 	@Override
 	public View getView( int position, View convertView, ViewGroup parent ) {
-		Quota quota = Quotas.get( position );
+		Quota quota = quotas.get( position );
 		String nameQuota = quota.getTypeQuota().getRepresentativeNameQuota();
 		
-		int bkgId = context.getResources().getIdentifier( "bkg_quota_"+nameQuota, "drawable",
+		int bkgId = context.getResources().getIdentifier( "background_"+nameQuota, "drawable",
 		        context.getPackageName() );
-		int btnId = context.getResources().getIdentifier( "btn_quota_"+nameQuota, "drawable",
+		int btnId = context.getResources().getIdentifier( "quota_"+nameQuota, "drawable",
 		        context.getPackageName() );
-		int barId = context.getResources().getIdentifier( "bar_quota_"+nameQuota, "drawable",
+		int barId = context.getResources().getIdentifier( "level_"+nameQuota, "drawable",
 		        context.getPackageName() );
 		
 		LayoutInflater inflater = (LayoutInflater)context
@@ -96,7 +93,7 @@ public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 	 */
 	@Override
 	public Quota getItem( int position ) {
-		return Quotas.get( position );
+		return quotas.get( position );
 	}
 	
 	/**
@@ -106,7 +103,7 @@ public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 	 */
 	@Override
 	public int getCount() {
-		return Quotas.size();
+		return quotas.size();
 	}
 	
 	@Override
