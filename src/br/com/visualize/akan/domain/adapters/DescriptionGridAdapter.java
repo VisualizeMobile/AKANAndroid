@@ -6,36 +6,33 @@ package br.com.visualize.akan.domain.adapters;
 
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
-import br.com.visualize.akan.api.helper.RoundedImageView;
 import br.com.visualize.akan.domain.model.Quota;
-import br.com.visualize.akan.domain.view.DescriptionScreen;
 
 
 /**
  * Represents a list of congressman adapting its entirety a particular form
  * described by the class.
  */
-@SuppressLint( { "InflateParams", "ViewHolder" } )
+
 public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 	
 	private final int WHITE = 0xffF1F1F2;
@@ -76,9 +73,13 @@ public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 		
 		LayoutInflater inflater = (LayoutInflater)context
 		        .getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-		
-		View view = inflater.inflate( layoutInflated, null );
-		
+		View view;
+		if(convertView == null){
+			view = inflater.inflate( layoutInflated, null );
+		}
+		else{
+			view = convertView;
+		}
 		setDetailsQuota(quota, view);
 		
 		return view;
@@ -155,8 +156,9 @@ public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 	 *            Amount spent associated with sub-quota.
 	 */
 	private void setTextValueQuota( TextView text, Quota quota ) {
-		DecimalFormat valueQuotaFormat = new DecimalFormat( "#,###.00" );	
-		text.setText( valueQuotaFormat.format( quota.getValueQuota() ) );
+		NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
+		DecimalFormat df = (DecimalFormat)nf;
+		text.setText("R$ "+ df.format( quota.getValueQuota() ) );
 		//animateTextMove( text );
 	}
 	

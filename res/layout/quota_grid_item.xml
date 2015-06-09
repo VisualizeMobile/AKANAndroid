@@ -3,19 +3,8 @@
 	android:id="@+id/layout_description_quotas"
 	android:layout_width="120dp"
 	android:layout_height="110dp" >
-     
-    <br.com.visualize.akan.api.helper.RoundedImageView
-         android:id="@+id/bkg_quota_imageview"
-         android:contentDescription="@string/image_description_default"
-         android:layout_margin="2dp"
-         android:padding="22dp"
-         android:layout_width="110dp"
-         android:layout_height="95dp"
-         android:layout_centerHorizontal="true"
-         android:layout_alignParentTop="true"
-         android:background="@drawable/background_quota" />
-     
-     <ImageView
+      
+    <ImageView
          android:id="@+id/btn_quota_imageview"
          android:contentDescription="@string/image_description_quota_technical_work_and_consulting"
          android:layout_margin="2dp"

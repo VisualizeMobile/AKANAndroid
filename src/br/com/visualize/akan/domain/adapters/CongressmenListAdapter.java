@@ -6,8 +6,10 @@ package br.com.visualize.akan.domain.adapters;
 
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -111,10 +113,11 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 			TextView textViewValue = (TextView)view
 			        .findViewById( R.id.ranking_layout_txt_value );
 			
-			DecimalFormat formatValue = new DecimalFormat( "#,###.00" );
+			NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
+			DecimalFormat decimalFormat = (DecimalFormat)nf;
 			
-			textViewValue.setText( ""
-			        + formatValue.format( congressmens.get( position )
+			textViewValue.setText( "R$ "
+			        + decimalFormat.format( congressmens.get( position )
 			                .getTotalSpentCongressman() ) );
 			
 			TextView textViewPosition = (TextView)view

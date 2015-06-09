@@ -72,17 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
         	android:layout_alignParentBottom="true"
-            android:text="@string/total_expenditure" />
-        
-        <TextView
-            android:id="@+id/ranking_layout_txt_monetary_symbol"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/ranking_layout_txt_value"
-            android:layout_toLeftOf="@+id/ranking_layout_txt_value"
-            android:layout_margin="2dp"
-        	android:layout_alignParentBottom="true"
-            android:text="@string/monetary_symbol" />
+            android:text="@string/total_expenditure" />    
         
         <TextView
             android:id="@+id/ranking_layout_txt_congressman_party"
