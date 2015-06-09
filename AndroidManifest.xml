@@ -23,7 +23,8 @@
         android:theme="@style/CustomActionBarTheme">
         
         <activity android:name=".domain.view.AboutAkanScreen"></activity>
-        <activity android:name=".domain.view.QuotaGraphScreen" />
+        <activity android:name=".domain.view.QuotaGraphScreen"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity android:name=".domain.view.DescriptionScreen"
           android:theme="@android:style/Theme.Holo.Light.NoActionBar" ></activity>
         <activity

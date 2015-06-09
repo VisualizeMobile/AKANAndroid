@@ -51,7 +51,7 @@ public class StatisticDao extends Dao{
 		sqliteDatabase = database.getWritableDatabase();
 		ContentValues content = new ContentValues();
 		
-		//content.put( tableColumns[ 0 ], statistic.);
+		content.put( tableColumns[ 0 ], statistic.getIdStatistic());
 		content.put( tableColumns[ 1 ], statistic.getMonth().getvalueMonth());
 		content.put( tableColumns[ 2 ], statistic.getStdDeviation());
 		content.put( tableColumns[ 3 ], statistic.getAverage());
@@ -93,7 +93,7 @@ public class StatisticDao extends Dao{
 	
 	@Override
 	protected boolean checkEmptyLocalDb() {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 }

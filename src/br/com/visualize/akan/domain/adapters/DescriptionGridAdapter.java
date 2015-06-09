@@ -26,6 +26,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
+import br.com.visualize.akan.api.helper.RoundedImageView;
 import br.com.visualize.akan.domain.model.Quota;
 import br.com.visualize.akan.domain.view.DescriptionScreen;
 
@@ -96,7 +97,6 @@ public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 	private void setDetailsQuota( Quota quota, View view ) {
 		String quotaName = quota.getTypeQuota().getRepresentativeNameQuota();
 		
-		ImageView bkgQuota = (ImageView) view.findViewById(R.id.bkg_quota_imageview);
 		ImageView btnQuota = (ImageView) view.findViewById(R.id.btn_quota_imageview);
 		ImageView barQuota = (ImageView) view.findViewById(R.id.bar_quota_imageview);
 		TextView valueQuota = (TextView) view.findViewById(R.id.quota_text);
@@ -105,12 +105,12 @@ public class DescriptionGridAdapter extends ArrayAdapter<Quota> {
 		        context.getPackageName() );
 		int barId = context.getResources().getIdentifier( "level_bars_"+quotaName, "anim",
 		        context.getPackageName() );
-		btnQuota.setBackgroundResource(btnId);
-		barQuota.setBackgroundResource(barId);
+		btnQuota.setImageResource(btnId);
+		barQuota.setImageResource(barId);
 		
 		double percent = exponentialProbability( quota );
 		
-		animateBackgroundColor( bkgQuota, percent );
+		animateBackgroundColor( btnQuota, percent );
 		animateBarColor( barQuota, percent );
 		animateBarHeight( barQuota, percent );
 		setTextValueQuota( valueQuota, quota );

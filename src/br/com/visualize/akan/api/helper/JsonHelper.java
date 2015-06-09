@@ -163,6 +163,8 @@ public class JsonHelper {
 			
 			for( int index = 0; index < jArray.length(); index++ ) {
 				statistic = new Statistic();
+				
+				statistic.setIdStatistic(index);
 				/*
 				 * some statistics does not have referenced month
 				 * */

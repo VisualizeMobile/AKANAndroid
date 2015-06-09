@@ -6,12 +6,22 @@ import br.com.visualize.akan.domain.enumeration.SubQuota;
 public class Statistic {
 	private SubQuota subquota;
 	
+	private int idStatistic;
 	private int year;
 	private Month month;
 	
 	private double stdDeviation;
 	private double average;
 	private double maxValue;
+	
+	public int getIdStatistic() {
+		return idStatistic;
+	}
+
+	public void setIdStatistic(int idStatistic) {
+		this.idStatistic = idStatistic;
+	}
+
 	
 	public SubQuota getSubquota() {
 		return subquota;
