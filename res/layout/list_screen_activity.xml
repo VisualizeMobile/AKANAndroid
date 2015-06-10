@@ -7,20 +7,46 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#FFFFFF" >
-
+	
+    <RelativeLayout
+	    android:id="@+id/topbar_search_layer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="65dp"
+        android:background="#ABABAB" >
+		
+		<SearchView 
+           android:id="@+id/topbar_searchview"
+           android:layout_alignParentTop="true"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"/>  
+        
+        <ListView
+        android:id="@+id/listView"
+        android:layout_below="@+id/topbar_searchview"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:dividerHeight="1dp"
+        android:divider="#E6E5EC"
+        android:clickable="true" />	
+		
+	</RelativeLayout>
+    
     <RelativeLayout
         android:id="@+id/topbar_description"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="#5B6C78" >
-
+        android:background="#536571" >
+        
         <TextView
             android:id="@+id/topbar_congressman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
             android:text="@string/congressman"
             android:textColor="#ffffff"
             android:textSize="20sp" />
@@ -30,9 +56,8 @@
             android:background="@drawable/logo"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
             android:contentDescription="@string/image_description_default"/>
             <!--  android:onClick="backToList" -->
 
@@ -41,25 +66,14 @@
             android:background="@drawable/configuration"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
             android:contentDescription="@string/image_description_default"/>
     </RelativeLayout>
-
-    <ListView
-        android:id="@+id/listView"
-        android:layout_below="@+id/topbar_description"
-        android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:layout_marginBottom="65dp"
-    	android:dividerHeight="1dp"
-        android:divider="#E6E5EC"
-        android:clickable="true" >
-    </ListView>	
-
+    
+    
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -111,6 +125,5 @@
                android:layout_marginRight="30dp"
                android:scaleType="fitXY"
                android:background="@drawable/inactive_search" />
-
     </RelativeLayout>
 </RelativeLayout>

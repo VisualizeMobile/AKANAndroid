@@ -26,10 +26,13 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
@@ -48,6 +51,7 @@ public class ListScreen extends Activity {
 	CongressmenListAdapter listAdapter;
 	ListView listView;
 	SearchView search;
+	RelativeLayout searchLayer;
 	String query;
 	Button btn_search;
 	Button btn_ranking;
@@ -63,6 +67,8 @@ public class ListScreen extends Activity {
 	public void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.list_screen_activity );
+		
+		searchLayer = (RelativeLayout)findViewById(R.id.topbar_search_layer);
 		
 		btn_ranking = (Button)findViewById( R.id.btn_ranking );
 		btn_search = (Button)findViewById( R.id.btn_search );
@@ -128,12 +134,14 @@ public class ListScreen extends Activity {
 				
 				if( btn_search.isSelected() ) {
 					btn_search.setBackgroundResource( R.drawable.active_search );
-					search.setIconified( false );
+					listAdapter.getFilter().filter( search.getQuery().toString());
+					animateSearchView(1);
 					
 				} else {
 					btn_search
 					        .setBackgroundResource( R.drawable.inactive_search );
-					search.setIconified( true );
+					listAdapter.getFilter().filter( "" );
+					animateSearchView(-1);
 				}
 			}
 		} );
@@ -154,6 +162,8 @@ public class ListScreen extends Activity {
 				startActivity( i );
 			}
 		} );
+		
+		configureSearchView();
 	}
 	
 	public void onFollowList( View view ) {
@@ -195,46 +205,10 @@ public class ListScreen extends Activity {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate( R.menu.menu, menu );
 		
-		SearchManager searchManager = (SearchManager)getSystemService( Context.SEARCH_SERVICE );
 		
 		getActionBar().setCustomView( R.layout.action_bar );
 		getActionBar().setDisplayShowCustomEnabled( true );
-		search = (SearchView)menu.findItem( R.id.action_search )
-		        .getActionView();
 		
-		search.setSearchableInfo( searchManager
-		        .getSearchableInfo( getComponentName() ) );
-		
-		search.setIconifiedByDefault( true );
-		search.setOnQueryTextListener( new OnQueryTextListener() {
-			
-			@Override
-			public boolean onQueryTextSubmit( String newText ) {
-				return false;
-			}
-			
-			@Override
-			public boolean onQueryTextChange( String newText ) {
-				listAdapter.getFilter().filter( newText );
-				
-				return true;
-			}
-		} );
-		int searchPlateId = search.getContext().getResources()
-		        .getIdentifier( "android:id/search_plate", null, null );
-		View searchPlate = search.findViewById( searchPlateId );
-		if( searchPlate != null ) {
-			
-			searchPlate.setBackgroundColor( Color.WHITE );
-			int searchTextId = searchPlate.getContext().getResources()
-			        .getIdentifier( "android:id/search_src_text", null, null );
-			TextView searchText = (TextView)searchPlate
-			        .findViewById( searchTextId );
-			if( searchText != null ) {
-				searchText.setTextColor( Color.GRAY );
-				searchText.setHintTextColor( Color.GRAY );
-			}
-		}
 		return true;
 		
 	}
@@ -345,4 +319,71 @@ public class ListScreen extends Activity {
 		}
 	}
 	
+	private void configureSearchView(){
+		SearchManager searchManager = (SearchManager)getSystemService( Context.SEARCH_SERVICE );
+		search = (SearchView)findViewById( R.id.topbar_searchview );
+		
+		search.setSearchableInfo( searchManager
+		        .getSearchableInfo( getComponentName() ) );
+		
+		search.setIconified(false);
+		
+		int closeButtonId = search.getContext().getResources().getIdentifier("android:id/search_close_btn", null, null);
+        final ImageView closeButton = (ImageView) search.findViewById(closeButtonId);
+        closeButton.getLayoutParams().height = 0;	
+		
+        search.setOnQueryTextListener( new OnQueryTextListener() {
+			
+			@Override
+			public boolean onQueryTextSubmit( String newText ) {
+				return false;
+			}
+			
+			@Override
+			public boolean onQueryTextChange( String newText ) {
+				listAdapter.getFilter().filter( newText );
+				return true;
+			}
+		} );
+		int searchPlateId = search.getContext().getResources()
+		        .getIdentifier( "android:id/search_plate", null, null );
+		View searchPlate = search.findViewById( searchPlateId );
+		if( searchPlate != null ) {
+			searchPlate.setBackgroundColor( 0xFFF1F1F2 );
+			int searchTextId = searchPlate.getContext().getResources()
+			        .getIdentifier( "android:id/search_src_text", null, null );
+			TextView searchText = (TextView)searchPlate
+			        .findViewById( searchTextId );
+			if( searchText != null ) {
+				searchText.setTextColor( Color.GRAY );
+				searchText.setHintTextColor( Color.GRAY );
+			}			
+		}
+	}
+	public void animateSearchView(final int direction){
+		TranslateAnimation anim = new TranslateAnimation(0, 0, 0, 50*direction);
+		anim.setDuration(300);
+
+		anim.setAnimationListener(new TranslateAnimation.AnimationListener() {
+
+		@Override
+		public void onAnimationStart(Animation animation) { 
+			RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)searchLayer.getLayoutParams();
+		    params.bottomMargin = 0;
+		    searchLayer.setLayoutParams(params);
+		}
+			
+		@Override
+		public void onAnimationRepeat(Animation animation) { }
+
+		@Override
+		public void onAnimationEnd(Animation animation) {
+		    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)searchLayer.getLayoutParams();
+		    params.topMargin += 50*direction;
+		    params.bottomMargin = 65;
+		    searchLayer.setLayoutParams(params);
+		}
+		});
+		searchLayer.startAnimation(anim);
+	}
 }
