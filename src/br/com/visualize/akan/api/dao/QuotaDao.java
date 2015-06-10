@@ -91,18 +91,8 @@ public class QuotaDao extends Dao {
 	 * 
 	 * @param insertedQuotas
 	 *            List of quotas to be inserted.
-<<<<<<< HEAD
-	 * @throws NullQuotaException 
-	 * @throws DatabaseInvalidOperationException 
-=======
-<<<<<<< HEAD
 	 * @throws NullQuotaException
 	 * @throws DatabaseInvalidOperationException
-=======
-	 * @throws NullQuotaException
-	 * @throws DatabaseInvalidOperationException
->>>>>>> Implementing exception handling on insertQuota(), in QuotaDao, and new method checkCongressmanExist(), in CongressmanDao
->>>>>>> Implementing exception handling on insertQuota(), in QuotaDao, and new method checkCongressmanExist(), in CongressmanDao
 	 */
 	public boolean insertQuotasById( List<Quota> insertedQuotas )
 	        throws NullQuotaException, DatabaseInvalidOperationException {
@@ -364,7 +354,8 @@ public class QuotaDao extends Dao {
         		content.put( tableColumns[ 2 ], quota.getIdUpdateQuota() );
         		content.put( tableColumns[ 3 ], quota.getTypeQuota().
         		        getValueSubQuota() );
-        		content.put( tableColumns[ 4 ], quota.getDescriptionQuota() );
+        		content.put( tableColumns[ 4 ], descriptionBySubtype(quota.getTypeQuota().
+        		        getValueSubQuota()) );
         		content.put( tableColumns[ 5 ], quota.getMonthReferenceQuota()
         		        .getvalueMonth() );
         		content.put( tableColumns[ 6 ], quota.getYearReferenceQuota() );
@@ -379,6 +370,39 @@ public class QuotaDao extends Dao {
 	        }
 	    } else {
 	        throw new NullQuotaException();
+	    }
+	}
+	
+	String descriptionBySubtype(int subtype){
+	    switch (subtype) {
+	        case 1:
+	            return "Escritório";
+	        case 3:
+	            return "Combustível";
+	        case 4:
+	            return "Pesquisas e Consultorias";
+	        case 5:
+	            return "Divulgação";
+	        case 8:
+	            return "Segurança";
+	        case 9:
+	            return "Passagens Aéreas";
+	        case 10:
+	            return "Telefonia";
+	        case 11:
+	            return "Serviços Postais";
+	        case 12:
+	            return "Assinatura de Publicações";
+	        case 13:
+	            return "Alimentação";
+	        case 14:
+	            return "Hospedagem";
+	        case 15:
+	            return "Locação de Veículos";
+	        case 119:
+	            return "Fretamento de Aeronaves";
+	        default:
+	            return "Nenhum";
 	    }
 	}
 }
