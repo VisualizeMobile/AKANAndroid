@@ -21,6 +21,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.domain.controller.CongressmanController;
@@ -203,5 +204,13 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
         // set data
         mChart.setData(data);
     }
-
+	/**
+	 * Back to quotas description
+	 * 
+	 * @param view
+	 *            current View
+	 */
+	public void backToDescription( View view ) {
+		this.finish();
+	}
 }

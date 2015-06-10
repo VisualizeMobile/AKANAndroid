@@ -28,18 +28,9 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:contentDescription="@string/image_description_default"/>
-            <!--  android:onClick="backToList" -->
-
-        <ImageButton
-            android:id="@+id/topbar_config_button"
-            android:background="@drawable/back_button_topbar"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:contentDescription="@string/image_description_default"/>
+            android:contentDescription="@string/image_description_default"
+            android:onClick="backToDescription"/>
+        
     </RelativeLayout>
 
     <com.github.mikephil.charting.charts.LineChart
