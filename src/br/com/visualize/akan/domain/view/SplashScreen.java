@@ -56,13 +56,33 @@ public class SplashScreen extends Activity {
      * operation of the Thread.
      */
     public void requestCongressman() {
-        final AlertDialog.Builder messageNeutralBuilder = 
+        final AlertDialog.Builder msgFailedConnectionBuilder = 
                 new AlertDialog.Builder( this )
                 .setNeutralButton( "OK", new OkButtonListener() )
                 .setTitle( "Falha na Conexão" )
                 .setMessage( "Verifique sua conexão com a internet." );
         
-        final AlertDialog messageFailedConnection = messageNeutralBuilder
+        final AlertDialog messageFailedConnection = msgFailedConnectionBuilder
+                .create();
+        
+        final AlertDialog.Builder msgFailedRecoverBuilder = 
+                new AlertDialog.Builder( this )
+                .setNeutralButton( "OK", new OkButtonListener() )
+                .setTitle( "Falha na Recuperação de Dados" )
+                .setMessage( "Desculpe. Houve uma falha na recuperação"
+                + " dos dados." );
+        
+        final AlertDialog messageFailedRecoverData = msgFailedRecoverBuilder
+                .create();
+        
+        final AlertDialog.Builder msgFailedInsertionBuilder = 
+                new AlertDialog.Builder( this )
+                .setNeutralButton( "OK", new OkButtonListener() )
+                .setTitle( "Falha na Inserção de Dados" )
+                .setMessage( "Desculpe. Houve uma falha na inserção" 
+                + " dos dados." );
+        
+        final AlertDialog messageFailedInsertData = msgFailedInsertionBuilder
                 .create();
         
         final ProgressDialog progress = new ProgressDialog( this );
@@ -91,11 +111,29 @@ public class SplashScreen extends Activity {
                         }
                     } );
                 } catch( JSONException je ) {
-                    // TODO: handling exception.
+                    progress.dismiss();
+                    
+                    messageHandler.post( new Runnable() {
+                        public void run() {
+                            messageFailedRecoverData.show();
+                        }
+                    } );
                 } catch( NullCongressmanException nce ) {
-                    // TODO: handling exception.
+                    progress.dismiss();
+                    
+                    messageHandler.post( new Runnable() {
+                        public void run() {
+                            messageFailedInsertData.show();
+                        }
+                    } );
                 } catch( NullStatisticException nse ) {
-                    // TODO: handling exception.
+                    progress.dismiss();
+                    
+                    messageHandler.post( new Runnable() {
+                        public void run() {
+                            messageFailedInsertData.show();
+                        }
+                    } );
                 }
                 
                 runOnUiThread( new Runnable() {
