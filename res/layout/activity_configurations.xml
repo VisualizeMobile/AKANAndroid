@@ -314,7 +314,7 @@
 		        android:layout_height="wrap_content"
 		        android:gravity="center"
 		        android:text="estado"
-		        android:textColor="#FFFFFF"
+		        android:textColor="#f2f2f1"
 		        android:textSize="13sp" />
 		    
 		    <ImageView

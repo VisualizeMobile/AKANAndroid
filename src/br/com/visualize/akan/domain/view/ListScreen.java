@@ -22,11 +22,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -134,12 +136,14 @@ public class ListScreen extends Activity {
 					btn_search.setBackgroundResource( R.drawable.active_search );
 					listAdapter.getFilter().filter( search.getQuery().toString());
 					animateSearchView(1);
+					showInputMethod(search);
 					
 				} else {
 					btn_search
 					        .setBackgroundResource( R.drawable.inactive_search );
 					listAdapter.getFilter().filter( "" );
 					animateSearchView(-1);
+					search.clearFocus();
 				}
 			}
 		} );
@@ -151,7 +155,7 @@ public class ListScreen extends Activity {
 			@Override
 			public void onItemClick( AdapterView<?> parent, View view,
 			        int position, long id ) {
-				
+				search.clearFocus();
 				final Congressman congressman = (Congressman)parent
 				        .getItemAtPosition( position );
 				congressmanController.setCongressman( congressman );
@@ -198,25 +202,13 @@ public class ListScreen extends Activity {
 		
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu( final Menu menu ) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate( R.menu.menu, menu );
-		
-		
-		getActionBar().setCustomView( R.layout.action_bar );
-		getActionBar().setDisplayShowCustomEnabled( true );
-		
-		return true;
-		
-	}
-	
 	/**
 	 * Listener click event to follow/unFollow congressman
 	 * 
 	 * @param view
 	 */
 	public void followedCongressman( View view ) {
+		search.clearFocus();
 		customDialog = new CustomDialog( this );
 		
 		int timeToDismis = 2000;
@@ -326,12 +318,13 @@ public class ListScreen extends Activity {
 		
 		search.setIconified(false);
 		
-		int closeButtonId = search.getContext().getResources().getIdentifier("android:id/search_close_btn", null, null);
+		int closeButtonId = search.getContext().getResources()
+				.getIdentifier("android:id/search_close_btn", null, null);
         final ImageView closeButton = (ImageView) search.findViewById(closeButtonId);
         closeButton.getLayoutParams().height = 0;	
 		
         search.setOnQueryTextListener( new OnQueryTextListener() {
-			
+        	
 			@Override
 			public boolean onQueryTextSubmit( String newText ) {
 				return false;
@@ -343,6 +336,16 @@ public class ListScreen extends Activity {
 				return true;
 			}
 		} );
+        
+        search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                	showInputMethod(v);
+                }
+            }
+        });
+        
 		int searchPlateId = search.getContext().getResources()
 		        .getIdentifier( "android:id/search_plate", null, null );
 		View searchPlate = search.findViewById( searchPlateId );
@@ -377,7 +380,7 @@ public class ListScreen extends Activity {
 		@Override
 		public void onAnimationEnd(Animation animation) {
 		    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)searchLayer.getLayoutParams();
-		    params.topMargin += 50*direction;
+		    params.topMargin = (50*direction>0) ? 50*direction : 0;
 		    params.bottomMargin = 65;
 		    searchLayer.setLayoutParams(params);
 		}
@@ -390,7 +393,17 @@ public class ListScreen extends Activity {
 	 * 
 	 */
 	public void goToConfiguration(View view) {
+		search.clearFocus();
 		Intent i = new Intent( ListScreen.this, Configurations.class );
 		startActivity( i );
 	}
+	
+	/**
+	 * Force open keyborad to serach view
+	 * 
+	 */
+	private void showInputMethod(final View view) {
+	    InputMethodManager imm = (InputMethodManager) getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+	    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+    }
 }
