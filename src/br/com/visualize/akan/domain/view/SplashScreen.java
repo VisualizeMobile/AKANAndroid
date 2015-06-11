@@ -56,34 +56,29 @@ public class SplashScreen extends Activity {
      * operation of the Thread.
      */
     public void requestCongressman() {
-        final AlertDialog.Builder msgFailedConnectionBuilder = 
+        final AlertDialog.Builder msgNeutralBuilder = 
                 new AlertDialog.Builder( this )
-                .setNeutralButton( "OK", new OkButtonListener() )
-                .setTitle( "Falha na Conexão" )
-                .setMessage( "Verifique sua conexão com a internet." );
+                .setNeutralButton( "OK", new OkButtonListener() );
         
-        final AlertDialog messageFailedConnection = msgFailedConnectionBuilder
-                .create();
+        msgNeutralBuilder
+        .setTitle( "Falha na Conexão" )
+        .setMessage( "Verifique sua conexão com a internet." );
         
-        final AlertDialog.Builder msgFailedRecoverBuilder = 
-                new AlertDialog.Builder( this )
-                .setNeutralButton( "OK", new OkButtonListener() )
-                .setTitle( "Falha na Recuperação de Dados" )
-                .setMessage( "Desculpe. Houve uma falha na recuperação"
-                + " dos dados." );
+        final AlertDialog messageFailedConnection = msgNeutralBuilder.create();
         
-        final AlertDialog messageFailedRecoverData = msgFailedRecoverBuilder
-                .create();
+        msgNeutralBuilder
+        .setTitle( "Falha na Recuperação de Dados" )
+        .setMessage( "Desculpe. Houve uma falha na recuperação"
+        + " dos dados." );
         
-        final AlertDialog.Builder msgFailedInsertionBuilder = 
-                new AlertDialog.Builder( this )
-                .setNeutralButton( "OK", new OkButtonListener() )
-                .setTitle( "Falha na Inserção de Dados" )
-                .setMessage( "Desculpe. Houve uma falha na inserção" 
-                + " dos dados." );
+        final AlertDialog messageFailedRecoverData = msgNeutralBuilder.create();
         
-        final AlertDialog messageFailedInsertData = msgFailedInsertionBuilder
-                .create();
+        msgNeutralBuilder
+        .setTitle( "Falha na Inserção de Dados" )
+        .setMessage( "Desculpe. Houve uma falha na inserção" 
+        + " dos dados." );
+        
+        final AlertDialog messageFailedInsertData = msgNeutralBuilder.create();
         
         final ProgressDialog progress = new ProgressDialog( this );
         progress.setMessage( "Carregando dados..." );
@@ -105,35 +100,23 @@ public class SplashScreen extends Activity {
                 } catch( ConnectionFailedException cfe ) {
                     progress.dismiss();
                     
-                    messageHandler.post( new Runnable() {
-                        public void run() {
-                            messageFailedConnection.show();
-                        }
-                    } );
+                    showMessageOnThread( messageFailedConnection,
+                            messageHandler );
                 } catch( JSONException je ) {
                     progress.dismiss();
                     
-                    messageHandler.post( new Runnable() {
-                        public void run() {
-                            messageFailedRecoverData.show();
-                        }
-                    } );
+                    showMessageOnThread( messageFailedRecoverData,
+                            messageHandler );
                 } catch( NullCongressmanException nce ) {
                     progress.dismiss();
                     
-                    messageHandler.post( new Runnable() {
-                        public void run() {
-                            messageFailedInsertData.show();
-                        }
-                    } );
+                    showMessageOnThread( messageFailedInsertData,
+                            messageHandler );
                 } catch( NullStatisticException nse ) {
                     progress.dismiss();
                     
-                    messageHandler.post( new Runnable() {
-                        public void run() {
-                            messageFailedInsertData.show();
-                        }
-                    } );
+                    showMessageOnThread( messageFailedInsertData,
+                            messageHandler );
                 }
                 
                 runOnUiThread( new Runnable() {
@@ -142,12 +125,10 @@ public class SplashScreen extends Activity {
                     public void run() {
                         progress.setMessage( "Dados carregados" );
                         
-                        if( !messageFailedConnection.isShowing() ) {
-                            Intent myAction = new Intent( SplashScreen.this,
-                                    ListScreen.class );
-                            
-                            SplashScreen.this.startActivity( myAction );
-                            SplashScreen.this.finish();
+                        if( !messageFailedConnection.isShowing()
+                                && !messageFailedRecoverData.isShowing()
+                                && !messageFailedInsertData.isShowing() ) {
+                            toListScreen();
                         } else {
                             /* ! Nothing To Do. */
                         }
@@ -158,6 +139,23 @@ public class SplashScreen extends Activity {
                 } );
             }
         }.start();
+    }
+    
+    private void showMessageOnThread( final AlertDialog message,
+            Handler messageHandler ) {
+        
+        messageHandler.post( new Runnable() {
+            public void run() {
+                message.show();
+            }
+        } );
+    }
+    
+    private void toListScreen() {
+        Intent pathListScreen = new Intent( SplashScreen.this, ListScreen.class );
+        
+        SplashScreen.this.startActivity( pathListScreen );
+        SplashScreen.this.finish();
     }
     
     private class OkButtonListener implements DialogInterface.OnClickListener {
