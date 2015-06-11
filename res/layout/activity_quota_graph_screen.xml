@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
  
     <RelativeLayout
         android:id="@+id/topbar_description"
@@ -35,11 +36,36 @@
 
     <com.github.mikephil.charting.charts.LineChart
         android:layout_below="@+id/topbar_description"
-        android:layout_margin="5dp"
-        android:layout_above="@+id/legend"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="-40dp"
+        android:layout_marginLeft="-40dp"
+        android:layout_toEndOf="@+id/x_label"
+        android:layout_toRightOf="@+id/x_label"
+        android:layout_above="@+id/y_label"
         android:id="@+id/chart1"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        />
+    
+    <TextView 
+        android:id="@+id/x_label"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="-25dp"
+        android:rotation="-90"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expenditure"
+        />
+    
+    <TextView 
+        android:id="@+id/y_label"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_above="@+id/legend"
+        android:layout_centerHorizontal="true"
+        android:text="@string/months"
         />
     
     <RelativeLayout

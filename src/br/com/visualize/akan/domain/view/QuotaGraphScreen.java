@@ -150,7 +150,7 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
         ArrayList<String> xVals = new ArrayList<String>();
         int numMonths = Math.max(quotas.size(), statistics.size());
         for (int i = 1; i <= numMonths; i++) {
-            xVals.add((i) + "");
+            xVals.add((i) + "     ");
         }
         
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();

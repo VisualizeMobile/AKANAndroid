@@ -32,6 +32,8 @@
     <string name="name">Nome</string>
     <string name="congressman">Parlamentares</string>
     <string name="legend_text">Gastos médios dos Deputados</string>
+    <string name="months">Meses</string>
+    <string name="expenditure">Gastos(R$)</string>
 <string-array name="month_names">
     <item>Janeiro</item>
     <item>Fevereiro</item>
