@@ -51,7 +51,7 @@ import com.squareup.picasso.Picasso;
  */
 public class DescriptionScreen extends FragmentActivity implements
         OnDateSetListener {
-	
+
 	private Context context;
 	private TextView referenceMonth;
 	
