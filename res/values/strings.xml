@@ -1,17 +1,6 @@
 <resources>
 
     <string name="app_name">Akan</string>
-    <string name="value_quota_technical_work_and_consulting">00,00</string>
-    <string name="value_quota_telephony">00,00</string>
-    <string name="value_quota_postal_sevices">00,00</string>
-    <string name="value_quota_issuance_of_air_tickets">00,00</string>
-    <string name="value_quota_safety">00,00</string>
-    <string name="value_quota_alimentation">00,00</string>
-    <string name="value_quota_fuel">00,00</string>
-    <string name="value_quota_air_freight">00,00</string>
-    <string name="value_quota_office">00,00</string>
-    <string name="value_quota_accommodation">00,00</string>
-    <string name="value_quota_disclosure_parliamentary_activity">00,00</string>
     <color name="white">#FFFFFF</color>
     <string name="hint_search">Pesquisar</string>
     <string name="congressman_name">nome</string>
@@ -40,9 +29,9 @@
     <string name="followed">Seguido</string>
     <string name="party">Partido</string>
     <string name="layout_style_photo">imagem de fundo</string>
-    <string name="FedUnity">UF</string>
     <string name="name">Nome</string>
     <string name="congressman">Parlamentares</string>
+    <string name="legend_text">Gastos médios dos Deputados</string>
 <string-array name="month_names">
     <item>Janeiro</item>
     <item>Fevereiro</item>

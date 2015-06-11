@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.Legend.LegendForm;
-import com.github.mikephil.charting.components.Legend.LegendPosition;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.XAxis.XAxisPosition;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.components.YAxis.AxisDependency;
 import com.github.mikephil.charting.data.Entry;
@@ -44,6 +42,7 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
 	int year;
 	List<Quota> quotas;
     List<Statistic> statistics;
+    LineData data;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +59,10 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
         quotas = quotaController.getQuotasByTypeAndYear(subquota, year);
         statistics = statisticController.getStatisticByTypeAndYear( subquota, year);
         
+        TextView congressmanLegend = (TextView) findViewById(R.id.congressman_expenditures_textview);
+        congressmanLegend.setText("Gastos de "+congressmanController.getCongresman().getNameCongressman());
         TextView topbarText = (TextView) findViewById(R.id.topbar_quota);
         topbarText.setText(quotaController.getQuota().getDescriptionQuota());
-        
         
         mChart = (LineChart) findViewById(R.id.chart1);
         mChart.setOnChartValueSelectedListener(this);
@@ -99,22 +99,15 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
         Typeface tf = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
 
         // get the legend (only possible after setting data)
-        Legend l = mChart.getLegend();
-        
-        l.setForm(LegendForm.SQUARE);
-        l.setTypeface(tf);
-        l.setTextSize(11f);
-        l.setTextColor(Color.BLACK);
-        l.setPosition(LegendPosition.BELOW_CHART_LEFT);
-        //l.setWordWrapEnabled(true);
-        
+        mChart.getLegend().setEnabled(false);
 
         XAxis xAxis = mChart.getXAxis();
+        xAxis.setPosition(XAxisPosition.BOTTOM);
         xAxis.setTypeface(tf);
         xAxis.setTextSize(12f);
         xAxis.setTextColor(Color.BLACK);
         xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawAxisLine(true);
         xAxis.setSpaceBetweenLabels(1);
 
         float max = Math.max((float)quotaController.getMaxQuotaValue(quotas),
@@ -132,6 +125,7 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
         rightAxis.setAxisMaxValue(0);
         rightAxis.setStartAtZero(false);
         rightAxis.setAxisMinValue(0);
+        rightAxis.setDrawAxisLine(false);
         rightAxis.setDrawGridLines(false);
 		
 	}
@@ -150,15 +144,19 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
 	
 	private void setData(int count, float range) {
 		
-        
         ArrayList<String> xVals = new ArrayList<String>();
-        for (int i = 1; i <=Math.max(quotas.size(), statistics.size()); i++) {
+        int numMonths = Math.max(quotas.size(), statistics.size());
+        for (int i = 1; i <= numMonths; i++) {
             xVals.add((i) + "");
         }
         
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
-        for (int i = 0; i <  quotas.size(); i++) {
-            yVals1.add(new Entry((float) quotas.get(i).getValueQuota(), i));
+        for (int i = 0; i <  numMonths; i++) {
+        	if(i<quotas.size()){
+        		yVals1.add(new Entry((float) quotas.get(i).getValueQuota(), i));
+        	} else {
+        		yVals1.add(new Entry(0f, i));
+        	}
         }
 
         // create a dataset and give it a type
@@ -175,10 +173,13 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
 
         ArrayList<Entry> yVals2 = new ArrayList<Entry>();
 
-        
         //TODO: Fix statistics list from dao.
-        for (int i = 0; i < statistics.size(); i++) {
-        	yVals2.add(new Entry((float) statistics.get(i).getAverage(), i));
+        for (int i = 0; i < numMonths; i++) {
+        	if(i<statistics.size()){
+        		yVals2.add(new Entry((float) statistics.get(i).getAverage(), i));
+        	} else {
+        		yVals2.add(new Entry(0f, i));
+        	}
         }
 
          //create a dataset and give it a type
@@ -197,9 +198,9 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
         dataSets.add(set1); // add the datasets
 
         // create a data object with the datasets
-        LineData data = new LineData(xVals, dataSets);
-        data.setValueTextColor(Color.BLACK);
-        data.setValueTextSize(9f);
+        data = new LineData(xVals, dataSets);
+        //data.setValueTextColor(Color.BLACK);
+        data.setValueTextSize(0f);
 
         // set data
         mChart.setData(data);

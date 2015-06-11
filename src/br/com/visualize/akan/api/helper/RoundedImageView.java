@@ -29,7 +29,6 @@ public RoundedImageView(Context context, AttributeSet attributes) {
 
 @Override
 protected void onDraw(Canvas canvas) {
-    // Round some corners betch!
     Drawable maiDrawable = getDrawable();
 
     if (maiDrawable!=null && maiDrawable instanceof BitmapDrawable && mCornerRadius > 0) {

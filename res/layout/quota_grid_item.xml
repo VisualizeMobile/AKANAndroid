@@ -34,6 +34,6 @@
          android:layout_below="@id/btn_quota_imageview"
          android:layout_centerHorizontal="true"
          android:gravity="center_horizontal"
-         android:text="@string/value_quota_technical_work_and_consulting" />
+         android:text="@string/total_expenditure" />
 
 </RelativeLayout>

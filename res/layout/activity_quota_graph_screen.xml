@@ -35,7 +35,78 @@
 
     <com.github.mikephil.charting.charts.LineChart
         android:layout_below="@+id/topbar_description"
+        android:layout_margin="5dp"
+        android:layout_above="@+id/legend"
         android:id="@+id/chart1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        />
+    
+    <RelativeLayout
+        android:id="@+id/legend"
+        android:layout_alignParentBottom="true"
+        android:layout_height="70dp"
+        android:layout_width="match_parent">
+        
+        <ImageView
+            android:layout_width="21dp"
+            android:layout_height="4dp"
+            android:layout_toStartOf="@+id/average_expenditures_textview"
+            android:layout_toLeftOf="@+id/average_expenditures_textview"
+            android:layout_alignTop="@+id/average_expenditures_textview"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/image_description_default"
+            android:background="#F3D171"/>
+        
+        <TextView 
+            android:id="@+id/average_expenditures_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/legend_text"/>
+        
+        <ImageView
+            android:id="@+id/congressman_line"
+            android:layout_width="21dp"
+            android:layout_height="4dp"
+            android:layout_toStartOf="@+id/congressman_expenditures_textview"
+            android:layout_toLeftOf="@+id/congressman_expenditures_textview"
+            android:layout_alignTop="@+id/congressman_expenditures_textview"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/image_description_default"
+            android:background="#F16068"/>
+        
+        <ImageView 
+            android:id="@+id/congressman_circle"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignStart="@+id/congressman_line"
+            android:layout_alignLeft="@+id/congressman_line"
+            android:layout_alignBottom="@+id/congressman_line"
+            android:layout_marginBottom="-5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:contentDescription="@string/image_description_default"
+            android:src="@drawable/circle"
+            android:alpha="0.6"/>
+        
+        <TextView 
+            android:id="@+id/congressman_expenditures_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:maxWidth="250dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/average_expenditures_textview"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/legend_text"/>
+        
+        
+    </RelativeLayout>
+    
 </RelativeLayout>
