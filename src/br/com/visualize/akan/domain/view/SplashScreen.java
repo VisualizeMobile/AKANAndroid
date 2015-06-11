@@ -9,9 +9,12 @@ import org.apache.http.client.ResponseHandler;
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.view.WindowManager;
 import br.com.visualize.akan.R;
@@ -29,6 +32,8 @@ public class SplashScreen extends Activity {
     
     public CongressmanController congressmanController;
     public StatisticController statisticController;
+    
+    private Handler messageHandler = new Handler();
     
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -50,8 +55,15 @@ public class SplashScreen extends Activity {
      * operation of the Thread.
      */
     public void requestCongressman() {
-        final ProgressDialog progress = new ProgressDialog( this );
+        final AlertDialog.Builder messageNeutralBuilder = new AlertDialog.Builder(
+                this ).setNeutralButton( "OK", new OkButtonListener() )
+                .setTitle( "Falha na Conexão" )
+                .setMessage( "Verifique sua conexão com a internet." );
         
+        final AlertDialog messageFailedConnection = messageNeutralBuilder
+                .create();
+        
+        final ProgressDialog progress = new ProgressDialog( this );
         progress.setMessage( "Carregando dados..." );
         progress.show();
         
@@ -69,7 +81,13 @@ public class SplashScreen extends Activity {
                     statisticController.requestStatistics( responseHandler );
                     
                 } catch( ConnectionFailedException cfe ) {
-                    // TODO: handling exception.
+                    progress.dismiss();
+                    
+                    messageHandler.post( new Runnable() {
+                        public void run() {
+                            messageFailedConnection.show();
+                        }
+                    } );
                 } catch( JSONException je ) {
                     // TODO: handling exception.
                 } catch( NullCongressmanException nce ) {
@@ -82,11 +100,15 @@ public class SplashScreen extends Activity {
                     public void run() {
                         progress.setMessage( "Dados carregados" );
                         
-                        Intent myAction = new Intent( SplashScreen.this,
-                                ListScreen.class );
-                        
-                        SplashScreen.this.startActivity( myAction );
-                        SplashScreen.this.finish();
+                        if( !messageFailedConnection.isShowing() ) {
+                            Intent myAction = new Intent( SplashScreen.this,
+                                    ListScreen.class );
+                            
+                            SplashScreen.this.startActivity( myAction );
+                            SplashScreen.this.finish();
+                        } else {
+                            /* ! Nothing To Do. */
+                        }
                         
                         progress.dismiss();
                         Looper.loop();
@@ -94,5 +116,17 @@ public class SplashScreen extends Activity {
                 } );
             }
         }.start();
+    }
+    
+    private class OkButtonListener implements DialogInterface.OnClickListener {
+        @Override
+        public void onClick( DialogInterface dialog, int which ) {
+            dialog.dismiss();
+            
+            Intent myAction = new Intent( SplashScreen.this, ListScreen.class );
+            
+            SplashScreen.this.startActivity( myAction );
+            SplashScreen.this.finish();
+        }
     }
 }

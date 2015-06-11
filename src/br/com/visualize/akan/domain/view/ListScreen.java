@@ -104,8 +104,6 @@ public class ListScreen extends Activity {
 				if( btn_ranking.isSelected() ) {
 					btn_ranking
 					        .setBackgroundResource( R.drawable.active_ranking );
-					Log.e( "peguei parlamentar no adapter", congressmen.get( 0 )
-					        .getNameCongressman() );
 					listAdapter = new CongressmenListAdapter( ListScreen.this,
 					        R.layout.ranking_layout, currentListCongressmen );
 					listView.setAdapter( listAdapter );
