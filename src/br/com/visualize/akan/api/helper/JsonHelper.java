@@ -72,7 +72,7 @@ public class JsonHelper {
 				
 				congressmanList.add( congressman );
 			}
-			
+		
 		} catch( NullPointerException npe ) {
 			throw new NullCongressmanException();
 		}
@@ -160,11 +160,10 @@ public class JsonHelper {
 		JSONArray jArray = new JSONArray( jsonStatisticList );
 		
 		try {
-			
 			for( int index = 0; index < jArray.length(); index++ ) {
 				statistic = new Statistic();
 				
-				statistic.setIdStatistic(index);
+				statistic.setIdStatistic(index+1);
 				/*
 				 * some statistics does not have referenced month
 				 * */
@@ -207,10 +206,9 @@ public class JsonHelper {
 					stdDevition = 0.0;
 				}
 				statistic.setStdDeviation(stdDevition);
-							
+				
 				statisticList.add( statistic );
 			}
-			
 		} catch( NullPointerException npe ) {
 			throw new NullCongressmanException();
 		}

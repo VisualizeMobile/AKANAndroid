@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String dbName = "AKAN.db";
 	
 	private static final String congressmanTable = "CREATE TABLE [CONGRESSMAN] "
-	        + "([ID_CONGRESSMAN] VARCHAR(10), [ID_UPDATE] INT, "
+	        + "([ID_CONGRESSMAN] VARCHAR(10) unique, [ID_UPDATE] INT, "
 	        + "[NAME_CONGRESSMAN] VARCHAR(40), [PARTY] VARCHAR(10), "
 	        + "[UF_CONGRESSMAN] VARCHAR (2), [TOTAL_SPENT_CONGRESSMAN] DOUBLE, "
 	        + "[STATUS_CONGRESSMAN] BOOLEAN, [PHOTO_CONGRESSMAN] VARCHAR(255), "
@@ -38,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	        + "[FIRST_URL] VARCHAR (255), [SECOND_URL] VARCHAR (255));";
 	
 	private static final String statisticTable = "CREATE TABLE [STATISTIC] "
-	        + "([ID_STATISTIC] VARCHAR(10), [MONTH_STATISTIC] INT, "
+	        + "([ID_STATISTIC] VARCHAR(10) unique, [MONTH_STATISTIC] INT, "
 	        + "[STD_DEVIATION] DOUBLE, [AVERAGE_STATISTIC] DOUBLE, "
 	        + "[MAX_VALUE_STATISTIC] DOUBLE, [YEAR_STATISTIC] INT,"
 	        + "ID_SUBQUOTA INT(10));";

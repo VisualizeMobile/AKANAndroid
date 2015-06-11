@@ -73,13 +73,14 @@ public class StatisticDao extends Dao{
 		
 		while( cursor.moveToNext() ) {
 			Statistic statistic = new Statistic();
+			statistic.setIdStatistic( cursor.getInt( cursor.getColumnIndex( tableColumns[0] ) ) );
 			statistic.setMonthByNumber( cursor.getInt( cursor.getColumnIndex( tableColumns[1] ) ) );
 			statistic.setStdDeviation(cursor.getDouble(cursor.getColumnIndex(tableColumns[2])));
 			statistic.setAverage(cursor.getDouble(cursor.getColumnIndex(tableColumns[3])));
 			statistic.setMaxValue(cursor.getDouble(cursor.getColumnIndex(tableColumns[4])));
 			statistic.setYear(cursor.getInt(cursor.getColumnIndex(tableColumns[5])));
 			statistic.setSubquotaByNumber(cursor.getInt(cursor.getColumnIndex(tableColumns[6])));
-					
+			
 			listStatistic.add( statistic );
 			}
 		return listStatistic;
