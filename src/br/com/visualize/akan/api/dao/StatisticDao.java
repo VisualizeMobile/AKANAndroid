@@ -51,7 +51,7 @@ public class StatisticDao extends Dao{
 		sqliteDatabase = database.getWritableDatabase();
 		ContentValues content = new ContentValues();
 		
-		content.put( tableColumns[ 0 ], statistic.getIdStatistic());
+		//content.put( tableColumns[ 0 ], statistic.getIdStatistic());
 		content.put( tableColumns[ 1 ], statistic.getMonth().getvalueMonth());
 		content.put( tableColumns[ 2 ], statistic.getStdDeviation());
 		content.put( tableColumns[ 3 ], statistic.getAverage());
@@ -66,14 +66,15 @@ public class StatisticDao extends Dao{
 	public List<Statistic> getStatisticByYearAndType( int year, int subquota ) {
 		sqliteDatabase = database.getReadableDatabase();
 		Cursor cursor = sqliteDatabase.rawQuery(
-		        "SELECT * FROM STATISTIC WHERE ID_SUBQUOTA=" + subquota,
+		        "SELECT * FROM STATISTIC WHERE ID_SUBQUOTA=" + subquota 
+		        + " AND YEAR_STATISTIC=" + year,
 		        null );
 		
 		List<Statistic> listStatistic = new ArrayList<Statistic>();
 		
 		while( cursor.moveToNext() ) {
 			Statistic statistic = new Statistic();
-			statistic.setIdStatistic( cursor.getInt( cursor.getColumnIndex( tableColumns[0] ) ) );
+			//statistic.setIdStatistic( cursor.getInt( cursor.getColumnIndex( tableColumns[0] ) ) );
 			statistic.setMonthByNumber( cursor.getInt( cursor.getColumnIndex( tableColumns[1] ) ) );
 			statistic.setStdDeviation(cursor.getDouble(cursor.getColumnIndex(tableColumns[2])));
 			statistic.setAverage(cursor.getDouble(cursor.getColumnIndex(tableColumns[3])));
@@ -93,8 +94,30 @@ public class StatisticDao extends Dao{
 	}
 	
 	@Override
-	protected boolean checkEmptyLocalDb() {
+	public boolean checkEmptyLocalDb() {
+sqliteDatabase = database.getReadableDatabase();
 		
-		return false;
+		String query = "SELECT 1 FROM " + tableName;
+		
+		Cursor cursor = sqliteDatabase.rawQuery( query, null );
+		
+		boolean isEmpty = NOT_EMPTY;
+		
+		if( cursor != null ) {
+			
+			if( cursor.getCount() <= 0 ) {
+				cursor.moveToFirst();
+				
+				isEmpty = EMPTY;
+				
+			} else {
+				/* ! Nothing To Do */
+			}
+			
+		} else {
+			isEmpty = EMPTY;
+		}
+		
+		return isEmpty;
 	}
 }

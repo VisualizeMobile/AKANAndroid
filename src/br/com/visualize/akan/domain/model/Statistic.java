@@ -94,6 +94,9 @@ public void setSubquotaByNumber (int type){
 public void setMonthByNumber (int type){
 		
 		switch(type){
+		case 0:
+			setMonth(Month.WITHOUT_MONTH);
+			break;
 		case 1:
 			setMonth(Month.JANUARY);
 			break;

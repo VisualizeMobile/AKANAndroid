@@ -64,9 +64,10 @@ public class StatisticController {
 		String url = urlController.statisticsPerMonthUrl();
 		
 		String jsonStatisticList;
-		
-		jsonStatisticList = HttpConnection.request( responseHandler, url );
-		insertStatistics( JsonHelper.listStatisticsFromJSON(jsonStatisticList));
+		if(statisticDao.checkEmptyLocalDb()){
+			jsonStatisticList = HttpConnection.request( responseHandler, url );
+			insertStatistics( JsonHelper.listStatisticsFromJSON(jsonStatisticList));
+		}
 	}
 	
 	/* TODO: Write JAVADOC. */

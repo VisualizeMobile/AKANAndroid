@@ -16,6 +16,9 @@ import br.com.visualize.akan.api.helper.DatabaseHelper;
  */
 public abstract class Dao {
 	
+	protected static final boolean EMPTY = true;
+	protected static final boolean NOT_EMPTY = false;
+	
 	protected static DatabaseHelper database;
 	protected static SQLiteDatabase sqliteDatabase;
 	protected static Context context;

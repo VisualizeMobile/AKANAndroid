@@ -23,8 +23,6 @@ import br.com.visualize.akan.domain.model.Quota;
  * quotas.
  */
 public class QuotaDao extends Dao {
-	private static final boolean EMPTY = true;
-	private static final boolean NOT_EMPTY = false;
 	
 	private StatisticDao statisticDao = null;
 	private static QuotaDao instanceQuotaDao = null;
