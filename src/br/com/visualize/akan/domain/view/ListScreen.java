@@ -384,4 +384,13 @@ public class ListScreen extends Activity {
 		});
 		searchLayer.startAnimation(anim);
 	}
+	
+	/**
+	 * Open configure screen
+	 * 
+	 */
+	public void goToConfiguration(View view) {
+		Intent i = new Intent( ListScreen.this, Configurations.class );
+		startActivity( i );
+	}
 }

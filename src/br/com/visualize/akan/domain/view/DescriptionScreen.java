@@ -19,8 +19,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -29,7 +27,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.api.helper.RoundedImageView;
 import br.com.visualize.akan.api.request.HttpConnection;
@@ -92,14 +89,10 @@ public class DescriptionScreen extends FragmentActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				
-				Toast.makeText(DescriptionScreen.this, "" + position,
-	                    Toast.LENGTH_SHORT).show();
 				final Quota quota = (Quota)parent.getItemAtPosition( position );
 				quotaController.getQuota(quota.getIdQuota());
 				Intent i = new Intent( DescriptionScreen.this, QuotaGraphScreen.class );
 				startActivity( i );
-				
 			}
 	    });
 		
@@ -166,15 +159,6 @@ public class DescriptionScreen extends FragmentActivity implements
 		setReferenceMonth();
 		
 		setValuesQuotas();
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu( Menu menu ) {
-		MenuInflater inflater = getMenuInflater();
-		
-		inflater.inflate( R.menu.menu, menu );
-		
-		return super.onCreateOptionsMenu( menu );
 	}
 	
 	/**

@@ -70,7 +70,9 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_margin="10dp"
-            android:contentDescription="@string/image_description_default"/>
+            android:contentDescription="@string/image_description_default"
+            android:onClick="goToConfiguration"/>
+        
     </RelativeLayout>
     
     
