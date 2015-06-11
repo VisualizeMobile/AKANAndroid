@@ -53,10 +53,11 @@
 
         <ImageButton
             android:id="@+id/topbar_about_button"
-            android:background="@drawable/logo"
+            android:background="@drawable/about_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentTop="true"
+            android:onClick="onClickAbout"
             android:layout_margin="10dp"
             android:contentDescription="@string/image_description_default"/>
             <!--  android:onClick="backToList" -->

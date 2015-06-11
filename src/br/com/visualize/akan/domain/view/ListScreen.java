@@ -406,4 +406,10 @@ public class ListScreen extends Activity {
 	    InputMethodManager imm = (InputMethodManager) getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 	    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
     }
+	
+	public void onClickAbout( View view)
+	{
+		Intent intentAbout = new Intent( ListScreen.this, AboutAkanScreen.class );
+		startActivity( intentAbout );
+	}
 }
