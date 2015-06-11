@@ -4,12 +4,15 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
+import org.json.JSONException;
 
 import android.content.Context;
 import android.util.Log;
 import br.com.visualize.akan.api.dao.StatisticDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
+import br.com.visualize.akan.domain.exception.ConnectionFailedException;
+import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Statistic;
 
 public class StatisticController {
@@ -52,14 +55,16 @@ public class StatisticController {
 	
 	/* TODO: Write JAVADOC. */
 	public void requestStatistics(ResponseHandler<String> responseHandler ) 
-			throws Exception {
+			throws NullCongressmanException, JSONException, 
+			ConnectionFailedException {
 			requestStatisticPerMonth(responseHandler);
 			requestStatisticStdDeviation(responseHandler);
 	}
 		
 	/* TODO: Write JAVADOC. */
 	private void requestStatisticPerMonth(ResponseHandler<String> responseHandler ) 
-			throws Exception {
+			throws NullCongressmanException, JSONException, 
+            ConnectionFailedException {
 		
 		String url = urlController.statisticsPerMonthUrl();
 		
@@ -72,7 +77,8 @@ public class StatisticController {
 	
 	/* TODO: Write JAVADOC. */
 	private void requestStatisticStdDeviation(ResponseHandler<String> responseHandler ) 
-			throws Exception {
+			throws NullCongressmanException, JSONException, 
+            ConnectionFailedException {
 		
 		String url = urlController.statisticsStdDeviationUrl();
 		

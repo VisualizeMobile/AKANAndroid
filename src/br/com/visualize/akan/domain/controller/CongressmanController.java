@@ -10,12 +10,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.client.ResponseHandler;
+import org.json.JSONException;
 
 import android.content.Context;
 import android.util.Log;
 import br.com.visualize.akan.api.dao.CongressmanDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
+import br.com.visualize.akan.domain.exception.ConnectionFailedException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 
@@ -89,7 +91,8 @@ public class CongressmanController {
 	 */
 	public List<Congressman> requestAllCongressman(
 	        ResponseHandler<String> responseHandler ) 
-	                throws NullCongressmanException, Exception {
+	                throws NullCongressmanException, NullCongressmanException, 
+	                JSONException, ConnectionFailedException {
 		
 		if( responseHandler != null ) {
 			
