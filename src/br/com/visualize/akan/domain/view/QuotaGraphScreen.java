@@ -60,7 +60,10 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
         statistics = statisticController.getStatisticByTypeAndYear( subquota, year);
         
         TextView congressmanLegend = (TextView) findViewById(R.id.congressman_expenditures_textview);
-        congressmanLegend.setText("Gastos de "+congressmanController.getCongresman().getNameCongressman());
+        String name = congressmanController.getCongresman()
+        		.getNameCongressman().replace("PROFESSOR", "PROF.");
+		name = name.replace("PROF.A", "PROF.");
+        congressmanLegend.setText("Gastos de "+name);
         TextView topbarText = (TextView) findViewById(R.id.topbar_quota);
         topbarText.setText(quotaController.getQuota().getDescriptionQuota());
         

@@ -76,9 +76,11 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 		
 		TextView textViewName = (TextView)view
 		        .findViewById( R.id.ranking_layout_txt_congressman_name );
-		
-		textViewName
-		        .setText( congressmens.get( position ).getNameCongressman() );
+
+		String name = congressmens.get( position ).getNameCongressman()
+				.replace("PROFESSOR", "PROF.");
+		name = name.replace("PROF.A", "PROF.");
+		textViewName.setText( name );
 		
 		TextView textViewParty = (TextView)view
 		        .findViewById( R.id.ranking_layout_txt_congressman_party );

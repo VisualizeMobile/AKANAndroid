@@ -4,7 +4,6 @@
  */
 package br.com.visualize.akan.domain.view;
 
-
 import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
@@ -82,8 +81,8 @@ public class DescriptionScreen extends FragmentActivity implements
 		year = calendar.get( Calendar.YEAR );
 		month = calendar.get( Calendar.MONTH );
 		
-		quotas = quotaController.getQuotasByIdCongressman(idCongressman);
-		//quotas = quotaController.getQuotaByDate(month, year, idCongressman);
+		//quotas = quotaController.getQuotasByIdCongressman(idCongressman);
+		quotas = quotaController.getQuotaByDate(month, year, idCongressman);
 		
 		GridView gridview = (GridView) findViewById(R.id.quota_gridview);
 	    gridAdapter = new DescriptionGridAdapter(getBaseContext(), R.layout.quota_grid_item, quotas);
@@ -195,7 +194,8 @@ public class DescriptionScreen extends FragmentActivity implements
 		
 		TextView textViewCongressmanParitdo = (TextView)findViewById( R.id.description_txt_congressman_party );
 		
-		textViewCongressmanParitdo.setText( congressman.getPartyCongressman() );
+		textViewCongressmanParitdo.setText( congressman.getPartyCongressman() + 
+				" - " + congressman.getUfCongressman());
 		
 		TextView textViewRankingPosition = (TextView)findViewById( R.id.description_txt_ranking_position );
 		
@@ -204,7 +204,9 @@ public class DescriptionScreen extends FragmentActivity implements
 		
 		TextView textViewTopBarName = (TextView)findViewById( R.id.topbar_congressman );
 		
-		textViewTopBarName.setText( congressman.getNameCongressman() );
+		String name = congressman.getNameCongressman().replace("PROFESSOR", "PROF.");
+		name = name.replace("PROF.A", "PROF.");
+		textViewTopBarName.setText( name );
 		
 		RoundedImageView congressmanImage = (RoundedImageView)findViewById( R.id.description_congressman_photo );
 		

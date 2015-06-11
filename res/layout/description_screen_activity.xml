@@ -14,7 +14,8 @@
         <TextView
             android:id="@+id/topbar_congressman"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:maxWidth="230dp"
+            android:layout_height="22dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:text="@string/congressman_name"
@@ -34,7 +35,7 @@
         
 	</RelativeLayout>
 	 
-    <RelativeLayout
+  	<RelativeLayout
         android:id="@+id/layout_crongressman_datas"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -83,13 +84,14 @@
             android:textColor="#536571"
             android:textStyle="bold"
             android:textSize="15sp" />
-
+        
         <TextView
             android:id="@+id/description_txt_ordinary_symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/description_txt_ranking_position"
             android:layout_alignBottom="@+id/description_txt_ranking_position"
+            android:layout_toEndOf="@+id/description_txt_ranking_position"
             android:layout_toRightOf="@+id/description_txt_ranking_position"
             android:text="@string/ordinary_symbol"
             android:textColor="#536571"
