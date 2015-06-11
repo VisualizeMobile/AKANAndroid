@@ -23,6 +23,7 @@ import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.controller.StatisticController;
 import br.com.visualize.akan.domain.exception.ConnectionFailedException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
+import br.com.visualize.akan.domain.exception.NullStatisticException;
 
 
 /**
@@ -55,8 +56,9 @@ public class SplashScreen extends Activity {
      * operation of the Thread.
      */
     public void requestCongressman() {
-        final AlertDialog.Builder messageNeutralBuilder = new AlertDialog.Builder(
-                this ).setNeutralButton( "OK", new OkButtonListener() )
+        final AlertDialog.Builder messageNeutralBuilder = 
+                new AlertDialog.Builder( this )
+                .setNeutralButton( "OK", new OkButtonListener() )
                 .setTitle( "Falha na Conexão" )
                 .setMessage( "Verifique sua conexão com a internet." );
         
@@ -91,6 +93,8 @@ public class SplashScreen extends Activity {
                 } catch( JSONException je ) {
                     // TODO: handling exception.
                 } catch( NullCongressmanException nce ) {
+                    // TODO: handling exception.
+                } catch( NullStatisticException nse ) {
                     // TODO: handling exception.
                 }
                 

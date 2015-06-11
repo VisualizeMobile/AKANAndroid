@@ -8,6 +8,7 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import br.com.visualize.akan.domain.exception.NullStatisticException;
 import br.com.visualize.akan.domain.model.Statistic;
 
 
@@ -38,7 +39,8 @@ public class StatisticDao extends Dao{
 		return instanceStatisticDao;
 	}
 	
-	public boolean insertStatisticsList( List<Statistic> insertedStatistics ) {
+	public boolean insertStatisticsList( List<Statistic> insertedStatistics )
+	    throws NullStatisticException {
 		Iterator<Statistic> index = insertedStatistics.iterator();
 		boolean result = true;
 		while( index.hasNext() ) {
@@ -47,20 +49,27 @@ public class StatisticDao extends Dao{
 		return result;
 	}
 	
-	public boolean insertStatistic(Statistic statistic){
-		sqliteDatabase = database.getWritableDatabase();
-		ContentValues content = new ContentValues();
-		
-		//content.put( tableColumns[ 0 ], statistic.getIdStatistic());
-		content.put( tableColumns[ 1 ], statistic.getMonth().getvalueMonth());
-		content.put( tableColumns[ 2 ], statistic.getStdDeviation());
-		content.put( tableColumns[ 3 ], statistic.getAverage());
-		content.put( tableColumns[ 4 ], statistic.getMaxValue());
-		content.put( tableColumns[ 5 ], statistic.getYear());
-		content.put( tableColumns[ 6 ], statistic.getSubquota().getValueSubQuota());
+	public boolean insertStatistic(Statistic statistic)
+	        throws NullStatisticException {
+	    if( statistic != null ) {
+    		sqliteDatabase = database.getWritableDatabase();
+    		ContentValues content = new ContentValues();
+    		
+    		//content.put( tableColumns[ 0 ], statistic.getIdStatistic());
+    		content.put( tableColumns[ 1 ], statistic.getMonth()
+    		        .getvalueMonth());
+    		content.put( tableColumns[ 2 ], statistic.getStdDeviation());
+    		content.put( tableColumns[ 3 ], statistic.getAverage());
+    		content.put( tableColumns[ 4 ], statistic.getMaxValue());
+    		content.put( tableColumns[ 5 ], statistic.getYear());
+    		content.put( tableColumns[ 6 ], statistic.getSubquota()
+    		        .getValueSubQuota());
 		
 		boolean result = ( insertAndClose( sqliteDatabase, tableName, content ) > 0 );
 		return result;
+	    } else {
+	        throw new NullStatisticException();
+	    }
 	}
 	
 	public List<Statistic> getStatisticByYearAndType( int year, int subquota ) {

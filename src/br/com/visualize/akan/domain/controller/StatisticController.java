@@ -13,6 +13,7 @@ import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.exception.ConnectionFailedException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
+import br.com.visualize.akan.domain.exception.NullStatisticException;
 import br.com.visualize.akan.domain.model.Statistic;
 
 public class StatisticController {
@@ -56,7 +57,7 @@ public class StatisticController {
 	/* TODO: Write JAVADOC. */
 	public void requestStatistics(ResponseHandler<String> responseHandler ) 
 			throws NullCongressmanException, JSONException, 
-			ConnectionFailedException {
+			ConnectionFailedException, NullStatisticException {
 			requestStatisticPerMonth(responseHandler);
 			requestStatisticStdDeviation(responseHandler);
 	}
@@ -64,7 +65,7 @@ public class StatisticController {
 	/* TODO: Write JAVADOC. */
 	private void requestStatisticPerMonth(ResponseHandler<String> responseHandler ) 
 			throws NullCongressmanException, JSONException, 
-            ConnectionFailedException {
+            ConnectionFailedException, NullStatisticException {
 		
 		String url = urlController.statisticsPerMonthUrl();
 		
@@ -78,7 +79,7 @@ public class StatisticController {
 	/* TODO: Write JAVADOC. */
 	private void requestStatisticStdDeviation(ResponseHandler<String> responseHandler ) 
 			throws NullCongressmanException, JSONException, 
-            ConnectionFailedException {
+            ConnectionFailedException, NullStatisticException {
 		
 		String url = urlController.statisticsStdDeviationUrl();
 		
@@ -104,9 +105,10 @@ public class StatisticController {
 		StatisticController.statisticList = statisticList;
 	}
 	
-	public void insertStatistics(List<Statistic> statisticList) {
+	public void insertStatistics(List<Statistic> statisticList)
+	        throws NullStatisticException {
 		boolean result = statisticDao.insertStatisticsList(statisticList);
-		Log.e("INSERT STATUS",""+result);
+		Log.e("INSERT STATUS", "" + result);
 	}
 
 }
