@@ -1,9 +1,6 @@
 package br.com.visualize.akan.domain.view;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Dictionary;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +12,6 @@ import br.com.visualize.akan.domain.enumeration.Order;
 import br.com.visualize.akan.domain.enumeration.Status;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;

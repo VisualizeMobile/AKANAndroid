@@ -194,22 +194,6 @@ public class CongressmanController {
 		return CongressmanController.congressman;
 	}
 	
-	public List<Congressman> getFollowedCongressman() {
-		List<Congressman> followedCongressman = new ArrayList<Congressman>();
-		Iterator<Congressman> iteratorCongressman = getAllCongressman().iterator();
-		
-		while( iteratorCongressman.hasNext() ) {
-			Congressman congressman = iteratorCongressman.next();
-			
-			if( congressman.isStatusCogressman() ) {
-				followedCongressman.add( congressman );
-			} else {
-				// nothing to do
-			}
-		}
-		return followedCongressman;		
-	}
-	
 	public void setOrderBy(Order order){
 		this.order = order;
 		congressmanList = getAllCongressman();
