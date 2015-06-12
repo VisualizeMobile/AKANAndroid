@@ -44,6 +44,7 @@ public class Configurations extends Activity {
 		GridView gridview = (GridView) findViewById(R.id.filter_gridview);
 	    adapter = new ConfigurationsGridAdapter(getBaseContext(), 
 	    		R.layout.filter_item, getButtonsTitlesList() );
+
 	    adapter.activeIds = getDictionaryKeys();
 		gridview.setAdapter(adapter);
 		
@@ -58,6 +59,7 @@ public class Configurations extends Activity {
 					view.setBackgroundResource(R.drawable.active_option);
 					filter.setTag(Status.ACTIVE);
 					addFilter(id+"",((String)filter.getText()).replace("+ ",""));
+
 				}
 				else {
 					view.setBackgroundResource(R.drawable.inactive_option);
@@ -301,7 +303,9 @@ public class Configurations extends Activity {
 		default:
 			break;
 		}
+
 		congressmanController.getAllCongressman();
+
 	}
 	
 	private void removeFilter(String key){
