@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.apache.http.client.ResponseHandler;
 
@@ -251,7 +252,7 @@ public class QuotaController {
 	 * @throws ParseException
 	 */
 	@SuppressLint( "SimpleDateFormat" )
-	public List<Long> getMinMaxDate() throws ParseException {
+	public List<Long> getMinMaxDate() throws ParseException, NoSuchElementException {
 		List<Integer> listYears = new ArrayList<Integer>();
 		List<Integer> monthsMajorYear = new ArrayList<Integer>();
 		List<Long> periodDate = new ArrayList<Long>();
@@ -268,7 +269,6 @@ public class QuotaController {
 
 		// get list of all years available
 		listYears = quotaDao.getYears();
-
 		// get interval date
 		majorYear = Collections.max( listYears );
 		minorYear = Collections.min( listYears );
@@ -295,7 +295,6 @@ public class QuotaController {
 
 		periodDate.add( dateMax );
 		periodDate.add( dateMin );
-
 		return periodDate;
 	}
 

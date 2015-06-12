@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -71,8 +72,6 @@ public class DatePickerFragment extends DialogFragment {
 		    catch(Exception e)
 		    {
 		        e.printStackTrace();
-		        
-		        
 		    }
 		    return datePickerDialog;
 		}
@@ -84,20 +83,19 @@ public class DatePickerFragment extends DialogFragment {
 			try {
 				List<Long> periodDate = new ArrayList<Long>();
 				periodDate = quotaController.getMinMaxDate();
-				Long dateMin = Collections.min(periodDate);
-				Long dateMax = Collections.max(periodDate);
-				
-				Log.e("Data minima", ""+dateMin);
-				Log.e("Data maxima", ""+dateMax);
-		          datepicker.getDatePicker().setMinDate(dateMin );
-		          datepicker.getDatePicker().setMaxDate(dateMax);
+				if(periodDate.size()>0){
+					Long dateMin = Collections.min(periodDate);
+					Long dateMax = Collections.max(periodDate);
+					datepicker.getDatePicker().setMinDate(dateMin);
+			        datepicker.getDatePicker().setMaxDate(dateMax);
+				}
+		          
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (NoSuchElementException e) {
+				dismiss();
 			}
-			
-	          
-			
 		}
 		
 	}

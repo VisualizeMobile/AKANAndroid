@@ -132,8 +132,6 @@ public class DescriptionScreen extends FragmentActivity implements
 		} else {
 			/* ! Nothing To Do. */
 		}
-		
-		//resetSubQuotaAccordingType();
 	}
 	
 	/**
@@ -153,8 +151,6 @@ public class DescriptionScreen extends FragmentActivity implements
 		this.year = year;
 		
 		this.month = monthOfYear + 1;
-		
-		//resetSubQuotaAccordingType();
 		
 		setReferenceMonth();
 		
@@ -306,7 +302,7 @@ public class DescriptionScreen extends FragmentActivity implements
 	public void setReferenceMonth() {
 		
 		String monthText = getApplication().getResources().getStringArray(
-		        R.array.month_names )[ month - 1 ];
+		        R.array.month_names )[ (month - 1 > 0)? month - 1 : 0];
 		
 		referenceMonth.setText( monthText + " de " + year );
 	}
