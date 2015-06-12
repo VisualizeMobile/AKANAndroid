@@ -57,7 +57,6 @@ public class ListScreen extends Activity {
 	Button btn_follow;
 	CustomDialog customDialog = null;
 	List<Congressman> congressmen;
-	List<Congressman> followedCongressmen;
 	LayoutAnimationController listAnimation;
 	//List<Congressman> currentListCongressmen;
 	int currentLayout;
@@ -82,7 +81,6 @@ public class ListScreen extends Activity {
 		listAdapter = new CongressmenListAdapter( this,
 		        R.layout.congressmen_list_layout, congressmen );
 		currentLayout = R.layout.congressmen_list_layout;
-		followedCongressmen = congressmanController.getFollowedCongressman();
 		
 		listView = (ListView)findViewById( R.id.listView );
 		
@@ -163,13 +161,13 @@ public class ListScreen extends Activity {
 		        R.anim.up_from_bottom );
 		listView.setAnimation(followAnimation);
 		btn_follow.setSelected( !btn_follow.isSelected() );
+		congressmanController.setFollowedFilter(btn_follow.isSelected());
 		if( btn_follow.isSelected() ) {
 			btn_follow.setBackgroundResource( R.drawable.active_followed );
-			listAdapter.setCongressmanList(followedCongressmen);
 		} else {
 			btn_follow.setBackgroundResource( R.drawable.inactive_followed );
-			listAdapter.setCongressmanList(congressmen);
 		}
+		listAdapter.setCongressmanList(congressmanController.getAllCongressman());
 	}
 	
 	@Override
@@ -177,7 +175,6 @@ public class ListScreen extends Activity {
 		super.onResume();
 		congressmen = congressmanController.getAllCongressman();
 		listAdapter.setCongressmanList(congressmen);
-		followedCongressmen = congressmanController.getFollowedCongressman();
 	}
 	
 	/**
@@ -206,14 +203,6 @@ public class ListScreen extends Activity {
             	// TODO: Show a Alert about the exception
             }
 			
-			followedCongressmen = congressmanController
-			        .getFollowedCongressman();
-			
-			if( btn_follow.isSelected() ) {
-				listAdapter.setCongressmanList(followedCongressmen);
-			} else {
-				listAdapter.setCongressmanList(congressmen);
-			}
 			quotaController.deleteQuotasFromCongressman( congressman
 			        .getIdCongressman() );
 			
@@ -226,56 +215,55 @@ public class ListScreen extends Activity {
             } catch( NullCongressmanException nce ) {
             	// TODO: Show a Alert about the exception
             }
-			
-			followedCongressmen.add( congressman );
-			listAdapter.notifyDataSetChanged();
-			
-			
-			customDialog.getWindow().clearFlags(
-			        WindowManager.LayoutParams.FLAG_DIM_BEHIND );
-			
-			customDialog.show();
-			
-			new Thread( new Runnable() {
-				
-				@Override
-				public void run() {
-
-					Looper.prepare();
-					ResponseHandler<String> responseHandler = HttpConnection
-					        .getResponseHandler();
-					try {
-						
-						quotaController.getQuotaById(
-						        congressman.getIdCongressman(), responseHandler );
-						
-						Log.e( "" + congressman.getIdCongressman(),
-						        "REQUISITEI QUOTA NO SEGUIR" );
-						
-					} catch( Exception e ) {
-						// TODO launch error alert
-						e.printStackTrace();
-					}
-					
-					Looper.loop();
-				}
-			} ).start();
-			
-			/**
-			 * timer to dismiss Dialog
-			 */
-			final Timer timer = new Timer();
-			timer.schedule( new TimerTask() {
-				
-				@Override
-				public void run() {
-					customDialog.dismiss();
-					timer.cancel();
-					
-				}
-			}, timeToDismis );
-			
+			requestQuotas(timeToDismis, congressman);
 		}
+		listAdapter.setCongressmanList(congressmanController.getAllCongressman());
+	}
+
+	private void requestQuotas(int timeToDismis, final Congressman congressman) {
+		customDialog.getWindow().clearFlags(
+		        WindowManager.LayoutParams.FLAG_DIM_BEHIND );
+		
+		customDialog.show();
+		
+		new Thread( new Runnable() {
+			
+			@Override
+			public void run() {
+
+				Looper.prepare();
+				ResponseHandler<String> responseHandler = HttpConnection
+				        .getResponseHandler();
+				try {
+					
+					quotaController.getQuotaById(
+					        congressman.getIdCongressman(), responseHandler );
+					
+					Log.e( "" + congressman.getIdCongressman(),
+					        "REQUISITEI QUOTA NO SEGUIR" );
+					
+				} catch( Exception e ) {
+					// TODO launch error alert
+					e.printStackTrace();
+				}
+				
+				Looper.loop();
+			}
+		} ).start();
+		
+		/**
+		 * timer to dismiss Dialog
+		 */
+		final Timer timer = new Timer();
+		timer.schedule( new TimerTask() {
+			
+			@Override
+			public void run() {
+				customDialog.dismiss();
+				timer.cancel();
+				
+			}
+		}, timeToDismis );
 	}
 	
 	private void configureSearchView(){

@@ -40,6 +40,7 @@ public class CongressmanController {
 	private Map<String,String> partyFilters = new HashMap<String,String>();
 	private Map<String,String> spentFilters = new HashMap<String,String>();
 	private Map<String,String> stateFilters = new HashMap<String,String>();
+	private boolean followedFilter = false;
 	
 	private UrlController urlController;
 	private CongressmanDao congressmanDao;
@@ -146,7 +147,9 @@ public class CongressmanController {
 			
 			if( contains(filteredParty, party) &&
 				contains(filteredState, state) &&
-				(Double.parseDouble(filteredSpent.get(0))<spent)
+				(Double.parseDouble(filteredSpent.get(0))<spent) &&
+				(followedFilter == congressman.isStatusCogressman()||
+				!followedFilter)
 					){
 				Log.e("Added - ","id: " + i);
 				congressmanList.add(congressman);
@@ -260,5 +263,12 @@ public class CongressmanController {
 	public void setStateFilters(Map<String, String> stateFilters) {
 		this.stateFilters = stateFilters;
 	}
-	
+
+	public boolean getFollowedFilter() {
+		return followedFilter;
+	}
+
+	public void setFollowedFilter(boolean followedFilter) {
+		this.followedFilter = followedFilter;
+	}
 }
