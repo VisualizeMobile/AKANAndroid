@@ -59,7 +59,6 @@ public class Configurations extends Activity {
 					view.setBackgroundResource(R.drawable.active_option);
 					filter.setTag(Status.ACTIVE);
 					addFilter(id+"",((String)filter.getText()).replace("+ ",""));
-
 				}
 				else {
 					view.setBackgroundResource(R.drawable.inactive_option);
@@ -305,7 +304,6 @@ public class Configurations extends Activity {
 		}
 
 		congressmanController.getAllCongressman();
-
 	}
 	
 	private void removeFilter(String key){
