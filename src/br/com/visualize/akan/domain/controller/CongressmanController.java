@@ -15,7 +15,6 @@ import org.apache.http.client.ResponseHandler;
 import org.json.JSONException;
 
 import android.content.Context;
-import android.util.Log;
 import br.com.visualize.akan.api.dao.CongressmanDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
