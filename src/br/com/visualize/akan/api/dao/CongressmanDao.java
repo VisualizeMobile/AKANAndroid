@@ -13,6 +13,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import br.com.visualize.akan.api.helper.DatabaseHelper;
+import br.com.visualize.akan.domain.enumeration.Order;
 import br.com.visualize.akan.domain.exception.DatabaseInvalidOperationException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
@@ -139,7 +140,7 @@ public class CongressmanDao extends Dao {
 	
 	public boolean deleteAllCongressman() throws NullCongressmanException,
 	    DatabaseInvalidOperationException {
-		Iterator<Congressman> index = this.getAll().iterator();
+		Iterator<Congressman> index = this.getAll(Order.RANKING).iterator();
 		
 		boolean result = false;
 		boolean isEmptyDB = checkEmptyLocalDb();
@@ -160,12 +161,12 @@ public class CongressmanDao extends Dao {
 	 * 
 	 * @return List of all congressman contained in the database.
 	 */
-	public List<Congressman> getAll() {
+	public List<Congressman> getAll(Order order) {
 		
 		sqliteDatabase = database.getReadableDatabase();
 		
 		String query = "SELECT * FROM " + tableName
-		        + " ORDER BY TOTAL_SPENT_CONGRESSMAN DESC";
+		        + " ORDER BY "+ order.getOrderName() + " ASC";
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 		
@@ -272,7 +273,7 @@ public class CongressmanDao extends Dao {
 	/* TODO: JAVADOC. */
 	/* TODO: Unit Test. */
 	public boolean checkCongressmanExist( int idCongressman ) {
-	    List<Congressman> congressmanList = this.getAll();
+	    List<Congressman> congressmanList = this.getAll(Order.RANKING);
 	    
 	    boolean result = false;
 	    

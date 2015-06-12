@@ -1,10 +1,10 @@
 package br.com.visualize.akan.domain.enumeration;
 
 public enum Order {
-	RANKING( 0, "ranking" ),
-	ALPHABETIC( 1, "aphabetic" ),
-	STATE( 2, "state" ),
-	PARTY( 3, "party" );
+	RANKING( 0, "RANKING_CONGRESSMAN" ),
+	ALPHABETIC( 1, "NAME_CONGRESSMAN" ),
+	STATE( 2, "UF_CONGRESSMAN" ),
+	PARTY( 3, "PARTY" );
 	
 	private int valueOrder;
 	private String representativeName;

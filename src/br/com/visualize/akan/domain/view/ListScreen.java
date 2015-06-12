@@ -59,7 +59,7 @@ public class ListScreen extends Activity {
 	List<Congressman> congressmen;
 	List<Congressman> followedCongressmen;
 	LayoutAnimationController listAnimation;
-	List<Congressman> currentListCongressmen;
+	//List<Congressman> currentListCongressmen;
 	int currentLayout;
 	
 	@Override
@@ -77,7 +77,7 @@ public class ListScreen extends Activity {
 		quotaController = QuotaController.getInstance( getApplicationContext() );
 		
 		congressmen = congressmanController.getAllCongressman();
-		currentListCongressmen = congressmen;
+		//currentListCongressmen = congressmen;
 		
 		listAdapter = new CongressmenListAdapter( this,
 		        R.layout.congressmen_list_layout, congressmen );
@@ -103,22 +103,16 @@ public class ListScreen extends Activity {
 				if( btn_ranking.isSelected() ) {
 					btn_ranking
 					        .setBackgroundResource( R.drawable.active_ranking );
-					listAdapter = new CongressmenListAdapter( ListScreen.this,
-					        R.layout.ranking_layout, currentListCongressmen );
-					listView.setAdapter( listAdapter );
-					listView.setLayoutAnimation( listAnimation );
 					currentLayout = R.layout.ranking_layout;
+					listView.setLayoutAnimation( listAnimation );
+					listAdapter.setLayout(currentLayout);
 					
 				} else {
 					btn_ranking
 					        .setBackgroundResource( R.drawable.inactive_ranking );
-					listAdapter = new CongressmenListAdapter( ListScreen.this,
-					        R.layout.congressmen_list_layout,
-					        currentListCongressmen );
-					listView.setAdapter( listAdapter );
-					listView.setLayoutAnimation( listAnimation );
 					currentLayout = R.layout.congressmen_list_layout;
-					
+					listView.setLayoutAnimation( listAnimation );
+					listAdapter.setLayout(currentLayout);
 				}
 			}
 		} );
@@ -136,8 +130,7 @@ public class ListScreen extends Activity {
 					showInputMethod(search);
 					
 				} else {
-					btn_search
-					        .setBackgroundResource( R.drawable.inactive_search );
+					btn_search.setBackgroundResource( R.drawable.inactive_search );
 					listAdapter.getFilter().filter( "" );
 					animateSearchView(-1);
 					search.clearFocus();
@@ -168,35 +161,23 @@ public class ListScreen extends Activity {
 	public void onFollowList( View view ) {
 		Animation followAnimation = AnimationUtils.loadAnimation( this,
 		        R.anim.up_from_bottom );
+		listView.setAnimation(followAnimation);
 		btn_follow.setSelected( !btn_follow.isSelected() );
-		listAdapter = null;
-		listAdapter = new CongressmenListAdapter( this, currentLayout,
-		        followedCongressmen );
 		if( btn_follow.isSelected() ) {
 			btn_follow.setBackgroundResource( R.drawable.active_followed );
-			listView.setAdapter( listAdapter );
-			listView.setAnimation( followAnimation );
-			currentListCongressmen = followedCongressmen;
+			listAdapter.setCongressmanList(followedCongressmen);
 		} else {
-			
 			btn_follow.setBackgroundResource( R.drawable.inactive_followed );
-			listAdapter = null;
-			listAdapter = new CongressmenListAdapter( this, currentLayout,
-			        congressmen );
-			
-			listView.setAdapter( listAdapter );
-			listView.setAnimation( followAnimation );
-			currentListCongressmen = congressmen;
+			listAdapter.setCongressmanList(congressmen);
 		}
 	}
 	
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
+		congressmen = congressmanController.getAllCongressman();
+		listAdapter.setCongressmanList(congressmen);
 		followedCongressmen = congressmanController.getFollowedCongressman();
-		listAdapter.notifyDataSetChanged();
-		
 	}
 	
 	/**
@@ -228,20 +209,11 @@ public class ListScreen extends Activity {
 			followedCongressmen = congressmanController
 			        .getFollowedCongressman();
 			
-			currentListCongressmen = followedCongressmen;
-			
 			if( btn_follow.isSelected() ) {
-				listAdapter = new CongressmenListAdapter( this,
-				        R.layout.congressmen_list_layout, followedCongressmen );
+				listAdapter.setCongressmanList(followedCongressmen);
 			} else {
-				listAdapter = new CongressmenListAdapter( this,
-				        R.layout.congressmen_list_layout, congressmen );
+				listAdapter.setCongressmanList(congressmen);
 			}
-			listView.setAdapter( listAdapter );
-			
-			Log.e( "Cheguei no followed", "cheguei no followed: "
-			        + followedCongressmen.size() );
-			
 			quotaController.deleteQuotasFromCongressman( congressman
 			        .getIdCongressman() );
 			

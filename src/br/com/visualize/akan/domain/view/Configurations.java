@@ -21,9 +21,7 @@ public class Configurations extends Activity {
 
 	private static final int PARTY_FILTER = 0;
 	private static final int STATE_FILTER = 1;
-	private static final int SPENT_FILTER = 2;
-	
-	private Order order = Order.RANKING; 
+	private static final int SPENT_FILTER = 2; 
 	
 	private ConfigurationsGridAdapter adapter;
 	private CongressmanController congressmanController;
@@ -39,15 +37,13 @@ public class Configurations extends Activity {
 	    adapter = new ConfigurationsGridAdapter(getBaseContext(), 
 	    		R.layout.filter_item, getButtonsTitlesList(PARTY_FILTER) );
 		gridview.setAdapter(adapter);
-
+		
 	    gridview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 			}
 	    });
-
-		
 		setupFilterButtons();
 		setupOrderButtons();
 	}
@@ -58,6 +54,39 @@ public class Configurations extends Activity {
 		final ImageButton orderAlphabetic = (ImageButton)findViewById(R.id.order_alphabetic);
 		final ImageButton orderRanking = (ImageButton)findViewById(R.id.order_ranking);
 		
+		switch (congressmanController.getOrder()) {
+		case PARTY:
+			setButtomPressed(orderParty, true);
+			setButtomPressed(orderState, false);
+			setButtomPressed(orderAlphabetic, false);
+			setButtomPressed(orderRanking, false);
+			congressmanController.setOrderBy(Order.PARTY);
+			break;
+		case STATE:
+			setButtomPressed(orderParty, false);
+			setButtomPressed(orderState, true);
+			setButtomPressed(orderAlphabetic, false);
+			setButtomPressed(orderRanking, false);
+			congressmanController.setOrderBy(Order.STATE);
+			break;	
+		case ALPHABETIC:
+			setButtomPressed(orderParty, false);
+			setButtomPressed(orderState, false);
+			setButtomPressed(orderAlphabetic, true);
+			setButtomPressed(orderRanking, false);
+			congressmanController.setOrderBy(Order.ALPHABETIC);
+			break;
+		case RANKING:
+			setButtomPressed(orderParty, false);
+			setButtomPressed(orderState, false);
+			setButtomPressed(orderAlphabetic, false);
+			setButtomPressed(orderRanking, true);
+			congressmanController.setOrderBy(Order.RANKING);
+			break;
+		default:
+			break;
+		}
+		
 		orderParty.setOnClickListener( new View.OnClickListener() {
 			
 			@Override
@@ -66,6 +95,7 @@ public class Configurations extends Activity {
 				setButtomPressed(orderState, false);
 				setButtomPressed(orderAlphabetic, false);
 				setButtomPressed(orderRanking, false);
+				congressmanController.setOrderBy(Order.PARTY);
 			}
 		} );
 		
@@ -77,6 +107,7 @@ public class Configurations extends Activity {
 				setButtomPressed(orderState, true);
 				setButtomPressed(orderAlphabetic, false);
 				setButtomPressed(orderRanking, false);
+				congressmanController.setOrderBy(Order.STATE);
 			}
 		} );
 		
@@ -88,6 +119,7 @@ public class Configurations extends Activity {
 				setButtomPressed(orderState, false);
 				setButtomPressed(orderAlphabetic, true);
 				setButtomPressed(orderRanking, false);
+				congressmanController.setOrderBy(Order.ALPHABETIC);
 			}
 		} );
 		
@@ -99,6 +131,7 @@ public class Configurations extends Activity {
 				setButtomPressed(orderState, false);
 				setButtomPressed(orderAlphabetic, false);
 				setButtomPressed(orderRanking, true);
+				congressmanController.setOrderBy(Order.RANKING);
 			}
 		} );
 	}

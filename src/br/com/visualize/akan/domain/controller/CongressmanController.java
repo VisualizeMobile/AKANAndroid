@@ -33,7 +33,7 @@ public class CongressmanController {
 	private static Congressman congressman;
 	private static List<Congressman> congressmanList;
 	
-	private Order order = Order.RANKING;
+	private Order order = Order.PARTY;
 	
 	private UrlController urlController;
 	private CongressmanDao congressmanDao;
@@ -121,8 +121,7 @@ public class CongressmanController {
 	 * @return List of Congressman.
 	 */
 	public List<Congressman> getAllCongressman() {
-		congressmanList = congressmanDao.getAll();
-		
+		congressmanList = congressmanDao.getAll(order);
 		return congressmanList;
 	}
 	
@@ -153,7 +152,7 @@ public class CongressmanController {
 	
 	public List<Congressman> getFollowedCongressman() {
 		List<Congressman> congressmenAnalized = new ArrayList<Congressman>();
-		Iterator<Congressman> iteratorCongressman = congressmanList.iterator();
+		Iterator<Congressman> iteratorCongressman = getAllCongressman().iterator();
 		
 		while( iteratorCongressman.hasNext() ) {
 			Congressman congressman = iteratorCongressman.next();
@@ -166,7 +165,6 @@ public class CongressmanController {
 				
 			} else {
 				// nothing to do
-				
 			}
 		}
 		
@@ -175,13 +173,17 @@ public class CongressmanController {
 	
 	public void setOrderBy(Order order){
 		this.order = order;
-		congressmanList = new ArrayList<Congressman>();
+		congressmanList = getAllCongressman();
+	}
+	
+	public Order getOrder(){
+		return order;
 	}
 	
 	public List<String> getParties(){
 		boolean inList = false;
 		ArrayList<String> parties = new ArrayList<String>();
-		Iterator<Congressman> i = congressmanDao.getAll().iterator();
+		Iterator<Congressman> i = congressmanDao.getAll(Order.PARTY).iterator();
 		while(i.hasNext()){
 			Congressman c = i.next();
 			for(int j=0; j<parties.size(); j++){

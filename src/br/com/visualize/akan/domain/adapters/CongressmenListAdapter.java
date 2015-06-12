@@ -179,6 +179,17 @@ public class CongressmenListAdapter extends ArrayAdapter<Congressman> implements
 		return congressmanFilter;
 	}
 	
+	public void setCongressmanList(List<Congressman> list){
+		congressmens = list;
+		filteredList = list;
+		notifyDataSetChanged();
+	}
+	
+	public void setLayout(int id){
+		layoutInflated = id;
+		notifyDataSetChanged();
+	}
+	
 	/*
 	 * TODO: Review.
 	 * 
