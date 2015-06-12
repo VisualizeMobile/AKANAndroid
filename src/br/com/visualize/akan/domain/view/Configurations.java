@@ -1,9 +1,12 @@
 package br.com.visualize.akan.domain.view;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.domain.adapters.ConfigurationsGridAdapter;
@@ -41,18 +44,20 @@ public class Configurations extends Activity {
 		GridView gridview = (GridView) findViewById(R.id.filter_gridview);
 	    adapter = new ConfigurationsGridAdapter(getBaseContext(), 
 	    		R.layout.filter_item, getButtonsTitlesList() );
+	    adapter.activeIds = getDictionaryKeys();
 		gridview.setAdapter(adapter);
 		
 	    gridview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				
 				TextView filter = (TextView)view.findViewById(R.id.filter_button);
-				Log.e("BUTTON", "tag: "+filter.getTag());
+				
 				if(filter.getTag() == Status.INACTIVE){
 					view.setBackgroundResource(R.drawable.active_option);
 					filter.setTag(Status.ACTIVE);
-					addFilter(id+"",(String)filter.getText());
+					addFilter(id+"",((String)filter.getText()).replace("+ ",""));
 				}
 				else {
 					view.setBackgroundResource(R.drawable.inactive_option);
@@ -290,11 +295,13 @@ public class Configurations extends Activity {
 			congressmanController.getStateFilters().put(key,value);
 			break;
 		case SPENT_FILTER:
-			congressmanController.setSpentFilters(key);
+			congressmanController.setSpentFilters(new Hashtable<String,String>());
+			congressmanController.getSpentFilters().put(key,value.replace("+ ","").replace(".",""));
 			break;
 		default:
 			break;
 		}
+		congressmanController.getAllCongressman();
 	}
 	
 	private void removeFilter(String key){
@@ -306,36 +313,32 @@ public class Configurations extends Activity {
 			congressmanController.getStateFilters().remove(key);
 			break;
 		case SPENT_FILTER:
-			congressmanController.setSpentFilters("0");
+			congressmanController.getSpentFilters().remove(key);
+			congressmanController.getSpentFilters().put("0","0");
 			break;
 		default:
 			break;
 		}
+		congressmanController.getAllCongressman();
 	}
 	
 	private List<String> getDictionaryKeys(){
-		List<String> keys = new ArrayList<String>();
-		Dictionary<String,String> filters;
+		Map<String,String> filters;
 		switch (currentFilter) {
 		case PARTY_FILTER:
 			filters = congressmanController.getPartyFilters();
-			for (Enumeration<String> e = filters.keys(); e.hasMoreElements();) {
-				keys.add(e.nextElement());
-			}
 			break;
 		case STATE_FILTER:
 			filters = congressmanController.getStateFilters();
-			for (Enumeration<String> e = filters.keys(); e.hasMoreElements();) {
-				keys.add(e.nextElement());
-			}
 			break;
 		case SPENT_FILTER:
-			keys.add(congressmanController.getSpentFilters());
+			filters = congressmanController.getSpentFilters();
 			break;
 		default:
+			filters = new Hashtable<String, String>();
 			break;
 		}
-		
+		List<String> keys = new ArrayList<String>(filters.keySet());
 		return keys;
 	}
 }

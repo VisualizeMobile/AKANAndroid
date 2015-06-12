@@ -6,10 +6,10 @@ package br.com.visualize.akan.domain.controller;
 
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.client.ResponseHandler;
 import org.json.JSONException;
@@ -33,13 +33,13 @@ public class CongressmanController {
 	
 	private static CongressmanController instance = null;
 	private static Congressman congressman;
-	private static List<Congressman> congressmanList;
+	private static List<Congressman> congressmanList = new ArrayList<Congressman>();
 	
 	private Order order = Order.PARTY;
 	
-	private Dictionary<String,String> partyFilters = new Hashtable<String,String>();
-	private String spentFilters = "0";
-	private Dictionary<String,String> stateFilters = new Hashtable<String,String>();
+	private Map<String,String> partyFilters = new HashMap<String,String>();
+	private Map<String,String> spentFilters = new HashMap<String,String>();
+	private Map<String,String> stateFilters = new HashMap<String,String>();
 	
 	private UrlController urlController;
 	private CongressmanDao congressmanDao;
@@ -47,6 +47,7 @@ public class CongressmanController {
 	private CongressmanController( Context context ) {
 		congressmanDao = CongressmanDao.getInstance( context );
 		urlController = UrlController.getInstance( context );
+		spentFilters.put("0","0");
 	}
 	
 	/**
@@ -127,8 +128,44 @@ public class CongressmanController {
 	 * @return List of Congressman.
 	 */
 	public List<Congressman> getAllCongressman() {
-		congressmanList = congressmanDao.getAll(order);
+		
+		congressmanList = new ArrayList<Congressman>();
+		
+		List<String> filteredParty = new ArrayList<String>(partyFilters.values());
+		List<String> filteredState = new ArrayList<String>(stateFilters.values());
+		List<String> filteredSpent = new ArrayList<String>(spentFilters.values());
+		
+		int i = 0;
+		for (Iterator<Congressman> it = congressmanDao.getAll(order).iterator();
+				it.hasNext(); i++) {
+			Congressman congressman = it.next();
+			//verify if parliamentary has all the filtered attributes
+			double spent = congressman.getTotalSpentCongressman();
+			String party = congressman.getPartyCongressman();
+			String state = congressman.getUfCongressman();
+			
+			if( contains(filteredParty, party) &&
+				contains(filteredState, state) &&
+				(Double.parseDouble(filteredSpent.get(0))<spent)
+					){
+				Log.e("Added - ","id: " + i);
+				congressmanList.add(congressman);
+			}
+		}
 		return congressmanList;
+	}
+	
+	/**
+	 * Verify if a parameterized list contains object
+	 * return true if list is empty.
+	 * 
+	 * */
+	<T> boolean contains(List<T>list, T value){
+		boolean result = false;
+		if(list.isEmpty() || list.contains(value)){
+			result = true;
+		}
+		return result;
 	}
 	
 	/**
@@ -157,24 +194,19 @@ public class CongressmanController {
 	}
 	
 	public List<Congressman> getFollowedCongressman() {
-		List<Congressman> congressmenAnalized = new ArrayList<Congressman>();
+		List<Congressman> followedCongressman = new ArrayList<Congressman>();
 		Iterator<Congressman> iteratorCongressman = getAllCongressman().iterator();
 		
 		while( iteratorCongressman.hasNext() ) {
 			Congressman congressman = iteratorCongressman.next();
 			
 			if( congressman.isStatusCogressman() ) {
-				
-				Log.e( "seguido", congressman.getNameCongressman() );
-				
-				congressmenAnalized.add( congressman );
-				
+				followedCongressman.add( congressman );
 			} else {
 				// nothing to do
 			}
 		}
-		
-		return congressmenAnalized;		
+		return followedCongressman;		
 	}
 	
 	public void setOrderBy(Order order){
@@ -205,27 +237,27 @@ public class CongressmanController {
 		return parties;
 	}
 
-	public Dictionary<String, String> getPartyFilters() {
+	public Map<String, String> getPartyFilters() {
 		return partyFilters;
 	}
 
-	public void setPartyFilters(Dictionary<String, String> partyFilters) {
+	public void setPartyFilters(Map<String, String> partyFilters) {
 		this.partyFilters = partyFilters;
 	}
 
-	public String getSpentFilters() {
+	public Map<String, String> getSpentFilters() {
 		return spentFilters;
 	}
 
-	public void setSpentFilters(String spentFilters) {
+	public void setSpentFilters(Map<String, String> spentFilters) {
 		this.spentFilters = spentFilters;
 	}
 
-	public Dictionary<String, String> getStateFilters() {
+	public Map<String, String> getStateFilters() {
 		return stateFilters;
 	}
 
-	public void setStateFilters(Dictionary<String, String> stateFilters) {
+	public void setStateFilters(Map<String, String> stateFilters) {
 		this.stateFilters = stateFilters;
 	}
 	
