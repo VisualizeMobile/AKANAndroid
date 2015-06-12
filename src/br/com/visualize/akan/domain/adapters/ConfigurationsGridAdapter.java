@@ -6,14 +6,16 @@ package br.com.visualize.akan.domain.adapters;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.TextView;
 import br.com.visualize.akan.R;
+import br.com.visualize.akan.domain.enumeration.Status;
 
 
 /**
@@ -25,6 +27,8 @@ public class ConfigurationsGridAdapter extends ArrayAdapter<String> {
 	
 	private final Context context;
 	public List<String> texts;
+	public List<String> activeIds = new ArrayList<String>();
+	
 	private int layoutInflated;
 	
 	public ConfigurationsGridAdapter( Context context, int textViewResourceId,
@@ -52,9 +56,17 @@ public class ConfigurationsGridAdapter extends ArrayAdapter<String> {
 		View view;
 		view = inflater.inflate( layoutInflated, null );
 		
-		Button filterButton = (Button)view.findViewById(R.id.filter_button);
+		TextView filterButton = (TextView)view.findViewById(R.id.filter_button);
 		
 		filterButton.setText(text);
+		if(activeIds.contains(position+"")){
+			filterButton.setTag(Status.ACTIVE);
+			view.setBackgroundResource(R.drawable.active_option);
+		}
+		else {
+			filterButton.setTag(Status.INACTIVE);
+			view.setBackgroundResource(R.drawable.inactive_option);
+		}
 		
 		return view;
 	}

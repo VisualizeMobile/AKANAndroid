@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="70dp"
+    android:layout_height="25dp"
+    android:background="@drawable/inactive_option"
     android:orientation="vertical" >
 
-	<Button
+	<TextView
 	    android:id="@+id/filter_button"
-	    android:layout_width="75dp"
-	    android:layout_height="30dp"
-	    android:layout_marginLeft="2dp"
-	    android:layout_marginRight="2dp"
-	    android:layout_marginBottom="0dp"
-	    android:layout_marginTop="5dp"
-	    android:background="#5B6C78"
+	    android:layout_width="70dp"
+	    android:layout_height="25dp"
 	    android:gravity="center"
 	    android:text="Bt"
 	    android:textColor="#f2f2f1"

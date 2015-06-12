@@ -1,12 +1,15 @@
 package br.com.visualize.akan.domain.view;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
 import java.util.List;
 
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.domain.adapters.ConfigurationsGridAdapter;
 import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.enumeration.Order;
+import br.com.visualize.akan.domain.enumeration.Status;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +19,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
 
 public class Configurations extends Activity {
 
@@ -25,6 +29,7 @@ public class Configurations extends Activity {
 	
 	private ConfigurationsGridAdapter adapter;
 	private CongressmanController congressmanController;
+	private int currentFilter = PARTY_FILTER;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +40,27 @@ public class Configurations extends Activity {
 		
 		GridView gridview = (GridView) findViewById(R.id.filter_gridview);
 	    adapter = new ConfigurationsGridAdapter(getBaseContext(), 
-	    		R.layout.filter_item, getButtonsTitlesList(PARTY_FILTER) );
+	    		R.layout.filter_item, getButtonsTitlesList() );
 		gridview.setAdapter(adapter);
 		
 	    gridview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				TextView filter = (TextView)view.findViewById(R.id.filter_button);
+				Log.e("BUTTON", "tag: "+filter.getTag());
+				if(filter.getTag() == Status.INACTIVE){
+					view.setBackgroundResource(R.drawable.active_option);
+					filter.setTag(Status.ACTIVE);
+					addFilter(id+"",(String)filter.getText());
+				}
+				else {
+					view.setBackgroundResource(R.drawable.inactive_option);
+					filter.setTag(Status.INACTIVE);
+					removeFilter(id+"");
+				}
+				adapter.activeIds = getDictionaryKeys();
+				adapter.notifyDataSetChanged();
 			}
 	    });
 		setupFilterButtons();
@@ -140,7 +159,6 @@ public class Configurations extends Activity {
 		String description = (String) button.getContentDescription();
 		description = (op) ? description.replace("_","_active_") : description.replace("_","_inactive_");
 		int id = getResources().getIdentifier(description, "drawable",  getPackageName());
-		Log.i("id: ",id+"");
 		button.setImageResource(id);
 	}
 	
@@ -157,10 +175,12 @@ public class Configurations extends Activity {
 			
 			@Override
 			public void onClick( View v ) {
+				currentFilter = PARTY_FILTER;
 				partyIndicator.setVisibility(View.VISIBLE);
 				stateIndicator.setVisibility(View.GONE);
 				spentIndicator.setVisibility(View.GONE);
-				adapter.texts = getButtonsTitlesList(PARTY_FILTER);
+				adapter.texts = getButtonsTitlesList();
+				adapter.activeIds = getDictionaryKeys();
 				adapter.notifyDataSetChanged();
 			}
 		} );
@@ -169,10 +189,12 @@ public class Configurations extends Activity {
 			
 			@Override
 			public void onClick( View v ) {
+				currentFilter = STATE_FILTER;
 				partyIndicator.setVisibility(View.GONE);
 				stateIndicator.setVisibility(View.VISIBLE);
 				spentIndicator.setVisibility(View.GONE);
-				adapter.texts = getButtonsTitlesList(STATE_FILTER);
+				adapter.texts = getButtonsTitlesList();
+				adapter.activeIds = getDictionaryKeys();
 				adapter.notifyDataSetChanged();
 			}
 		} );
@@ -181,19 +203,21 @@ public class Configurations extends Activity {
 			
 			@Override
 			public void onClick( View v ) {
+				currentFilter = SPENT_FILTER;
 				partyIndicator.setVisibility(View.GONE);
 				stateIndicator.setVisibility(View.GONE);
 				spentIndicator.setVisibility(View.VISIBLE);
-				adapter.texts = getButtonsTitlesList(SPENT_FILTER);
+				adapter.texts = getButtonsTitlesList();
+				adapter.activeIds = getDictionaryKeys();
 				adapter.notifyDataSetChanged();
 			}
 		} );
 		
 	}
 	
-	List<String> getButtonsTitlesList(int filter) {
+	List<String> getButtonsTitlesList() {
 		ArrayList<String> titles = new ArrayList<String>();
-		switch(filter){
+		switch(currentFilter){
 		case PARTY_FILTER: {
 			titles.addAll(congressmanController.getParties());
 			break;
@@ -255,5 +279,63 @@ public class Configurations extends Activity {
 	 */
 	public void backToList( View view ) {
 		this.finish();
+	}
+	
+	private void addFilter(String key, String value){
+		switch (currentFilter) {
+		case PARTY_FILTER:
+			congressmanController.getPartyFilters().put(key,value);
+			break;
+		case STATE_FILTER:
+			congressmanController.getStateFilters().put(key,value);
+			break;
+		case SPENT_FILTER:
+			congressmanController.setSpentFilters(key);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private void removeFilter(String key){
+		switch (currentFilter) {
+		case PARTY_FILTER:
+			congressmanController.getPartyFilters().remove(key);
+			break;
+		case STATE_FILTER:
+			congressmanController.getStateFilters().remove(key);
+			break;
+		case SPENT_FILTER:
+			congressmanController.setSpentFilters("0");
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private List<String> getDictionaryKeys(){
+		List<String> keys = new ArrayList<String>();
+		Dictionary<String,String> filters;
+		switch (currentFilter) {
+		case PARTY_FILTER:
+			filters = congressmanController.getPartyFilters();
+			for (Enumeration<String> e = filters.keys(); e.hasMoreElements();) {
+				keys.add(e.nextElement());
+			}
+			break;
+		case STATE_FILTER:
+			filters = congressmanController.getStateFilters();
+			for (Enumeration<String> e = filters.keys(); e.hasMoreElements();) {
+				keys.add(e.nextElement());
+			}
+			break;
+		case SPENT_FILTER:
+			keys.add(congressmanController.getSpentFilters());
+			break;
+		default:
+			break;
+		}
+		
+		return keys;
 	}
 }

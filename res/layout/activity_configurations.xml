@@ -345,7 +345,7 @@
 
     <GridView
         android:id="@+id/filter_gridview"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_below="@+id/filter_buttons"
         android:layout_marginTop="-3dp"
@@ -354,7 +354,9 @@
         android:layout_marginBottom="8dp"
         android:columnWidth="74dp"
         android:numColumns="auto_fit"
-	    android:verticalSpacing="0dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+	    android:verticalSpacing="2dp"
 	    android:stretchMode="spacingWidthUniform"
 	    android:gravity="center"
 	    android:background="#f2f2f1"

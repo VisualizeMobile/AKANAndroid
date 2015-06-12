@@ -6,6 +6,8 @@ package br.com.visualize.akan.domain.controller;
 
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,6 +36,10 @@ public class CongressmanController {
 	private static List<Congressman> congressmanList;
 	
 	private Order order = Order.PARTY;
+	
+	private Dictionary<String,String> partyFilters = new Hashtable<String,String>();
+	private String spentFilters = "0";
+	private Dictionary<String,String> stateFilters = new Hashtable<String,String>();
 	
 	private UrlController urlController;
 	private CongressmanDao congressmanDao;
@@ -198,4 +204,29 @@ public class CongressmanController {
 		}
 		return parties;
 	}
+
+	public Dictionary<String, String> getPartyFilters() {
+		return partyFilters;
+	}
+
+	public void setPartyFilters(Dictionary<String, String> partyFilters) {
+		this.partyFilters = partyFilters;
+	}
+
+	public String getSpentFilters() {
+		return spentFilters;
+	}
+
+	public void setSpentFilters(String spentFilters) {
+		this.spentFilters = spentFilters;
+	}
+
+	public Dictionary<String, String> getStateFilters() {
+		return stateFilters;
+	}
+
+	public void setStateFilters(Dictionary<String, String> stateFilters) {
+		this.stateFilters = stateFilters;
+	}
+	
 }
