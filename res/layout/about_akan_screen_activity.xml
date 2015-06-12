@@ -42,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/topbar_about">
+        
         <RelativeLayout
             android:id="@+id/akan_about_information"
             android:layout_width="match_parent"
@@ -50,28 +51,119 @@
            <ImageView 
            	    android:id="@+id/about_logo"
             	android:background="@drawable/logo_bigger"
+            	android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/image_description_default"
                 android:layout_centerHorizontal="true"/>
            
            <TextView
-            android:id="@+id/about_text"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/about_akan"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_below="@id/about_logo" />
+                android:id="@+id/about_text"
+            	android:layout_width="300dp"
+            	android:layout_height="wrap_content"
+            	android:layout_centerVertical="true"
+            	android:layout_centerHorizontal="true"
+            	android:text="@string/about_akan"
+            	android:textColor="#ffffff"
+            	android:textSize="20sp"
+            	android:textStyle="bold"
+            	android:layout_below="@id/about_logo" />
+           
+           <RelativeLayout
+                android:background="#B3AFB0"
+                android:id="@+id/akan_about_quota"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_text" >
+        	    
+               <TextView
+                   android:id="@+id/about_quota"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_centerVertical="true"
+                   android:text="@string/quota"
+                   android:textColor="#ffffff"
+                   android:textSize="30sp"
+                   android:textStyle="bold"
+                    />
             
+            </RelativeLayout>
             
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_air_tickets"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/akan_about_quota" >
+               
+                <RelativeLayout
+                    android:background="#F1C761"
+                    android:id="@+id/about_background_air_tickets"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_text_air_tickets"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_issuance_of_air_tickets"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_air_ticket_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_air_tickets" >
+                
+                <ImageView
+                    android:background="#F1C761"
+                    android:id="@+id/about_air_ticker_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_air_freight"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_issuance_of_air_tickets"
+                    android:id="@+id/about_air_ticket_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_air_freight"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_air_ticket_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_air_ticket"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+                
+                
+                
+            </RelativeLayout>
+           
         </RelativeLayout>
         
-        
     </ScrollView>
-
     
 </RelativeLayout>

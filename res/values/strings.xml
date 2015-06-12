@@ -16,7 +16,7 @@
     <string name="image_description_quota_telephony">Telefonia</string>
     <string name="image_description_quota_technical_work_and_consulting">Consultoria</string>
     <string name="image_description_quota_postal_service">Serviços Postais</string>
-    <string name="image_description_quota_issuance_of_air_tickets">Bilhetes Aéreos</string>
+    <string name="image_description_quota_issuance_of_air_tickets">Passagens Aéreas</string>
     <string name="image_description_quota_safety">Segurança</string>
     <string name="image_description_quota_alimentation">Alimentação</string>
     <string name="image_description_quota_fuel">Combustível</string>
@@ -34,6 +34,7 @@
     <string name="layout_style_photo">imagem de fundo</string>
     <string name="name">Nome</string>
     <string name="congressman">Parlamentares</string>
+    <string name="quota">Cotas</string>
     <string name="configurations">Configuações</string>
     <string name="legend_text">Gastos médios dos Deputados</string>
     <string name="months">Meses</string>
@@ -61,7 +62,7 @@
 	
     <string name="title_activity_configurations">Configurations</string>
     <string name="hello_world">Hello world!</string>
-    <string name="about_akan">\n\n A proposta do aplicativo AKAN é promover a consciência orçamentária
+    <string name="about_akan">\n A proposta do aplicativo AKAN é promover a consciência orçamentária
         através do fácil acesso a valores gastos com Cotas para Exercício da Atividade Parlamentar
         (CEAP) de cada Deputado Federal em mandato corrente.
         \n\n
@@ -73,6 +74,12 @@
         No aplicativo AKAN, a cor da Cota muda de acordo com o valor gasto pelo parlamentar.Toque em um parlamentar
          e veja quanto ele gasto e com o quê ele gasta.    
          \n\n 
-        </string>
+    </string>
+    <string name="about_air_ticket">Valores gastos com compras de passagens aéreas. 
+        O valor máximo autorizado para esta Cota varia de acordo com o estado do parlamentar
+    </string>
+        
+        
+    
 
 </resources>
