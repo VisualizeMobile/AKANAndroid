@@ -252,12 +252,15 @@ public class QuotaController {
 	 * @throws ParseException
 	 */
 	@SuppressLint( "SimpleDateFormat" )
-	public List<Long> getMinMaxDate() throws ParseException, NoSuchElementException {
+	public List<Long> getMinMaxDate() throws ParseException, 
+	    NoSuchElementException {
 		List<Integer> listYears = new ArrayList<Integer>();
 		List<Integer> monthsMajorYear = new ArrayList<Integer>();
 		List<Long> periodDate = new ArrayList<Long>();
+		
 		int idCongressman = congressmanController.getCongresman()
 		        .getIdCongressman();
+		
 		Long dateMin;
 		Long dateMax;
 		String dateToConversion;
@@ -270,8 +273,12 @@ public class QuotaController {
 		// get list of all years available
 		listYears = quotaDao.getYears();
 		// get interval date
-		majorYear = Collections.max( listYears );
-		minorYear = Collections.min( listYears );
+		if( listYears != null ) {
+    		majorYear = Collections.max( listYears );
+    		minorYear = Collections.min( listYears );
+		} else {
+		    throw new NoSuchElementException();
+		}
 
 		monthsMajorYear = quotaDao.getMonthsFromCurrentYear( majorYear,
 		        idCongressman );
@@ -301,10 +308,12 @@ public class QuotaController {
 	public double getMaxQuotaValue(List<Quota> quotas){
 		double maxValue = 0.0;
 		Iterator<Quota> i = quotas.iterator();
+		
 		while(i.hasNext()){
 			Quota quota = i.next();
 			maxValue= (quota.getValueQuota()>maxValue)? quota.getValueQuota() : maxValue;
 		}
+		
 		return maxValue;
 	}
 
