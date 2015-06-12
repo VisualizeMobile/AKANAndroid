@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import br.com.visualize.akan.domain.controller.QuotaController;
 
-
 public class DatePickerFragment extends DialogFragment {
     MyDatePickerDialog customDatePicker;
     DatePickerDialog datepicker;
