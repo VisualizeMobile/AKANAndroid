@@ -17,10 +17,10 @@ import android.util.Log;
 import br.com.visualize.akan.api.dao.CongressmanDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
+import br.com.visualize.akan.domain.enumeration.Order;
 import br.com.visualize.akan.domain.exception.ConnectionFailedException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
-
 
 /**
  * Serves to define the methods that are responsible for generating actions,
@@ -33,24 +33,14 @@ public class CongressmanController {
 	private static Congressman congressman;
 	private static List<Congressman> congressmanList;
 	
-	@SuppressWarnings( "unused" )
-	private static List<Congressman> followedCongressmen;
-	
-	@SuppressWarnings( "unused" )
-	private Context context;
-	
-	@SuppressWarnings( "unused" )
-	private QuotaController quotaController;
+	private Order order = Order.RANKING;
 	
 	private UrlController urlController;
 	private CongressmanDao congressmanDao;
 	
 	private CongressmanController( Context context ) {
-		
 		congressmanDao = CongressmanDao.getInstance( context );
 		urlController = UrlController.getInstance( context );
-		
-		this.context = context;
 	}
 	
 	/**
@@ -65,7 +55,6 @@ public class CongressmanController {
 		} else {
 			/* ! Nothing To Do. */
 		}
-		
 		return instance;
 	}
 	
@@ -102,18 +91,16 @@ public class CongressmanController {
 				
 				String jsonCongressman = HttpConnection.request(
 				        responseHandler, url );
+				List<Congressman> list = JsonHelper
+				        .listCongressmanFromJSON( jsonCongressman );
 				
-				setCongressmanList( JsonHelper
-				        .listCongressmanFromJSON( jsonCongressman ) );
-				
-				congressmanDao.insertAllCongressman( getCongressmanList() );
+				congressmanDao.insertAllCongressman( list );
 				
 			} else {
 				/* ! Nothing To Do. */
 			}
 		}
-		
-		return getCongressmanList();
+		return getAllCongressman();
 	}
 	
 	public boolean updateStatusCongressman() throws NullCongressmanException {
@@ -128,22 +115,6 @@ public class CongressmanController {
 		return result;
 	}
 	
-	/*
-	 * TODO: Investigate Duplication.
-	 * 
-	 * It seems that the methods getCongressmanList() and getAllCongressman()
-	 * are repeated. It should be investigated whether there is duplication.
-	 */
-	
-	/**
-	 * Returns all congressman stored in the local database.
-	 * 
-	 * @return List of Congressman.
-	 */
-	public static List<Congressman> getCongressmanList() {
-		return congressmanList;
-	}
-	
 	/**
 	 * Returns all congressman stored in the local database.
 	 * 
@@ -153,16 +124,6 @@ public class CongressmanController {
 		congressmanList = congressmanDao.getAll();
 		
 		return congressmanList;
-	}
-	
-	/**
-	 * Associates a list of congressman on CongressmanController.
-	 * 
-	 * @param congressmanList
-	 *            List of congressman to be associated
-	 */
-	private static void setCongressmanList( List<Congressman> congressmanList ) {
-		CongressmanController.congressmanList = congressmanList;
 	}
 	
 	/**
@@ -212,4 +173,27 @@ public class CongressmanController {
 		return congressmenAnalized;		
 	}
 	
+	public void setOrderBy(Order order){
+		this.order = order;
+		congressmanList = new ArrayList<Congressman>();
+	}
+	
+	public List<String> getParties(){
+		boolean inList = false;
+		ArrayList<String> parties = new ArrayList<String>();
+		Iterator<Congressman> i = congressmanDao.getAll().iterator();
+		while(i.hasNext()){
+			Congressman c = i.next();
+			for(int j=0; j<parties.size(); j++){
+				if (parties.get(j).equals(c.getPartyCongressman())){
+					inList = true;
+				}
+			}
+			if(!inList){
+				parties.add(c.getPartyCongressman());
+			}
+			inList = false;
+		}
+		return parties;
+	}
 }

@@ -53,7 +53,12 @@
         <item>Novembro</item>
         <item>Dezembro</item>
     </string-array>
-
+    
+	<string name="order_ranking">order_ranking</string>
+	<string name="order_state">order_state</string>
+	<string name="order_party">order_party</string>
+	<string name="order_alphabetic">order_alphabetic</string>
+	
     <string name="title_activity_configurations">Configurations</string>
     <string name="hello_world">Hello world!</string>
 

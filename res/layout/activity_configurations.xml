@@ -65,11 +65,13 @@
 		    android:orientation="vertical" >
 		
 		    <ImageButton
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:background="@null"
-	        android:gravity="center_horizontal|center_vertical"
-	        android:src="@drawable/order_inactive_party" />
+		        android:id="@+id/order_party"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:background="@null"
+		        android:gravity="center_horizontal|center_vertical"
+		        android:src="@drawable/order_inactive_party" 
+		        android:contentDescription="@string/order_party"/>
 		
 		    <TextView
 		        android:id="@+id/textView1"
@@ -96,11 +98,13 @@
 		    android:orientation="vertical" >
 		
 		    <ImageButton
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:background="@null"
-	        android:gravity="center_horizontal|center_vertical"
-	        android:src="@drawable/order_inactive_ranking" />
+		        android:id="@+id/order_ranking"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:background="@null"
+		        android:gravity="center_horizontal|center_vertical"
+		        android:src="@drawable/order_inactive_ranking"
+		        android:contentDescription="@string/order_ranking" />
 		
 		    <TextView
 		        android:id="@+id/textView2"
@@ -127,11 +131,13 @@
 		    android:orientation="vertical" >
 		
 		    <ImageButton
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:background="@null"
-	        android:gravity="center_horizontal|center_vertical"
-	        android:src="@drawable/order_inactive_alphabetic" />
+		        android:id="@+id/order_alphabetic"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:background="@null"
+		        android:gravity="center_horizontal|center_vertical"
+		        android:src="@drawable/order_inactive_alphabetic" 
+		        android:contentDescription="@string/order_alphabetic"/>
 		
 		    <TextView
 		        android:id="@+id/textView3"
@@ -158,11 +164,13 @@
 		    android:orientation="vertical" >
 		
 		    <ImageButton
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:background="@null"
-	        android:gravity="center_horizontal|center_vertical"
-	        android:src="@drawable/order_inactive_state" />
+		        android:id="@+id/order_state"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:background="@null"
+		        android:gravity="center_horizontal|center_vertical"
+		        android:src="@drawable/order_inactive_state" 
+		        android:contentDescription="@string/order_state"/>
 		
 		    <TextView
 		        android:id="@+id/textView4"

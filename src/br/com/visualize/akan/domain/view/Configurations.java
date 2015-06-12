@@ -5,8 +5,11 @@ import java.util.List;
 
 import br.com.visualize.akan.R;
 import br.com.visualize.akan.domain.adapters.ConfigurationsGridAdapter;
+import br.com.visualize.akan.domain.controller.CongressmanController;
+import br.com.visualize.akan.domain.enumeration.Order;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -20,12 +23,17 @@ public class Configurations extends Activity {
 	private static final int STATE_FILTER = 1;
 	private static final int SPENT_FILTER = 2;
 	
+	private Order order = Order.RANKING; 
+	
 	private ConfigurationsGridAdapter adapter;
+	private CongressmanController congressmanController;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_configurations);
+		
+		congressmanController = CongressmanController.getInstance(getBaseContext());
 		
 		GridView gridview = (GridView) findViewById(R.id.filter_gridview);
 	    adapter = new ConfigurationsGridAdapter(getBaseContext(), 
@@ -41,6 +49,66 @@ public class Configurations extends Activity {
 
 		
 		setupFilterButtons();
+		setupOrderButtons();
+	}
+	
+	private void setupOrderButtons(){
+		final ImageButton orderParty = (ImageButton)findViewById(R.id.order_party);
+		final ImageButton orderState = (ImageButton)findViewById(R.id.order_state);
+		final ImageButton orderAlphabetic = (ImageButton)findViewById(R.id.order_alphabetic);
+		final ImageButton orderRanking = (ImageButton)findViewById(R.id.order_ranking);
+		
+		orderParty.setOnClickListener( new View.OnClickListener() {
+			
+			@Override
+			public void onClick( View v ) {
+				setButtomPressed(orderParty, true);
+				setButtomPressed(orderState, false);
+				setButtomPressed(orderAlphabetic, false);
+				setButtomPressed(orderRanking, false);
+			}
+		} );
+		
+		orderState.setOnClickListener( new View.OnClickListener() {
+			
+			@Override
+			public void onClick( View v ) {
+				setButtomPressed(orderParty, false);
+				setButtomPressed(orderState, true);
+				setButtomPressed(orderAlphabetic, false);
+				setButtomPressed(orderRanking, false);
+			}
+		} );
+		
+		orderAlphabetic.setOnClickListener( new View.OnClickListener() {
+			
+			@Override
+			public void onClick( View v ) {
+				setButtomPressed(orderParty, false);
+				setButtomPressed(orderState, false);
+				setButtomPressed(orderAlphabetic, true);
+				setButtomPressed(orderRanking, false);
+			}
+		} );
+		
+		orderRanking.setOnClickListener( new View.OnClickListener() {
+			
+			@Override
+			public void onClick( View v ) {
+				setButtomPressed(orderParty, false);
+				setButtomPressed(orderState, false);
+				setButtomPressed(orderAlphabetic, false);
+				setButtomPressed(orderRanking, true);
+			}
+		} );
+	}
+	
+	private void setButtomPressed(ImageButton button, boolean op) {
+		String description = (String) button.getContentDescription();
+		description = (op) ? description.replace("_","_active_") : description.replace("_","_inactive_");
+		int id = getResources().getIdentifier(description, "drawable",  getPackageName());
+		Log.i("id: ",id+"");
+		button.setImageResource(id);
 	}
 	
 	private void setupFilterButtons(){
@@ -94,18 +162,38 @@ public class Configurations extends Activity {
 		ArrayList<String> titles = new ArrayList<String>();
 		switch(filter){
 		case PARTY_FILTER: {
-			//TODO: get data from congressman controller
-			titles.add("PT");
-			titles.add("PTB");
-			titles.add("PCdoB");
+			titles.addAll(congressmanController.getParties());
 			break;
 		}
 		case STATE_FILTER: {
 			//TODO: get data from congressman controller
-			titles.add("MT");
+			titles.add("AC");
+			titles.add("AL");
+			titles.add("AM");
+			titles.add("AP");
+			titles.add("BA");
+			titles.add("CE");
 			titles.add("DF");
+			titles.add("ES");
 			titles.add("GO");
 			titles.add("MA");
+			titles.add("MG");
+			titles.add("MS");
+			titles.add("MT");
+			titles.add("PA");
+			titles.add("PB");
+			titles.add("PE");
+			titles.add("PI");
+			titles.add("PR");
+			titles.add("RJ");
+			titles.add("RN");
+			titles.add("RO");
+			titles.add("RR");
+			titles.add("RS");
+			titles.add("SC");
+			titles.add("SE");
+			titles.add("SP");
+			titles.add("TO");
 			break;
 		}
 		case SPENT_FILTER: {
