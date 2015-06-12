@@ -61,5 +61,18 @@
 	
     <string name="title_activity_configurations">Configurations</string>
     <string name="hello_world">Hello world!</string>
+    <string name="about_akan">\n\n A proposta do aplicativo AKAN é promover a consciência orçamentária
+        através do fácil acesso a valores gastos com Cotas para Exercício da Atividade Parlamentar
+        (CEAP) de cada Deputado Federal em mandato corrente.
+        \n\n
+        A Cota é composta pelas despessas que o parlamentar necessita para o exercício de sua função.
+        São gastos com passagens aéreas,telefonia, serviços postais, manutenção de escritório, alimentação,
+        hospedagem, fretamento de veículos, combustíveis,serviços de seguranças, contratações e divulgação 
+        de atividade parlamentar.
+        \n\n
+        No aplicativo AKAN, a cor da Cota muda de acordo com o valor gasto pelo parlamentar.Toque em um parlamentar
+         e veja quanto ele gasto e com o quê ele gasta.    
+         \n\n 
+        </string>
 
 </resources>

@@ -9,6 +9,7 @@ package br.com.visualize.akan.domain.view;
 import br.com.visualize.akan.R;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -21,7 +22,9 @@ public class AboutAkanScreen extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about_akan_screen_activity);
-		TextView textView = (TextView)findViewById(R.id.textView1);
-		textView.setText("This is about");
+		
+	}
+	public void backToList( View view ) {
+		this.finish();
 	}
 }

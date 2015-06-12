@@ -21,7 +21,9 @@
         android:logo="@drawable/logo"
         android:theme="@style/CustomActionBarTheme"
         android:vmSafeMode="true" >
-        <activity android:name=".domain.view.AboutAkanScreen" />
+        <activity 
+            android:name=".domain.view.AboutAkanScreen" 
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
         <activity
             android:name=".domain.view.Configurations"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
