@@ -64,7 +64,7 @@
 
         <ImageButton
             android:id="@+id/topbar_config_button"
-            android:background="@drawable/configuration"
+            android:background="@drawable/configuration_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"

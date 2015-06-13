@@ -22,7 +22,7 @@
 
         <ImageButton
             android:id="@+id/topbar_about_button"
-            android:background="@drawable/dismiss"
+            android:background="@drawable/dismiss_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
