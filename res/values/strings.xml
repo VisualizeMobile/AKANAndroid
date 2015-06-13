@@ -98,12 +98,12 @@
     <string name="about_credits">Créditos</string>
     <string name="about_development">Desenvolvimento</string>    
     <string name="about_design">Design</string>
-    <string name="pedro_costa">Pedro Costa \n pirlimpas@gmail.com</string>    
-    <string name="arthur_Jahn">Arthur Jahn \n stutrzbecher@gmail.com </string>
-    <string name="maxwell_almeida">Maxwell Almeida \n llewxam150@gmail.com </string>
-    <string name="tomaz_martins">Tomáz Martins \n tomaz.r.martins@gmail.com </string>
-    <string name="matheus_fonseca">Matheus Fonseca \n imatheusfonseca@gmail.com </string>
-    <string name="thaiane_braga">Thaiane Braga \n  thaianefbraga@gmail.com </string>     
+    <string name="pedro_costa">Pedro Costa\npirlimpas@gmail.com</string>    
+    <string name="arthur_Jahn">Arthur Jahn\nstutrzbecher@gmail.com </string>
+    <string name="maxwell_almeida">Maxwell Almeida\nllewxam150@gmail.com </string>
+    <string name="tomaz_martins">Tomáz Martins\ntomaz.r.martins@gmail.com </string>
+    <string name="matheus_fonseca">Matheus Fonseca\n1matheusfonseca@gmail.com </string>
+    <string name="thaiane_braga">Thaiane Braga\nthaianefbraga@gmail.com </string>     
     
 
 </resources>

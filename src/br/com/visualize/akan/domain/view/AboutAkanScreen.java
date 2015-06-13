@@ -10,7 +10,6 @@ import br.com.visualize.akan.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 /**
  * Brings up screen containing information about the application and 
