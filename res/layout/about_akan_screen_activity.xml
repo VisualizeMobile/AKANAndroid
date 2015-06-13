@@ -90,6 +90,7 @@
             
             </RelativeLayout>
             
+            <!--Content that describes air_tickets quota  -->    
             <RelativeLayout
                 android:background="#505F69"
                 android:id="@+id/akan_about_air_tickets"
@@ -156,12 +157,1152 @@
                     android:text="@string/about_air_ticket"
                     android:textColor="#505F69"
                     android:textSize="15sp"
-                    android:textStyle="bold"/>
-                
-                
+                    android:textStyle="bold"/>               
                 
             </RelativeLayout>
-           
+            
+            <!-- Content that describe telefony quota -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_telefony"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_air_ticket_content" >
+               
+                <RelativeLayout
+                    android:background="#139789"
+                    android:id="@+id/about_background_telefony"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_telefony"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_telephony"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_telefony_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_telefony" >
+                
+                <ImageView
+                    android:background="#139789"
+                    android:id="@+id/about_telefony_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_telephony"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_telephony"
+                    android:id="@+id/about_telefony_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_telephony"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_telefony_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_telefony"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+            <!-- Content that describe postal service quota -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_postal_service"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_telefony_content" >
+               
+                <RelativeLayout
+                    android:background="#EDEDEF"
+                    android:id="@+id/about_background_postal_service"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_postal_service"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_postal_service"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_postal_service_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_postal_service" >
+                
+                <ImageView
+                    android:background="#EDEDEF"
+                    android:id="@+id/about_postal_service_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_postal_service"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_postal_services"
+                    android:id="@+id/about_postal_service_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_postal_service"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_postal_services_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_postal_service"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+             <!-- Content that describe office quota -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_office"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_postal_service_content" >
+               
+                <RelativeLayout
+                    android:background="#EC4755"
+                    android:id="@+id/about_background_office"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_office"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_office"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_office_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_office" >
+                
+                <ImageView
+                    android:background="#EC4755"
+                    android:id="@+id/about_office_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_office"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_office"
+                    android:id="@+id/about_office_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_office"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_office_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_office"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+             <!-- Content that describe alimentation quota -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_alimentation"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_office_content" >
+               
+                <RelativeLayout
+                    android:background="#EFC95E"
+                    android:id="@+id/about_background_alimentation"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_alimentation"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_alimentation"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_alimentation_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_alimentation" >
+                
+                <ImageView
+                    android:background="#EFC95E"
+                    android:id="@+id/about_alimentation_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_alimentation"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_alimentation"
+                    android:id="@+id/about_alimentation_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_alimentation"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_alimentation_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_alimentation"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+             <!-- Content that describe accommodation quota -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_accommodation"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_alimentation_content" >
+               
+                <RelativeLayout
+                    android:background="#139789"
+                    android:id="@+id/about_background_accommodation"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_accommodation"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_accommodation"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_accommodation_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_accommodation" >
+                
+                <ImageView
+                    android:background="#139789"
+                    android:id="@+id/about_accommodation_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_accommodation"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_accommodation"
+                    android:id="@+id/about_accommodation_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_accommodation"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_accommodation_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_accommodation"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+            <!-- Content that describe lease vehicle quota -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_lease_vehicle"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_accommodation_content" >
+               
+                <RelativeLayout
+                    android:background="#EDEDED"
+                    android:id="@+id/about_background_lease_vehicle"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_lease_vehicle"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_lease_vehicle"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_lease_vehicle_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_lease_vehicle" >
+                
+                <ImageView
+                    android:background="#EDEDED"
+                    android:id="@+id/about_vehicle_freight_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_lease_vehicle"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_lease_of_vehicles"
+                    android:id="@+id/about_vehicle_freight_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_lease_vehicle"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_lease_vehicle_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_lease_vehicle"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+             <!-- Content that describe fuels quota -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_fuel"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_lease_vehicle_content" >
+               
+                <RelativeLayout
+                    android:background="#EC4755"
+                    android:id="@+id/about_background_fuel"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_fuel"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_fuel"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_fuel_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_fuel" >
+                
+                <ImageView
+                    android:background="#EC4755"
+                    android:id="@+id/about_fuel_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_fuel"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_fuel"
+                    android:id="@+id/about_fuel_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_fuel"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_fuel_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_fuel"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+             <!-- Content that describe safety quota -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_safety"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_fuel_content" >
+               
+                <RelativeLayout
+                    android:background="#EFC95E"
+                    android:id="@+id/about_background_safety"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_safety"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_safety"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_safety_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_safety" >
+                
+                <ImageView
+                    android:background="#EFC95E"
+                    android:id="@+id/about_safety_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_safety"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_safety"
+                    android:id="@+id/about_safety_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_safety"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_safety_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_safety"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+            <!-- Content that describe technical work and consulting quota -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_technical_work_and_consulting"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_safety_content" >
+               
+                <RelativeLayout
+                    android:background="#139789"
+                    android:id="@+id/about_background_technical_work_and_consulting"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_technical_work_and_consulting"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_technical_work_and_consulting"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_technical_work_and_consulting_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_technical_work_and_consulting" >
+                
+                <ImageView
+                    android:background="#139789"
+                    android:id="@+id/about_technical_work_and_consulting_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_safety"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_technical_work_and_consulting"
+                    android:id="@+id/about_technical_work_and_consulting_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_technical_work_and_consulting"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_technical_work_and_consulting_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_techinical_work_and_consulting"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+            <!-- Content that describe disclosure parliamentary activity quota -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_disclosure_parliamentary_activity"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_technical_work_and_consulting_content" >
+               
+                <RelativeLayout
+                    android:background="#EDEDEF"
+                    android:id="@+id/about_background_disclosure_parliamentary_activity"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_disclosure_parliamentary_activity"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_disclosure_parliamentary_activity"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_disclosure_parliamentary_activity_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_disclosure_parliamentary_activity" >
+                
+                <ImageView
+                    android:background="#EDEDEF"
+                    android:id="@+id/about_disclosure_parliamentary_activity_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_disclosure_parliamentary_activity"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_disclosure_parliamentary_activity"
+                    android:id="@+id/about_disclosure_parliamentary_activity_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_disclosure_parliamentary_activity"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_disclosure_parliamentary_activity_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_disclosure_parliamentary_activity"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+            <!-- Content that describe air freight quota -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_air_freight"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_disclosure_parliamentary_activity_content" >
+               
+                <RelativeLayout
+                    android:background="#EC4755"
+                    android:id="@+id/about_background_air_freight"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_air_freight"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_air_freight"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_air_freight_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_air_freight" >
+                
+                <ImageView
+                    android:background="#EC4755"
+                    android:id="@+id/about_air_freight_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_air_freight"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_air_freight"
+                    android:id="@+id/about_air_freight_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_air_freight"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_air_freight_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_air_freight"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+            <!-- Content that describe signature_of_publication quota -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_signature_of_publication"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_air_freight_content" >
+               
+                <RelativeLayout
+                    android:background="#EFC95E"
+                    android:id="@+id/about_background_signature_of_publication"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_signature_of_publication"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/image_description_quota_signature_of_publication"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_signature_of_publication_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_below="@id/akan_about_signature_of_publication" >
+                
+                <ImageView
+                    android:background="#EFC95E"
+                    android:id="@+id/about_signature_of_publication_color"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_air_freight"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <ImageView 
+                    android:background="@drawable/quota_signature_of_publication"
+                    android:id="@+id/about_signature_of_publication_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_signature_of_publication"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_signature_of_publication_text"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/about_signature_of_publication"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+            <!-- This content has credits about whole contributors of the Akan Android -->    
+            <RelativeLayout
+                android:background="#B3AFB0"
+                android:id="@+id/akan_about_credits"
+                android:layout_width="fill_parent"
+                android:layout_marginTop="10dp"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_signature_of_publication_content" >
+        	    
+               <TextView
+                   android:id="@+id/about_credits_title"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_centerVertical="true"
+                   android:text="@string/about_credits"
+                   android:textColor="#ffffff"
+                   android:textSize="30sp"
+                   android:textStyle="bold"
+                    />
+            
+            </RelativeLayout>
+            
+            <!-- This content is about developers -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_developers"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/akan_about_credits" >
+               
+                <RelativeLayout
+                    android:background="#139789"
+                    android:id="@+id/about_background_developers"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_developers"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/about_development"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+                    
+                </RelativeLayout>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_first_developer_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+         	    android:layout_below="@id/akan_about_developers" >
+                            
+                <ImageView 
+                    android:background="@drawable/development_bigger"
+                    android:id="@+id/about_first_developer_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_telephony"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_first_developer_information"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/arthur_Jahn"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+             <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_second_developer_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_marginTop="10dp"
+        	    android:layout_below="@id/about_first_developer_content" >
+                            
+                <ImageView 
+                    android:background="@drawable/development_bigger"
+                    android:id="@+id/about_second_developer_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_telephony"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_second_developer_information"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/tomaz_martins"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+              <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_third_developer_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_marginTop="10dp"
+        	    android:layout_below="@id/about_second_developer_content" >
+                            
+                <ImageView 
+                    android:background="@drawable/development_bigger"
+                    android:id="@+id/about_third_developer_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_telephony"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_third_developer_information"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/thaiane_braga"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
+             <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_fourth_developer_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_marginTop="10dp"
+        	    android:layout_below="@id/about_third_developer_content" >
+                            
+                <ImageView 
+                    android:background="@drawable/development_bigger"
+                    android:id="@+id/about_fourth_developer_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_telephony"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_fourth_developer_information"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/maxwell_almeida"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+              
+              <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_fifth_developer_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_marginTop="10dp"
+        	    android:layout_below="@id/about_fourth_developer_content" >
+                            
+                <ImageView 
+                    android:background="@drawable/development_bigger"
+                    android:id="@+id/about_fifth_developer_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_telephony"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_fifth_developer_information"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/matheus_fonseca"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            <!-- This content is about design -->
+            <RelativeLayout
+                android:background="#505F69"
+                android:id="@+id/akan_about_design"
+                android:layout_width="fill_parent"
+        	    android:layout_height="50dp"
+        	    android:layout_below="@id/about_fifth_developer_content" >
+               
+                <RelativeLayout
+                    android:background="#F3D170"
+                    android:id="@+id/about_background_design"
+                    android:layout_width="fill_parent"
+        	        android:layout_height="30dp"
+        	        android:layout_centerInParent="true"
+        	         > 
+        	         <TextView
+        	             android:id="@+id/about_design"
+                   		 android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                   		 android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:text="@string/about_design"
+                         android:textColor="#505F69"
+                         android:textSize="20sp"
+                         android:textStyle="bold" />
+        	         </RelativeLayout>
+                    
+                </RelativeLayout>  
+                
+            <RelativeLayout
+                android:background="#FFFFFF"
+                android:id="@+id/about_design_content"
+                android:layout_width="fill_parent"
+        	    android:layout_height="130dp"
+        	    android:layout_marginBottom="10dp"
+        	    android:layout_below="@id/akan_about_design" >
+                            
+                <ImageView 
+                    android:background="@drawable/design_bigger"
+                    android:id="@+id/about_design_image"
+                    android:layout_height="120dp"
+                    android:layout_width="130dp"
+                    android:contentDescription="@string/image_description_quota_telephony"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                
+                <TextView 
+                    android:id="@+id/about_design_information"
+                   	android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                   	android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/pedro_costa"
+                    android:textColor="#505F69"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>               
+                
+            </RelativeLayout>
+            
         </RelativeLayout>
         
     </ScrollView>

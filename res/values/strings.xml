@@ -14,16 +14,20 @@
     <string name="image_description_photo">photo congressman</string>
     <string name="image_description_default">&quot;&quot;</string>
     <string name="image_description_quota_telephony">Telefonia</string>
-    <string name="image_description_quota_technical_work_and_consulting">Consultoria</string>
+    <string name="image_description_quota_technical_work_and_consulting">Contratações</string>
     <string name="image_description_quota_postal_service">Serviços Postais</string>
     <string name="image_description_quota_issuance_of_air_tickets">Passagens Aéreas</string>
     <string name="image_description_quota_safety">Segurança</string>
     <string name="image_description_quota_alimentation">Alimentação</string>
-    <string name="image_description_quota_fuel">Combustível</string>
-    <string name="image_description_quota_air_freight">Aeronaves</string>
-    <string name="image_description_quota_office">Material de Escritório</string>
+    <string name="image_description_quota_fuel">Combustíveis</string>
+    <string name="image_description_quota_air_freight">Locação ou Fretamento</string>
+    <string name="image_description_quota_lease_vehicle">Automoveis e Embarcações</string>
+    <string name="image_description_quota_office">Escritório</string>
     <string name="image_description_quota_accommodation">Hospedagem</string>
     <string name="image_description_quota_disclosure_parliamentary_activity">Divulgação</string>
+    <string name="image_description_quota_signature_of_publication">Assinatura de Revistas</string>
+    <string name="image_description_developers">Desenvolvedores</string>
+    <string name="image_description_design">Design</string>
     <string name="trace">-</string>
     <string name="monetary_symbol">R$ </string>
     <string name="total_expenditure">0000,00</string>
@@ -77,15 +81,29 @@
          \n\n 
     </string>
     
-    <string name="about_air_ticket">Valores gastos com compras de passagens aéreas. 
-        O valor máximo autorizado para esta Cota varia de acordo com o estado do parlamentar
-    </string>
-    <string name="about_telefony">Valores gastos com linhas instaladas em imóveis funcionais ,
-         celulares funcionais, ligações interurbanas e internacionais, e com ligações a cobrar
-    </string>
+    <string name="about_air_ticket">Valores gastos com compras de passagens aéreas. O valor máximo autorizado para esta Cota varia de acordo com o estado do parlamentar. </string>
+    <string name="about_telefony">Valores gastos com linhas instaladas em imóveis funcionais, celulares funcionais, ligações interurbanas e internacionais, e com ligações a cobrar. </string>
+    <string name="about_postal_service" >Valores gastos com serviços postais exceto compra de selos. </string>
+    <string name="about_office">Valores gatos com locação de imóveis, material de expediente, assinatura de TV a cabo ou similar,acesso a internet dentre outros. </string>
+    <string name="about_alimentation">Valores gastos com fornecimento de alimentação do parlamentar. </string> 
+    <string name="about_accommodation">Valores gastos com diárias em hóteis, exceto a parlamentares do  Distrito Federal. </string>
+    <string name="about_air_freight">Valores gastos com locação ou fretamento de aeronaves,embarcações e veículos automotores. </string>
+    <string name="about_fuel"> Valores gastos com combustíveis e lubrificantes no limite de até R$ 4.500,00 por mês.</string>  
+    <string name="about_safety">Valores gastos com seerviços prestados por empresas de seguranças,no limite de até R$ 4.500,00 por mês.</string>
+    <string name="about_techinical_work_and_consulting">Valores gastos com serviços de consultorias e trabalhos técnicos, permitidas pesquisas socioeconômicas.</string>
+    <string name="about_disclosure_parliamentary_activity">Valores gastos com divulgação de atividade parlamentar,exceto nos 120 dias anteriores à data das eleições.</string>
+    <string name="about_lease_vehicle">Valores gastos com aluguel e fretamento de automoveis e embarcações.</string>
+    <string name="about_signature_of_publication">Valores gastos com assinatura de revistas.</string>
     
-        
-        
+    <string name="about_credits">Créditos</string>
+    <string name="about_development">Desenvolvimento</string>    
+    <string name="about_design">Design</string>
+    <string name="pedro_costa">Pedro Costa \n pirlimpas@gmail.com</string>    
+    <string name="arthur_Jahn">Arthur Jahn \n stutrzbecher@gmail.com </string>
+    <string name="maxwell_almeida">Maxwell Almeida \n llewxam150@gmail.com </string>
+    <string name="tomaz_martins">Tomáz Martins \n stutrzbecher@gmail.com </string>
+    <string name="matheus_fonseca">Matheus Fonseca \n imatheusfonseca@gmail.com </string>
+    <string name="thaiane_braga">Thaiane Braga \n thaiane.braga@outlook.com </string>     
     
 
 </resources>
