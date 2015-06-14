@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >     
+      
+    <RelativeLayout
+        android:id="@+id/topbar_description"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="#5B6C78" >
+        
+        <TextView
+            android:id="@+id/topbar_congressman"
+            android:layout_width="wrap_content"
+            android:maxWidth="230dp"
+            android:layout_height="22dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/congressman_name"
+            android:textColor="#ffffff"
+            android:textSize="20sp" /> 
+           
+        <ImageButton 
+            android:id="@+id/topbar_back_button"
+            android:background="@drawable/back_button_topbar"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/image_description_default"
+            android:onClick="backToList" />
+        
+	</RelativeLayout>
+	 
+  	<RelativeLayout
+        android:id="@+id/layout_crongressman_datas"
+        android:layout_width="300dp"
+        android:layout_height="fill_parent"
+        android:background="@drawable/background_congressman_data"
+        android:layout_below="@+id/topbar_description"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/layout_style_photo"
+            android:layout_margin="5dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/background_photo"
+            android:contentDescription="@string/layout_style_photo" />
+ 
+        <br.com.visualize.akan.api.helper.RoundedImageView
+            android:layout_margin="10dp"
+            android:id="@+id/description_congressman_photo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/default_photo" />
+
+        <TextView
+            android:id="@+id/description_txt_congressman_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/description_congressman_photo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="@string/congressman_name"
+            android:textColor="#536571"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/description_txt_congressman_party"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/description_txt_congressman_name"
+            android:layout_centerHorizontal="true"
+            android:text="@string/congressman_party"
+            android:textColor="#536571"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+        
+        <TextView
+            android:id="@+id/description_txt_ordinary_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/description_txt_ranking_position"
+            android:layout_alignBottom="@+id/description_txt_ranking_position"
+            android:layout_toEndOf="@+id/description_txt_ranking_position"
+            android:layout_toRightOf="@+id/description_txt_ranking_position"
+            android:text="@string/ordinary_symbol"
+            android:textColor="#536571"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/description_txt_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/description_txt_congressman_name"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:text="@string/place"
+            android:textColor="#536571"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/description_txt_ranking_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/description_txt_place"
+            android:text="@string/ranking_position"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="#536571"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/description_btn_follow"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_above="@+id/description_txt_place"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:onClick="onFollowedCongressman"
+            android:background="@drawable/followed_button"/>
+
+        <TextView
+            android:id="@+id/description_txt_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/description_txt_place"
+            android:layout_alignBottom="@+id/description_txt_place"
+            android:layout_alignEnd="@+id/description_btn_follow"
+            android:layout_alignRight="@+id/description_btn_follow"
+            android:text="@string/follow"
+            android:textColor="#536571"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+    
+    <GridView
+		    android:id="@+id/quota_gridview"
+		    android:layout_width="match_parent"
+		    android:layout_height="fill_parent"
+		    android:layout_marginTop="50dp"
+		    android:columnWidth="130dp"
+		    android:layout_toEndOf="@+id/layout_crongressman_datas"
+		    android:layout_toRightOf="@+id/layout_crongressman_datas"
+		    android:numColumns="auto_fit"
+		    android:verticalSpacing="10dp"
+		    android:stretchMode="spacingWidthUniform"
+		    android:gravity="center"
+		    android:background="@color/white"
+		/>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#E4E4E4" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:text="Referente a"
+            android:textColor="#536571"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/reference_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="140dp"
+            android:layout_centerVertical="true"
+            android:textColor="#536571"
+            android:text="Janeiro de 2015"
+            android:gravity="center"
+            android:background="@layout/border"
+            android:clickable="true"
+            android:textSize="15sp"
+            android:onClick="showDatePickerDialog" />      
+
+    </RelativeLayout>
+  
+</RelativeLayout>
+
