@@ -176,7 +176,7 @@ public class QuotaDao extends Dao {
 			listQuotas.add( quota );
 		}
 		
-		sqliteDatabase.close();
+		//sqliteDatabase.close();
 		
 		return listQuotas;
 	}
@@ -222,7 +222,7 @@ public class QuotaDao extends Dao {
 			
 			quota.setStatisticQuota( statisticDao.getGeneralStatistic( quota.getTypeQuota().getValueSubQuota() ) );
 			
-			sqliteDatabase.close();
+		//	sqliteDatabase.close();
 			
 			break;
 		}
@@ -270,7 +270,7 @@ public class QuotaDao extends Dao {
 			listQuotas.add( quota );
 		}
 		
-		sqliteDatabase.close();
+	//	sqliteDatabase.close();
 		
 		return listQuotas;
 	}

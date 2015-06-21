@@ -107,7 +107,7 @@ public class CongressmanDao extends Dao {
 			        "ID_CONGRESSMAN=?",
 			        new String[] { congressman.getIdCongressman() + "" } ) > 0 );
 			
-			sqliteDatabase.close();
+			//sqliteDatabase.close();
 			
 			return result;
 			
@@ -205,7 +205,7 @@ public class CongressmanDao extends Dao {
 			listParlamentares.add( congressman );
 		}
 		
-		sqliteDatabase.close();
+		//sqliteDatabase.close();
 		
 		return listParlamentares;
 	}
@@ -265,7 +265,7 @@ public class CongressmanDao extends Dao {
 			listCongressmen.add( congressman );
 		}
 	
-		sqliteDatabase.close();
+		//sqliteDatabase.close();
 		
 		return listCongressmen;
 	}
@@ -349,7 +349,7 @@ public class CongressmanDao extends Dao {
 			        "ID_CONGRESSMAN=?",
 			        new String[] { congressman.getIdCongressman() + "" } ) > 0 );
 			
-			sqliteDatabase.close();
+		//	sqliteDatabase.close();
 			
 			return result;
 		} else {
