@@ -43,6 +43,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	        + "[MAX_VALUE_STATISTIC] DOUBLE, [YEAR_STATISTIC] INT,"
 	        + "ID_SUBQUOTA INT(10));";
 	
+	private static final String versionTable = "CREATE TABLE [VERSION] "
+	        + "([ID_VERSION] INT);";
+	
 	public DatabaseHelper( Context context ) {
 		super( context, dbName, null, 1 );
 	}
@@ -63,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL( quotaTable );
 		db.execSQL( urlTable );
 		db.execSQL( statisticTable );
-		
+		db.execSQL( versionTable );
 	}
 	
 	/**

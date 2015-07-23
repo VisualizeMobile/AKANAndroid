@@ -88,6 +88,19 @@ public class CongressmanDao extends Dao {
 	}
 	
 	/**
+	 * Checks database version.
+	 */
+	public boolean checkDbVersion(int version) {
+		sqliteDatabase = database.getReadableDatabase();
+		
+		String query = "SELECT  1 FROM VERSION";
+		
+		Cursor cursor = sqliteDatabase.rawQuery( query, null );
+		boolean isLastVersion = cursor.getInt(0) == version;
+		return isLastVersion;
+	}
+	
+	/**
 	 * Up
 	 * 
 	 * @param congressman

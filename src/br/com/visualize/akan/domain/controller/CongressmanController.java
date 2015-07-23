@@ -44,10 +44,13 @@ public class CongressmanController {
 	
 	private UrlController urlController;
 	private CongressmanDao congressmanDao;
+	private QuotaController quotaController;
 	
 	private CongressmanController( Context context ) {
 		congressmanDao = CongressmanDao.getInstance( context );
 		urlController = UrlController.getInstance( context );
+		quotaController = QuotaController.getInstance( context );
+		
 		spentFilters.put("0","0");
 	}
 	
@@ -92,7 +95,7 @@ public class CongressmanController {
 	                JSONException, ConnectionFailedException {
 		
 		if( responseHandler != null ) {
-			
+			//when first time executed, init database
 			if( congressmanDao.checkEmptyLocalDb() ) {
 				
 				String url = urlController.getAllCongressmanUrl();
@@ -105,10 +108,43 @@ public class CongressmanController {
 				congressmanDao.insertAllCongressman( list );
 				
 			} else {
-				/* ! Nothing To Do. */
+				int remoteVersion = requestRemoteDatabaseVersion(responseHandler);
+				if( congressmanDao.checkDbVersion(remoteVersion) ){
+					
+					
+					
+					//update database
+				}
+				else {
+					/* nothing here */
+				}
 			}
 		}
 		return getAllCongressman();
+	}
+	
+	
+	/**
+	 * Verify database version 
+	 * @param responseHandler
+	 * @return
+	 * @throws JSONException
+	 * @throws ConnectionFailedException
+	 */
+	public int requestRemoteDatabaseVersion(
+	        ResponseHandler<String> responseHandler ) 
+	                throws JSONException, ConnectionFailedException {
+		int remoteVersion = -1;
+		
+		if( responseHandler != null ) {
+			String url = urlController.getRemoteVersionUrl();
+			
+			String jsonRemoteVersion = HttpConnection.request(
+			        responseHandler, url );
+			remoteVersion = JsonHelper
+			        .versionFromJSON( jsonRemoteVersion );
+		}
+		return remoteVersion;
 	}
 	
 	public boolean updateStatusCongressman() throws NullCongressmanException {
