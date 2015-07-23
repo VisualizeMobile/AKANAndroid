@@ -96,7 +96,8 @@ public class CongressmanDao extends Dao {
 		String query = "SELECT  1 FROM VERSION";
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
-		boolean isLastVersion = cursor.getInt(0) == version;
+		cursor.moveToFirst();
+		boolean isLastVersion = cursor.getInt( 0 ) <= version;
 		return isLastVersion;
 	}
 	
@@ -283,6 +284,61 @@ public class CongressmanDao extends Dao {
 		return listCongressmen;
 	}
 	
+	/**
+	 * Retrieves all followed congressman. 
+	 * <p>
+	 * 
+	 * @return All followed congressman.
+	 * @throws DatabaseInvalidOperationException 
+	 */
+	public List<Congressman> getFollowedCongressman() {
+	    List<Congressman> listFollowedCongressmen = new ArrayList<Congressman>();
+		
+		sqliteDatabase = database.getReadableDatabase();
+		
+		String query = "SELECT * FROM " + tableName
+		        + " WHERE STATUS_CONGRESSMAN = 1";
+
+		Cursor cursor = sqliteDatabase.rawQuery( query, null );
+		
+		while( cursor.moveToNext() ) {
+			
+			Congressman congressman = new Congressman();
+			
+			congressman.setIdCongressman( cursor.getInt( cursor
+			        .getColumnIndex( "ID_CONGRESSMAN" ) ) );
+			
+			congressman.setNameCongressman( cursor.getString( cursor
+			        .getColumnIndex( "NAME_CONGRESSMAN" ) ) );
+			
+			congressman
+			        .setStatusCogressman( Boolean.parseBoolean( cursor
+			                .getString( cursor
+			                        .getColumnIndex( "STATUS_CONGRESSMAN" ) ) ) );
+			
+			congressman.setPartyCongressman( cursor.getString( cursor
+			        .getColumnIndex( "PARTY" ) ) );
+			
+			congressman.setUfCongressman( cursor.getString( cursor
+			        .getColumnIndex( "UF_CONGRESSMAN" ) ) );
+			
+			congressman.setTotalSpentCongressman( cursor.getDouble( cursor
+			        .getColumnIndex( "TOTAL_SPENT_CONGRESSMAN" ) ) );
+			
+			congressman.setRankingCongressman( cursor.getInt( cursor
+			        .getColumnIndex( "RANKING_CONGRESSMAN" ) ) );
+			
+			congressman.setIdUpdateCongressman( cursor.getInt( cursor
+			        .getColumnIndex( "ID_UPDATE" ) ) );
+			
+			listFollowedCongressmen.add( congressman );
+		}
+	
+		sqliteDatabase.close();
+		
+		return listFollowedCongressmen;
+	}
+	
 	/* TODO: JAVADOC. */
 	/* TODO: Unit Test. */
 	public boolean checkCongressmanExist( int idCongressman ) {
@@ -349,6 +405,29 @@ public class CongressmanDao extends Dao {
 	        throw new NullCongressmanException();
 	    }
 		
+		return result;
+	}
+	
+	/**
+	 * Inserts in the database a version of remote 
+	 * database.
+	 * 
+	 * @param int version of remote database.
+	 * 
+	 * @return Result if the operation was successful or not. 
+	 */
+	public boolean insertDbVersion( int version ) {
+	   
+	    boolean result = false;
+    
+		sqliteDatabase = database.getWritableDatabase();
+		
+		ContentValues content = new ContentValues();
+		
+		content.put( "ID_VERSION", version );
+		
+		result = (insertAndClose( sqliteDatabase, "VERSION", content ) > 0 );
+	
 		return result;
 	}
 	

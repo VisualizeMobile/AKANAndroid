@@ -23,6 +23,7 @@ import br.com.visualize.akan.domain.controller.CongressmanController;
 import br.com.visualize.akan.domain.controller.StatisticController;
 import br.com.visualize.akan.domain.exception.ConnectionFailedException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
+import br.com.visualize.akan.domain.exception.NullQuotaException;
 import br.com.visualize.akan.domain.exception.NullStatisticException;
 
 
@@ -94,7 +95,7 @@ public class SplashScreen extends Activity {
                             .getResponseHandler();
                     
                     congressmanController
-                            .requestAllCongressman( responseHandler );
+                    .requestAllCongressman( responseHandler );
                     statisticController.requestStatistics( responseHandler );
                     
                 } catch( ConnectionFailedException cfe ) {
@@ -112,6 +113,12 @@ public class SplashScreen extends Activity {
                     
                     showMessageOnThread( messageFailedInsertData,
                             messageHandler );
+                }
+                catch( NullQuotaException nce ) {
+                    progress.dismiss();
+                    
+                    showMessageOnThread( messageFailedInsertData,
+                            messageHandler );           
                 } catch( NullStatisticException nse ) {
                     progress.dismiss();
                     

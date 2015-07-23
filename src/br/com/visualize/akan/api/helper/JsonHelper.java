@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Quota;
@@ -38,11 +39,11 @@ public class JsonHelper {
 	public static int versionFromJSON(
 	        String jsonVersion ) throws JSONException {
 		int remoteVersion;
-		JSONObject jObj = new JSONObject( jsonVersion );
+		JSONArray jArray = new JSONArray( jsonVersion );
 		
-		remoteVersion = jObj.getJSONObject( "fields" )
+		remoteVersion = jArray.getJSONObject(0).getJSONObject( "fields" )
 			        .getInt( "versaoupdate" );
-		
+		Log.i("VERSAO: ",""+remoteVersion);
 		return remoteVersion;
 	}
 	

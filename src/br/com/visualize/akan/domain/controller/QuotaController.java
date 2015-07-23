@@ -42,11 +42,9 @@ public class QuotaController {
 
 	private UrlController urlController;
 	private QuotaDao quotaDao;
-	private CongressmanController congressmanController;
 	private Calendar calendar;
 
 	private QuotaController( Context context ) {
-		congressmanController = CongressmanController.getInstance( context );
 		urlController = UrlController.getInstance( context );
 		quotaDao = QuotaDao.getInstance( context );
 		calendar = Calendar.getInstance();
@@ -101,6 +99,21 @@ public class QuotaController {
 		quotaDao.deleteQuotasFromCongressman( idCongressman );
 	}
 
+	/**
+	 * Deletes all quotas of the database relating to the past as parameter
+	 * congressman for his numerical identifier.
+	 * <p>
+	 *
+	 * @param idCongressman
+	 *            Numeric identifier of congressman that must have deleted the
+	 *            quotas.
+	 * @throws DatabaseInvalidOperationException 
+	 * @throws NullQuotaException 
+	 */
+	public void deleteAllQuotas() throws NullQuotaException, DatabaseInvalidOperationException {
+		quotaDao.deleteAllQuotas();
+	}
+	
 	/**
 	 * Search the database all quotas related to the referenced congressman and
 	 * returns them as a list.
@@ -254,12 +267,12 @@ public class QuotaController {
 	@SuppressLint( "SimpleDateFormat" )
 	public List<Long> getMinMaxDate() throws ParseException, 
 	    NoSuchElementException {
+		
+		int idCongressman = quotaList.get(0).getIdCongressmanQuota();
+		
 		List<Integer> listYears = new ArrayList<Integer>();
 		List<Integer> monthsMajorYear = new ArrayList<Integer>();
 		List<Long> periodDate = new ArrayList<Long>();
-		
-		int idCongressman = congressmanController.getCongresman()
-		        .getIdCongressman();
 		
 		Long dateMin;
 		Long dateMax;
@@ -321,8 +334,7 @@ public class QuotaController {
 		int majorMonth = 1;
 
 		try {
-			int idCongressman = congressmanController.getCongresman()
-			        .getIdCongressman();
+			int idCongressman = quotaList.get(0).getIdCongressmanQuota();
 
 			int majorYear = Collections.max( quotaDao.getYears() );
 			majorMonth = Collections.max( quotaDao.getMonthsFromCurrentYear(

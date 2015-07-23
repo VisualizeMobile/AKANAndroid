@@ -15,13 +15,17 @@ import org.apache.http.client.ResponseHandler;
 import org.json.JSONException;
 
 import android.content.Context;
+import android.util.Log;
 import br.com.visualize.akan.api.dao.CongressmanDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.enumeration.Order;
 import br.com.visualize.akan.domain.exception.ConnectionFailedException;
+import br.com.visualize.akan.domain.exception.DatabaseInvalidOperationException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
+import br.com.visualize.akan.domain.exception.NullQuotaException;
 import br.com.visualize.akan.domain.model.Congressman;
+import br.com.visualize.akan.domain.model.Quota;
 
 /**
  * Serves to define the methods that are responsible for generating actions,
@@ -91,14 +95,15 @@ public class CongressmanController {
 	 */
 	public List<Congressman> requestAllCongressman(
 	        ResponseHandler<String> responseHandler ) 
-	                throws NullCongressmanException, NullCongressmanException, 
+	                throws NullCongressmanException, NullQuotaException, 
 	                JSONException, ConnectionFailedException {
+		
+		String url = urlController.getAllCongressmanUrl();
+		int remoteVersion = requestRemoteDatabaseVersion(responseHandler);
 		
 		if( responseHandler != null ) {
 			//when first time executed, init database
 			if( congressmanDao.checkEmptyLocalDb() ) {
-				
-				String url = urlController.getAllCongressmanUrl();
 				
 				String jsonCongressman = HttpConnection.request(
 				        responseHandler, url );
@@ -106,14 +111,49 @@ public class CongressmanController {
 				        .listCongressmanFromJSON( jsonCongressman );
 				
 				congressmanDao.insertAllCongressman( list );
+				//insert actual remote database version 
+				congressmanDao.insertDbVersion(remoteVersion);
 				
 			} else {
-				int remoteVersion = requestRemoteDatabaseVersion(responseHandler);
+				//verify if versions differ, if so, destroy database and request new data.
 				if( congressmanDao.checkDbVersion(remoteVersion) ){
 					
+					//get list of followed congressman in order to request their actual quotas. 
+					List<Congressman> followedCongressman = congressmanDao.getFollowedCongressman();
 					
+					try {
+						congressmanDao.deleteAllCongressman();
+						quotaController.deleteAllQuotas();
+						
+						Log.i("DESTROY DATABASE:", "database destroyed...");
+					} catch (DatabaseInvalidOperationException e) {
+						// TODO Auto-generated catch block
+						//e.printStackTrace();
+					}
 					
-					//update database
+					String jsonCongressman = HttpConnection.request(
+					        responseHandler, url );
+					List<Congressman> list = JsonHelper
+					        .listCongressmanFromJSON( jsonCongressman );
+					
+					congressmanDao.insertAllCongressman( list );
+					Log.i("RECREATE DATABASE:", "database recreated...");
+					Iterator<Congressman> i = followedCongressman.iterator();
+					while (i.hasNext()) {
+						Congressman congressman = i.next();
+						try {
+							
+							List<Quota> quotaList = quotaController.getQuotaById(
+									congressman.getIdCongressman(), responseHandler);
+							quotaController.insertQuotasOnCongressman(quotaList);
+							congressmanDao.setFollowedCongressman(congressman);
+							
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							//e.printStackTrace();
+						}
+					}
+					Log.i("PERSIST QUOTAS:", "quotas persisted.");
 				}
 				else {
 					/* nothing here */
