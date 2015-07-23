@@ -236,8 +236,8 @@ public class QuotaDao extends Dao {
 	 */
 	public void deleteAllQuotas()  {
 		sqliteDatabase = database.getWritableDatabase();
-		String selectQuery = "DELETE * FROM "+ tableName;
-		sqliteDatabase.rawQuery(selectQuery, null);
+		sqliteDatabase.delete(tableName, null, null);
+		sqliteDatabase.execSQL("vacuum");
 		sqliteDatabase.close();
 	}
 	

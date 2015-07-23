@@ -198,6 +198,11 @@ public class QuotaController {
 		return quotaList;
 	}
 
+	public boolean checkEmptyLocalDb() {
+		return quotaDao.checkEmptyLocalDb();
+	}
+	
+	
 	/**
 	 * Returns the quota associated with QuotaController.
 	 * <p>

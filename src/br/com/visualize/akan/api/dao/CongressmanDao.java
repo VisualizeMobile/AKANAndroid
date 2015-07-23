@@ -12,6 +12,7 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import br.com.visualize.akan.api.helper.DatabaseHelper;
 import br.com.visualize.akan.domain.enumeration.Order;
 import br.com.visualize.akan.domain.exception.DatabaseInvalidOperationException;
@@ -90,14 +91,18 @@ public class CongressmanDao extends Dao {
 	/**
 	 * Checks database version.
 	 */
-	public boolean checkDbVersion(int version) {
+	public boolean checkDbVersion(int remoteVersion) {
 		sqliteDatabase = database.getReadableDatabase();
 		
-		String query = "SELECT  1 FROM VERSION";
+		String query = "SELECT 1 FROM VERSION";
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 		cursor.moveToFirst();
-		boolean isLastVersion = cursor.getInt( 0 ) <= version;
+		int currentVersion = cursor.getInt( 0 );
+		Log.i("VERSION: ", "" + currentVersion);
+		
+		boolean isLastVersion = currentVersion < remoteVersion;
+		
 		return isLastVersion;
 	}
 	
@@ -421,6 +426,8 @@ public class CongressmanDao extends Dao {
 	    boolean result = false;
     
 		sqliteDatabase = database.getWritableDatabase();
+		
+		sqliteDatabase.delete( "VERSION",null, null);
 		
 		ContentValues content = new ContentValues();
 		

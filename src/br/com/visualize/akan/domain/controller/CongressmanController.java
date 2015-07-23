@@ -100,7 +100,6 @@ public class CongressmanController {
 		
 		String url = urlController.getAllCongressmanUrl();
 		int remoteVersion = requestRemoteDatabaseVersion(responseHandler);
-		
 		if( responseHandler != null ) {
 			//when first time executed, init database
 			if( congressmanDao.checkEmptyLocalDb() ) {
@@ -122,10 +121,9 @@ public class CongressmanController {
 					List<Congressman> followedCongressman = congressmanDao.getFollowedCongressman();
 					
 					try {
-						congressmanDao.deleteAllCongressman();
 						quotaController.deleteAllQuotas();
+						congressmanDao.deleteAllCongressman();
 						
-						Log.i("DESTROY DATABASE:", "database destroyed...");
 					} catch (DatabaseInvalidOperationException e) {
 						// TODO Auto-generated catch block
 						//e.printStackTrace();
@@ -137,15 +135,14 @@ public class CongressmanController {
 					        .listCongressmanFromJSON( jsonCongressman );
 					
 					congressmanDao.insertAllCongressman( list );
-					Log.i("RECREATE DATABASE:", "database recreated...");
 					Iterator<Congressman> i = followedCongressman.iterator();
 					while (i.hasNext()) {
 						Congressman congressman = i.next();
 						try {
 							
-							List<Quota> quotaList = quotaController.getQuotaById(
+							quotaController.getQuotaById(
 									congressman.getIdCongressman(), responseHandler);
-							quotaController.insertQuotasOnCongressman(quotaList);
+							congressman.setStatusCogressman(true);
 							congressmanDao.setFollowedCongressman(congressman);
 							
 						} catch (Exception e) {
@@ -153,7 +150,8 @@ public class CongressmanController {
 							//e.printStackTrace();
 						}
 					}
-					Log.i("PERSIST QUOTAS:", "quotas persisted.");
+					//insert actual remote database version 
+					congressmanDao.insertDbVersion(remoteVersion);
 				}
 				else {
 					/* nothing here */
