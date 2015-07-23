@@ -43,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	        + "ID_SUBQUOTA INT(10));";
 	
 	private static final String versionTable = "CREATE TABLE [VERSION] "
-	        + "([ID_VERSION] INT);";
+	        + "([ID_VERSION] VARCHAR(10) unique, [NUM_VERSION] INT);";
 	
 	public DatabaseHelper( Context context ) {
 		super( context, dbName, null, 1 );

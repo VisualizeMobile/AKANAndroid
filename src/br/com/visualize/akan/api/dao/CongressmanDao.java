@@ -12,7 +12,6 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import br.com.visualize.akan.api.helper.DatabaseHelper;
 import br.com.visualize.akan.domain.enumeration.Order;
 import br.com.visualize.akan.domain.exception.DatabaseInvalidOperationException;
@@ -94,16 +93,40 @@ public class CongressmanDao extends Dao {
 	public boolean checkDbVersion(int remoteVersion) {
 		sqliteDatabase = database.getReadableDatabase();
 		
-		String query = "SELECT 1 FROM VERSION";
+		String query = "SELECT * FROM VERSION";
 		
 		Cursor cursor = sqliteDatabase.rawQuery( query, null );
 		cursor.moveToFirst();
-		int currentVersion = cursor.getInt( 0 );
-		Log.i("VERSION: ", "" + currentVersion);
+		int currentVersion = cursor.getInt( cursor.getColumnIndex("NUM_VERSION") );
 		
 		boolean isLastVersion = currentVersion < remoteVersion;
 		
 		return isLastVersion;
+	}
+	
+	/**
+	 * Inserts in the database a version of remote 
+	 * database.
+	 * 
+	 * @param int version of remote database.
+	 * 
+	 * @return Result if the operation was successful or not. 
+	 */
+	public boolean insertDbVersion( int version ) {
+	   
+	    boolean result = false;
+    
+		sqliteDatabase = database.getWritableDatabase();
+		
+		sqliteDatabase.delete( "VERSION",null, null);
+		
+		ContentValues content = new ContentValues();
+		
+		content.put( "NUM_VERSION", version );
+		
+		result = (insertAndClose( sqliteDatabase, "VERSION", content ) > 0 );
+	
+		return result;
 	}
 	
 	/**
@@ -410,31 +433,6 @@ public class CongressmanDao extends Dao {
 	        throw new NullCongressmanException();
 	    }
 		
-		return result;
-	}
-	
-	/**
-	 * Inserts in the database a version of remote 
-	 * database.
-	 * 
-	 * @param int version of remote database.
-	 * 
-	 * @return Result if the operation was successful or not. 
-	 */
-	public boolean insertDbVersion( int version ) {
-	   
-	    boolean result = false;
-    
-		sqliteDatabase = database.getWritableDatabase();
-		
-		sqliteDatabase.delete( "VERSION",null, null);
-		
-		ContentValues content = new ContentValues();
-		
-		content.put( "ID_VERSION", version );
-		
-		result = (insertAndClose( sqliteDatabase, "VERSION", content ) > 0 );
-	
 		return result;
 	}
 	

@@ -152,6 +152,7 @@ public class CongressmanController {
 					}
 					//insert actual remote database version 
 					congressmanDao.insertDbVersion(remoteVersion);
+					
 				}
 				else {
 					/* nothing here */
