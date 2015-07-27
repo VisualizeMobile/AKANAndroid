@@ -34,7 +34,7 @@ public class CongressmanController {
 	private static Congressman congressman;
 	private static List<Congressman> congressmanList = new ArrayList<Congressman>();
 	
-	private Order order = Order.PARTY;
+	private Order order = Order.RANKING;
 	
 	private Map<String,String> partyFilters = new HashMap<String,String>();
 	private Map<String,String> spentFilters = new HashMap<String,String>();

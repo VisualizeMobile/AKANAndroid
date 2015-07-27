@@ -3,6 +3,7 @@ package br.com.visualize.akan.domain.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.facebook.FacebookSdk;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
@@ -47,6 +48,9 @@ public class QuotaGraphScreen extends Activity implements OnChartValueSelectedLi
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		FacebookSdk.sdkInitialize(getApplicationContext());
+		
         setContentView(R.layout.activity_quota_graph_screen);
         
         context = getApplicationContext();
