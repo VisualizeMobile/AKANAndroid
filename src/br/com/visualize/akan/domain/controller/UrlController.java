@@ -38,7 +38,7 @@ public class UrlController {
 		
 		return instance;
 	}
-	
+
 	/**
 	 * Search in database the URL in use.
 	 * <p>
@@ -57,6 +57,17 @@ public class UrlController {
 	 */
 	public String getAllCongressmanUrl() {
 		String url = "http://107.170.177.5/akan/parlamentar/";
+		
+		return url;
+	}
+	
+	/**
+	 * Returns the URL responsible to bring the current version of remote database.
+	 * <p>
+	 * @return The URL that brings the remote database version.
+	 */
+	public String getRemoteVersionUrl() {
+		String url = "http://107.170.177.5/akan/versao/";
 		
 		return url;
 	}

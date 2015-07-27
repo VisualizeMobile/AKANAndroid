@@ -9,7 +9,9 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.util.Log;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
 import br.com.visualize.akan.domain.model.Congressman;
 import br.com.visualize.akan.domain.model.Quota;
@@ -34,6 +36,28 @@ public class JsonHelper {
 	 * @throws NullCongressmanException
 	 * @throws JSONException
 	 */
+	public static int versionFromJSON(
+	        String jsonVersion ) throws JSONException {
+		int remoteVersion;
+		JSONArray jArray = new JSONArray( jsonVersion );
+		
+		remoteVersion = jArray.getJSONObject(0).getJSONObject( "fields" )
+			        .getInt( "versaoupdate" );
+		Log.i("VERSAO: ",""+remoteVersion);
+		return remoteVersion;
+	}
+	
+	/**
+	 * This server response to produce and return a list of Congressman.
+	 * 
+	 * @param jsonCongressmanList
+	 *            Representation of the JSON of Congressman list.
+	 * 
+	 * @return List of Congressman
+	 * 
+	 * @throws NullCongressmanException
+	 * @throws JSONException
+	 */
 	public static List<Congressman> listCongressmanFromJSON(
 	        String jsonCongressmanList ) throws NullCongressmanException,
 	        JSONException {
@@ -46,7 +70,7 @@ public class JsonHelper {
 			for( int index = 0; index < jArray.length(); index++ ) {
 				
 				congressman = new Congressman();
-				
+
 				congressman.setIdCongressman( jArray.getJSONObject( index )
 				        .getInt( "pk" ) );
 				
@@ -79,7 +103,6 @@ public class JsonHelper {
 		
 		return congressmanList;
 	}
-	
 	/**
 	 * This server response to produce and return a list of Quotas.
 	 * <p>

@@ -15,13 +15,17 @@ import org.apache.http.client.ResponseHandler;
 import org.json.JSONException;
 
 import android.content.Context;
+import android.util.Log;
 import br.com.visualize.akan.api.dao.CongressmanDao;
 import br.com.visualize.akan.api.helper.JsonHelper;
 import br.com.visualize.akan.api.request.HttpConnection;
 import br.com.visualize.akan.domain.enumeration.Order;
 import br.com.visualize.akan.domain.exception.ConnectionFailedException;
+import br.com.visualize.akan.domain.exception.DatabaseInvalidOperationException;
 import br.com.visualize.akan.domain.exception.NullCongressmanException;
+import br.com.visualize.akan.domain.exception.NullQuotaException;
 import br.com.visualize.akan.domain.model.Congressman;
+import br.com.visualize.akan.domain.model.Quota;
 
 /**
  * Serves to define the methods that are responsible for generating actions,
@@ -44,10 +48,13 @@ public class CongressmanController {
 	
 	private UrlController urlController;
 	private CongressmanDao congressmanDao;
+	private QuotaController quotaController;
 	
 	private CongressmanController( Context context ) {
 		congressmanDao = CongressmanDao.getInstance( context );
 		urlController = UrlController.getInstance( context );
+		quotaController = QuotaController.getInstance( context );
+		
 		spentFilters.put("0","0");
 	}
 	
@@ -88,14 +95,14 @@ public class CongressmanController {
 	 */
 	public List<Congressman> requestAllCongressman(
 	        ResponseHandler<String> responseHandler ) 
-	                throws NullCongressmanException, NullCongressmanException, 
+	                throws NullCongressmanException, NullQuotaException, 
 	                JSONException, ConnectionFailedException {
 		
+		String url = urlController.getAllCongressmanUrl();
+		int remoteVersion = requestRemoteDatabaseVersion(responseHandler);
 		if( responseHandler != null ) {
-			
+			//when first time executed, init database
 			if( congressmanDao.checkEmptyLocalDb() ) {
-				
-				String url = urlController.getAllCongressmanUrl();
 				
 				String jsonCongressman = HttpConnection.request(
 				        responseHandler, url );
@@ -103,12 +110,80 @@ public class CongressmanController {
 				        .listCongressmanFromJSON( jsonCongressman );
 				
 				congressmanDao.insertAllCongressman( list );
+				//insert actual remote database version 
+				congressmanDao.insertDbVersion(remoteVersion);
 				
 			} else {
-				/* ! Nothing To Do. */
+				//verify if versions differ, if so, destroy database and request new data.
+				if( congressmanDao.checkDbVersion(remoteVersion) ){
+					
+					//get list of followed congressman in order to request their actual quotas. 
+					List<Congressman> followedCongressman = congressmanDao.getFollowedCongressman();
+					
+					try {
+						quotaController.deleteAllQuotas();
+						congressmanDao.deleteAllCongressman();
+						
+					} catch (DatabaseInvalidOperationException e) {
+						// TODO Auto-generated catch block
+						//e.printStackTrace();
+					}
+					
+					String jsonCongressman = HttpConnection.request(
+					        responseHandler, url );
+					List<Congressman> list = JsonHelper
+					        .listCongressmanFromJSON( jsonCongressman );
+					
+					congressmanDao.insertAllCongressman( list );
+					Iterator<Congressman> i = followedCongressman.iterator();
+					while (i.hasNext()) {
+						Congressman congressman = i.next();
+						try {
+							
+							quotaController.getQuotaById(
+									congressman.getIdCongressman(), responseHandler);
+							congressman.setStatusCogressman(true);
+							congressmanDao.setFollowedCongressman(congressman);
+							
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							//e.printStackTrace();
+						}
+					}
+					//insert actual remote database version 
+					congressmanDao.insertDbVersion(remoteVersion);
+					
+				}
+				else {
+					/* nothing here */
+				}
 			}
 		}
 		return getAllCongressman();
+	}
+	
+	
+	/**
+	 * Verify database version 
+	 * @param responseHandler
+	 * @return
+	 * @throws JSONException
+	 * @throws ConnectionFailedException
+	 */
+	public int requestRemoteDatabaseVersion(
+	        ResponseHandler<String> responseHandler ) 
+	                throws JSONException, ConnectionFailedException {
+		int remoteVersion = -1;
+		
+		if( responseHandler != null ) {
+			String url = urlController.getRemoteVersionUrl();
+			
+			String jsonRemoteVersion = HttpConnection.request(
+			        responseHandler, url );
+			remoteVersion = JsonHelper
+			        .versionFromJSON( jsonRemoteVersion );
+		}
+		return remoteVersion;
 	}
 	
 	public boolean updateStatusCongressman() throws NullCongressmanException {

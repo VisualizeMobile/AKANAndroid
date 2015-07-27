@@ -4,7 +4,6 @@
  */
 package br.com.visualize.akan.api.helper;
 
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -43,6 +42,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	        + "[MAX_VALUE_STATISTIC] DOUBLE, [YEAR_STATISTIC] INT,"
 	        + "ID_SUBQUOTA INT(10));";
 	
+	private static final String versionTable = "CREATE TABLE [VERSION] "
+	        + "([ID_VERSION] VARCHAR(10) unique, [NUM_VERSION] INT);";
+	
 	public DatabaseHelper( Context context ) {
 		super( context, dbName, null, 1 );
 	}
@@ -63,7 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL( quotaTable );
 		db.execSQL( urlTable );
 		db.execSQL( statisticTable );
-		
+		db.execSQL( versionTable );
 	}
 	
 	/**

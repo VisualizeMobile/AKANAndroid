@@ -229,6 +229,17 @@ public class QuotaDao extends Dao {
 		return quota;
 	}
 
+	/**
+	 * Delete all quotas from database
+	 * @return result status 
+	 * @throws DatabaseInvalidOperationException
+	 */
+	public void deleteAllQuotas()  {
+		sqliteDatabase = database.getWritableDatabase();
+		sqliteDatabase.delete(tableName, null, null);
+		sqliteDatabase.execSQL("vacuum");
+		sqliteDatabase.close();
+	}
 	
 	public List<Quota> getQuotasByIdCongressmanAndType( int idCongressman, int subquota ) {
 		sqliteDatabase = database.getReadableDatabase();
