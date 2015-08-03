@@ -1,0 +1,26 @@
+# How to Contribute
+To contribute Akan project in its Android version, please carefully read this document and follow the instructions.
+
+1. Read the code convention (style sheet) used by the Akan team and follow it strictly.
+2. Read our branches policy and follow it.
+3. Check the list of *issues* project. When selecting any *issue* you want to work, let the team, commenting on the discussion of the *issue*.
+4.Send your *pull request* and wait for the review.
+
+=]
+
+## To become a Contributor Effective Team
+To be inside the contributors team must have at least two *pull request* accepted and a formal request via e-mail or mailing list.
+
+---
+# Como Contribur
+Para contribuir com o projeto AKAN, em sua versão Android, por gentileza, leia com atenção esse documento e siga as instruções.
+
+1. Leia a convenção de código (folha de estilo) utilizada pela equipe do AKAN e siga-a rigorosamente.
+2. Leia a nossa política de branches e siga-a.
+3. Confira a lista de *issues* do projeto. Ao selecionar alguma *issue* na qual deseja trabalhar, avise à equipe, comentando na discussão da *issue*.
+4. Envie seu *pull request* e espere a revisão.
+
+=]
+
+## Para tornar-se um Contribuidor Efetivo do Time
+Para estar dentro do time de contribuidores deve-se ter pelo menos dois *pull request* aceitos, bem como uma solicitação formal, via e-mail ou na lista de discussões.

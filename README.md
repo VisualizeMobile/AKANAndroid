@@ -1,4 +1,4 @@
-# AKANAndroid
+# AKANAndroid - Political Consciousness
 This is the repository for AKAN project in its Android version, welcome to cooperate with it!
 
 AKAN is a word originated from a Tupi (brazilian indigenous people) term, Akangatu, which means memory, intelligence.
@@ -16,7 +16,7 @@ To contribute to the project, please, first read the document below:
 # Authors
 The authors of the test project for AkanAndroid are listed in the document quoted below.
 
-[Authors][authors]
+* [Authors][authors]
 
 # License
 Information related to the project license is contained in the document below:
@@ -27,9 +27,11 @@ Information related to the project license is contained in the document below:
 To contact with the AkanAndroid team use one of the following ways:
 
 * E-mail: visualizemobile@gmail.com
+* Google Groups: [Akan Group][groups]
 * Create issues in repository, follow the guide.
 
 <!-- Links -->
 [how_to_contribute]: https://github.com/VisualizeMobile/AKANAndroid/blob/working_tree/CONTRIBUTING.md
 [authors]: https://github.com/VisualizeMobile/AKANAndroid/blob/working_tree/AUTHORS.md
 [license]: https://github.com/VisualizeMobile/AKANAndroid/blob/working_tree/LICENSE.txt
+[groups]: https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!forum/app_akan
